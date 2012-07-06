@@ -6,15 +6,15 @@ The easiest way to import content into your application.
 
 ## Dependancies
 
-- Built targeting iOS 4.3
-- XCode 4
+	- Built targeting iOS 4.3
+	- XCode 4
 
-- AssetsLibrary.framework
-- QuartzCore.framework
-- CoreGraphics.framework
-- MobileCoreServices.framework
-- Foundation.framework
-- CoreFoundation.framework
+	- AssetsLibrary.framework
+	- QuartzCore.framework
+	- CoreGraphics.framework
+	- MobileCoreServices.framework
+	- Foundation.framework
+	- CoreFoundation.framework
 
 
 ## Installation Instructions
