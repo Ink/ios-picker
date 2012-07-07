@@ -84,3 +84,21 @@ The easiest way to import content into your application.
 
 
 ### Starting from scratch:
+
+1. Get an Api Key:
+	- Go to [Filepicker.io](www.filepicker.io) to register an account
+	- Api Keys are typically randomized and 20 characters long.
+
+2. Start a new Project
+<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/10.png" alt="AFNetworking" title="New View Project" style="display:block; margin: 10px auto 30px auto;" class="center">
+	- File/New/Project or Shift-Apple N
+	- Single View Project
+
+<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/10.png" alt="AFNetworking" title="New View Project" style="display:block; margin: 10px auto 30px auto;" class="center">
+	- Name: FilepickerDemo
+	- Device Family: iPad
+	- Use Storyboards: False
+	- Use Automatic Reference Counting: True
+
+
+
