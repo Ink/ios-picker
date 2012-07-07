@@ -34,6 +34,9 @@ The easiest way to import content into your application.
 	- Under `/library`, you'll find `FPPicker.framework` and `FPPicker.bundle`
 	- Drag both into your project, typically in your framework folder
 
+		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/35.png" class="center">
+
+
 3. Settings
 	- In your application's info.plist, add the following key/value:
 	
