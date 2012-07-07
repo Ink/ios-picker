@@ -126,9 +126,25 @@ The easiest way to import content into your application.
 		- Foundation.framework
 		- CoreFoundation.framework
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/70.png" class="center">	
+	
+	- Under `Build Settings`, search for `Other Linker Flags` and set it to -all_load
+	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/75.png" class="center">	
 
 
 4. Write the code
+
+	- You can copy and paste the following code into your `ViewController.h` and `ViewController.m` respectively.
+	- In `ViewController.h`
+		- We create a button, imageview, and a popover
+	- In `ViewController.m`
+		- We create an action when the button is pressed
+		- We also have two delgates that respond when the Filepicker is finished.
+		
+5. A couple settings
+
+		
+		
+
 
 ```
 //
@@ -227,4 +243,32 @@ The easiest way to import content into your application.
 @end
 ```
 
+6. Build the User Interface
+	- Drag a 'Image View' and a 'Rounded Rectangle Button' from the objects draw on the right.
+	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/110.png" class="center">	
 
+	- Hook up the proper interfaces
+		- On the right hand side, you'll notice three icons, one of which is the `File's Owner`
+		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/115.png" class="center">	
+
+		- Hold down Ctrl, click and hold down the File Owner Orange Cube, then drag to the Image. A small popup will ask you to connect the file owner to the image. Choose `Outlet: Image`.
+
+		- In a similar manner, ctrl drag from File Owner -> Button. Choose `Outlet: Button`.
+
+		- Now, in the opposite direction, ctrl dragging from the button to the file owner. Choose `pickerAction:`.
+
+		- Now if you right click on file owner, you should see the following.
+		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/140.png" class="center">
+	
+7. Add your API KEY
+	- Go to `Supporting Files/FilepickerDemo-Info.plist`. (Your's may vary if you didn't name it FilepickerDemo).
+	- Right click, `Add Row`.
+	- For the key: `Filepicker APIKEY`
+	- For the value, paste in your apikey that you got from filepicker.io
+	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/150.png" class="center">
+	
+8. Run.
+	- Click the `run` button in the upper right corner of xcode.
+	- It should build and you can now choose a file!
+	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/160.png" class="center">
+	
