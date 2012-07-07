@@ -27,13 +27,11 @@ The easiest way to import content into your application.
 	- Api Keys are typically randomized and 20 characters long.
 
 2. Insert the framework and bundle
-
 	- Download or clone the repository.
 	- Under `/library`, you'll find `FPPicker.framework` and `FPPicker.bundle`
 	- Drag both into your project, typically in your framework folder
 
 3. Settings
-
 	- In your application's info.plist, add the following key/value:
 	
 	```
