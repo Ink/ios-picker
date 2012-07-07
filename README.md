@@ -33,14 +33,11 @@ The easiest way to import content into your application.
 
 3. Settings
 	- In your application's info.plist, add the following key/value:
-	
 	```
 	Key: "Filepicker APIKEY"
 	Value: YOUR_API_KEY (from step 1)
 	```
-	
 	- If this doesn't build, I've had luck adding `-all_load -ObjC` in `Build_Settings/Other_Linker_Flags`
-	
 	- You may need to add additional frameworks
 		- AssetsLibrary.framework
 		- QuartzCore.framework
