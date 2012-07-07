@@ -43,7 +43,7 @@
     
     FPPickerController *fpController = [[FPPickerController alloc] init];
     fpController.fpdelegate = self;
-    //fpController.sourceNames = [[NSArray alloc] initWithObjects: (NSString *) FPSourceDropbox, (NSString *) FPSourceImagesearch, nil];
+    fpController.sourceNames = [[NSArray alloc] initWithObjects: (NSString *) FPSourceDropbox, (NSString *) FPSourceImagesearch, FPSourceBox, FPSourceCameraRoll, FPSourceCamera, nil];
     
     UIPopoverController *popoverControllerA = [UIPopoverController alloc];
     

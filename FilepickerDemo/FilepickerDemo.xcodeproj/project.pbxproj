@@ -7,23 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		83579F0015A8810900F83C85 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83579EFE15A8810900F83C85 /* FPPicker.bundle */; };
+		83579F0115A8810900F83C85 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83579EFF15A8810900F83C85 /* FPPicker.framework */; };
+		83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83579F0315A8856900F83C85 /* AssetsLibrary.framework */; };
+		83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */; };
+		83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */; };
+		83579F0715A885BC00F83C85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5CB15A7BA9D009D0D28 /* CoreGraphics.framework */; };
 		8379A5C815A7BA9D009D0D28 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5C715A7BA9D009D0D28 /* UIKit.framework */; };
 		8379A5CA15A7BA9D009D0D28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5C915A7BA9D009D0D28 /* Foundation.framework */; };
-		8379A5CC15A7BA9D009D0D28 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5CB15A7BA9D009D0D28 /* CoreGraphics.framework */; };
 		8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5D015A7BA9D009D0D28 /* InfoPlist.strings */; };
 		8379A5D415A7BA9D009D0D28 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8379A5D315A7BA9D009D0D28 /* main.m */; };
 		8379A5D815A7BA9D009D0D28 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8379A5D715A7BA9D009D0D28 /* AppDelegate.m */; };
 		8379A5DB15A7BA9D009D0D28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8379A5DA15A7BA9D009D0D28 /* ViewController.m */; };
 		8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5DC15A7BA9D009D0D28 /* ViewController.xib */; };
-		8379A5E915A7BB81009D0D28 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5E815A7BB81009D0D28 /* AssetsLibrary.framework */; };
-		8379A5EB15A7BB9F009D0D28 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */; };
-		8379A5ED15A7BBB0009D0D28 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */; };
-		8379A5EF15A7BBBA009D0D28 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */; };
-		8379A5FE15A7BFED009D0D28 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5FC15A7BFED009D0D28 /* FPPicker.bundle */; };
-		8379A5FF15A7BFED009D0D28 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5FD15A7BFED009D0D28 /* FPPicker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		83579EFE15A8810900F83C85 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FPPicker.bundle; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos/FPPicker.bundle"; sourceTree = "<group>"; };
+		83579EFF15A8810900F83C85 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FPPicker.framework; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos/FPPicker.framework"; sourceTree = "<group>"; };
+		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		8379A5C315A7BA9D009D0D28 /* FilepickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilepickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8379A5C715A7BA9D009D0D28 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8379A5C915A7BA9D009D0D28 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,12 +39,9 @@
 		8379A5D915A7BA9D009D0D28 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8379A5DA15A7BA9D009D0D28 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8379A5DD15A7BA9D009D0D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		8379A5E815A7BB81009D0D28 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		8379A5FC15A7BFED009D0D28 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
-		8379A5FD15A7BFED009D0D28 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,14 +49,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8379A5EB15A7BB9F009D0D28 /* QuartzCore.framework in Frameworks */,
-				8379A5ED15A7BBB0009D0D28 /* MobileCoreServices.framework in Frameworks */,
-				8379A5EF15A7BBBA009D0D28 /* CoreFoundation.framework in Frameworks */,
-				8379A5E915A7BB81009D0D28 /* AssetsLibrary.framework in Frameworks */,
-				8379A5CC15A7BA9D009D0D28 /* CoreGraphics.framework in Frameworks */,
+				83579F0715A885BC00F83C85 /* CoreGraphics.framework in Frameworks */,
+				83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */,
+				83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */,
+				83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */,
 				8379A5C815A7BA9D009D0D28 /* UIKit.framework in Frameworks */,
 				8379A5CA15A7BA9D009D0D28 /* Foundation.framework in Frameworks */,
-				8379A5FF15A7BFED009D0D28 /* FPPicker.framework in Frameworks */,
+				83579F0115A8810900F83C85 /* FPPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -67,6 +65,7 @@
 		8379A5B815A7BA9D009D0D28 = {
 			isa = PBXGroup;
 			children = (
+				83579F0315A8856900F83C85 /* AssetsLibrary.framework */,
 				8379A5CD15A7BA9D009D0D28 /* FilepickerDemo */,
 				8379A5C615A7BA9D009D0D28 /* Frameworks */,
 				8379A5C415A7BA9D009D0D28 /* Products */,
@@ -84,12 +83,11 @@
 		8379A5C615A7BA9D009D0D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8379A5FC15A7BFED009D0D28 /* FPPicker.bundle */,
-				8379A5FD15A7BFED009D0D28 /* FPPicker.framework */,
+				83579EFE15A8810900F83C85 /* FPPicker.bundle */,
+				83579EFF15A8810900F83C85 /* FPPicker.framework */,
 				8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */,
 				8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */,
 				8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */,
-				8379A5E815A7BB81009D0D28 /* AssetsLibrary.framework */,
 				8379A5C715A7BA9D009D0D28 /* UIKit.framework */,
 				8379A5C915A7BA9D009D0D28 /* Foundation.framework */,
 				8379A5CB15A7BA9D009D0D28 /* CoreGraphics.framework */,
@@ -173,7 +171,7 @@
 			files = (
 				8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */,
 				8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */,
-				8379A5FE15A7BFED009D0D28 /* FPPicker.bundle in Resources */,
+				83579F0015A8810900F83C85 /* FPPicker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,6 +264,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";
@@ -283,6 +282,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";

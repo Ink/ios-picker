@@ -25,7 +25,7 @@ The easiest way to import content into your application.
 
 ### For iOS Pros:
 
-1. Get an APIKEY
+1. Get an API Key
 	- Go to [Filepicker.io](www.filepicker.io) to register an account
 	- Api Keys are typically randomized and 20 characters long.
 
@@ -41,7 +41,7 @@ The easiest way to import content into your application.
 	- In your application's info.plist, add the following key/value:
 	
 	```
-	Key: "Filepicker APIKEY"
+	Key: "Filepicker API Key"
 	Value: YOUR_API_KEY (from step 1)
 	```
 	- If this doesn't build, I've had luck adding `-all_load -ObjC` in `Build_Settings/Other_Linker_Flags`
@@ -83,7 +83,7 @@ The easiest way to import content into your application.
 
 	
 	```
-	Key: "Filepicker APIKEY"
+	Key: "Filepicker API Key"
 	Value: YOUR_API_KEY (from step 1)
 	```
 
@@ -143,7 +143,7 @@ The easiest way to import content into your application.
 		- We create a button, imageview, and a popover
 	- In `ViewController.m`
 		- We create an action when the button is pressed
-		- We also have two delgates that respond when the Filepicker is finished.
+		- We also have two delegates that respond when the Filepicker is finished.
 	- [ViewController.h Source](https://github.com/Filepicker/ios/blob/master/FilepickerDemo/FilepickerDemo/ViewController.h)
 	- [ViewController.m Source](https://github.com/Filepicker/ios/blob/master/FilepickerDemo/FilepickerDemo/ViewController.m)
 	
@@ -159,10 +159,10 @@ The easiest way to import content into your application.
 		- Now if you right click on file owner, you should see the following.
 		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/140.png" class="center">
 	
-7. Add your API KEY
+7. Add your API Key
 	- Go to `Supporting Files/FilepickerDemo-Info.plist`. (Your's may vary if you didn't name it FilepickerDemo).
 	- Right click, `Add Row`.
-	- For the key: `Filepicker APIKEY`
+	- For the key: `Filepicker API Key`
 	- For the value, paste in your apikey that you got from filepicker.io
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/150.png" class="center">
 	
