@@ -163,7 +163,7 @@ The easiest way to import content into your application.
 @end
 ```
 
-	```
+```
 //
 //  ViewController.m
 //  Filepicker Demo
@@ -234,8 +234,7 @@ The easiest way to import content into your application.
 }
 
 @end
-	```
-
+```
 6. Build the User Interface
 	- Drag a 'Image View' and a 'Rounded Rectangle Button' from the objects draw on the right.
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/110.png" class="center">	
