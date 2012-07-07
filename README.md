@@ -33,6 +33,7 @@ The easiest way to import content into your application.
 
 3. Settings
 	- In your application's info.plist, add the following key/value:
+	
 	```
 	Key: "Filepicker APIKEY"
 	Value: YOUR_API_KEY (from step 1)
