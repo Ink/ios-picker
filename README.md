@@ -132,7 +132,6 @@ The easiest way to import content into your application.
 
 
 4. Write the code
-
 	- You can copy and paste the following code into your `ViewController.h` and `ViewController.m` respectively.
 	- In `ViewController.h`
 		- We create a button, imageview, and a popover
@@ -140,12 +139,6 @@ The easiest way to import content into your application.
 		- We create an action when the button is pressed
 		- We also have two delgates that respond when the Filepicker is finished.
 		
-5. A couple settings
-
-		
-		
-
-
 ```
 //
 //  ViewController.h
