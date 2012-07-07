@@ -139,7 +139,7 @@ The easiest way to import content into your application.
 		- We create an action when the button is pressed
 		- We also have two delgates that respond when the Filepicker is finished.
 
-	```
+```
 //
 //  ViewController.h
 //  FilepickerDemo
@@ -161,7 +161,7 @@ The easiest way to import content into your application.
 @property (nonatomic, retain) UIPopoverController *popoverController;
 
 @end
-	```
+```
 
 	```
 //
