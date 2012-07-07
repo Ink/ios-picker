@@ -238,17 +238,12 @@ The easiest way to import content into your application.
 6. Build the User Interface
 	- Drag a 'Image View' and a 'Rounded Rectangle Button' from the objects draw on the right.
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/110.png" class="center">	
-
 	- Hook up the proper interfaces
 		- On the right hand side, you'll notice three icons, one of which is the `File's Owner`
 		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/115.png" class="center">	
-
 		- Hold down Ctrl, click and hold down the File Owner Orange Cube, then drag to the Image. A small popup will ask you to connect the file owner to the image. Choose `Outlet: Image`.
-
 		- In a similar manner, ctrl drag from File Owner -> Button. Choose `Outlet: Button`.
-
 		- Now, in the opposite direction, ctrl dragging from the button to the file owner. Choose `pickerAction:`.
-
 		- Now if you right click on file owner, you should see the following.
 		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/140.png" class="center">
 	
