@@ -126,7 +126,6 @@ The easiest way to import content into your application.
 		- Foundation.framework
 		- CoreFoundation.framework
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/70.png" class="center">	
-	
 	- Under `Build Settings`, search for `Other Linker Flags` and set it to -all_load
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/75.png" class="center">	
 
@@ -135,7 +134,8 @@ The easiest way to import content into your application.
 	- You can copy and paste the following code into your `ViewController.h` and `ViewController.m` respectively.
 	- In `ViewController.h`
 		- We create a button, imageview, and a popover
-	```
+		
+```
 //
 //  ViewController.h
 //  FilepickerDemo
