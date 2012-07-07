@@ -138,8 +138,8 @@ The easiest way to import content into your application.
 	- In `ViewController.m`
 		- We create an action when the button is pressed
 		- We also have two delgates that respond when the Filepicker is finished.
-		
-```
+
+	```
 //
 //  ViewController.h
 //  FilepickerDemo
@@ -161,9 +161,9 @@ The easiest way to import content into your application.
 @property (nonatomic, retain) UIPopoverController *popoverController;
 
 @end
-```
+	```
 
-```
+	```
 //
 //  ViewController.m
 //  Filepicker Demo
@@ -234,7 +234,7 @@ The easiest way to import content into your application.
 }
 
 @end
-```
+	```
 
 6. Build the User Interface
 	- Drag a 'Image View' and a 'Rounded Rectangle Button' from the objects draw on the right.
