@@ -23,9 +23,8 @@ The easiest way to import content into your application.
 ### For iOS Pros:
 
 1. Get an APIKEY
-
-	* Go to [Filepicker.io](www.filepicker.io) to register an account
-	* Api Keys are typically randomized and 20 characters long.
+	- Go to [Filepicker.io](www.filepicker.io) to register an account
+	- Api Keys are typically randomized and 20 characters long.
 
 2. Insert the framework and bundle
 
