@@ -4,7 +4,6 @@
 The easiest way to import content into your application. 
 [Filepicker.io](www.filepicker.io)
 
-<iframe src="http://player.vimeo.com/video/45174819" width="500" height="369" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe> <p><a href="http://vimeo.com/45174819">Filepicker iOS library Video</a> from <a href="http://vimeo.com/liyan">Liyan Chang</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
 ## Dependancies
 
