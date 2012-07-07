@@ -103,8 +103,7 @@ The easiest way to import content into your application.
 2. Insert the framework and bundle
 	- Download or clone the repository.
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/30.png" class="center">
-	You can do this at the top of this git repository with either `ZIP` to get the zip or `git clone https://github.com/Filepicker/ios.git`.
-	
+	- You can do this at the top of this git repository with either `ZIP` to get the zip or `git clone https://github.com/Filepicker/ios.git`.
 	- Open up the folder.
 	- Under `library/`, you'll find `FPPicker.framework` and `FPPicker.bundle`
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/35.png" class="center">	
