@@ -113,6 +113,7 @@ The easiest way to import content into your application.
 	
 	
 3. Adding Additional Frameworks
+
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/45.png" class="center">	
 	- Click on the .xcodeProj
 	<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/50.png" class="center">	
