@@ -6,11 +6,11 @@ The easiest way to import content into your application.
 
 ## Dependancies
 
--Software
+- Software
 	- Built targeting iOS 4.3
 	- XCode 4
 	
--Frameworks
+- Frameworks
 	- AssetsLibrary.framework
 	- QuartzCore.framework
 	- CoreGraphics.framework
