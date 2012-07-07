@@ -76,6 +76,9 @@ The easiest way to import content into your application.
 3. Settings:
 	- In your application's info.plist, add the following key/value:
 	
+		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/150.png" class="center">
+
+	
 	```
 	Key: "Filepicker APIKEY"
 	Value: YOUR_API_KEY (from step 1)
