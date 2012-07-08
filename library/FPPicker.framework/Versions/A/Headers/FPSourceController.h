@@ -1,9 +1,9 @@
 //
 //  ServiceController.h
-//  filepicker
+//  FPPicker
 //
-//  Created by Liyan David Chang on 6/25/12.
-//  Copyright (c) 2012 Filepicker.io, All rights reserved.
+//  Created by Liyan David Chang on 6/20/12.
+//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,15 +11,18 @@
 #import "FP_PullRefreshTableViewController.h"
 #import "FPAuthController.h"
 #import "FPLibrary.h"
+#import "FPSource.h"
+#import "FPConstants.h"
 
 @interface FPSourceController : FP_PullRefreshTableViewController
 
-@property (nonatomic, retain) NSMutableArray *contents;
-@property (nonatomic, retain) NSString *path;
-@property (nonatomic, retain) NSString *sourceType;
-@property (nonatomic, retain) NSString *viewType;
+@property (nonatomic, strong) NSMutableArray *contents;
+@property (nonatomic, strong) NSString *path;
+@property (nonatomic, strong) FPSource *sourceType;
+@property (nonatomic, strong) NSString *viewType;
 @property (nonatomic, assign) id <FPSourcePickerDelegate> fpdelegate;
-@property (nonatomic, retain) NSMutableDictionary *precaching;
+//TODO rename
+@property (nonatomic, strong) NSMutableDictionary *precacheOperations;
 @property (nonatomic, assign) BOOL shouldLoad;
 
 - (void) fpLoadContents:(NSString *)loadpath;

@@ -1,9 +1,9 @@
 //
 //  FPConfig.h
-//  filepicker
+//  FPPicker
 //
-//  Created by Liyan David Chang on 6/29/12.
-//  Copyright (c) 2012 Filepicker.io, All rights reserved.
+//  Created by Liyan David Chang on 6/20/12.
+//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
 //
 
 #define fpBASE_URL                  @"https://www.filepicker.io"
@@ -16,4 +16,6 @@
 
 
 //You can get a filepicker apikey by signing up at www.filepicker.io
-#define fpAPIKEY                         [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"]] mutabilityOption:0 format:NULL errorDescription:NULL] objectForKey:@"Filepicker APIKEY"]
+#define fpAPIKEY                    [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Info" ofType:@"plist"]] mutabilityOption:0 format:NULL errorDescription:NULL] objectForKey:@"Filepicker API Key"]
+
+#define fpWindowSize                CGSizeMake(320, 480)

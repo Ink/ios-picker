@@ -18,8 +18,8 @@
 		8379A5D815A7BA9D009D0D28 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8379A5D715A7BA9D009D0D28 /* AppDelegate.m */; };
 		8379A5DB15A7BA9D009D0D28 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8379A5DA15A7BA9D009D0D28 /* ViewController.m */; };
 		8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5DC15A7BA9D009D0D28 /* ViewController.xib */; };
-		83A031B015A8BAD70085E186 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A031AE15A8BAD70085E186 /* FPPicker.bundle */; };
-		83A031B115A8BAD70085E186 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031AF15A8BAD70085E186 /* FPPicker.framework */; };
+		83A031C315A95ECD0085E186 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A031C115A95ECD0085E186 /* FPPicker.bundle */; };
+		83A031C415A95ECD0085E186 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031C215A95ECD0085E186 /* FPPicker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +40,8 @@
 		8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		83A031AE15A8BAD70085E186 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FPPicker.bundle; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphonesimulator/FPPicker.bundle"; sourceTree = "<group>"; };
-		83A031AF15A8BAD70085E186 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FPPicker.framework; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphonesimulator/FPPicker.framework"; sourceTree = "<group>"; };
+		83A031C115A95ECD0085E186 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
+		83A031C215A95ECD0085E186 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +55,7 @@
 				83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */,
 				8379A5C815A7BA9D009D0D28 /* UIKit.framework in Frameworks */,
 				8379A5CA15A7BA9D009D0D28 /* Foundation.framework in Frameworks */,
-				83A031B115A8BAD70085E186 /* FPPicker.framework in Frameworks */,
+				83A031C415A95ECD0085E186 /* FPPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,8 +83,8 @@
 		8379A5C615A7BA9D009D0D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83A031AE15A8BAD70085E186 /* FPPicker.bundle */,
-				83A031AF15A8BAD70085E186 /* FPPicker.framework */,
+				83A031C115A95ECD0085E186 /* FPPicker.bundle */,
+				83A031C215A95ECD0085E186 /* FPPicker.framework */,
 				8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */,
 				8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */,
 				8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */,
@@ -171,7 +171,7 @@
 			files = (
 				8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */,
 				8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */,
-				83A031B015A8BAD70085E186 /* FPPicker.bundle in Resources */,
+				83A031C315A95ECD0085E186 /* FPPicker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

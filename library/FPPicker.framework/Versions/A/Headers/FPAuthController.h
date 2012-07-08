@@ -1,9 +1,9 @@
 //
 //  TestViewController.h
-//  filepicker
+//  FPPicker
 //
-//  Created by Liyan David Chang on 6/25/12.
-//  Copyright (c) 2012 Filepicker.io, All rights reserved.
+//  Created by Liyan David Chang on 6/20/12.
+//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
