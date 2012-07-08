@@ -7,7 +7,6 @@
 //
 
 #import "ViewController.h"
-#import <FPPicker/FPPicker.h>
 
 @interface ViewController ()
 
@@ -40,12 +39,31 @@
 
 - (IBAction)pickerAction: (id) sender {
     
-    
+    /*
+     * Create the object
+     */
     FPPickerController *fpController = [[FPPickerController alloc] init];
+
+    /*
+     * Set the delegate
+     */
     fpController.fpdelegate = self;
-    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"text/plain", nil];
-    UIPopoverController *popoverControllerA = [UIPopoverController alloc];
     
+    /*
+     * Ask for specific data types. (Optional) Default is all files.
+     */
+    fpController.dataTypes = [NSArray arrayWithObjects:@"image/png", nil];
+    
+    /*
+     * Select and order the sources (Optional) Default is all sources
+     */
+    //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
+
+    
+    /*
+     * Display it.
+     */
+    UIPopoverController *popoverControllerA = [UIPopoverController alloc];
     self.popoverController = [popoverControllerA initWithContentViewController:fpController];
     popoverController.popoverContentSize = CGSizeMake(320, 520);
     [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
@@ -55,31 +73,50 @@
     NSLog(@"saving");
     
     if (image.image == nil){
-    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
                                                       message:@"Select an image first."
                                                      delegate:nil
                                             cancelButtonTitle:@"OK"
                                             otherButtonTitles:nil];
     
-    [message show];
+        [message show];
+        return;
     }
     
     NSData *imgData = UIImagePNGRepresentation(image.image);
 
+    /*
+     * Create the object
+     */
     FPSaveController *fpSave = [[FPSaveController alloc] init];
+    
+    /*
+     * Set the delegate
+     */
     fpSave.fpdelegate = self;
+    
+    /*
+     * Select and order the sources (Optional) Default is all sources
+     */
+    //fpSave.sourceNames = [[NSArray alloc] initWithObjects: FPSourceDropbox, FPSourceFacebook, FPSourceBox, nil];
+    
+    /*
+     * Set the data and data type to be saved.
+     */
     fpSave.data = imgData;
     fpSave.dataType = @"text/*";
-    //fpSave.sourceNames = [[NSArray alloc] initWithObjects: FPSourceDropbox, FPSourceFacebook, FPSourceBox, nil];
-
-
-    UIPopoverController *popoverControllerA = [UIPopoverController alloc];
     
+    /*
+     * Display it.
+     */
+    UIPopoverController *popoverControllerA = [UIPopoverController alloc];    
     self.popoverController = [popoverControllerA initWithContentViewController:fpSave];
     popoverController.popoverContentSize = CGSizeMake(320, 520);
     [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     
 }
+
+#pragma mark - FPPickerControllerDelegate Methods
 
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -91,22 +128,21 @@
 }
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
-    NSLog(@"FP Canceled.");
-    //[picker removeFromParentViewController];
+    NSLog(@"FP Cancelled Open");
     [popoverController dismissPopoverAnimated:YES];
 }
 
 
-#pragma mark -
+#pragma mark - FPSaveControllerDelegate Methods
 
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
-    NSLog(@"Got it here up top");
+    NSLog(@"FILE SAVED: %@", info);
           
     [popoverController dismissPopoverAnimated:YES];
     
 }
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
-    NSLog(@"Got the cancel here up top");
+    NSLog(@"FP Cancelled Save");
 
     [popoverController dismissPopoverAnimated:YES];
 }
