@@ -43,13 +43,32 @@
     
     FPPickerController *fpController = [[FPPickerController alloc] init];
     fpController.fpdelegate = self;
-    fpController.sourceNames = [[NSArray alloc] initWithObjects: (NSString *) FPSourceDropbox, (NSString *) FPSourceImagesearch, FPSourceBox, FPSourceCameraRoll, FPSourceCamera, nil];
-    
+    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"text/plain", nil];
     UIPopoverController *popoverControllerA = [UIPopoverController alloc];
     
     self.popoverController = [popoverControllerA initWithContentViewController:fpController];
     popoverController.popoverContentSize = CGSizeMake(320, 520);
     [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+}
+
+- (IBAction)savingAction: (id) sender {
+    NSLog(@"saving");
+    
+    NSData *imgData = UIImagePNGRepresentation(image.image);
+
+    FPSaveController *fpSave = [[FPSaveController alloc] init];
+    fpSave.fpdelegate = self;
+    fpSave.data = imgData;
+    fpSave.dataType = @"text/*";
+    //fpSave.sourceNames = [[NSArray alloc] initWithObjects: FPSourceDropbox, FPSourceFacebook, FPSourceBox, nil];
+
+
+    UIPopoverController *popoverControllerA = [UIPopoverController alloc];
+    
+    self.popoverController = [popoverControllerA initWithContentViewController:fpSave];
+    popoverController.popoverContentSize = CGSizeMake(320, 520);
+    [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    
 }
 
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -66,5 +85,21 @@
     //[picker removeFromParentViewController];
     [popoverController dismissPopoverAnimated:YES];
 }
+
+
+#pragma mark -
+
+- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    NSLog(@"Got it here up top");
+          
+    [popoverController dismissPopoverAnimated:YES];
+    
+}
+- (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
+    NSLog(@"Got the cancel here up top");
+
+    [popoverController dismissPopoverAnimated:YES];
+}
+
 
 @end
