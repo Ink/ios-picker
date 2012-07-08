@@ -54,6 +54,16 @@
 - (IBAction)savingAction: (id) sender {
     NSLog(@"saving");
     
+    if (image.image == nil){
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
+                                                      message:@"Select an image first."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    
+    [message show];
+    }
+    
     NSData *imgData = UIImagePNGRepresentation(image.image);
 
     FPSaveController *fpSave = [[FPSaveController alloc] init];
