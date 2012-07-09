@@ -263,7 +263,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";
@@ -280,7 +279,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";
