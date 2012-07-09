@@ -4,6 +4,7 @@
 The easiest way to import content into your application. 
 [Filepicker.io](www.filepicker.io)
 
+<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/filepicker_ios.png" class="center">
 
 ## Dependancies
 
