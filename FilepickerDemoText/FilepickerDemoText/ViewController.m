@@ -107,7 +107,6 @@
      * Select and order the sources (Optional) Default is all sources
      */
     //fpSave.sourceNames = [[NSArray alloc] initWithObjects: FPSourceDropbox, FPSourceFacebook, FPSourceBox, nil];
-    //fpSave.sourceNames = [[NSArray alloc] initWithObjects: nil];
     
     /*
      * Set the data and data type to be saved.

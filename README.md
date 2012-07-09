@@ -20,6 +20,141 @@ The easiest way to import content into your application.
 	- Foundation.framework
 	- UIKit.framework
 
+## Usage Instructions
+
+```
+	/*
+	 * To import the library
+	 */
+	#import <FPPicker/FPPicker.h>
+	
+	/*
+	 * Opening Files
+	 */	
+    // To create the object
+    FPPickerController *fpController = [[FPPickerController alloc] init];
+    
+    // Set the delegate
+    fpController.fpdelegate = self;
+    
+	// Ask for specific data types. (Optional) Default is all files.
+    fpController.dataTypes = [NSArray arrayWithObjects:@"text/plain", nil];
+    
+	// Select and order the sources (Optional) Default is all sources
+	fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, FPSourceDropbox, nil];
+    
+    // Display it.
+    [self presentModalViewController:fpController animated:YES];
+    
+    
+    /*
+	 * Saving Files
+	 */	
+    // To create the object
+    FPSaveController *fpSave = [[FPSaveController alloc] init];
+    
+    // Set the delegate
+    fpSave.fpdelegate = self;
+    
+	// Ask for specific data mimetypes. (Optional) Default is all files.
+    fpController.dataTypes = [NSArray arrayWithObjects:@"text/plain", nil];
+    
+	// Select and order the sources (Optional) Default is all sources
+	//fpSave.sourceNames = [NSArray arrayWithObjects: FPSourceCamera, FPSourceCameraRoll, FPSourceDropbox, FPSourceFacebook, FPSourceGmail, FPSourceBox, FPSourceGithub, FPSourceGoogleDrive, FPSourceImagesearch, nil];
+	
+	/*
+     * Set the data and data type to be saved.
+     */
+    fpSave.data = [[NSData *alloc] init] ;
+    fpSave.dataType = @"text/plain";   
+    //alternative: fpSave.dataExtension = @"txt"
+    
+    //optional: propose the default file name
+    fpSave.proposedFilename = @"AwesomeFile";
+	
+    // Display it.
+    [self presentModalViewController:fpController animated:YES];
+```
+
+```
+/* Delegate Functions */
+
+#pragma mark - FPPickerControllerDelegate Methods
+- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    /* Keys in the info dictionary
+	 *
+	 * FPPickerControllerMediaType - the UTType of the file (e.g. public.image)
+	 * FPPickerControllerReferenceURL - The local location of the file. (e.g. assets-library://asset/asset.JPG?id=1000000001&ext=JPG)
+	 * FPPickerControllerRemoteURL - The URL for the file. (e.g https://www.filepicker.io/api/file/we9f3kf93qls0). These will be active for 4 hours or permanent, depending on your filepicker plan
+	 * (When Possible) FPPickerControllerOriginalImage - The UIImage
+	 */
+    NSLog(@"FILE CHOSEN: %@", info);
+    [self dismissModalViewControllerAnimated:YES];
+}
+- (void)FPPickerControllerDidCancel:(FPPickerController *)picker
+{
+    NSLog(@"FP Cancelled Open");
+    [self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark - FPSaveControllerDelegate Methods
+
+- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+
+	/* 
+	 * IMPORTANT NOTE:
+	 * Info is an empty dictionary as nothing is being passed back 
+	 */
+    NSLog(@"FILE SAVED: %@", info);
+    [self dismissModalViewControllerAnimated:YES];
+}
+- (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
+    NSLog(@"FP Cancelled Save");
+    [self dismissModalViewControllerAnimated:YES];
+}
+```
+
+- List of all sources:
+	- FPSourceCamera
+		- The Local Camera
+		- Open: "image/jpeg", "image/png"
+		- Save: nil
+	- FPSourceCameraRoll
+		- The Local Photos
+		- Open: "image/jpeg", "image/png", "video/quicktime"
+		- Save: "image/jpeg", "image/png"
+	- FPSourceDropbox
+		- www.dropbox.com
+		- Open: "\*/*"
+		- Save: "\*/*"
+	- FPSourceFacebook
+		- www.facebook.com
+		- Open: "image/jpeg"
+		- Save: "image/*"
+	- FPSourceGmail
+		- www.gmail.com
+		- Open: "\*/*"
+		- Save: nil
+	- FPSourceBox
+		- www.box.com
+		- Open: "\*/*"
+		- Save: "\*/*"
+	- FPSourceGithub
+		- www.github.com
+		- Open: "\*/*"
+		- Save: nil
+	- FPSourceGoogleDrive
+		- drive.google.com
+		- Open: "\*/*"
+		- Save: "\*/*"
+	- FPSourceImagesearch
+		- Flickr Public Domain Image Search
+		- Open: "image/jpeg"
+		- Save: nil
+		
+		
+
 
 ## Installation Instructions
 
@@ -34,7 +169,7 @@ The easiest way to import content into your application.
 	- Download or clone the repository.
 	- Under `/library`, you'll find `FPPicker.framework` and `FPPicker.bundle`
 	- Drag both into your project, typically in your framework folder
-
+	- `#import <FPPicker/FPPicker.h>` in your `viewController.h` or other file where you want to use it.
 		<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/35.png" class="center">
 
 
