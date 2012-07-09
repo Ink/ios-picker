@@ -76,46 +76,39 @@ The easiest way to import content into your application.
     [self presentModalViewController:fpController animated:YES];
 ```
 
-```
-/* Delegate Functions */
+### Delegate Functions
 
-#pragma mark - FPPickerControllerDelegate Methods
-- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-    /* Keys in the info dictionary
-	 *
-	 * FPPickerControllerMediaType - the UTType of the file (e.g. public.image)
-	 * FPPickerControllerReferenceURL - The local location of the file. (e.g. assets-library://asset/asset.JPG?id=1000000001&ext=JPG)
-	 * FPPickerControllerRemoteURL - The URL for the file. (e.g https://www.filepicker.io/api/file/we9f3kf93qls0). These will be active for 4 hours or permanent, depending on your filepicker plan
-	 * (When Possible) FPPickerControllerOriginalImage - The UIImage
-	 */
-    NSLog(@"FILE CHOSEN: %@", info);
-    [self dismissModalViewControllerAnimated:YES];
-}
-- (void)FPPickerControllerDidCancel:(FPPickerController *)picker
-{
-    NSLog(@"FP Cancelled Open");
-    [self dismissModalViewControllerAnimated:YES];
-}
+####FPPickerControllerDelegate
 
-#pragma mark - FPSaveControllerDelegate Methods
+`- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;`
 
-- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- Keys in the info dictionary
+	- FPPickerControllerMediaType 
+		- the UTType of the file 
+		- e.g: public.image
+	- FPPickerControllerReferenceURL 
+		- The local location of the file.
+		- e.g: assets-library://asset/asset.JPG?id=1000000001&ext=JPG
+	- FPPickerControllerRemoteURL 
+		- The URL for the file. 
+		- e.g: https://www.filepicker.io/api/file/we9f3kf93qls0)
+		- These will be active for 4 hours or permanent, depending on your filepicker plan
+	- (When Possible) FPPickerControllerOriginalImage 
+		- The UIImage
+		-e.g: <UIImage: 0x8a37730>
 
-	/* 
-	 * IMPORTANT NOTE:
-	 * Info is an empty dictionary as nothing is being passed back 
-	 */
-    NSLog(@"FILE SAVED: %@", info);
-    [self dismissModalViewControllerAnimated:YES];
-}
-- (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
-    NSLog(@"FP Cancelled Save");
-    [self dismissModalViewControllerAnimated:YES];
-}
-```
+`- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
-- List of all sources:
+####FPSaveControllerDelegate Methods
+
+`- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;`
+* IMPORTANT NOTE: Info is an empty dictionary; nothing is being passed back 
+
+`- (void)FPSaveControllerDidCancel:(FPSaveController *)picker;`
+
+####List of all sources:
+
+- Complete Listing
 	- FPSourceCamera
 		- The Local Camera
 		- Open: "image/jpeg", "image/png"
