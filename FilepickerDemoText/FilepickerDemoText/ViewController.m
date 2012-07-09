@@ -36,12 +36,18 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
     NSLog(@"begin edit");
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
     _textView.frame = CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height-216-44);
+    [UIView commitAnimations];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView {
     NSLog(@"end edit");
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
     _textView.frame = CGRectMake(0, 44, self.view.frame.size.width, self.view.frame.size.height);
+    [UIView commitAnimations];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
@@ -107,7 +113,8 @@
      * Set the data and data type to be saved.
      */
     fpSave.data = [_textView.text dataUsingEncoding:NSUTF8StringEncoding] ;
-    fpSave.dataType = @"text/plain";
+    fpSave.dataType = @"text/plain";   //alternative: fpSave.dataExtension = @"txt"
+    fpSave.proposedFilename = @"AwesomeFile";
     
     /*
      * Display it.

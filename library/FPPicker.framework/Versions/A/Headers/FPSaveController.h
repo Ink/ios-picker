@@ -17,7 +17,15 @@
 
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic) NSString *dataType;
+@property (nonatomic) NSString *dataExtension;
+
+@property (nonatomic, strong) NSString *proposedFilename;
 
 - (void) saveFileName:(NSString *)filename To:(NSString *)path;
+- (void) saveFileLocally;
+
+- (NSString *) getExtensionString;
+
+
 
 @end

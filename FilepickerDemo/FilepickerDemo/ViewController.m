@@ -39,6 +39,7 @@
 
 - (IBAction)pickerAction: (id) sender {
     
+    
     /*
      * Create the object
      */
@@ -52,14 +53,14 @@
     /*
      * Ask for specific data types. (Optional) Default is all files.
      */
-    fpController.dataTypes = [NSArray arrayWithObjects:@"image/png", nil];
+    fpController.dataTypes = [NSArray arrayWithObjects:@"*/*", nil];
+    //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
     
     /*
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
 
-    
     /*
      * Display it.
      */
@@ -70,7 +71,6 @@
 }
 
 - (IBAction)savingAction: (id) sender {
-    NSLog(@"saving");
     
     if (image.image == nil){
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
@@ -104,7 +104,7 @@
      * Set the data and data type to be saved.
      */
     fpSave.data = imgData;
-    fpSave.dataType = @"text/*";
+    fpSave.dataType = @"image/png";
     
     /*
      * Display it.
@@ -124,7 +124,7 @@
     
     image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
-    
+
 }
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
