@@ -37,7 +37,7 @@
 @protocol FPSourceSaveDelegate <NSObject>
 
 @property (nonatomic, strong) NSData *data;
-@property (nonatomic) NSString *dataType;
+@property (nonatomic, strong) NSString *dataType;
 
 
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
