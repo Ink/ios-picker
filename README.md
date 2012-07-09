@@ -83,10 +83,10 @@ The easiest way to import content into your application.
 - Keys in the info dictionary
 	- FPPickerControllerMediaType 
 		- the UTType of the file 
-		- e.g: public.image
+		- e.g: `public.image`
 	- FPPickerControllerReferenceURL 
 		- The local location of the file.
-		- e.g: assets-library://asset/asset.JPG?id=1000000001&ext=JPG
+		- e.g: `assets-library://asset/asset.JPG?id=1000000001&ext=JPG`
 	- FPPickerControllerRemoteURL 
 		- The URL for the file. 
 		- e.g: https://www.filepicker.io/api/file/we9f3kf93qls0)
