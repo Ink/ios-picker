@@ -62,9 +62,7 @@ The easiest way to import content into your application.
 	// Select and order the sources (Optional) Default is all sources
 	//fpSave.sourceNames = [NSArray arrayWithObjects: FPSourceCamera, FPSourceCameraRoll, FPSourceDropbox, FPSourceFacebook, FPSourceGmail, FPSourceBox, FPSourceGithub, FPSourceGoogleDrive, FPSourceImagesearch, nil];
 	
-	/*
-     * Set the data and data type to be saved.
-     */
+    // Set the data and data type to be saved.
     fpSave.data = [[NSData *alloc] init] ;
     fpSave.dataType = @"text/plain";   
     //alternative: fpSave.dataExtension = @"txt"
@@ -95,7 +93,7 @@ The easiest way to import content into your application.
 		- These will be active for 4 hours or permanent, depending on your filepicker plan
 	- (When Possible) FPPickerControllerOriginalImage 
 		- The UIImage
-		-e.g: <UIImage: 0x8a37730>
+		- e.g: <UIImage: 0x8a37730>
 
 `- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
