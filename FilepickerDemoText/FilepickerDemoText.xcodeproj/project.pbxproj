@@ -19,8 +19,8 @@
 		83A0326015AA381B0085E186 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0325F15AA381B0085E186 /* MobileCoreServices.framework */; };
 		83A0326215AA38290085E186 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0326115AA38290085E186 /* QuartzCore.framework */; };
 		83A0326415AA38310085E186 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0326315AA38310085E186 /* CoreFoundation.framework */; };
-		83F11E8015AA3D700037BDD5 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83F11E7E15AA3D700037BDD5 /* FPPicker.bundle */; };
-		83F11E8115AA3D700037BDD5 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F11E7F15AA3D700037BDD5 /* FPPicker.framework */; };
+		83F9F62615AB03E400C60EB2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83F9F62415AB03E400C60EB2 /* FPPicker.bundle */; };
+		83F9F62715AB03E400C60EB2 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83F9F62515AB03E400C60EB2 /* FPPicker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +41,8 @@
 		83A0325F15AA381B0085E186 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		83A0326115AA38290085E186 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83A0326315AA38310085E186 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
-		83F11E7E15AA3D700037BDD5 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FPPicker.bundle; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos/FPPicker.bundle"; sourceTree = "<group>"; };
-		83F11E7F15AA3D700037BDD5 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FPPicker.framework; path = "../../../Library/Developer/Xcode/DerivedData/FPPicker-bwavnfycuednlxhgjffonblagtwi/Build/Products/Debug-iphoneos/FPPicker.framework"; sourceTree = "<group>"; };
+		83F9F62415AB03E400C60EB2 /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
+		83F9F62515AB03E400C60EB2 /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +57,7 @@
 				83A0323915AA33340085E186 /* UIKit.framework in Frameworks */,
 				83A0323B15AA33340085E186 /* Foundation.framework in Frameworks */,
 				83A0323D15AA33340085E186 /* CoreGraphics.framework in Frameworks */,
-				83F11E8115AA3D700037BDD5 /* FPPicker.framework in Frameworks */,
+				83F9F62715AB03E400C60EB2 /* FPPicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,8 +88,8 @@
 		83A0323715AA33340085E186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				83F11E7E15AA3D700037BDD5 /* FPPicker.bundle */,
-				83F11E7F15AA3D700037BDD5 /* FPPicker.framework */,
+				83F9F62415AB03E400C60EB2 /* FPPicker.bundle */,
+				83F9F62515AB03E400C60EB2 /* FPPicker.framework */,
 				83A0323815AA33340085E186 /* UIKit.framework */,
 				83A0323A15AA33340085E186 /* Foundation.framework */,
 				83A0323C15AA33340085E186 /* CoreGraphics.framework */,
@@ -173,7 +173,7 @@
 			files = (
 				83A0324315AA33340085E186 /* InfoPlist.strings in Resources */,
 				83A0324F15AA33340085E186 /* ViewController.xib in Resources */,
-				83F11E8015AA3D700037BDD5 /* FPPicker.bundle in Resources */,
+				83F9F62615AB03E400C60EB2 /* FPPicker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

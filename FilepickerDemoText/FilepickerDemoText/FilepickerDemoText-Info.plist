@@ -35,6 +35,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>Filepicker API Key</key>
-	<string>DAVID_CHANG_SUPER_API_KEY</string>
+	<string>SET_FILEPICKER.IO_APIKEY_HERE</string>
 </dict>
 </plist>
