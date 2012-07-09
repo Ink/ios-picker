@@ -11,6 +11,6 @@
 
 @interface ViewController : UIViewController <UITextViewDelegate, FPPickerDelegate, FPSaveDelegate>
 
-@property IBOutlet UITextView *textView;
+@property (nonatomic, strong) IBOutlet UITextView *textView;
 
 @end
