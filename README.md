@@ -93,7 +93,7 @@ The easiest way to import content into your application.
 		- These will be active for 4 hours or permanent, depending on your filepicker plan
 	- (When Possible) FPPickerControllerOriginalImage 
 		- The UIImage
-		- e.g: <UIImage: 0x8a37730>
+		- e.g: `<UIImage: 0x8a37730>`
 
 `- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
