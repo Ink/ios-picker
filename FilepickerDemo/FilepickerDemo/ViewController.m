@@ -53,7 +53,7 @@
     /*
      * Ask for specific data types. (Optional) Default is all files.
      */
-    fpController.dataTypes = [NSArray arrayWithObjects:@"*/*", nil];
+    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", nil];
     //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
     
     /*

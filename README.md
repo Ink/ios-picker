@@ -14,10 +14,11 @@ The easiest way to import content into your application.
 - Frameworks
 	- AssetsLibrary.framework
 	- QuartzCore.framework
-	- CoreGraphics.framework
-	- MobileCoreServices.framework
-	- Foundation.framework
 	- CoreFoundation.framework
+	- MobileCoreServices.framework
+	- CoreGraphics.framework
+	- Foundation.framework
+	- UIKit.framework
 
 
 ## Installation Instructions
@@ -42,17 +43,17 @@ The easiest way to import content into your application.
 	
 	```
 	Key: "Filepicker API Key"
-	Value: YOUR_API_KEY (from step 1)
+	Value: YOUR_API_KEY (that you got from step 1)
 	```
 	- If this doesn't build, I've had luck adding `-all_load -ObjC` in `Build_Settings/Other_Linker_Flags`
 	- You may need to add additional frameworks
 		- AssetsLibrary.framework
 		- QuartzCore.framework
-		- CoreGraphics.framework
-		- MobileCoreServices.framework
-		- Foundation.framework
 		- CoreFoundation.framework
-	
+		- MobileCoreServices.framework
+		- CoreGraphics.framework
+		- Foundation.framework
+		- UIKit.framework
 
 4. Use it
 	- Initialize it:
@@ -84,7 +85,7 @@ The easiest way to import content into your application.
 	
 	```
 	Key: "Filepicker API Key"
-	Value: YOUR_API_KEY (from step 1)
+	Value: YOUR_API_KEY (that you got from step 1)
 	```
 
 4. Build and Run
