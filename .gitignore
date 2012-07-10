@@ -1,2 +1,10 @@
 .DS_Store
-FilepickerDemo/FilepickerDemo/FilepickerDemo-Info.plist 
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.xcuserstate
+project.xcworkspace/
+xcuserdata/
