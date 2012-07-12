@@ -267,8 +267,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
 				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "-all_load";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -283,8 +284,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
 				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
-				OTHER_LDFLAGS = "-all_load";
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WARNING_LDFLAGS = "-all_load";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -20,18 +20,23 @@ The easiest way to import content into your application.
 	- CoreGraphics.framework
 	- Foundation.framework
 	- UIKit.framework
+	
+- Other Linked Libraries
+ 	- AFNetworking (https://github.com/AFNetworking/AFNetworking/)
+	- JSONkit (https://github.com/johnezang/JSONKit/)
+	- MBProgressHUD (https://github.com/jdg/MBProgressHUD)
+	- FP_PullRefresehTabelViewController (Forked from: https://github.com/leah/PullToRefresh)
 
 ## Usage Instructions
 
+#### Importing
+
 ```
-	/*
-	 * To import the library
-	 */
 	#import <FPPicker/FPPicker.h>
-	
-	/*
-	 * Opening Files
-	 */	
+```
+
+#### Opening Files
+```	
     // To create the object
     FPPickerController *fpController = [[FPPickerController alloc] init];
     
@@ -46,11 +51,11 @@ The easiest way to import content into your application.
     
     // Display it.
     [self presentModalViewController:fpController animated:YES];
-    
-    
-    /*
-	 * Saving Files
-	 */	
+```
+
+#### Saving Files
+
+```    
     // To create the object
     FPSaveController *fpSave = [[FPSaveController alloc] init];
     
@@ -145,7 +150,32 @@ The easiest way to import content into your application.
 		- Open: "image/jpeg"
 		- Save: nil
 		
-		
+
+## Common tips
+
+1. #### The App builds, but crashes: `Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'No JSON parsing functionality available'`
+2. #### `'NSInvalidArgumentException', reason: '-[UIImageView setImageWithURLRequest:placeholderImage:success:failure:]: `
+
+	These are likely because JSONKit or AFNetworking are not linked. One fix for this is to add  `-all_load` to `Build Settings/Other Linker Flags`. This will link the libraries that Filepicker needs.
+
+3. #### The app doesn't build: `Duplicate symbol _AFURLEncodedStringFromStringWithEncoding` or similar
+
+	You probabably are using AFNetworking. Since Filepicker depends on it, the compiler is adding AFNetworking twice and complaining. If you have a similar `Duplicate symbol` issue, it may be that you are using `JSONkit` or `MBProgressHUD`.
+
+	While this issue seems to be solved for [XCode 4.4 Developer Preview 5 and beyond](https://github.com/CocoaPods/CocoaPods/issues/322), the solution is to use the filepicker library without external libraries, then adding your own.
+
+	In `/library - no attached libraries/`, you'll find a version of the library that was not linked. Import this one instead, but make sure that you fulfill all the dependancies. JSONKit, MBProgressHUD, and AFNetworking are also in that folder for your convenience. 
+
+4. #### The app builds, but crashes when I try to present the modal
+	It may be that you haven't set your apikey as it's checked the first time it's loaded.
+	- Go to www.filepicker.io and register.
+	- In your application's info.plist, add the following key/value:
+	
+	```
+	Key: "Filepicker API Key"
+	Value: YOUR_API_KEY (that you got from registering)
+	```
+
 
 
 ## Installation Instructions
