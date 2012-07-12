@@ -16,4 +16,8 @@
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 
+//imagepicker properties
+@property (nonatomic, assign) BOOL allowsEditing;
+@property (nonatomic) UIImagePickerControllerQualityType videoQuality;
+
 @end
