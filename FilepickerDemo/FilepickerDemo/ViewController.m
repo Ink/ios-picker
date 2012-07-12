@@ -70,6 +70,36 @@
     [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
+- (IBAction)pickerModalAction: (id) sender {
+    
+    
+    /*
+     * Create the object
+     */
+    FPPickerController *fpController = [[FPPickerController alloc] init];
+    
+    /*
+     * Set the delegate
+     */
+    fpController.fpdelegate = self;
+    
+    /*
+     * Ask for specific data types. (Optional) Default is all files.
+     */
+    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", nil];
+    //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
+    
+    /*
+     * Select and order the sources (Optional) Default is all sources
+     */
+    //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
+    
+    /*
+     * Display it.
+     */
+    [self presentModalViewController:fpController animated:YES];
+}
+
 - (IBAction)savingAction: (id) sender {
     
     if (image.image == nil){
@@ -124,12 +154,14 @@
     
     image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
 
 }
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
     NSLog(@"FP Cancelled Open");
     [popoverController dismissPopoverAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 

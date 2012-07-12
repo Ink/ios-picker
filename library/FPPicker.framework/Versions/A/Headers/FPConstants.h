@@ -17,4 +17,4 @@ FOUNDATION_EXPORT NSString * const FPSourceGmail;
 FOUNDATION_EXPORT NSString * const FPSourceImagesearch;
 //FOUNDATION_EXPORT NSString * const FPSourceURL;
 FOUNDATION_EXPORT NSString * const FPSourceCamera;
-FOUNDATION_EXPORT NSString *const FPSourceGoogleDrive;
+FOUNDATION_EXPORT NSString * const FPSourceGoogleDrive;

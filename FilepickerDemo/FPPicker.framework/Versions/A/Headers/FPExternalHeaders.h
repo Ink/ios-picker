@@ -39,7 +39,6 @@
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSString *dataType;
 
-
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
 
