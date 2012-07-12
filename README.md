@@ -154,6 +154,7 @@ The easiest way to import content into your application.
 ## Common tips
 
 1. #### The App builds, but crashes: `Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'No JSON parsing functionality available'`
+
 2. #### `'NSInvalidArgumentException', reason: '-[UIImageView setImageWithURLRequest:placeholderImage:success:failure:]: `
 
 	These are likely because JSONKit or AFNetworking are not linked. One fix for this is to add  `-all_load` to `Build Settings/Other Linker Flags`. This will link the libraries that Filepicker needs.
