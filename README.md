@@ -176,7 +176,21 @@ The easiest way to import content into your application.
 	Key: "Filepicker API Key"
 	Value: YOUR_API_KEY (that you got from registering)
 	```
+4. #### I'm using a popover in iPad and the login screens look terrible.
 
+Our ability to deliver mobile pages is partly dependent on the service itself. Some have no mobile page at all. Others examine the user agent string and return the iPad version, not a popover friendly one. I've had good luck changing my user-agent string for a couple services.
+
+Add this to your `AppDelegate.m`
+```objc
+/* 
+ * This makese the login screens look much nicer on iPad
+ */
++ (void)initialize {
+    // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
+    NSDictionary *dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:@"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3", @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
+}
+```
 
 
 ## Installation Instructions
