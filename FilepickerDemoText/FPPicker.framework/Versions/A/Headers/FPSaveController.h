@@ -10,7 +10,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "FPExternalHeaders.h"
 
-@interface FPSaveController : UINavigationController <FPSourcePickerDelegate, UINavigationControllerDelegate>
+@interface FPSaveController : UINavigationController <FPSourcePickerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, assign) id <FPSaveDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;

@@ -1,0 +1,10 @@
+v1.1.1 - General Stability Fixes - 07/19/2012
+
+- Images are now rotated properly before being sent up to the server. This affects both the Camera and the Camera Roll
+- Camera Roll no longer reuses cells; solves problem of not reseting the touch handler and imageview properly
+- HUD now shows up quickly on the Camera and Camera Roll without needless delay
+- FPPicker now retains the delegate. This is to prevent crashing. While still being able to call back to the delegate may not be proper behavior, it doesn't crash. Async uploads, coming soon, will handle this better.
+- File uploads happen in multiple parts. This is to address a bug where the server times out.
+- Namespacing. All external libraries, AFNetworking, JSONKit, MBProgressHUD and PullRefreshTable are now prefixed with 'FP' to prevent the duplicate symbol definition bug
+
+v1.0.0 - Initial Release - 07/12/2012

@@ -77,7 +77,18 @@ The easiest way to import content into your application.
     fpSave.proposedFilename = @"AwesomeFile";
 	
     // Display it.
-    [self presentModalViewController:fpController animated:YES];
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
+        UIPopoverController *popoverControllerA = [UIPopoverController alloc];    
+
+        // You can set the delegate of the popover to be the FPPicker if you want FPPicker to report 
+        // when the popover has been dismissed as a cancel
+        popoverControllerA.delegate = fpSave;
+        self.popoverController = [popoverControllerA initWithContentViewController:fpSave];
+        popoverController.popoverContentSize = CGSizeMake(320, 520);
+        [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    } else {
+        [self presentModalViewController:fpSave animated:YES];
+    }
 ```
 
 ### Delegate Functions
@@ -165,7 +176,7 @@ The easiest way to import content into your application.
 
 	While this issue seems to be solved for [XCode 4.4 Developer Preview 5 and beyond](https://github.com/CocoaPods/CocoaPods/issues/322), the solution is to use the filepicker library without external libraries, then adding your own.
 
-	In `/library - no attached libraries/`, you'll find a version of the library that was not linked. Import this one instead, but make sure that you fulfill all the dependancies. JSONKit, MBProgressHUD, and AFNetworking are also in that folder for your convenience. 
+    This issue was present for v1.0.0, but should be fixed from now on. Please report this to ios@filepicker.io
 
 3. #### The app builds, but crashes when I try to present the modal
 	It may be that you haven't set your apikey as it's checked the first time it's loaded.

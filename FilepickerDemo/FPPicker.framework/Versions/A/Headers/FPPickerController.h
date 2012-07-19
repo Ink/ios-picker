@@ -10,7 +10,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "FPExternalHeaders.h"
 
-@interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate, FPSourcePickerDelegate, UINavigationControllerDelegate>
+@interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate, FPSourcePickerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
 @property (nonatomic, assign) id <FPPickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
