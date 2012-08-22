@@ -123,9 +123,13 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
+- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info {
+    
+}
+
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"FILE CHOSEN: %@", info);
+    NSLog(@"FILE CH;OSEN: %@", info);
     
     _textView.text = [[NSString alloc] initWithContentsOfFile:[info valueForKey:@"FPPickerControllerReferenceURL"] encoding:NSUTF8StringEncoding error:nil];
     [self dismissModalViewControllerAnimated:YES];
@@ -135,14 +139,15 @@
 {
     NSLog(@"FP Cancelled Open");
     [self dismissModalViewControllerAnimated:YES];
-
 }
 
 #pragma mark - FPSaveControllerDelegate Methods
 
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker {
+    [self dismissModalViewControllerAnimated:YES];
+}
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"FILE SAVED: %@", info);
-    [self dismissModalViewControllerAnimated:YES];
 }
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
     NSLog(@"FP Cancelled Save");

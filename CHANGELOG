@@ -1,3 +1,14 @@
+v2.0.0 - New Features - 8/22/2012
+
+- Instagram
+- Facebook, Instagram, GMail handle infinite scroll
+- ShouldUpload/ShouldDownload flags
+- Better network retrying and error handling
+- Images now sent as JPEG as opposed to PNG for better compression
+- New delegate functions for to differentiate between the begining of a action (open/save) and when the action completed
+- Video support from the camera
+- Allow UIImagePicker camera options to be set
+
 v1.1.1 - General Stability Fixes - 07/19/2012
 
 - Images are now rotated properly before being sent up to the server. This affects both the Camera and the Camera Roll

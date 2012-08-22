@@ -13,6 +13,7 @@
 
 @protocol FPPickerDelegate <NSObject>
 
+- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *) info;
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker;
 
@@ -20,6 +21,7 @@
 
 @protocol FPSaveDelegate <NSObject>
 
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker;
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker;
 
@@ -29,6 +31,7 @@
 
 @protocol FPSourcePickerDelegate <NSObject>
 
+- (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *) info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
 
@@ -39,6 +42,7 @@
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSString *dataType;
 
+- (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *) info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
 

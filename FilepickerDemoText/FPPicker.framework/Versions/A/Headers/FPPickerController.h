@@ -17,7 +17,19 @@
 @property (nonatomic, strong) NSArray *dataTypes;
 
 //imagepicker properties
+@property (nonatomic, copy) NSArray *mediaTypes;
 @property (nonatomic, assign) BOOL allowsEditing;
 @property (nonatomic) UIImagePickerControllerQualityType videoQuality;
+@property (nonatomic) NSTimeInterval videoMaximumDuration;
+@property (nonatomic) BOOL showsCameraControls;
+@property (nonatomic, retain) UIView *cameraOverlayView;
+@property (nonatomic) CGAffineTransform cameraViewTransform;
+
+@property (nonatomic) UIImagePickerControllerCameraDevice cameraDevice;
+@property (nonatomic) UIImagePickerControllerCameraFlashMode cameraFlashMode;
+@property (nonatomic) UIImagePickerControllerCameraCaptureMode cameraCaptureMode;
+
+@property (nonatomic) Boolean shouldUpload;
+@property (nonatomic) Boolean shouldDownload;
 
 @end

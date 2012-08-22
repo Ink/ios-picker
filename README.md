@@ -21,7 +21,7 @@ The easiest way to import content into your application.
 	- Foundation.framework
 	- UIKit.framework
 	
-- Other Linked Libraries
+- Other Linked Libraries (You don't need to download these. Already installed.)
  	- AFNetworking (https://github.com/AFNetworking/AFNetworking/)
 	- JSONkit (https://github.com/johnezang/JSONKit/)
 	- MBProgressHUD (https://github.com/jdg/MBProgressHUD)
@@ -48,6 +48,18 @@ The easiest way to import content into your application.
     
 	// Select and order the sources (Optional) Default is all sources
 	fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, FPSourceDropbox, nil];
+    
+    // You can set some of the in built Camera properties as you would with UIImagePicker
+	fpController.allowsEditing = YES;
+
+
+	/* Control if we should upload or download the files for you.
+	 * Default is yes. 
+	 * When a user selects a local file, we'll upload it and return a remote url
+	 * When a user selects a remote file, we'll download it and return the filedata to you.
+	 */
+    //fpController.shouldUpload = NO;
+	//fpController.shouldDownload = NO;
     
     // Display it.
     [self presentModalViewController:fpController animated:YES];
@@ -98,6 +110,9 @@ The easiest way to import content into your application.
 `- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;`
 
 - Keys in the info dictionary
+ 	- FPPickerControllerFilename
+		- the NSString of the filename 
+		- e.g: `202342304.jpg`
 	- FPPickerControllerMediaType 
 		- the UTType of the file 
 		- e.g: `public.image`
@@ -112,11 +127,35 @@ The easiest way to import content into your application.
 		- The UIImage
 		- e.g: `<UIImage: 0x8a37730>`
 
+`- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info;`
+
+- Keys in the info dictionary
+  	- FPPickerControllerFilename
+		- the NSString of the filename 
+		- e.g: `202342304.jpg`
+	- FPPickerControllerMediaType 
+		- the UTType of the file 
+		- e.g: `public.image`
+	- (When Possible) FPPickerControllerReferenceURL 
+		- The local location of the file.
+		- e.g: `assets-library://asset/asset.JPG?id=1000000001&ext=JPG`
+	- (When Possible) FPPickerControllerRemoteURL 
+		- The URL for the file. 
+		- e.g: https://www.filepicker.io/api/file/we9f3kf93qls0)
+		- These will be active for 4 hours or permanent, depending on your filepicker plan
+	- (When Possible) FPPickerControllerOriginalImage 
+		- The UIImage
+		- e.g: `<UIImage: 0x8a37730>`		
+
 `- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
 ####FPSaveControllerDelegate Methods
 
+`- (void)FPSaveControllerDidSave:(FPSaveController *)picker;`
+When the user chooses where to save.
+
 `- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;`
+When the save action has completed.
 * IMPORTANT NOTE: Info is an empty dictionary; nothing is being passed back 
 
 `- (void)FPSaveControllerDidCancel:(FPSaveController *)picker;`
@@ -158,6 +197,10 @@ The easiest way to import content into your application.
 		- Save: "\*/*"
 	- FPSourceImagesearch
 		- Flickr Public Domain Image Search
+		- Open: "image/jpeg"
+		- Save: nil
+	- FPSourceInstagram
+		- www.instagram.com
 		- Open: "image/jpeg"
 		- Save: nil
 		
