@@ -148,6 +148,10 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
+- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info {
+
+}
+
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"FILE CHOSEN: %@", info);
@@ -155,8 +159,8 @@
     image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
     [self dismissModalViewControllerAnimated:YES];
-
 }
+
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
     NSLog(@"FP Cancelled Open");
@@ -167,15 +171,16 @@
 
 #pragma mark - FPSaveControllerDelegate Methods
 
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker {
+    [popoverController dismissPopoverAnimated:YES];
+}
+
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"FILE SAVED: %@", info);
-          
-    [popoverController dismissPopoverAnimated:YES];
-    
 }
+
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
     NSLog(@"FP Cancelled Save");
-
     [popoverController dismissPopoverAnimated:YES];
 }
 

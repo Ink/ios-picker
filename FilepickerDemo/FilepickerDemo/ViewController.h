@@ -11,13 +11,11 @@
 #import <FPPicker/FPPicker.h>
 
 @interface ViewController : UIViewController <FPPickerDelegate, UIPopoverControllerDelegate, FPSaveDelegate> {
-    IBOutlet UIButton *button;
-    IBOutlet UIButton *savebutton;
-
     IBOutlet UIImageView *image;
     UIPopoverController *popoverController;
 }
 @property (nonatomic, retain) UIImageView *image;
 @property (nonatomic, retain) UIPopoverController *popoverController;
+
 
 @end
