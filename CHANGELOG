@@ -1,3 +1,11 @@
+v2.1.0 - 9/25/2012
+
+- Recompiled with armv7s support
+
+v2.0.3 - 9/22/2012
+
+- Save source controller issue where one could only save in the root directory of a service.
+
 v2.0.2 - 9/12/2012
 
 - Bug fixes with url encoding
