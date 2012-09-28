@@ -19,3 +19,5 @@ FOUNDATION_EXPORT NSString * const FPSourceImagesearch;
 FOUNDATION_EXPORT NSString * const FPSourceCamera;
 FOUNDATION_EXPORT NSString * const FPSourceGoogleDrive;
 FOUNDATION_EXPORT NSString * const FPSourceInstagram;
+FOUNDATION_EXPORT NSString * const FPSourceFlickr;
+FOUNDATION_EXPORT NSString * const FPSourcePicasa;
