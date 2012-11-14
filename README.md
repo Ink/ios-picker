@@ -146,6 +146,9 @@ The easiest way to import content into your application.
 	- (When Possible) FPPickerControllerOriginalImage 
 		- The UIImage
 		- e.g: `<UIImage: 0x8a37730>`		
+	- (When Possible) FPPickerControllerKey
+		- The S3 key if the developer has set up Amazon S3 account at Filepicker.io
+        - e.g: JENAoTrDSPGFMrdxMd2R_photo.jpg
 
 `- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
