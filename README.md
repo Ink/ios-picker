@@ -25,7 +25,7 @@ The easiest way to import content into your application.
  	- AFNetworking (https://github.com/AFNetworking/AFNetworking/)
 	- JSONkit (https://github.com/johnezang/JSONKit/)
 	- MBProgressHUD (https://github.com/jdg/MBProgressHUD)
-	- FP_PullRefresehTabelViewController (Forked from: https://github.com/leah/PullToRefresh)
+	- PullRefreshTableViewController (Forked from: https://github.com/leah/PullToRefresh)
 
 ## Usage Instructions
 
@@ -126,30 +126,18 @@ The easiest way to import content into your application.
 	- (When Possible) FPPickerControllerOriginalImage 
 		- The UIImage
 		- e.g: `<UIImage: 0x8a37730>`
+	- (When Possible) FPPickerControllerKey
+		- The S3 key if the developer has set up Amazon S3 account at Filepicker.io
+        	- e.g: JENAoTrDSPGFMrdxMd2R_photo.jpg
+
 
 `- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info;`
 
 - Keys in the info dictionary
-  	- FPPickerControllerFilename
-		- the NSString of the filename 
-		- e.g: `202342304.jpg`
-	- FPPickerControllerMediaType 
-		- the UTType of the file 
-		- e.g: `public.image`
-	- (When Possible) FPPickerControllerReferenceURL 
-		- The local location of the file.
-		- e.g: `assets-library://asset/asset.JPG?id=1000000001&ext=JPG`
-	- (When Possible) FPPickerControllerRemoteURL 
-		- The URL for the file. 
-		- e.g: https://www.filepicker.io/api/file/we9f3kf93qls0)
-		- These will be active for 4 hours or permanent, depending on your filepicker plan
-	- (When Possible) FPPickerControllerOriginalImage 
+  	- (When Possible) FPPickerControllerThumbnailImage 
 		- The UIImage
 		- e.g: `<UIImage: 0x8a37730>`		
-	- (When Possible) FPPickerControllerKey
-		- The S3 key if the developer has set up Amazon S3 account at Filepicker.io
-        - e.g: JENAoTrDSPGFMrdxMd2R_photo.jpg
-
+	
 `- (void)FPPickerControllerDidCancel:(FPPickerController *)picker`
 
 ####FPSaveControllerDelegate Methods
