@@ -97,7 +97,7 @@
     /*
      * Display it.
      */
-    [self presentModalViewController:fpController animated:YES];
+    [self presentViewController:fpController animated:YES completion:nil];
 }
 
 - (IBAction)savingAction: (id) sender {
@@ -158,15 +158,15 @@
     
     image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
     NSLog(@"FP Cancelled Open");
     [popoverController dismissPopoverAnimated:YES];
-    [self dismissModalViewControllerAnimated:YES];
-}
+    [self dismissViewControllerAnimated:YES completion:nil];
+};
 
 
 #pragma mark - FPSaveControllerDelegate Methods

@@ -116,13 +116,12 @@ The easiest way to import content into your application.
 	- FPPickerControllerMediaType 
 		- the UTType of the file 
 		- e.g: `public.image`
-	- FPPickerControllerReferenceURL 
+	- FPPickerControllerMediaURL
 		- The local location of the file.
 		- e.g: `assets-library://asset/asset.JPG?id=1000000001&ext=JPG`
 	- FPPickerControllerRemoteURL 
 		- The URL for the file. 
 		- e.g: https://www.filepicker.io/api/file/we9f3kf93qls0)
-		- These will be active for 4 hours or permanent, depending on your filepicker plan
 	- (When Possible) FPPickerControllerOriginalImage 
 		- The UIImage
 		- e.g: `<UIImage: 0x8a37730>`
