@@ -62,7 +62,7 @@ The easiest way to import content into your application.
 	//fpController.shouldDownload = NO;
     
     // Display it.
-    [self presentModalViewController:fpController animated:YES];
+    [self presentViewController:fpController animated:YES completion:nil];
 ```
 
 #### Saving Files
@@ -99,7 +99,7 @@ The easiest way to import content into your application.
         popoverController.popoverContentSize = CGSizeMake(320, 520);
         [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
     } else {
-        [self presentModalViewController:fpSave animated:YES];
+        [self presentViewController:fpSave animated:YES completion:nil];
     }
 ```
 
