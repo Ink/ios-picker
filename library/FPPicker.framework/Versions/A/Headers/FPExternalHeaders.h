@@ -24,6 +24,7 @@
 - (void)FPSaveControllerDidSave:(FPSaveController *)picker;
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker;
+- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info;
 
 @end
 
@@ -40,6 +41,7 @@
 @protocol FPSourceSaveDelegate <NSObject>
 
 @property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSURL *dataurl;
 @property (nonatomic, strong) NSString *dataType;
 
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *) info;

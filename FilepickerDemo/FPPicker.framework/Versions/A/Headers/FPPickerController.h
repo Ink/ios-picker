@@ -29,7 +29,7 @@
 @property (nonatomic) UIImagePickerControllerCameraFlashMode cameraFlashMode;
 @property (nonatomic) UIImagePickerControllerCameraCaptureMode cameraCaptureMode;
 
-@property (nonatomic) Boolean shouldUpload;
-@property (nonatomic) Boolean shouldDownload;
+@property (nonatomic) BOOL shouldUpload;
+@property (nonatomic) BOOL shouldDownload;
 
 @end

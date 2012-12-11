@@ -16,6 +16,8 @@
 @property (nonatomic, strong) NSArray *sourceNames;
 
 @property (nonatomic, strong) NSData *data;
+@property (nonatomic, strong) NSURL *dataurl;
+
 @property (nonatomic, strong) NSString *dataType;
 @property (nonatomic, strong) NSString *dataExtension;
 

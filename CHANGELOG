@@ -1,3 +1,20 @@
+v2.2.0 - 12/11/2012
+
+- Bug with spaces in Image Search
+- Automatically reload local images if you switch out of the context. Nice for taking screenshots, coming back to the app
+  and having them show up with out having to reload
+- Making sure the "No Pictures" empty label is correctly removed when photos exist
+- Renaming the function names to avoid collisions in Categories. UIImage+FPAFNetworking in particular.
+- Passing back errors, not just as a cancel
+- Using obj BOOL rather then C booleans
+- Flags to help with appstore approval in Bundle/FilepickerSettings.plist
+    - OnlyResolveAllowedLists will only allow whitelisted urls to be opened, preventing users from getting to a payment screen
+      that the app store frowns on
+    - HideAllLinks will actually hide all 'a' links. All the login pages worked when released.
+- Both of these are flags because their ability to do the right thing (allow login but nothing else) is dependent on other moving
+  parts like the api providers. Feel free to add to AllowedUrlPrefix.plist to help maintain an up to date list.
+- Use both of these flags carefully
+
 v2.1.3 - 11/13/2012
 
 - Bug where the modal was not returning the right image on the row.
