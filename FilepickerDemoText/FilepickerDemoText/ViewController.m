@@ -16,6 +16,9 @@
 
 @synthesize textView = _textView;
 
+#warning Be sure to register for a filepicker apikey at http://filepicker.io and add it to the Supporting Files/FilepickerDemo-Info.plist
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -152,6 +155,10 @@
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
     NSLog(@"FP Cancelled Save");
     [self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info {
+    NSLog(@"FP Error");
 }
 
 @end

@@ -13,6 +13,12 @@
 		83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */; };
 		83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */; };
 		83579F0715A885BC00F83C85 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5CB15A7BA9D009D0D28 /* CoreGraphics.framework */; };
+		836A9D48169B8F20006AC920 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D47169B8F20006AC920 /* Default-568h@2x.png */; };
+		836A9D4C169B90DA006AC920 /* ViewController~iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D4A169B90DA006AC920 /* ViewController~iphone.xib */; };
+		836A9D54169B950F006AC920 /* fp.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D53169B950F006AC920 /* fp.png */; };
+		836A9D56169B9518006AC920 /* fp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D55169B9518006AC920 /* fp@2x.png */; };
+		836A9D5C169B960A006AC920 /* fp-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D5B169B9609006AC920 /* fp-ipad.png */; };
+		836A9D5E169B9614006AC920 /* fp-ipad@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D5D169B9614006AC920 /* fp-ipad@2x.png */; };
 		8379A5C815A7BA9D009D0D28 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5C715A7BA9D009D0D28 /* UIKit.framework */; };
 		8379A5CA15A7BA9D009D0D28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5C915A7BA9D009D0D28 /* Foundation.framework */; };
 		8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5D015A7BA9D009D0D28 /* InfoPlist.strings */; };
@@ -26,6 +32,12 @@
 		830E7F2115AB8036002351BF /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
 		830E7F2215AB8036002351BF /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		836A9D47169B8F20006AC920 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		836A9D4B169B90DA006AC920 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ViewController~iphone.xib"; sourceTree = "<group>"; };
+		836A9D53169B950F006AC920 /* fp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fp.png; sourceTree = "<group>"; };
+		836A9D55169B9518006AC920 /* fp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp@2x.png"; sourceTree = "<group>"; };
+		836A9D5B169B9609006AC920 /* fp-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp-ipad.png"; sourceTree = "<group>"; };
+		836A9D5D169B9614006AC920 /* fp-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp-ipad@2x.png"; sourceTree = "<group>"; };
 		8379A5C315A7BA9D009D0D28 /* FilepickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilepickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8379A5C715A7BA9D009D0D28 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8379A5C915A7BA9D009D0D28 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -103,6 +115,12 @@
 				8379A5D915A7BA9D009D0D28 /* ViewController.h */,
 				8379A5DA15A7BA9D009D0D28 /* ViewController.m */,
 				8379A5DC15A7BA9D009D0D28 /* ViewController.xib */,
+				836A9D4A169B90DA006AC920 /* ViewController~iphone.xib */,
+				836A9D47169B8F20006AC920 /* Default-568h@2x.png */,
+				836A9D5D169B9614006AC920 /* fp-ipad@2x.png */,
+				836A9D5B169B9609006AC920 /* fp-ipad.png */,
+				836A9D55169B9518006AC920 /* fp@2x.png */,
+				836A9D53169B950F006AC920 /* fp.png */,
 				8379A5CE15A7BA9D009D0D28 /* Supporting Files */,
 			);
 			path = FilepickerDemo;
@@ -172,6 +190,12 @@
 				8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */,
 				8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */,
 				830E7F2315AB8036002351BF /* FPPicker.bundle in Resources */,
+				836A9D48169B8F20006AC920 /* Default-568h@2x.png in Resources */,
+				836A9D4C169B90DA006AC920 /* ViewController~iphone.xib in Resources */,
+				836A9D54169B950F006AC920 /* fp.png in Resources */,
+				836A9D56169B9518006AC920 /* fp@2x.png in Resources */,
+				836A9D5C169B960A006AC920 /* fp-ipad.png in Resources */,
+				836A9D5E169B9614006AC920 /* fp-ipad@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +215,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		836A9D4A169B90DA006AC920 /* ViewController~iphone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				836A9D4B169B90DA006AC920 /* en */,
+			);
+			name = "ViewController~iphone.xib";
+			sourceTree = "<group>";
+		};
 		8379A5D015A7BA9D009D0D28 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
