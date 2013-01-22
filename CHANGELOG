@@ -1,3 +1,7 @@
+v2.2.4 - 01/22/2013
+
+- Fix for no back button appearing if the title isn't set on the source list.
+
 v2.2.3 - 01/07/2013
 
 - Preventing users from mistakingly saving into directories where it wont work. eg. Facebook rooturl
