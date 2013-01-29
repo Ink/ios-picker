@@ -1,3 +1,7 @@
+v2.2.5 - 01/28/2013
+
+- Fix Dropbox Two Factor Auth
+
 v2.2.4 - 01/22/2013
 
 - Fix for no back button appearing if the title isn't set on the source list.
