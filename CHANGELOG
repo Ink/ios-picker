@@ -1,3 +1,10 @@
+v2.3.0 - 03/11/2013
+
+- URL matching matches standardized urls (bug with Box using double slahes)
+- FPPickerControllerOriginalImage will now return the correct image, the UIImageEdited or UIImageOriginal, depending on
+  the settings.
+- Addressed some new warnings that Xcode was throwing.
+
 v2.2.5 - 01/28/2013
 
 - Fix Dropbox Two Factor Auth
