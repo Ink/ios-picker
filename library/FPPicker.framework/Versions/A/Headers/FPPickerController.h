@@ -29,5 +29,6 @@
 
 @property (nonatomic) BOOL shouldUpload;
 @property (nonatomic) BOOL shouldDownload;
+@property (nonatomic) BOOL returnsAssetUrl;
 
 @end

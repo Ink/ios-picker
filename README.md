@@ -62,6 +62,9 @@ fpController.allowsEditing = YES;
 //fpController.shouldUpload = NO;
 //fpController.shouldDownload = NO;
 
+// Determines if it returns an Asset Url if possible. Default: NO
+fpController.returnsAssetUrl = YES;
+
 // Display it.
 [self presentViewController:fpController animated:YES completion:nil];
 ```

@@ -1,3 +1,7 @@
+vBETA - 03/11/2013
+
+- returnsAssetUrl property will return an Asset Url if possible
+
 v2.3.0 - 03/11/2013
 
 - URL matching matches standardized urls (bug with Box using double slahes)
