@@ -1,3 +1,7 @@
+v2.3.1 - 03/15/2013
+
+- The library will respect your status bar settings. Fixing bug where it would turn the statusBarHidden:NO no matter what.
+
 v2.3.0 - 03/11/2013
 
 - URL matching matches standardized urls (bug with Box using double slahes)
