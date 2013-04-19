@@ -1,3 +1,9 @@
+v2.4.0 - 04/14/2013
+
+- Much better local uploading. First lists the albums and then the photos.
+- Fixes a bug that resulted in a corrupted navigation stack.
+- Using a more subtle i information button and other minor look & feel tweaks.
+
 v2.3.1 - 03/15/2013
 
 - The library will respect your status bar settings. Fixing bug where it would turn the statusBarHidden:NO no matter what.

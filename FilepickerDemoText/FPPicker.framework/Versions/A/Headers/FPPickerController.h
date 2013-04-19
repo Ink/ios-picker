@@ -17,11 +17,11 @@
 @property (nonatomic, strong) NSArray *dataTypes;
 
 //imagepicker properties
-@property (nonatomic, assign) BOOL allowsEditing;
+@property (nonatomic) BOOL allowsEditing;
 @property (nonatomic) UIImagePickerControllerQualityType videoQuality;
 @property (nonatomic) NSTimeInterval videoMaximumDuration;
 @property (nonatomic) BOOL showsCameraControls;
-@property (nonatomic, retain) UIView *cameraOverlayView;
+@property (nonatomic, strong) UIView *cameraOverlayView;
 @property (nonatomic) CGAffineTransform cameraViewTransform;
 
 @property (nonatomic) UIImagePickerControllerCameraDevice cameraDevice;
