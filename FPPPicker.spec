@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.source_files = 'FPPPicker.framework/Versions/A/Headers/FPPPicker.h'
   s.preserve_paths = 'FPPPicker.framework/*'
   s.frameworks   = 'FPPPicker', 'AssetsLibrary', 'QuartzCore', 'CoreGraphics', 'MobileCoreServices', 'Foundation', 'CoreFoundation'
-  s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/XRay"' }
+  s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/FPPPicker"' }
   
   s.requires_arc = false
   
