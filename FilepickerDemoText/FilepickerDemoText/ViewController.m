@@ -121,7 +121,7 @@
     /*
      * Display it.
      */
-    [self presentModalViewController:fpSave animated:YES];
+    [self presentViewController:fpSave animated:YES completion:nil];
 }
 
 #pragma mark - FPPickerControllerDelegate Methods
@@ -134,7 +134,7 @@
 {
     NSLog(@"FILE CH;OSEN: %@", info);
     
-    _textView.text = [[NSString alloc] initWithContentsOfFile:[info valueForKey:@"FPPickerControllerReferenceURL"] encoding:NSUTF8StringEncoding error:nil];
+    _textView.text = [NSString stringWithContentsOfURL:[info valueForKey:@"FPPickerControllerMediaURL"] encoding:NSUTF8StringEncoding error:nil];
     [self dismissViewControllerAnimated:YES completion:nil];
     
 }
@@ -147,14 +147,14 @@
 #pragma mark - FPSaveControllerDelegate Methods
 
 - (void)FPSaveControllerDidSave:(FPSaveController *)picker {
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     NSLog(@"FILE SAVED: %@", info);
 }
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
     NSLog(@"FP Cancelled Save");
-    [self dismissModalViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info {
