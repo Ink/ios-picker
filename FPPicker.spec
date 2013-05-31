@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
-  s.name         = "FPPPicker"
+  s.name         = "FPPicker"
   s.version      = "2.4.1"
-  s.summary      = "FPPPicker.framework is the Filepicker.io iOS famework."
+  s.summary      = "FPPicker.framework is the Filepicker.io iOS famework."
   s.homepage     = "http:///www.filepicker.io.com"
 
   s.license      = {
@@ -17,9 +17,9 @@ Pod::Spec.new do |s|
  
   s.platform     = :ios, '5.0'
  
-  s.source_files = 'FPPPicker.framework/Versions/A/Headers/FPPPicker.h'
-  s.preserve_paths = 'FPPPicker.framework/*'
-  s.frameworks   = 'FPPPicker', 'AssetsLibrary', 'QuartzCore', 'CoreGraphics', 'MobileCoreServices', 'Foundation', 'CoreFoundation'
+  s.source_files = 'FPPicker.framework/Versions/A/Headers/FPPPicker.h'
+  s.preserve_paths = 'FPPicker.framework/*'
+  s.frameworks   = 'FPPicker', 'AssetsLibrary', 'QuartzCore', 'CoreGraphics', 'MobileCoreServices', 'Foundation', 'CoreFoundation'
   s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/FPPPicker"' }
   
   s.requires_arc = false
