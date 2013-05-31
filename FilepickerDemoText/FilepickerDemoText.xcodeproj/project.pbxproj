@@ -279,8 +279,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
 				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -296,8 +298,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
 				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
 			};
