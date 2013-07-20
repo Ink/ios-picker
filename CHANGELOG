@@ -1,3 +1,8 @@
+v2.4.3 - 07/20/2013
+
+- Box url updated
+- Webview Logs error if the URL is not allowed
+
 v2.4.2 - 05/17/2013
 
 - Newlines at end of header files (@mangtronix)
