@@ -136,7 +136,7 @@ if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
 ```objc
 - (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info;
 ```
-
+- OPTIONAL (since version 2.4.6)
 - Keys in the info dictionary
     - (When Possible) FPPickerControllerThumbnailImage 
     - The UIImage
@@ -148,21 +148,32 @@ if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
 
 ####FPSaveControllerDelegate Methods
 
-```objc
-- (void)FPSaveControllerDidSave:(FPSaveController *)picker;
-```
-When the user chooses where to save.
 
 ```objc
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 ```
-When the save action has completed.
+didFinishPickingMediaWithInfo happens when the save action has completed.
 
 * IMPORTANT NOTE: Info is an empty dictionary; nothing is being passed back 
 
 ```objc
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker;
 ```
+- Happens when the user cancels the save. If FPSaveController:didError is not implemented, it is also triggered when an error happens.
+
+```objc
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker;
+```
+- OPTIONAL (since version 2.4.6)
+- Didsave happens when the user chooses where to save.
+
+```objc
+- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info;
+```
+- OPTIONAL (since version 2.4.6)
+- didError happens when an error happens.
+
+
 
 ####List of all sources:
 
