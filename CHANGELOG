@@ -1,3 +1,8 @@
+v2.4.6 - 09/20/2013
+
+- ios 7 patch for first item on refresh
+- optional methods explictly mentioned
+
 v2.4.5 - 09/16/2013
 
 - ios 7 first item hiding under header bug

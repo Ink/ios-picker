@@ -13,18 +13,23 @@
 
 @protocol FPPickerDelegate <NSObject>
 
-- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *) info;
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker;
+
+@optional
+- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *) info;
+
 
 @end
 
 @protocol FPSaveDelegate <NSObject>
-
-- (void)FPSaveControllerDidSave:(FPSaveController *)picker;
 - (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker;
+
+@optional
 - (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info;
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker;
+
 
 @end
 
