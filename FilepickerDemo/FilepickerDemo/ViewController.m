@@ -91,6 +91,8 @@
     fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", nil];
     //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
     
+    fpController.shouldUpload = NO;
+    
     /*
      * Select and order the sources (Optional) Default is all sources
      */
@@ -166,6 +168,7 @@
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
     NSLog(@"FP Cancelled Open");
+    //[picker dismissViewControllerAnimated:NO completion:nil];
     [popoverController dismissPopoverAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 };
