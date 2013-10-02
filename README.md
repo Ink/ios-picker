@@ -6,6 +6,8 @@ The easiest way to import content into your application.
 
 <img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/filepicker_ios.png" class="center">
 
+Note that [Version 2.4.7](https://github.com/Ink/ios-picker/releases/tag/v2.4.7) was the last version to support iOS6 and below. Please use that if you need are building for iOS6.
+
 ## Dependencies
 
 - Software
