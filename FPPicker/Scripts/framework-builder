@@ -1,0 +1,215 @@
+#!/usr/bin/ruby
+#
+# This file is generated code. DO NOT send patches for it.
+#
+# Original source files with comments are at:
+# https://github.com/csexton/ios-framework-builder
+#
+
+module IOSFrameworkBuilder
+  module DeathRunner
+    def run_or_die(cmd)
+      `#{cmd} 2>&1 > /dev/null`
+      if $? != 0
+        puts "*** COMMAND FAILED:"
+        puts cmd
+        exit 3
+      end
+    end
+  end
+end
+
+require 'fileutils'
+module IOSFrameworkBuilder
+  class Frameworker
+    attr_reader :name, :destination
+    def initialize(name, destination_path)
+      @name = name
+      @destination = destination_path
+    end
+
+    def binary_path
+      "#{dir}/Versions/A/#{name}"
+    end
+
+    def import_headers(header_source_dir)
+      FileUtils.cp_r Dir["#{header_source_dir}/*"], "#{dir}/Versions/A/Headers", :preserve => true
+    end
+
+    def import_resources(resource_source_dir)
+      FileUtils.cp_r Dir["#{resource_source_dir}/*"], "#{dir}/Versions/A/Resources", :preserve => true
+    end
+
+    def call
+      FileUtils.mkdir_p "#{dir}/Versions/A/Headers", :verbose => true
+      FileUtils.mkdir_p "#{dir}/Versions/A/Resources", :verbose => true
+      FileUtils.ln_sf "A", "#{dir}/Versions/Current"
+      FileUtils.ln_sf "Versions/Current/Headers", "#{dir}/Headers"
+      FileUtils.ln_sf "Versions/Current/#{name}", "#{dir}/#{name}"
+      FileUtils.ln_sf "Versions/Current/Resources", "#{dir}/Resources"
+    end
+
+    private
+
+    def dir
+      "#{destination}/#{name}.framework"
+    end
+  end
+end
+
+module IOSFrameworkBuilder
+  class Builder
+    include DeathRunner
+    attr_accessor :name,
+      :build_dir,
+      :build_root,
+      :configuration,
+      :objroot,
+      :project_file_path,
+      :sdk_name,
+      :symroot,
+      :target_build_dir
+
+    def initialize
+      @name = ENV['PROJECT_NAME']
+      @build_dir = ENV['BUILD_DIR']
+      @build_root = ENV['BUILD_ROOT']
+      @configuration = ENV['CONFIGURATION']
+      @objroot = ENV['OBJROOT']
+      @project_file_path = ENV['PROJECT_FILE_PATH']
+      @sdk_name = ENV['SDK_NAME']
+      @symroot = ENV['SYMROOT']
+      @target_build_dir = ENV['TARGET_BUILD_DIR']
+    end
+
+    def binary_paths
+      [binary_path("iphoneos"), binary_path("iphonesimulator")]
+    end
+
+    def header_path
+      "#{target_build_dir}/#{name}Headers/"
+    end
+
+    def resources_path
+      "#{target_build_dir}/#{name}Resources/"
+    end
+
+    def call
+      os_opts = default_opts.merge({:sdk => "iphoneos#{sdk_version}"})
+      xcodebuild os_opts, default_vars
+
+      sim_opts = default_opts.merge({:sdk => "iphonesimulator#{sdk_version}"})
+      sim_vars = default_vars.merge({:archs => "i386 x86_64"})
+      xcodebuild sim_opts, sim_vars
+    end
+
+    private
+
+    def default_vars
+      {
+        :build_dir => build_dir,
+        :objroot => objroot,
+        :build_root => build_root,
+        :symroot => symroot,
+        :only_active_arch => "NO"
+      }
+    end
+
+    def default_opts
+      {
+        :project => project_file_path,
+        :target => name,
+        :configuration => configuration
+      }
+    end
+    def binary_path(sdk)
+      "#{build_dir}/#{configuration}-#{sdk}/lib#{name}.a"
+    end
+
+    def format_opts(hash)
+      hash.map{|k,v| "-#{k} #{v}"}.join(' ')
+    end
+
+    def format_vars(hash)
+      hash.map{|k,v| "#{k.to_s.upcase}=\"#{v}\""}.join(' ')
+    end
+
+    def sdk_version
+      sdk_name.match(/([0-9]+.*$)/)[0]
+    end
+
+    def xcodebuild(opts, vars)
+      run_or_die "/usr/bin/xcodebuild #{format_opts opts} #{format_vars vars} build"
+    end
+  end
+end
+
+module IOSFrameworkBuilder
+  class Validator
+    def fat_binary(path)
+      arches = `xcrun lipo -info "#{path}"`
+      check_return_code
+      look_for_arches arches
+    end
+
+    private
+
+    def check_return_code
+      if $? != 0
+        puts "*** VALIDATION FAILED"
+        exit 3
+      end
+    end
+
+    def look_for_arches(arches)
+      %w{armv7 armv7s arm64 i386 x86_64}.each do |arch|
+        if arches.include? arch
+          puts "Validated #{arch}"
+        else
+          puts "#{arch} missing from framework"
+          exit 3
+        end
+      end
+    end
+  end
+end
+
+module IOSFrameworkBuilder
+  class Smasher
+    include DeathRunner
+    def call(binary_paths, framework_binary)
+      run_or_die "xcrun lipo -create #{binary_paths.join ' '} -output #{framework_binary}"
+    end
+  end
+end
+
+module IOSFrameworkBuilder
+  class Runner
+    def prevent_recursive_calls!
+      exit(0) if ENV[__FILE__] ; ENV[__FILE__] = '1'
+    end
+
+    def run
+      builder = Builder.new
+      frameworker = Frameworker.new builder.name, builder.symroot
+      smasher = Smasher.new
+      validator = Validator.new
+
+      builder.call
+      frameworker.call
+      frameworker.import_headers builder.header_path
+      frameworker.import_resources builder.resources_path
+      smasher.call builder.binary_paths, frameworker.binary_path
+
+      validator.fat_binary frameworker.binary_path
+    end
+
+    def self.call(*args)
+      runner = self.new
+      runner.prevent_recursive_calls!
+      runner.run
+    end
+  end
+end
+
+IOSFrameworkBuilder::Runner.call(*ARGV)

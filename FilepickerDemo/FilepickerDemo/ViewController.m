@@ -62,6 +62,16 @@
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
+    
+    /*
+     * Enable multselect (Optional) Default is single select
+     */
+    fpController.selectMultiple = YES;
+    
+    /*
+     * Specify the maximum number of files (Optional) Default is 0, no limit
+     */
+    fpController.maxFiles = 5;
 
     /*
      * Display it.
@@ -97,6 +107,16 @@
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
+    
+    /*
+     * Enable multselect (Optional) Default is single select
+     */
+    fpController.selectMultiple = YES;
+    
+    /*
+     * Specify the maximum number of files (Optional) Default is 0, no limit
+     */
+    fpController.maxFiles = 5;
     
     /*
      * Display it.
@@ -163,6 +183,24 @@
     image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
+{
+    NSLog(@"FILES CHOSEN: %@", results);
+    
+    [popoverController dismissPopoverAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
+
+    //Making a little carosel effect with the images
+    NSMutableArray *images = [NSMutableArray arrayWithCapacity:results.count];
+    for (NSDictionary *data in results) {
+        [images addObject:[data objectForKey:@"FPPickerControllerOriginalImage"]];
+    }
+    image.animationImages = images;
+    image.animationRepeatCount = 100.f;
+    image.animationDuration = 2.f * images.count; //2 seconds per image
+    [image startAnimating];
 }
 
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker

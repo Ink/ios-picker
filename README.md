@@ -11,8 +11,9 @@ Note that [Version 2.4.7](https://github.com/Ink/ios-picker/releases/tag/v2.4.7)
 ## Dependencies
 
 - Software
-  - Built targeting iOS 4.3
-  - XCode 4
+  - Built targeting iOS 5.1 for 64-bit support
+  - Can be built targeting 4.3
+  - XCode 5 or 4
   
 - Frameworks
   - AssetsLibrary.framework

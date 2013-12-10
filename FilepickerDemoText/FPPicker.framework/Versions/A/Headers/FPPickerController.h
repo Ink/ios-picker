@@ -18,6 +18,9 @@
 
 //imagepicker properties
 @property (nonatomic) BOOL allowsEditing;
+@property (nonatomic) BOOL selectMultiple;
+@property (nonatomic) NSInteger maxFiles;
+
 @property (nonatomic) UIImagePickerControllerQualityType videoQuality;
 @property (nonatomic) NSTimeInterval videoMaximumDuration;
 @property (nonatomic) BOOL showsCameraControls;
