@@ -67,5 +67,7 @@
 	<string>https://login.live.com/</string>
 	<string>https://skydrive.live.com/</string>
 	<string>https://account.live.com</string>
+	<string>https://login.yahoo.com/m</string>
+	<string>https://www.flickr.com/ms/signin/yahoo/</string>
 </array>
 </plist>
