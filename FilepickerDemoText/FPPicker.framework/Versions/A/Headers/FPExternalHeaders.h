@@ -18,7 +18,7 @@
 
 @optional
 - (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *) info;
-
+- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
 
 @end
 
@@ -40,6 +40,9 @@
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *) info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
+
+@optional
+- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
 
 @end
 

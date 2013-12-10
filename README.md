@@ -1,18 +1,19 @@
-# Filepicker iOS Library
+# Ink Filepicker iOS Library
 
 
 The easiest way to import content into your application. 
-[Filepicker.io](www.filepicker.io)
+[http://inkfilepicker.com](http://www.inkfilepicker.com)
 
-<img src="https://github.com/Filepicker/ios/raw/master/Documenation%20Files/filepicker_ios.png" class="center">
+<img src="https://github.com/Ink/ios-picker/raw/master/Documenation%20Files/filepicker_ios.png" class="center">
 
 Note that [Version 2.4.7](https://github.com/Ink/ios-picker/releases/tag/v2.4.7) was the last version to support iOS6 and below. Please use that if you need are building for iOS6.
 
 ## Dependencies
 
 - Software
-  - Built targeting iOS 4.3
-  - XCode 4
+  - Built targeting iOS 5.1 for 64-bit support
+  - Can be built targeting 4.3
+  - XCode 5 or 4
   
 - Frameworks
   - AssetsLibrary.framework
@@ -54,6 +55,12 @@ fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch
 
 // You can set some of the in built Camera properties as you would with UIImagePicker
 fpController.allowsEditing = YES;
+
+// Allowing multiple file selection
+fpController.selectMultiple = YES;
+
+// Limiting the maximum number of files that can be uploaded at one time.
+fpController.maxFiles = 5;
 
 
 /* Control if we should upload or download the files for you.
@@ -147,6 +154,13 @@ if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad){
 ```objc
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 ```
+
+```objc
+- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
+```
+- OPTIONAL
+- Called when multiple select is enabled. Returns an Array of NSDictionary objects that have keys identical to those in `didFinishPickingMediaWithInfo:`
+- Note that the individual files will still trigger didPickMediaWithInfo, to allow you to start processing successful uploads in the background.
 
 ####FPSaveControllerDelegate Methods
 
