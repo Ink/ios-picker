@@ -1,3 +1,11 @@
+v 2.6.1 - 12/18/2013
+- Updated code base to use dialog.filepicker.io hostname
+
+v 2.6.0 - 12/9/2013
+- Open sourced library
+- Added selection from multiple sources
+- Fixed some remaining iOS7 issues
+
 v 2.5.0 - 11/25/2013
 - Added 64 bit support
 

@@ -4,6 +4,7 @@
 <array>
 	<string>https://www.evernote.com/OAuth.action</string>
 	<string>https://www.filepicker.io/api/client/</string>
+	<string>https://dialog.filepicker.io/api/client/</string>
 	<string>https://www.dropbox.com/1/oauth/authorize</string>
 	<string>https://www.dropbox.com/login</string>
 	<string>https://www.dropbox.com/m/connect_login</string>

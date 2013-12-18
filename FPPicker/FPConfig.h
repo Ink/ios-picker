@@ -31,10 +31,10 @@ NSAssert([NSThread isMainThread], @"You aren't running in the UI thread!")
 #define SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(v)     ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedDescending)
 
 #ifdef DEBUG
-#define fpBASE_URL                  @"https://www.filepicker.io"
+#define fpBASE_URL                  @"https://dialog.filepicker.io"
 #else
 //Make sure release builds are always on prod.
-#define fpBASE_URL                  @"https://www.filepicker.io"
+#define fpBASE_URL                  @"https://dialog.filepicker.io"
 #endif  
 
 

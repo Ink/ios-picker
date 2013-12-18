@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		021705FF184D6C5E00C1E92B /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 021705FE184D6C5E00C1E92B /* Reveal.framework */; };
 		830E7F2315AB8036002351BF /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 830E7F2115AB8036002351BF /* FPPicker.bundle */; };
 		830E7F2415AB8036002351BF /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 830E7F2215AB8036002351BF /* FPPicker.framework */; };
 		83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83579F0315A8856900F83C85 /* AssetsLibrary.framework */; };
@@ -30,7 +29,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		021705FE184D6C5E00C1E92B /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Reveal.framework; sourceTree = "<group>"; };
 		830E7F2115AB8036002351BF /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
 		830E7F2215AB8036002351BF /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
@@ -66,7 +64,6 @@
 				83579F0715A885BC00F83C85 /* CoreGraphics.framework in Frameworks */,
 				83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */,
 				83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */,
-				021705FF184D6C5E00C1E92B /* Reveal.framework in Frameworks */,
 				83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */,
 				8379A5C815A7BA9D009D0D28 /* UIKit.framework in Frameworks */,
 				8379A5CA15A7BA9D009D0D28 /* Foundation.framework in Frameworks */,
@@ -98,7 +95,6 @@
 		8379A5C615A7BA9D009D0D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				021705FE184D6C5E00C1E92B /* Reveal.framework */,
 				830E7F2115AB8036002351BF /* FPPicker.bundle */,
 				830E7F2215AB8036002351BF /* FPPicker.framework */,
 				8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */,
