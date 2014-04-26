@@ -14,7 +14,7 @@
 
 @implementation ViewController
 
-@synthesize image, popoverController;
+@synthesize imageView, popoverController;
 
 #warning Be sure to register for a filepicker apikey at http://filepicker.io and add it to the Supporting Files/FilepickerDemo-Info.plist
 
@@ -82,9 +82,8 @@
     [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
 }
 
-- (IBAction)pickerModalAction: (id) sender {
-    
-    
+- (FPPickerController*)createFPPickerController
+{
     /*
      * Create the object
      */
@@ -118,27 +117,16 @@
      */
     fpController.maxFiles = 5;
     
-    /*
-     * Display it.
-     */
+    return fpController;
+}
+
+- (IBAction)pickerModalAction: (id)sender
+{
+    FPPickerController *fpController = [self createFPPickerController];
     [self presentViewController:fpController animated:YES completion:nil];
 }
 
-- (IBAction)savingAction: (id) sender {
-    
-    if (image.image == nil){
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
-                                                      message:@"Select an image first."
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    
-        [message show];
-        return;
-    }
-    
-    NSData *imgData = UIImagePNGRepresentation(image.image);
-
+- (FPSaveController*)createFPSaveControllerWithData:(NSData *)imgData type:(NSString*)dataType {
     /*
      * Create the object
      */
@@ -158,11 +146,28 @@
      * Set the data and data type to be saved.
      */
     fpSave.data = imgData;
-    fpSave.dataType = @"image/png";
+    fpSave.dataType = dataType;
+    return fpSave;
+}
+
+- (IBAction)savingAction: (id) sender {
     
-    /*
-     * Display it.
-     */
+    if (imageView.image == nil)
+    {
+        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
+                                                      message:@"Select an image first."
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    
+        [message show];
+        return;
+    }
+    
+    FPSaveController *fpSave =
+    [self createFPSaveControllerWithData:UIImagePNGRepresentation(imageView.image)
+                                    type:@"image/png"];
+
     UIPopoverController *popoverControllerA = [UIPopoverController alloc];    
     self.popoverController = [popoverControllerA initWithContentViewController:fpSave];
     popoverController.popoverContentSize = CGSizeMake(320, 520);
@@ -180,7 +185,7 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
     
-    image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
+    imageView.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
     [popoverController dismissPopoverAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -197,10 +202,10 @@
     for (NSDictionary *data in results) {
         [images addObject:[data objectForKey:@"FPPickerControllerOriginalImage"]];
     }
-    image.animationImages = images;
-    image.animationRepeatCount = 100.f;
-    image.animationDuration = 2.f * images.count; //2 seconds per image
-    [image startAnimating];
+    imageView.animationImages = images;
+    imageView.animationRepeatCount = 100.f;
+    imageView.animationDuration = 2.f * images.count; //2 seconds per image
+    [imageView startAnimating];
 }
 
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
