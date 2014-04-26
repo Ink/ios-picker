@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.author       = { "Liyan Chang" => "liyan@filepicker.io" }
 
   s.source       = {
-    :git => 'https://github.com/Filepicker/ios.git',
+    :git => 'https://github.com/escherba/ios-picker.git',
     :tag => 'v2.4.2'
   }
 
@@ -18,11 +18,11 @@ Pod::Spec.new do |s|
   s.ios.prefix_header_file = 'FPPicker/FPPicker-Prefix.pch'
   s.source_files = 'FPPicker/*.{h,m}'
   s.resources = "FPPicker/*.{png,plist}"
-  s.preserve_paths = 'library/FPPicker.framework'
+  #s.preserve_paths = 'library/FPPicker.framework'
   s.frameworks   = 'AssetsLibrary', 'QuartzCore', 'CoreGraphics', 'MobileCoreServices', 'Foundation', 'CoreFoundation', 'FPPicker'
-  s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/FilepickerSDK/library"' }
+  #s.xcconfig     = { 'FRAMEWORK_SEARCH_PATHS' => '"$(PODS_ROOT)/FilepickerSDK/library"' }
 
-  s.requires_arc = true
+  s.requires_arc = false
   s.subspec 'arc' do |sp|
     sp.requires_arc = true
     sp.dependency 'AFNetworking', '~> 2.2.1'
