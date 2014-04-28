@@ -1,0 +1,4 @@
+platform :ios, '6.0'
+xcodeproj 'FilepickerDemo.xcodeproj'
+
+pod 'FilepickerSDK', :git => 'https://github.com/escherba/ios-picker'
