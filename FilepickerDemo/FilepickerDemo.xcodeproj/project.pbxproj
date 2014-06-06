@@ -55,7 +55,6 @@
 /* Begin PBXFileReference section */
 		455E662319423AF100DC0010 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
 		830E7F2115AB8036002351BF /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
-		830E7F2215AB8036002351BF /* FPPicker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FPPicker.framework; sourceTree = "<group>"; };
 		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		836A9D47169B8F20006AC920 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		836A9D4B169B90DA006AC920 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -112,7 +111,6 @@
 			isa = PBXGroup;
 			children = (
 				455E662319423AF100DC0010 /* FPPicker.xcodeproj */,
-				83579F0315A8856900F83C85 /* AssetsLibrary.framework */,
 				8379A5CD15A7BA9D009D0D28 /* FilepickerDemo */,
 				8379A5C615A7BA9D009D0D28 /* Frameworks */,
 				8379A5C415A7BA9D009D0D28 /* Products */,
@@ -131,7 +129,7 @@
 			isa = PBXGroup;
 			children = (
 				830E7F2115AB8036002351BF /* FPPicker.bundle */,
-				830E7F2215AB8036002351BF /* FPPicker.framework */,
+				83579F0315A8856900F83C85 /* AssetsLibrary.framework */,
 				8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */,
 				8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */,
 				8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */,
