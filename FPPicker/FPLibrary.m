@@ -26,10 +26,8 @@
 
         NSError *error = [NSError errorWithDomain:@"io.filepicker"
                                              code:200
-                                         userInfo:[NSDictionary new]];
-        id JSON = [NSDictionary new];
-
-        failure(error, JSON);
+                                         userInfo:nil];
+        failure(error, nil);
 
         return;
     }
@@ -217,8 +215,6 @@
         /* send the chunks */
         for (int i = 0; i < numOfChunks; i++)
         {
-            NSDictionary *params = [NSDictionary new];
-
             NSString *uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
                                     upload_id,
                                     i,
@@ -244,7 +240,7 @@
 
             NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
                                                                                  path:uploadPath
-                                                                           parameters:params
+                                                                           parameters:nil
                                                             constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
                 [formData appendPartWithFileData:slice
                                             name:@"fileUpload"
@@ -437,6 +433,8 @@
     NSString *mimetype = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass(utiToConvert,
                                                                                       kUTTagClassMIMEType);
 
+    CFRelease(utiToConvert);
+
     NSLog(@"mimetype: %@", mimetype);
 
 
@@ -616,10 +614,13 @@
     NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
     NSString *js_sessionString = [NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\":[\"%@\"] }", appString, mimetype];
 
-    NSDictionary *params = @{@"js_session":js_sessionString,
-                             @"url":fileLocation};
+    NSDictionary *params = @{
+        @"js_session":js_sessionString,
+        @"url":fileLocation
+    };
 
-    NSString *savePath = [NSString stringWithFormat:@"/api/path%@", [saveLocation stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *savePath = [NSString stringWithFormat:@"/api/path%@",
+                          [saveLocation stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
                                                             path:savePath
@@ -636,7 +637,7 @@
         {
             failure([[NSError alloc] initWithDomain:fpBASE_URL
                                                code:0
-                                           userInfo:[NSDictionary new]],
+                                           userInfo:nil],
                     JSON);
         }
     };
