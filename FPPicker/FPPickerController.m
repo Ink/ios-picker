@@ -201,7 +201,8 @@
             }
 
             NSLog(@"should upload: %@", _shouldUpload ? @"YES" : @"NO");
-            [FPLibrary uploadImage:imageToSave ofMimetype:dataType withOptions:info shouldUpload:self.shouldUpload success: ^(id JSON, NSURL *localurl) {
+
+            FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON, NSURL *localurl) {
                 NSLog(@"JSON: %@", JSON);
 
                 NSDictionary * output = @{
@@ -218,9 +219,9 @@
                         [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
-            }
+            };
 
-                           failure: ^(NSError *error, id JSON, NSURL *localurl) {
+            FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error, id JSON, NSURL *localurl) {
                 NSDictionary *output = @{
                     @"FPPickerControllerMediaType":info[@"UIImagePickerControllerMediaType"],
                     @"FPPickerControllerOriginalImage":imageToSave,
@@ -238,18 +239,25 @@
                           didFinishPickingMediaWithInfo:output];
                     }];
                 });
-            }
+            };
 
-                          progress: ^(float progress) {
+            FPUploadAssetProgressBlock progressBlock = ^(float progress) {
                 hud.progress = progress;
-            }];
+            };
+
+            [FPLibrary uploadImage:imageToSave
+                        ofMimetype:dataType
+                       withOptions:info
+                      shouldUpload:self.shouldUpload
+                           success:successBlock
+                           failure:failureBlock
+                          progress:progressBlock];
         }
         else if ([info[@"UIImagePickerControllerMediaType"] isEqual:(NSString *)kUTTypeMovie])
         {
             NSURL *url = [info objectForKey:@"UIImagePickerControllerMediaURL"];
-            [FPLibrary uploadVideoURL:url withOptions:info
-                         shouldUpload:self.shouldUpload
-                              success: ^(id JSON, NSURL *localurl) {
+
+            FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON, NSURL *localurl) {
                 NSLog(@"JSON: %@", JSON);
 
                 NSDictionary *output = @{
@@ -265,7 +273,9 @@
                         [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
-            } failure: ^(NSError *error, id JSON, NSURL *localurl) {
+            };
+
+            FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error, id JSON, NSURL *localurl) {
                 NSLog(@"JSON: %@", JSON);
 
                 NSDictionary *output = @{
@@ -280,17 +290,29 @@
                         [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
-            } progress: ^(float progress) {
+            };
+
+            FPUploadAssetProgressBlock progressBlock = ^(float progress) {
                 hud.progress = progress;
-            }];
+            };
+
+            [FPLibrary uploadVideoURL:url withOptions:info
+                         shouldUpload:self.shouldUpload
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progressBlock];
         }
         else
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Error. We couldn't handle this file %@", info);
                 NSLog(@"Type: %@", [info objectForKey:@"UIImagePickerControllerMediaType"]);
-                [FPMBProgressHUD hideHUDForView:self.view animated:YES];
-                [picker dismissViewControllerAnimated:NO completion: ^{
+
+                [FPMBProgressHUD hideHUDForView:self.view
+                                       animated:YES];
+
+                [picker dismissViewControllerAnimated:NO
+                                           completion: ^{
                     [_fpdelegate FPPickerControllerDidCancel:self];
                 }];
             });
@@ -305,9 +327,11 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
 
-    //The user chose to cancel when using the camera.
+    // The user chose to cancel when using the camera.
     NSLog(@"Canceled something from local camera");
-    [picker dismissViewControllerAnimated:YES completion:nil];
+
+    [picker dismissViewControllerAnimated:YES
+                               completion:nil];
 }
 
 #pragma mark FPSourcePickerDelegate Methods
@@ -316,7 +340,8 @@
 {
     if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
-        [_fpdelegate FPPickerController:self didPickMediaWithInfo:info];
+        [_fpdelegate FPPickerController:self
+                   didPickMediaWithInfo:info];
     }
 }
 
@@ -325,7 +350,9 @@
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked something from a source: %@", info);
 
-    [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:info];
+    [_fpdelegate FPPickerController:self
+      didFinishPickingMediaWithInfo:info];
+
     _fpdelegate = nil;
 }
 
@@ -337,7 +364,8 @@
     //It's optional, so check
     if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
-        [_fpdelegate FPPickerController:self didFinishPickingMultipleMediaWithResults:results];
+        [_fpdelegate FPPickerController:self
+         didFinishPickingMultipleMediaWithResults:results];
     }
 
     _fpdelegate = nil;
