@@ -35,21 +35,24 @@
     self.maxFiles = 0;
 }
 
-- (id)init
+- (instancetype)init
 {
     self = [super init];
 
-    [self initializeProperties];
-
-    CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-
-    if (statusBarHeight < 0.0001)
+    if (self)
     {
-        self.hasStatusBar = NO;
-    }
-    else
-    {
-        self.hasStatusBar = YES;
+        [self initializeProperties];
+
+        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+
+        if (statusBarHeight < 0.0001)
+        {
+            self.hasStatusBar = NO;
+        }
+        else
+        {
+            self.hasStatusBar = YES;
+        }
     }
 
     return self;
