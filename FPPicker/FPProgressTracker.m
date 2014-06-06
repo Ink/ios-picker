@@ -17,33 +17,47 @@
 @synthesize progressMap;
 @synthesize count;
 
-- (id) initWithObjectCount:(NSInteger)objectCount {
+- (id)initWithObjectCount:(NSInteger)objectCount
+{
     self = [super init];
-    if (self) {
+
+    if (self)
+    {
         self.progressMap = [[NSMutableDictionary alloc] init];
         self.count = objectCount;
     }
+
     return self;
 }
 
-- (float) setProgress:(float)progress forKey:(id<NSCopying>)key {
-    if (progress < 0 || progress > 1.f) {
+- (float)setProgress:(float)progress forKey:(id<NSCopying>)key
+{
+    if (progress < 0 || progress > 1.f)
+    {
         NSLog(@"Invalid progress: %f, bounding", progress);
     }
+
     progress = fmaxf(fminf(progress, 1.f), 0.0f);
     [self.progressMap setObject:[NSNumber numberWithFloat:progress] forKey:key];
+
     return [self calculateProgress];
 }
 
-- (float) calculateProgress {
+- (float)calculateProgress
+{
     float totalProgress = 0;
-    for (id<NSCopying> key in self.progressMap) {
+
+    for (id<NSCopying> key in self.progressMap)
+    {
         NSNumber *val = [self.progressMap objectForKey:key];
-        if (val) {
+
+        if (val)
+        {
             totalProgress += val.floatValue;
         }
     }
-    return fmaxf(fminf(totalProgress/self.count, 1.f), 0.0f);
+
+    return fmaxf(fminf(totalProgress / self.count, 1.f), 0.0f);
 }
 
 @end

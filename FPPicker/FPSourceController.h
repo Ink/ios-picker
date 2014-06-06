@@ -23,8 +23,8 @@
 @property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSMutableDictionary *precacheOperations;
 
-- (void) fpLoadContents:(NSString *)loadpath;
-- (void) objectSelectedAtIndex:(NSInteger) index;
-- (void) afterReload;
+- (void)fpLoadContents:(NSString *)loadpath;
+- (void)objectSelectedAtIndex:(NSInteger)index;
+- (void)afterReload;
 
 @end

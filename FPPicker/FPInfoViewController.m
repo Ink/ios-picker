@@ -19,37 +19,38 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+
+    if (self)
+    {
         // Custom initialization
     }
+
     return self;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    // Do any additional setup after loading the view.
     self.title = @"About Filepicker.io";
-    
-
-
 }
 
-- (void)viewWillAppear:(BOOL)animated{
+- (void)viewWillAppear:(BOOL)animated
+{
     self.contentSizeForViewInPopover = fpWindowSize;
-    
+
     [super viewWillAppear:animated];
-    
+
     CGRect bounds = [self.view bounds];
     NSLog(@"Bounds %f %f", bounds.size.height, bounds.size.width);
-    
+
     self.view.backgroundColor = [UIColor whiteColor];
-    
+
     //logo
-    
+
     UIImage *logo = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"logo_small" ofType:@"png"]];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage: logo];
+
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:logo];
     CGPoint center = imageView.center;
     center.y = 80;
     center.x = self.view.center.x;
@@ -57,8 +58,8 @@
     [self.view addSubview:imageView];
 
     //Description
-    
-    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, logo.size.height + 30, bounds.size.width-30, 200)];
+
+    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, logo.size.height + 30, bounds.size.width - 30, 200)];
     headingLabel.tag = -1;
     [headingLabel setTextColor:[UIColor grayColor]];
     [headingLabel setFont:[UIFont systemFontOfSize:15]];
@@ -66,11 +67,11 @@
     headingLabel.text = @"Filepicker.io is a trusted provider that helps\n applications connect with your content,\n no matter where you store it. \n\nYour information and files are secure and\n your username and password\n are never stored.\n\nMore information at https://www.filepicker.io";
     headingLabel.numberOfLines = 0;
     headingLabel.lineBreakMode = UILineBreakModeWordWrap;
-    
+
     [self.view addSubview:headingLabel];
 
     //Footer
-    
+
     UILabel *legalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, bounds.size.height - 30, bounds.size.width, 30)];
     [legalLabel setTextColor:[UIColor grayColor]];
     [legalLabel setFont:[UIFont systemFontOfSize:12]];
@@ -78,8 +79,6 @@
     legalLabel.text = @"Filepicker.io 2012, 2013";
 
     [self.view addSubview:legalLabel];
-
-    
 }
 
 - (void)didReceiveMemoryWarning

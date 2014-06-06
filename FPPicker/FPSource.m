@@ -12,10 +12,13 @@
 
 @synthesize name, identifier, icon, rootUrl, open_mimetypes, save_mimetypes, mimetypes, overwritePossible, externalDomains;
 
-- (NSString *) mimetypeString {
-    if ([self.mimetypes count] == 0){
+- (NSString *)mimetypeString
+{
+    if ([self.mimetypes count] == 0)
+    {
         return @"[]";
     }
+
     return [NSString stringWithFormat:@"[\"%@\"]", [self.mimetypes componentsJoinedByString:@"\",\""]];
 }
 

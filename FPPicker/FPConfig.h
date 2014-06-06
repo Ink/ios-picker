@@ -10,19 +10,19 @@
 #ifdef DEBUG
 #   define NSForceLog(...) NSLog(__VA_ARGS__);
 #   define NSLog(...) NSLog(__VA_ARGS__);
-#else 
-#   define NSForceLog(FORMAT, ...) fprintf(stderr,"[Ink Mobile Framework] %s\n", [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+#else
+#   define NSForceLog(FORMAT, ...) fprintf(stderr, "[Ink Mobile Framework] %s\n", [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
 #   define NSLog(...)
 #endif
 
 
 /// Stick this in code you want to assert if run on the main UI thread.
 #define DONT_BLOCK_UI() \
-NSAssert(![NSThread isMainThread], @"Don't block the UI thread please!")
+    NSAssert(![NSThread isMainThread], @"Don't block the UI thread please!")
 
 /// Stick this in code you want to assert if run on a background thread.
 #define BLOCK_UI() \
-NSAssert([NSThread isMainThread], @"You aren't running in the UI thread!")
+    NSAssert([NSThread isMainThread], @"You aren't running in the UI thread!")
 
 #define SYSTEM_VERSION_EQUAL_TO(v)                  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedSame)
 #define SYSTEM_VERSION_GREATER_THAN(v)              ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] == NSOrderedDescending)
@@ -35,7 +35,7 @@ NSAssert([NSThread isMainThread], @"You aren't running in the UI thread!")
 #else
 //Make sure release builds are always on prod.
 #define fpBASE_URL                  @"https://dialog.filepicker.io"
-#endif  
+#endif
 
 
 #define fpDEVICE_NAME               [[UIDevice currentDevice] name]
@@ -63,4 +63,3 @@ NSAssert([NSThread isMainThread], @"You aren't running in the UI thread!")
 
 #define fpMaxChunkSize              262144 //.25mb
 #define fpNumRetries                10
-

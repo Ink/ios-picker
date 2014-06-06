@@ -21,6 +21,6 @@
 @property (nonatomic) BOOL overwritePossible;
 
 
-- (NSString *) mimetypeString;
+- (NSString *)mimetypeString;
 
 @end
