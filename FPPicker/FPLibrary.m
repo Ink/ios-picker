@@ -311,9 +311,6 @@
         ;
     };
 
-    numberOfTries = 0;
-    hasFinished = NO;
-
     FPARequestOperationFailureBlock beginPartFail = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (numberOfTries > fpNumRetries)
         {
@@ -327,6 +324,10 @@
             hasFinished = NO;
         }
     };
+
+
+    numberOfTries = 0;
+    hasFinished = NO;
 
     while (!hasFinished)
     {
