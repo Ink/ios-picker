@@ -34,7 +34,7 @@
 UIImage *selectOverlay;
 UIImage *selectIcon;
 NSInteger ROW_HEIGHT = 44;
-static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
+//static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
