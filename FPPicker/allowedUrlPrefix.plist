@@ -14,6 +14,7 @@
 	<string>http://m.facebook.com/login.php</string>
 	<string>https://m.facebook.com/login.php</string>
 	<string>https://m.facebook.com/dialog/</string>
+	<string>https://m.facebook.com/v1.0/dialog/oauth</string>
 	<string>http://www.facebook.com/dialog/permissions.request</string>
 	<string>https://www.facebook.com/dialog/permissions.request</string>
 	<string>https://m.facebook.com/checkpoint/</string>
@@ -38,7 +39,7 @@
 	<string>https://www.google.com/accounts/AccountChooser</string>
 	<string>https://accounts.google.com/AccountChooser</string>
 	<string>https://plus.google.com/u/0/_/notifications/frame</string>
-	<string>https://www.box.com/api/1.0/auth</string>
+	<string>https://www.box.com/api/oauth2/authorize</string>
 	<string>https://www.box.com/index.php?rm=box_single_sign_on_login_or_register</string>
 	<string>https://www.box.com/index.php?rm=box_api_auth</string>
 	<string>https://www.box.com/sso/</string>
