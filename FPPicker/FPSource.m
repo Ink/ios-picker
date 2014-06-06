@@ -10,11 +10,9 @@
 
 @implementation FPSource
 
-@synthesize name, identifier, icon, rootUrl, open_mimetypes, save_mimetypes, mimetypes, overwritePossible, externalDomains;
-
 - (NSString *)mimetypeString
 {
-    if ([self.mimetypes count] == 0)
+    if (self.mimetypes.count == 0)
     {
         return @"[]";
     }

@@ -20,7 +20,6 @@
 @property (nonatomic, strong) NSArray *externalDomains;
 @property (nonatomic) BOOL overwritePossible;
 
-
 - (NSString *)mimetypeString;
 
 @end
