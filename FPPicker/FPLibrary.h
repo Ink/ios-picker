@@ -17,6 +17,11 @@ typedef void (^FPUploadAssetProgressBlock)(float progress);
 typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON, NSURL *localurl);
 typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, NSURL *localurl);
 
+// The following 2 typedefs should be actually part of FPAFJSONRequestOperation / FPAFNetworking
+
+typedef void (^FPARequestOperationSuccessBlock)(NSURLRequest*, NSHTTPURLResponse*, id);
+typedef void (^FPARequestOperationFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON);
+
 @interface FPLibrary : NSObject
 
 //For the camera

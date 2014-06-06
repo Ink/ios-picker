@@ -23,8 +23,12 @@
     if (!shouldUpload)
     {
         NSLog(@"Not Uploading");
-        NSError *error = [NSError errorWithDomain:@"io.filepicker" code:200 userInfo:[[NSDictionary alloc] init]];
-        id JSON = [[NSDictionary alloc] init];
+
+        NSError *error = [NSError errorWithDomain:@"io.filepicker"
+                                             code:200
+                                         userInfo:[NSDictionary new]];
+        id JSON = [NSDictionary new];
+
         failure(error, JSON);
 
         return;
@@ -32,18 +36,29 @@
 
     NSData *filedata = [NSData dataWithContentsOfURL:fileURL];
 
-    NSInteger filesize = [filedata length];
+    NSInteger filesize = filedata.length;
 
     if (filesize <= fpMaxChunkSize)
     {
         NSLog(@"Uploading singlepart");
 
-        [FPLibrary singlepartUploadData:filedata named:filename ofMimetype:mimetype success:success failure:failure progress:progress];
+        [FPLibrary singlepartUploadData:filedata
+                                  named:filename
+                             ofMimetype:mimetype
+                                success:success
+                                failure:failure
+                               progress:progress];
     }
     else
     {
         NSLog(@"Uploading Multipart");
-        [FPLibrary multipartUploadData:filedata named:filename ofMimetype:mimetype success:success failure:failure progress:progress];
+
+        [FPLibrary multipartUploadData:filedata
+                                 named:filename
+                            ofMimetype:mimetype
+                               success:success
+                               failure:failure
+                              progress:progress];
     }
 }
 
@@ -61,27 +76,38 @@
     NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
     NSString *js_sessionString = [NSString stringWithFormat:@"{\"app\": %@}", appString];
 
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            js_sessionString, @"js_session",
-                            nil];
+    NSDictionary *params = @{@"js_session":js_sessionString};
 
-
-    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:@"/api/path/computer/" parameters:params constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
-        [formData appendPartWithFileData:filedata name:@"fileUpload" fileName:filename mimeType:mimetype];
+    NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                                         path:@"/api/path/computer/"
+                                                                   parameters:params
+                                                    constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
+        [formData appendPartWithFileData:filedata
+                                    name:@"fileUpload"
+                                fileName:filename
+                                mimeType:mimetype];
     }];
 
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    FPARequestOperationSuccessBlock successOperationBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if ([@"ok" isEqual :[JSON valueForKey:@"result"]])
         {
             success(JSON);
         }
         else
         {
-            failure([[NSError alloc] initWithDomain:@"FPPicker" code:0 userInfo:nil], JSON);
+            failure([[NSError alloc] initWithDomain:@"FPPicker"
+                                               code:0
+                                           userInfo:nil], JSON);
         }
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    };
+
+    FPARequestOperationFailureBlock failureOperationBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         failure(error, JSON);
-    }];
+    };
+
+    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                            success:successOperationBlock
+                                                                                            failure:failureOperationBlock];
 
     [operation setUploadProgressBlock: ^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
         if (totalBytesExpectedToWrite > 0)
@@ -94,6 +120,8 @@
 }
 
 //multipart
+// TODO: Refactor by splitting into smaller and more manageable parts
+
 + (void)multipartUploadData:(NSData*)filedata
                       named:(NSString*)filename
                  ofMimetype:(NSString*)mimetype
@@ -101,6 +129,9 @@
                     failure:(FPUploadAssetFailureBlock)failure
                    progress:(FPUploadAssetProgressBlock)progress
 {
+    __block BOOL hasFinished;
+    __block int numberOfTries;
+
     NSInteger filesize = [filedata length];
     NSInteger numOfChunks = ceil(1.0 * filesize / fpMaxChunkSize);
 
@@ -116,56 +147,67 @@
     /* begin multipart */
 
 
-    if (filename == nil)
+    if (!filename)
     {
         filename = @"filename";
     }
 
-    NSDictionary *start_params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  filename, @"name",
-                                  [NSNumber numberWithInteger:filesize], @"filesize",
-                                  js_sessionString, @"js_session",
-                                  nil];
+    NSDictionary *startParams = @{
+        @"name":filename,
+        @"filesize":@(filesize),
+        @"js_session":js_sessionString
+    };
 
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST" path:@"/api/path/computer/?multipart=start" parameters:start_params];
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                            path:@"/api/path/computer/?multipart=start"
+                                                      parameters:startParams];
 
 
-    void (^beginPartSuccess)(NSURLRequest*, NSHTTPURLResponse*, id) =  ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    FPARequestOperationSuccessBlock beginPartSuccess = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"Response: %@", JSON);
         NSString* upload_id = [[JSON valueForKey:@"data"] valueForKey:@"id"];
 
-
         void (^endMultipart)() = ^() {
-            __block int numberOfTriesFinish = 0;
+            NSDictionary *endParams = @{
+                @"id":upload_id,
+                @"total":@(numOfChunks),
+                @"js_session":js_sessionString
+            };
 
-            NSDictionary *end_params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                        upload_id, @"id",
-                                        [NSNumber numberWithInteger:numOfChunks], @"total",
-                                        js_sessionString, @"js_session",
-                                        nil];
+            NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                                    path:@"/api/path/computer/?multipart=end"
+                                                              parameters:endParams];
 
-            NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST" path:@"/api/path/computer/?multipart=end" parameters:end_params];
-
-            void (^endPartSuccess)(NSURLRequest*, NSHTTPURLResponse*, id) =  ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            FPARequestOperationSuccessBlock endPartSuccess = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
                 NSLog(@"DONE!: %@", JSON);
+                hasFinished = YES;
                 success(JSON);
             };
 
-            __block void (^endPartFail)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
-            endPartFail =  [ ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-                if (numberOfTriesFinish >= fpNumRetries)
+            FPARequestOperationFailureBlock endPartFail = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+                if (numberOfTries >= fpNumRetries)
                 {
                     NSLog(@"failed at the end: %@ %@", error, JSON);
+                    hasFinished = YES;
                     failure(error, JSON);
                 }
                 else
                 {
-                    numberOfTriesFinish += 1;
-                    [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:endPartSuccess failure:endPartFail] start];
+                    hasFinished = NO;
+                    numberOfTries++;
                 }
-            } copy];
+            };
 
-            [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:endPartSuccess failure:endPartFail] start];
+
+            numberOfTries = 0;
+            hasFinished = NO;
+
+            while (!hasFinished)
+            {
+                [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                   success:endPartSuccess
+                                                                   failure:endPartFail] start];
+            }
         };
 
 
@@ -173,11 +215,15 @@
         __block int numberSent = 0;
 
         /* send the chunks */
-        for (int i = 0; i<numOfChunks; i++)
+        for (int i = 0; i < numOfChunks; i++)
         {
-            NSDictionary *params = [[NSDictionary alloc] init];
+            NSDictionary *params = [NSDictionary new];
 
-            NSString *uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@", upload_id, i, [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            NSString *uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
+                                    upload_id,
+                                    i,
+                                    [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+
             NSLog(@"Sending slice #%d", i);
 
             NSData *slice;
@@ -185,80 +231,109 @@
             if (i == numOfChunks - 1)
             {
                 NSInteger finalPartSize = filesize - i * fpMaxChunkSize;
-                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, finalPartSize)] bytes]  length:finalPartSize freeWhenDone:NO];
+                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, finalPartSize)] bytes]
+                                             length:finalPartSize
+                                       freeWhenDone:NO];
             }
             else
             {
-                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, fpMaxChunkSize)] bytes]  length:fpMaxChunkSize freeWhenDone:NO];
+                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, fpMaxChunkSize)] bytes]
+                                             length:fpMaxChunkSize
+                                       freeWhenDone:NO];
             }
 
-            NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST" path:uploadPath parameters:params constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
-                [formData appendPartWithFileData:slice name:@"fileUpload" fileName:filename mimeType:mimetype];
+            NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                                                 path:uploadPath
+                                                                           parameters:params
+                                                            constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
+                [formData appendPartWithFileData:slice
+                                            name:@"fileUpload"
+                                        fileName:filename
+                                        mimeType:mimetype];
             }];
+
             [request setHTTPShouldUsePipelining:YES];
 
 
-            void (^onePartSuccess)(NSURLRequest*, NSHTTPURLResponse*, id) =  ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-                numberSent += 1;
-
-                float overallProgress = [progressTracker setProgress:1.f forKey:[NSNumber numberWithInt:i]];
+            FPARequestOperationSuccessBlock onePartSuccess = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+                float overallProgress = [progressTracker setProgress:1.f
+                                                              forKey:@(i)];
                 progress(overallProgress);
+                numberSent++;
 
                 NSLog(@"Send %d: %@ (sent: %d)", i, JSON, numberSent);
 
                 if (numberSent == numOfChunks)
                 {
+                    hasFinished = YES;
                     endMultipart();
                 }
             };
 
-            __block int numberOfTries = 0;
-            __block void (^onePartFail)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
-            onePartFail =  [ ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            FPARequestOperationFailureBlock onePartFail = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
                 if (numberOfTries > fpNumRetries)
                 {
                     NSLog(@"Fail: %@ %@", error, JSON);
+                    hasFinished = YES;
                     failure(error, JSON);
                 }
                 else
                 {
                     NSLog(@"Retrying part %d time: %d", i, numberOfTries);
-                    numberOfTries += 1;
-                    [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:onePartSuccess failure:onePartFail] start];
+                    numberOfTries++;
+                    hasFinished = NO;
                 }
-            } copy];
+            };
 
-            FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:onePartSuccess failure:onePartFail];
-            [operation setUploadProgressBlock: ^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
-                if (totalBytesExpectedToWrite > 0)
-                {
-                    float overallProgress = [progressTracker setProgress:((float)totalBytesWritten) / totalBytesExpectedToWrite forKey:[NSNumber numberWithInt:i]];
-                    progress(overallProgress);
-                }
-            }];
-            [operation start];
+
+            numberOfTries = 0;
+            hasFinished = NO;
+
+            while (!hasFinished)
+            {
+                FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                                        success:onePartSuccess
+                                                                                                        failure:onePartFail];
+
+                [operation setUploadProgressBlock: ^(NSInteger bytesWritten, NSInteger totalBytesWritten, NSInteger totalBytesExpectedToWrite) {
+                    if (totalBytesExpectedToWrite > 0)
+                    {
+                        float overallProgress = [progressTracker setProgress:((float)totalBytesWritten) / totalBytesExpectedToWrite
+                                                                      forKey:@(i)];
+                        progress(overallProgress);
+                    }
+                }];
+
+                [operation start];
+            }
         }
 
         ;
     };
 
-    __block int numberOfTriesBegin = 0;
-    __block void (^beginPartFail)(NSURLRequest *, NSHTTPURLResponse *, NSError *, id);
-    beginPartFail =  [ ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        if (numberOfTriesBegin > fpNumRetries)
+    numberOfTries = 0;
+    hasFinished = NO;
+
+    FPARequestOperationFailureBlock beginPartFail = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        if (numberOfTries > fpNumRetries)
         {
             NSLog(@"Response error: %@ %@", error, JSON);
+            hasFinished = YES;
             failure(error, JSON);
         }
         else
         {
-            numberOfTriesBegin += 1;
-            [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:beginPartSuccess failure:beginPartFail] start];
+            numberOfTries++;
+            hasFinished = NO;
         }
-    } copy];
+    };
 
-
-    [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success:beginPartSuccess failure:beginPartFail] start];
+    while (!hasFinished)
+    {
+        [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                           success:beginPartSuccess
+                                                           failure:beginPartFail] start];
+    }
 }
 
 #pragma mark camera upload
@@ -290,15 +365,29 @@
     }
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
-    NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
-    [filedata writeToURL:tempURL atomically:YES];
 
-    [FPLibrary uploadDataToFilepicker:tempURL named:filename ofMimetype:mimetype shouldUpload:shouldUpload success: ^(id JSON) {
+    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
+                                isDirectory:NO];
+
+    [filedata writeToURL:tempURL
+              atomically:YES];
+
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success(JSON, tempURL);
-    } failure: ^(NSError *error, id JSON) {
-        NSLog(@"FAILTURE %@ %@", error, JSON);
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSLog(@"FAILURE %@ %@", error, JSON);
         failure(error, JSON, tempURL);
-    } progress:progress];
+    };
+
+    [FPLibrary uploadDataToFilepicker:tempURL
+                                named:filename
+                           ofMimetype:mimetype
+                         shouldUpload:shouldUpload
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progress];
 }
 
 + (void)uploadVideoURL:(NSURL*)url
@@ -311,12 +400,22 @@
     NSString *filename = @"movie.MOV";
     NSString * mimetype = @"video/quicktime";
 
-    [FPLibrary uploadDataToFilepicker:url named:filename ofMimetype:mimetype shouldUpload:shouldUpload success: ^(id JSON) {
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success(JSON, url);
-    } failure: ^(NSError *error, id JSON) {
-        NSLog(@"FAILTURE %@ %@", error, JSON);
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSLog(@"FAILURE %@ %@", error, JSON);
         failure(error, JSON, url);
-    } progress:progress];
+    };
+
+    [FPLibrary uploadDataToFilepicker:url
+                                named:filename
+                           ofMimetype:mimetype
+                         shouldUpload:shouldUpload
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progress];
 }
 
 #pragma mark local source controller
@@ -331,59 +430,95 @@
     NSString *filename;
     NSData *filedata;
 
-    ALAssetRepresentation *representation = [asset defaultRepresentation];
+    ALAssetRepresentation *representation = asset.defaultRepresentation;
 
-    NSString *mimetype = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)[representation UTI], kUTTagClassMIMEType);
+    CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
+    NSString *mimetype = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass(utiToConvert,
+                                                                                      kUTTagClassMIMEType);
 
     NSLog(@"mimetype: %@", mimetype);
 
 
     if ([mimetype isEqualToString:@"video/quicktime"])
     {
-        Byte *buffer = (Byte*)malloc(representation.size);
-        NSUInteger buffered = [representation getBytes:buffer fromOffset:0.0 length:representation.size error:nil];
-        filedata = [NSData dataWithBytesNoCopy:buffer length:buffered freeWhenDone:YES];
-        //filedata = [[NSData alloc] initWithContentsOfURL:[representation url]];
+        if (representation.size > SIZE_T_MAX)
+        {
+            NSLog(@"ERROR: Asset size %lld too large. Max allowed size: %ld",
+                  representation.size,
+                  SIZE_T_MAX);
+
+            return;
+        }
+
+        size_t bufferLen = (size_t)representation.size;
+        Byte *buffer = (Byte *)malloc(bufferLen);
+
+        NSUInteger buffered = [representation getBytes:buffer
+                                            fromOffset:0
+                                                length:bufferLen
+                                                 error:nil];
+
+        filedata = [NSData dataWithBytesNoCopy:buffer
+                                        length:buffered
+                                  freeWhenDone:YES];
     }
     else if ([mimetype isEqualToString:@"image/png"])
     {
         NSLog(@"using png");
 
-        UIImage* image = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                             scale:[representation scale] orientation:(UIImageOrientation)[representation orientation]];
+        UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage
+                                             scale:representation.scale
+                                       orientation:(UIImageOrientation)representation.orientation];
 
         filedata = UIImagePNGRepresentation(image);
     }
     else
     {
         NSLog(@"using jpeg");
-        UIImage* image = [UIImage imageWithCGImage:[representation fullResolutionImage]
-                                             scale:[representation scale] orientation:(UIImageOrientation)[representation orientation]];
+
+        UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage
+                                             scale:representation.scale
+                                       orientation:(UIImageOrientation)representation.orientation];
 
         filedata = UIImageJPEGRepresentation(image, 0.6);
     }
 
     if ([representation respondsToSelector:@selector(filename)])
     {
-        filename = [representation filename];
+        filename = representation.filename;
     }
     else
     {
-        NSString *extension = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)[representation UTI], kUTTagClassFilenameExtension);
+        CFStringRef extension = UTTypeCopyPreferredTagWithClass(utiToConvert,
+                                                                kUTTagClassFilenameExtension);
+
         filename = [NSString stringWithFormat:@"file.%@", extension];
     }
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
-    NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
-    [filedata writeToURL:tempURL atomically:YES];
 
+    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
+                                isDirectory:NO];
 
-    [FPLibrary uploadDataToFilepicker:tempURL named:filename ofMimetype:mimetype shouldUpload:shouldUpload success: ^(id JSON) {
+    [filedata writeToURL:tempURL
+              atomically:YES];
+
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success(JSON, tempURL);
-    } failure: ^(NSError *error, id JSON) {
-        NSLog(@"FAILTURE %@ %@", error, JSON);
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSLog(@"FAILURE %@ %@", error, JSON);
         failure(error, JSON, tempURL);
-    } progress:progress];
+    };
+
+    [FPLibrary uploadDataToFilepicker:tempURL
+                                named:filename
+                           ofMimetype:mimetype
+                         shouldUpload:shouldUpload
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progress];
 }
 
 #pragma mark for save as
@@ -405,14 +540,29 @@
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
     [filedata writeToURL:tempURL atomically:YES];
 
-
-    [FPLibrary uploadDataToFilepicker:tempURL named:filename ofMimetype:mimetype shouldUpload:YES success: ^(id JSON) {
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         NSString *filepickerURL = [[[JSON objectForKey:@"data"] objectAtIndex:0] objectForKey:@"url"];
-        [FPLibrary uploadDataHelper_saveAs:filepickerURL toPath:[NSString stringWithFormat:@"%@%@", path, filename] ofMimetype:mimetype withOptions:options success:success failure:failure];
-    } failure: ^(NSError *error, id JSON) {
-        //NSLog(@"FAILTURE %@ %@", error, JSON);
+
+        [FPLibrary uploadDataHelper_saveAs:filepickerURL
+                                    toPath:[NSString stringWithFormat:@"%@%@", path, filename]
+                                ofMimetype:mimetype
+                               withOptions:options
+                                   success:success
+                                   failure:failure];
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSLog(@"FAILURE %@ %@", error, JSON);
         failure(error, JSON);
-    } progress:progress];
+    };
+
+    [FPLibrary uploadDataToFilepicker:tempURL
+                                named:filename
+                           ofMimetype:mimetype
+                         shouldUpload:YES
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progress];
 }
 
 + (void)uploadDataURL:(NSURL*)filedataurl
@@ -428,14 +578,29 @@
     //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
     //NSLog(@"Mime: %@", mimetype);
 
-
-    [FPLibrary uploadDataToFilepicker:filedataurl named:filename ofMimetype:mimetype shouldUpload:YES success: ^(id JSON) {
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         NSString *filepickerURL = [[[JSON objectForKey:@"data"] objectAtIndex:0] objectForKey:@"url"];
-        [FPLibrary uploadDataHelper_saveAs:filepickerURL toPath:[NSString stringWithFormat:@"%@%@", path, filename] ofMimetype:mimetype withOptions:options success:success failure:failure];
-    } failure: ^(NSError *error, id JSON) {
-        //NSLog(@"FAILTURE %@ %@", error, JSON);
+
+        [FPLibrary uploadDataHelper_saveAs:filepickerURL
+                                    toPath:[NSString stringWithFormat:@"%@%@", path, filename]
+                                ofMimetype:mimetype
+                               withOptions:options
+                                   success:success
+                                   failure:failure];
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSLog(@"FAILURE %@ %@", error, JSON);
         failure(error, JSON);
-    } progress:progress];
+    };
+
+    [FPLibrary uploadDataToFilepicker:filedataurl
+                                named:filename
+                           ofMimetype:mimetype
+                         shouldUpload:YES
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progress];
 }
 
 + (void)uploadDataHelper_saveAs:(NSString *)fileLocation
@@ -450,29 +615,38 @@
     NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
     NSString *js_sessionString = [NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\":[\"%@\"] }", appString, mimetype];
 
-    NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                            js_sessionString, @"js_session",
-                            fileLocation, @"url",
-                            nil];
+    NSDictionary *params = @{@"js_session":js_sessionString,
+                             @"url":fileLocation};
 
     NSString *savePath = [NSString stringWithFormat:@"/api/path%@", [saveLocation stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST" path:savePath parameters:params];
+    NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                            path:savePath
+                                                      parameters:params];
 
     NSLog(@"Saving %@", request);
 
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         if ([JSON valueForKey:@"url"])
         {
             success(JSON);
         }
         else
         {
-            failure([[NSError alloc] initWithDomain:fpBASE_URL code:0 userInfo:[[NSDictionary alloc] init]], JSON);
+            failure([[NSError alloc] initWithDomain:fpBASE_URL
+                                               code:0
+                                           userInfo:[NSDictionary new]],
+                    JSON);
         }
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         failure(error, JSON);
-    }];
+    };
+
+    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                                            success:operationSuccessBlock
+                                                                                            failure:operationFailureBlock];
     [operation start];
 }
 
@@ -480,22 +654,18 @@
 
 + (NSString*)urlEscapeString:(NSString *)unencodedString
 {
-    CFStringRef originalStringRef = (__bridge_retained CFStringRef)unencodedString;
-    NSString *s = (__bridge_transfer NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, originalStringRef, NULL, NULL, kCFStringEncodingUTF8);
-
-    CFRelease(originalStringRef);
-
-    return s;
+    return [unencodedString stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8];
 }
 
-+ (NSString*)addQueryStringToUrlString:(NSString *)urlString withDictionary:(NSDictionary *)dictionary
++ (NSString*)addQueryStringToUrlString:(NSString *)urlString
+                        withDictionary:(NSDictionary *)dictionary
 {
-    NSMutableString *urlWithQuerystring = [[NSMutableString alloc] initWithString:urlString];
+    NSMutableString *urlWithQuerystring = [urlString mutableCopy];
 
     for (id key in dictionary)
     {
         NSString *keyString = [key description];
-        NSString *valueString = [[dictionary objectForKey:key] description];
+        NSString *valueString = [dictionary[key] description];
 
         if ([urlWithQuerystring rangeOfString:@"?"].location == NSNotFound)
         {
@@ -517,7 +687,7 @@
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        NSString* mainBundlePath = [[NSBundle mainBundle] resourcePath];
+        NSString* mainBundlePath = [NSBundle mainBundle].resourcePath;
         NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:@"FPPicker.bundle"];
         frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
     });
@@ -531,13 +701,16 @@
 
     if (!jsonSerializationClass)
     {
-        //iOS < 5 didn't have the JSON serialization class
+        // iOS < 5 didn't have the JSON serialization class
         return [data objectFromJSONData]; //JSONKit
     }
     else
     {
         NSError *jsonParsingError = nil;
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:0   error:&jsonParsingError];
+
+        id jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                        options:0
+                                                          error:&jsonParsingError];
 
         return jsonObject;
     }
@@ -551,13 +724,16 @@
 
     if (!jsonSerializationClass)
     {
-        //iOS < 5 didn't have the JSON serialization class
+        // iOS < 5 didn't have the JSON serialization class
         return [object JSONData]; //JSONKit
     }
     else
     {
         NSError *jsonParsingError = nil;
-        NSData *data = [NSJSONSerialization dataWithJSONObject:object options:0   error:&jsonParsingError];
+
+        NSData *data = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:0
+                                                         error:&jsonParsingError];
 
         return data;
     }
@@ -580,7 +756,7 @@
     NSArray *splitType1 = [mimetype componentsSeparatedByString:@"/"];
     NSArray *splitType2 = [supermimetype componentsSeparatedByString:@"/"];
 
-    if ([[splitType1 objectAtIndex:0] isEqualToString:[splitType2 objectAtIndex:0]])
+    if ([splitType1[0] isEqualToString:splitType2[0]])
     {
         return YES;
     }
@@ -722,7 +898,7 @@
 
     for (int i = 0; i<len; i++)
     {
-        [randomString appendFormat:@"%C", [letters characterAtIndex:arc4random() % [letters length]]];
+        [randomString appendFormat:@"%C", [letters characterAtIndex:arc4random() % letters.length]];
     }
 
     return randomString;
