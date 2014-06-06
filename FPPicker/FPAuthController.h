@@ -15,6 +15,6 @@
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSString *service;
-
 @property (nonatomic) BOOL alreadyReload;
+
 @end
