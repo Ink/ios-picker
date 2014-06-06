@@ -224,8 +224,7 @@
                 NSDictionary *output = @{
                     @"FPPickerControllerMediaType":info[@"UIImagePickerControllerMediaType"],
                     @"FPPickerControllerOriginalImage":imageToSave,
-                    @"FPPickerControllerMediaURL":localurl
-                    ,
+                    @"FPPickerControllerMediaURL":localurl,
                     @"FPPickerControllerRemoteURL":@""
                 };
 
