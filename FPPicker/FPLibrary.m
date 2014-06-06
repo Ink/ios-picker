@@ -16,9 +16,9 @@
                          named:(NSString*)filename
                     ofMimetype:(NSString*)mimetype
                   shouldUpload:(BOOL)shouldUpload
-                       success:(void (^)(id JSON))success
-                       failure:(void (^)(NSError *error, id JSON))failure
-                      progress:(void (^)(float progress))progress
+                       success:(FPUploadAssetSuccessBlock)success
+                       failure:(FPUploadAssetFailureBlock)failure
+                      progress:(FPUploadAssetProgressBlock)progress
 {
     if (!shouldUpload)
     {
@@ -51,9 +51,9 @@
 + (void)singlepartUploadData:(NSData*)filedata
                        named:(NSString*)filename
                   ofMimetype:(NSString*)mimetype
-                     success:(void (^)(id JSON))success
-                     failure:(void (^)(NSError *error, id JSON))failure
-                    progress:(void (^)(float progress))progress
+                     success:(FPUploadAssetSuccessBlock)success
+                     failure:(FPUploadAssetFailureBlock)failure
+                    progress:(FPUploadAssetProgressBlock)progress
 {
     NSURL *url = [NSURL URLWithString:fpBASE_URL];
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:url];
@@ -97,9 +97,9 @@
 + (void)multipartUploadData:(NSData*)filedata
                       named:(NSString*)filename
                  ofMimetype:(NSString*)mimetype
-                    success:(void (^)(id JSON))success
-                    failure:(void (^)(NSError *error, id JSON))failure
-                   progress:(void (^)(float progress))progress
+                    success:(FPUploadAssetSuccessBlock)success
+                    failure:(FPUploadAssetFailureBlock)failure
+                   progress:(FPUploadAssetProgressBlock)progress
 {
     NSInteger filesize = [filedata length];
     NSInteger numOfChunks = ceil(1.0 * filesize / fpMaxChunkSize);
@@ -267,9 +267,9 @@
          ofMimetype:(NSString*)mimetype
         withOptions:(NSDictionary*)options
        shouldUpload:(BOOL)shouldUpload
-            success:(void (^)(id JSON, NSURL *localurl))success
-            failure:(void (^)(NSError *error, id JSON, NSURL *localurl))failure
-           progress:(void (^)(float progress))progress
+            success:(FPUploadAssetSuccessWithLocalURLBlock)success
+            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+           progress:(FPUploadAssetProgressBlock)progress
 {
     NSString *filename;
     NSData *filedata;
@@ -304,9 +304,9 @@
 + (void)uploadVideoURL:(NSURL*)url
            withOptions:(NSDictionary*)options
           shouldUpload:(BOOL)shouldUpload
-               success:(void (^)(id JSON, NSURL *localurl))success
-               failure:(void (^)(NSError *error, id JSON, NSURL *localurl))failure
-              progress:(void (^)(float progress))progress
+               success:(FPUploadAssetSuccessWithLocalURLBlock)success
+               failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+              progress:(FPUploadAssetProgressBlock)progress
 {
     NSString *filename = @"movie.MOV";
     NSString * mimetype = @"video/quicktime";
@@ -324,9 +324,9 @@
 + (void)uploadAsset:(ALAsset*)asset
         withOptions:(NSDictionary*)options
        shouldUpload:(BOOL)shouldUpload
-            success:(void (^)(id JSON, NSURL *localurl))success
-            failure:(void (^)(NSError *error, id JSON, NSURL *localurl))failure
-           progress:(void (^)(float progress))progress
+            success:(FPUploadAssetSuccessWithLocalURLBlock)success
+            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+           progress:(FPUploadAssetProgressBlock)progress
 {
     NSString *filename;
     NSData *filedata;
@@ -393,9 +393,9 @@
             toPath:(NSString*)path
         ofMimetype:(NSString*)mimetype
        withOptions:(NSDictionary*)options
-           success:(void (^)(id JSON))success
-           failure:(void (^)(NSError *error, id JSON))failure
-          progress:(void (^)(float progress))progress
+           success:(FPUploadAssetSuccessBlock)success
+           failure:(FPUploadAssetFailureBlock)failure
+          progress:(FPUploadAssetProgressBlock)progress
 {
     NSLog(@"Type: %@", mimetype);
     //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
@@ -420,9 +420,9 @@
                toPath:(NSString*)path
            ofMimetype:(NSString*)mimetype
           withOptions:(NSDictionary*)options
-              success:(void (^)(id JSON))success
-              failure:(void (^)(NSError *error, id JSON))failure
-             progress:(void (^)(float progress))progress
+              success:(FPUploadAssetSuccessBlock)success
+              failure:(FPUploadAssetFailureBlock)failure
+             progress:(FPUploadAssetProgressBlock)progress
 {
     NSLog(@"Type: %@", mimetype);
     //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
@@ -442,8 +442,8 @@
                          toPath:(NSString*)saveLocation
                      ofMimetype:(NSString*)mimetype
                     withOptions:(NSDictionary*)options
-                        success:(void (^)(id JSON))success
-                        failure:(void (^)(NSError *error, id JSON))failure
+                        success:(FPUploadAssetSuccessBlock)success
+                        failure:(FPUploadAssetFailureBlock)failure
 {
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:[NSURL URLWithString:fpBASE_URL]];
 
