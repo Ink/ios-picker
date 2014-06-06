@@ -37,7 +37,7 @@
 
 - (float) calculateProgress {
     float totalProgress = 0;
-    for (id<NSCopying> key in self.progressMap) {
+    for (id<NSCopying> key in self.progressMap.allKeys) {
         NSNumber *val = [self.progressMap objectForKey:key];
         if (val) {
             totalProgress += val.floatValue;

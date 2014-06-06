@@ -352,7 +352,7 @@
             }
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
-            [self presentModalViewController:imgPicker animated:YES];
+            [self presentViewController:imgPicker animated:YES completion:nil];
         } else {
             [[[UIAlertView alloc] initWithTitle:@"No Camera Available"
                                        message:@"This device doesn't seem to have a camera available."
