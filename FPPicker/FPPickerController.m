@@ -17,37 +17,29 @@
 
 @implementation FPPickerController
 
-@synthesize fpdelegate, sourceNames, dataTypes;
-
-@synthesize allowsEditing, videoQuality, videoMaximumDuration, showsCameraControls, cameraOverlayView, cameraViewTransform;
-@synthesize cameraDevice, cameraFlashMode;
-@synthesize selectMultiple, maxFiles;
-
-@synthesize shouldUpload, shouldDownload;
-
-- (void)setupVariables
+- (void)initializeProperties
 {
-    allowsEditing = NO;
-    videoQuality = UIImagePickerControllerQualityTypeMedium;
-    videoMaximumDuration = 600;
-    showsCameraControls = YES;
-    cameraOverlayView = nil;
-    cameraViewTransform = CGAffineTransformMake(1, 0, 0, 1, 0, 0);
-    cameraDevice = UIImagePickerControllerCameraDeviceRear;
-    cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
+    self.allowsEditing = NO;
+    self.videoQuality = UIImagePickerControllerQualityTypeMedium;
+    self.videoMaximumDuration = 600;
+    self.showsCameraControls = YES;
+    self.cameraOverlayView = nil;
+    self.cameraViewTransform = CGAffineTransformMake(1, 0, 0, 1, 0, 0);
+    self.cameraDevice = UIImagePickerControllerCameraDeviceRear;
+    self.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
 
-    shouldUpload = YES;
-    shouldDownload = YES;
+    self.shouldUpload = YES;
+    self.shouldDownload = YES;
 
-    selectMultiple = NO;
-    maxFiles = 0;
+    self.selectMultiple = NO;
+    self.maxFiles = 0;
 }
 
 - (id)init
 {
     self = [super init];
 
-    [self setupVariables];
+    [self initializeProperties];
 
     CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
 
@@ -67,7 +59,7 @@
 {
     self = [super initWithCoder:aDecoder];
 
-    [self setupVariables];
+    [self initializeProperties];
 
     return self;
 }
@@ -76,7 +68,7 @@
 {
     self = [super initWithRootViewController:rootViewController];
 
-    [self setupVariables];
+    [self initializeProperties];
 
     return self;
 }
@@ -85,7 +77,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
-    [self setupVariables];
+    [self initializeProperties];
 
     return self;
 }
@@ -108,10 +100,10 @@
     FPSourceListController *fpSourceListController = [FPSourceListController alloc];
     fpSourceListController.fpdelegate = self;
     fpSourceListController.imgdelagate = self;
-    fpSourceListController.sourceNames = sourceNames;
-    fpSourceListController.dataTypes = dataTypes;
-    fpSourceListController.selectMultiple = selectMultiple;
-    fpSourceListController.maxFiles = maxFiles;
+    fpSourceListController.sourceNames = _sourceNames;
+    fpSourceListController.dataTypes = _dataTypes;
+    fpSourceListController.selectMultiple = _selectMultiple;
+    fpSourceListController.maxFiles = _maxFiles;
     fpSourceListController.title = self.title;
 
     fpSourceListController = [fpSourceListController init];
@@ -171,12 +163,12 @@
     UIImage* thumbImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
-    if ([fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [fpdelegate FPPickerController:self didPickMediaWithInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                      thumbImage, @"FPPickerControllerThumbnailImage"
-                                                                      , nil]];
+            [_fpdelegate FPPickerController:self didPickMediaWithInfo:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                                       thumbImage, @"FPPickerControllerThumbnailImage"
+                                                                       , nil]];
         });
     }
 
@@ -194,7 +186,7 @@
         {
             NSString *dataType;
 
-            for (NSString *type in dataTypes)
+            for (NSString *type in self.dataTypes)
             {
                 if ([type isEqualToString:@"image/png"] || [type isEqualToString:@"image/jpeg"])
                 {
@@ -202,7 +194,7 @@
                 }
             }
 
-            NSLog(@"should upload: %@", shouldUpload ? @"YES" : @"NO");
+            NSLog(@"should upload: %@", _shouldUpload ? @"YES" : @"NO");
             [FPLibrary uploadImage:imageToSave ofMimetype:dataType withOptions:info shouldUpload:self.shouldUpload success: ^(id JSON, NSURL *localurl) {
                 NSLog(@"JSON: %@", JSON);
                 NSDictionary *output = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -216,7 +208,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [FPMBProgressHUD hideHUDForView:picker.view animated:YES];
                     [picker dismissViewControllerAnimated:NO completion: ^{
-                        [fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
+                        [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
             } failure: ^(NSError *error, id JSON, NSURL *localurl) {
@@ -231,7 +223,7 @@
 
                     [FPMBProgressHUD hideHUDForView:self.view animated:YES];
                     [picker dismissViewControllerAnimated:NO completion: ^{
-                        [fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
+                        [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
             } progress: ^(float progress) {
@@ -252,7 +244,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [FPMBProgressHUD hideHUDForView:picker.view animated:YES];
                     [picker dismissViewControllerAnimated:NO completion: ^{
-                        [fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
+                        [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
             } failure: ^(NSError *error, id JSON, NSURL *localurl) {
@@ -265,7 +257,7 @@
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [FPMBProgressHUD hideHUDForView:self.view animated:YES];
                     [picker dismissViewControllerAnimated:NO completion: ^{
-                        [fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
+                        [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:output];
                     }];
                 });
             } progress: ^(float progress) {
@@ -279,7 +271,7 @@
                 NSLog(@"Type: %@", [info objectForKey:@"UIImagePickerControllerMediaType"]);
                 [FPMBProgressHUD hideHUDForView:self.view animated:YES];
                 [picker dismissViewControllerAnimated:NO completion: ^{
-                    [fpdelegate FPPickerControllerDidCancel:self];
+                    [_fpdelegate FPPickerControllerDidCancel:self];
                 }];
             });
         }
@@ -302,9 +294,9 @@
 
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *)info
 {
-    if ([fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
-        [fpdelegate FPPickerController:self didPickMediaWithInfo:info];
+        [_fpdelegate FPPickerController:self didPickMediaWithInfo:info];
     }
 }
 
@@ -313,8 +305,8 @@
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked something from a source: %@", info);
 
-    [fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:info];
-    fpdelegate = nil;
+    [_fpdelegate FPPickerController:self didFinishPickingMediaWithInfo:info];
+    _fpdelegate = nil;
 }
 
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
@@ -323,12 +315,12 @@
     NSLog(@"Picked multiple files from a source: %@", results);
 
     //It's optional, so check
-    if ([fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
-        [fpdelegate FPPickerController:self didFinishPickingMultipleMediaWithResults:results];
+        [_fpdelegate FPPickerController:self didFinishPickingMultipleMediaWithResults:results];
     }
 
-    fpdelegate = nil;
+    _fpdelegate = nil;
 }
 
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker
@@ -337,12 +329,12 @@
     NSLog(@"FP Canceled.");
 
     //It's optional, so check
-    if ([fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+    if ([_fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
     {
-        [fpdelegate FPPickerControllerDidCancel:self];
+        [_fpdelegate FPPickerControllerDidCancel:self];
     }
 
-    fpdelegate = nil;
+    _fpdelegate = nil;
 }
 
 #pragma mark UINavigationControllerDelegate Methods
