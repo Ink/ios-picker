@@ -1,3 +1,8 @@
+v 2.7.0 - 06/06/2014
+- Updated Box and Facebook allowedUrls
+- Fixed bug with crash when you start uploading files with keyboard opened
+- Renamed SkyDrive to OneDrive and update OneDrive path to API
+
 v 2.6.1 - 12/18/2013
 - Updated code base to use dialog.filepicker.io hostname
 

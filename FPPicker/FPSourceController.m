@@ -808,9 +808,9 @@ static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
     });
     
     NSLog(@"Selected Contents: %@", obj);
-    self.view.userInteractionEnabled = NO;
-    
-    
+    dispatch_async(dispatch_get_main_queue(), ^{
+      self.view.userInteractionEnabled = NO;
+    });
     BOOL shouldDownload = YES;
     if ([fpdelegate isKindOfClass:[FPPickerController class]]){
         NSLog(@"Should I download?");

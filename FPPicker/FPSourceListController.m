@@ -155,9 +155,9 @@
             sourceObj.overwritePossible = YES;
             sourceObj.externalDomains = [NSArray arrayWithObjects:@"https://www.instagram.com",  @"https://instagram.com", nil];
         } else if (source == FPSourceSkydrive) {
-            sourceObj.name = @"SkyDrive";
+            sourceObj.name = @"OneDrive";
             sourceObj.icon = @"glyphicons_sb3_skydrive";
-            sourceObj.rootUrl = @"/SkyDrive";
+            sourceObj.rootUrl = @"/OneDrive";
             sourceObj.open_mimetypes = [NSArray arrayWithObjects:@"*/*", nil];
             sourceObj.save_mimetypes = [NSArray arrayWithObjects:@"*/*", nil];
             sourceObj.overwritePossible = YES;
