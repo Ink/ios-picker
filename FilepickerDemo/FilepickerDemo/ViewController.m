@@ -8,66 +8,56 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
-
-@end
-
 @implementation ViewController
 
-@synthesize image, popoverController;
-
-#warning Be sure to register for a filepicker apikey at http://filepicker.io and add it to the Supporting Files/FilepickerDemo-Info.plist
+#warning Be sure to register for a filepicker apikey at http: //filepicker.io and add it to the Supporting Files/FilepickerDemo-Info.plist
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
+    // Do any additional setup after loading the view, typically from a nib.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-    } else {
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        return interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+    }
+    else
+    {
         return YES;
     }
 }
 
-- (IBAction)pickerAction: (id) sender {
-    
-    
+- (IBAction)pickerAction:(id)sender
+{
     /*
      * Create the object
      */
-    FPPickerController *fpController = [[FPPickerController alloc] init];
+    FPPickerController *fpController = [FPPickerController new];
 
     /*
      * Set the delegate
      */
     fpController.fpdelegate = self;
-    
+
     /*
      * Ask for specific data types. (Optional) Default is all files.
      */
-    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", nil];
-    //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
-    
+    fpController.dataTypes = @[@"image/*"];
+    //fpController.dataTypes = @[@"image/*", @"video/quicktime"];
+
     /*
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
-    
+
     /*
      * Enable multselect (Optional) Default is single select
      */
     fpController.selectMultiple = YES;
-    
+
     /*
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
@@ -76,160 +66,185 @@
     /*
      * Display it.
      */
-    UIPopoverController *popoverControllerA = [UIPopoverController alloc];
-    self.popoverController = [popoverControllerA initWithContentViewController:fpController];
-    popoverController.popoverContentSize = CGSizeMake(320, 520);
-    [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:fpController];
+
+    self.myPopoverController = popoverController;
+    self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
+
+    [self.myPopoverController presentPopoverFromRect:[sender frame]
+                                              inView:self.view
+                            permittedArrowDirections:UIPopoverArrowDirectionAny
+                                            animated:YES];
 }
 
-- (IBAction)pickerModalAction: (id) sender {
-    
-    
+- (IBAction)pickerModalAction:(id)sender
+{
     /*
      * Create the object
      */
-    FPPickerController *fpController = [[FPPickerController alloc] init];
-    
+    FPPickerController *fpController = [FPPickerController new];
+
     /*
      * Set the delegate
      */
     fpController.fpdelegate = self;
-    
+
     /*
      * Ask for specific data types. (Optional) Default is all files.
      */
-    fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", nil];
+    fpController.dataTypes = @[@"image/*"];
     //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
-    
+
     fpController.shouldUpload = NO;
-    
+
     /*
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
-    
+
     /*
      * Enable multselect (Optional) Default is single select
      */
     fpController.selectMultiple = YES;
-    
+
     /*
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
     fpController.maxFiles = 5;
-    
+
     /*
      * Display it.
      */
-    [self presentViewController:fpController animated:YES completion:nil];
+    [self presentViewController:fpController
+                       animated:YES
+                     completion:nil];
 }
 
-- (IBAction)savingAction: (id) sender {
-    
-    if (image.image == nil){
+- (IBAction)savingAction:(id)sender
+{
+    if (self.imageView.image == nil)
+    {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
-                                                      message:@"Select an image first."
-                                                     delegate:nil
-                                            cancelButtonTitle:@"OK"
-                                            otherButtonTitles:nil];
-    
+                                                          message:@"Select an image first."
+                                                         delegate:nil
+                                                cancelButtonTitle:@"OK"
+                                                otherButtonTitles:nil];
+
         [message show];
+
         return;
     }
-    
-    NSData *imgData = UIImagePNGRepresentation(image.image);
+
+    NSData *imgData = UIImagePNGRepresentation(self.imageView.image);
 
     /*
      * Create the object
      */
-    FPSaveController *fpSave = [[FPSaveController alloc] init];
-    
+    FPSaveController *fpSave = [FPSaveController new];
+
     /*
      * Set the delegate
      */
     fpSave.fpdelegate = self;
-    
+
     /*
      * Select and order the sources (Optional) Default is all sources
      */
     //fpSave.sourceNames = [[NSArray alloc] initWithObjects: FPSourceDropbox, FPSourceFacebook, FPSourceBox, nil];
-    
+
     /*
      * Set the data and data type to be saved.
      */
     fpSave.data = imgData;
     fpSave.dataType = @"image/png";
-    
+
     /*
      * Display it.
      */
-    UIPopoverController *popoverControllerA = [UIPopoverController alloc];    
-    self.popoverController = [popoverControllerA initWithContentViewController:fpSave];
-    popoverController.popoverContentSize = CGSizeMake(320, 520);
-    [popoverController presentPopoverFromRect:[sender frame] inView:self.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-    
+    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:fpSave];
+
+    self.myPopoverController = popoverController;
+    self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
+
+    [self.myPopoverController presentPopoverFromRect:[sender frame]
+                                              inView:self.view
+                            permittedArrowDirections:UIPopoverArrowDirectionAny
+                                            animated:YES];
 }
 
 #pragma mark - FPPickerControllerDelegate Methods
 
-- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info {
-
+- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info
+{
 }
 
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"FILE CHOSEN: %@", info);
-    
-    image.image = [info objectForKey:@"FPPickerControllerOriginalImage"];
-    [popoverController dismissPopoverAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
+
+    self.imageView.image = info[@"FPPickerControllerOriginalImage"];
+
+    [self.myPopoverController dismissPopoverAnimated:YES];
+
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
 }
 
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     NSLog(@"FILES CHOSEN: %@", results);
-    
-    [popoverController dismissPopoverAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
 
-    //Making a little carosel effect with the images
+    [self.myPopoverController dismissPopoverAnimated:YES];
+
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+
+    // Making a little carousel effect with the images
+
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:results.count];
-    for (NSDictionary *data in results) {
-        [images addObject:[data objectForKey:@"FPPickerControllerOriginalImage"]];
+
+    for (NSDictionary *data in results)
+    {
+        [images addObject:data[@"FPPickerControllerOriginalImage"]];
     }
-    image.animationImages = images;
-    image.animationRepeatCount = 100.f;
-    image.animationDuration = 2.f * images.count; //2 seconds per image
-    [image startAnimating];
+
+    self.imageView.animationImages = images;
+    self.imageView.animationRepeatCount = 100.f;
+    self.imageView.animationDuration = 2.f * images.count; // 2 seconds per image
+    [self.imageView startAnimating];
 }
 
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker
 {
     NSLog(@"FP Cancelled Open");
-    //[picker dismissViewControllerAnimated:NO completion:nil];
-    [popoverController dismissPopoverAnimated:YES];
-    [self dismissViewControllerAnimated:YES completion:nil];
-};
 
+    [self.myPopoverController dismissPopoverAnimated:YES];
+
+    [self dismissViewControllerAnimated:YES
+                             completion:nil];
+}
 
 #pragma mark - FPSaveControllerDelegate Methods
 
-- (void)FPSaveControllerDidSave:(FPSaveController *)picker {
-    [popoverController dismissPopoverAnimated:YES];
+- (void)FPSaveControllerDidSave:(FPSaveController *)picker
+{
+    [self.myPopoverController dismissPopoverAnimated:YES];
 }
 
-- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
     NSLog(@"FILE SAVED: %@", info);
 }
 
-- (void)FPSaveControllerDidCancel:(FPSaveController *)picker {
+- (void)FPSaveControllerDidCancel:(FPSaveController *)picker
+{
     NSLog(@"FP Cancelled Save");
-    [popoverController dismissPopoverAnimated:YES];
+    [self.myPopoverController dismissPopoverAnimated:YES];
 }
 
-- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info {
+- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info
+{
     NSLog(@"FP Error");
 }
-
 
 @end

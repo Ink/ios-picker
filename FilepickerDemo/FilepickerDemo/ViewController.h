@@ -10,12 +10,9 @@
 
 #import <FPPicker/FPPicker.h>
 
-@interface ViewController : UIViewController <FPPickerDelegate, UIPopoverControllerDelegate, FPSaveDelegate> {
-    IBOutlet UIImageView *image;
-    UIPopoverController *popoverController;
-}
-@property (nonatomic, retain) UIImageView *image;
-@property (nonatomic, retain) UIPopoverController *popoverController;
+@interface ViewController : UIViewController <FPPickerDelegate, UIPopoverControllerDelegate, FPSaveDelegate>
 
+@property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, retain) UIPopoverController *myPopoverController;
 
 @end

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E885E550-72FD-4091-BD40-6945620D6E8F</string>
+	<key>IDESourceControlProjectName</key>
+	<string>FilepickerDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>966C8B8A-753F-466F-8960-DCC89835CEFC</key>
+		<string>https://github.com/Ink/ios-picker.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>FilepickerDemo/FilepickerDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>966C8B8A-753F-466F-8960-DCC89835CEFC</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Ink/ios-picker.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>966C8B8A-753F-466F-8960-DCC89835CEFC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>966C8B8A-753F-466F-8960-DCC89835CEFC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ios-picker</string>
+		</dict>
+	</array>
+</dict>
+</plist>
