@@ -14,8 +14,6 @@
 @end
 
 @implementation FPProgressTracker
-@synthesize progressMap;
-@synthesize count;
 
 - (id)initWithObjectCount:(NSInteger)objectCount
 {
@@ -23,7 +21,7 @@
 
     if (self)
     {
-        self.progressMap = [[NSMutableDictionary alloc] init];
+        self.progressMap = [NSMutableDictionary dictionary];
         self.count = objectCount;
     }
 
@@ -37,8 +35,9 @@
         NSLog(@"Invalid progress: %f, bounding", progress);
     }
 
-    progress = fmaxf(fminf(progress, 1.f), 0.0f);
-    [self.progressMap setObject:[NSNumber numberWithFloat:progress] forKey:key];
+    progress = MAX(MIN(progress, 1.f), 0.0f);
+
+    self.progressMap[key] = @(progress);
 
     return [self calculateProgress];
 }
@@ -57,7 +56,7 @@
         }
     }
 
-    return fmaxf(fminf(totalProgress / self.count, 1.f), 0.0f);
+    return MAX(MIN(totalProgress / self.count, 1.f), 0.0f);
 }
 
 @end
