@@ -90,13 +90,13 @@
 
     CGRect bounds = [self getViewBounds];
     self.thumbSize = fpLocalThumbSize;
-    self.numPerRow = (int)bounds.size.width / self.thumbSize;
-    self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+    self.numPerRow = (int)CGRectGetWidth(bounds) / self.thumbSize;
+    self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
 
     if (self.padding < 4)
     {
         self.numPerRow -= 1;
-        self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+        self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
     }
 
     NSLog(@"numperro; %d", self.numPerRow);

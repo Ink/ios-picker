@@ -797,7 +797,7 @@
        }
      */
 
-    CGFloat scaleRatio = bounds.size.width / width;
+    CGFloat scaleRatio = CGRectGetWidth(bounds) / width;
     CGSize imageSize = CGSizeMake(CGImageGetWidth(imgRef), CGImageGetHeight(imgRef));
     CGFloat boundHeight;
     UIImageOrientation orient = image.imageOrientation;
@@ -824,8 +824,8 @@
             break;
 
         case UIImageOrientationLeftMirrored: //EXIF = 5
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
+            boundHeight = CGRectGetHeight(bounds);
+            bounds.size.height = CGRectGetWidth(bounds);
             bounds.size.width = boundHeight;
             transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
             transform = CGAffineTransformScale(transform, -1.0, 1.0);
@@ -833,24 +833,24 @@
             break;
 
         case UIImageOrientationLeft: //EXIF = 6
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
+            boundHeight = CGRectGetHeight(bounds);
+            bounds.size.height = CGRectGetWidth(bounds);
             bounds.size.width = boundHeight;
             transform = CGAffineTransformMakeTranslation(0.0, imageSize.width);
             transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
             break;
 
         case UIImageOrientationRightMirrored: //EXIF = 7
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
+            boundHeight = CGRectGetHeight(bounds);
+            bounds.size.height = CGRectGetWidth(bounds);
             bounds.size.width = boundHeight;
             transform = CGAffineTransformMakeScale(-1.0, 1.0);
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);
             break;
 
         case UIImageOrientationRight: //EXIF = 8
-            boundHeight = bounds.size.height;
-            bounds.size.height = bounds.size.width;
+            boundHeight = CGRectGetHeight(bounds);
+            bounds.size.height = CGRectGetWidth(bounds);
             bounds.size.width = boundHeight;
             transform = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
             transform = CGAffineTransformRotate(transform, M_PI / 2.0);

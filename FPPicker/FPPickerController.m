@@ -45,7 +45,7 @@
     {
         [self initializeProperties];
 
-        CGFloat statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
 
         if (statusBarHeight < 0.0001)
         {

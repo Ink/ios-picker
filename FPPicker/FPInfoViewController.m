@@ -64,7 +64,7 @@
 
     UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,
                                                                       logo.size.height + 30,
-                                                                      bounds.size.width - 30,
+                                                                      CGRectGetWidth(bounds) - 30,
                                                                       200)];
     headingLabel.tag = -1;
     headingLabel.textColor = [UIColor grayColor];
@@ -80,8 +80,8 @@
     // Footer
 
     UILabel *legalLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                    bounds.size.height - 30,
-                                                                    bounds.size.width,
+                                                                    CGRectGetHeight(bounds) - 30,
+                                                                    CGRectGetWidth(bounds),
                                                                     30)];
 
     legalLabel.textColor = [UIColor grayColor];
