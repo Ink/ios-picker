@@ -12,7 +12,9 @@
 
 
 @interface FPPickerController ()
+
 @property BOOL hasStatusBar;
+
 @end
 
 @implementation FPPickerController

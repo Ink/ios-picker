@@ -9,13 +9,6 @@
 #import "FPTableWithUploadButtonViewController.h"
 
 @interface FPTableWithUploadButtonViewController ()
-{
-    // For displaying the uploading text, number of files
-    UIColor* HAPPY_COLOR;
-
-    // For displaying an invalid number of files
-    UIColor* ANGRY_COLOR;
-}
 
 @property UIButton *uploadButton;
 @property UIView *uploadButtonContainer;
@@ -29,18 +22,24 @@
 
 static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
+// For displaying the uploading text, number of files
+static const UIColor *HAPPY_COLOR;
+
+// For displaying an invalid number of files
+static const UIColor *ANGRY_COLOR;
+
++ (void)initialize
+{
+    //#4cd964
+    HAPPY_COLOR = [UIColor colorWithRed:0.298f green:0.851f blue:0.392f alpha:1.f];
+    //ff3b30
+    ANGRY_COLOR = [UIColor colorWithRed:1.f green:0.231 blue:0.088 alpha:1.f];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
-
-    if (self)
-    {
-        //#4cd964
-        HAPPY_COLOR = [UIColor colorWithRed:0.298f green:0.851f blue:0.392f alpha:1.f];
-        //ff3b30
-        ANGRY_COLOR = [UIColor colorWithRed:1.f green:0.231 blue:0.088 alpha:1.f];
-    }
 
     return self;
 }

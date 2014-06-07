@@ -10,10 +10,6 @@
 #import "FPSaveController.h"
 #import "FPSourceListController.h"
 
-@interface FPSaveController ()
-
-@end
-
 @implementation FPSaveController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

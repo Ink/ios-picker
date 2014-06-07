@@ -8,10 +8,6 @@
 
 #import "FPAuthController.h"
 
-@interface FPAuthController ()
-
-@end
-
 @implementation FPAuthController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
