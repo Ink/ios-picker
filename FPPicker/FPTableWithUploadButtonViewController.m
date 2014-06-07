@@ -23,10 +23,10 @@
 static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
 // For displaying the uploading text, number of files
-static const UIColor *HAPPY_COLOR;
+static UIColor *HAPPY_COLOR;
 
 // For displaying an invalid number of files
-static const UIColor *ANGRY_COLOR;
+static UIColor *ANGRY_COLOR;
 
 + (void)initialize
 {
