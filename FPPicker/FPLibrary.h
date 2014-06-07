@@ -11,6 +11,8 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
+@class FPAFHTTPRequestOperation;
+
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
 typedef void (^FPUploadAssetFailureBlock)(NSError *error, id JSON);
 typedef void (^FPUploadAssetProgressBlock)(float progress);
@@ -19,8 +21,14 @@ typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, N
 
 // The following 2 typedefs should be actually part of FPAFJSONRequestOperation / FPAFNetworking
 
-typedef void (^FPARequestOperationSuccessBlock)(NSURLRequest*, NSHTTPURLResponse*, id);
+typedef void (^FPARequestOperationSuccessBlock)(NSURLRequest *request, NSHTTPURLResponse *response, id JSON);
 typedef void (^FPARequestOperationFailureBlock)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON);
+
+// The following 2 typedefs should be actually part of FPAFHTTPRequestOperation / FPAFNetworking
+
+typedef void (^FPAFHTTPRequestOperationSuccessBlock)(FPAFHTTPRequestOperation *operation, id responseObject);
+typedef void (^FPAFHTTPRequestOperationFailureBlock)(FPAFHTTPRequestOperation *operation, NSError *error);
+
 
 @interface FPLibrary : NSObject
 

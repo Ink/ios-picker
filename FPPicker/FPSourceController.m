@@ -13,7 +13,15 @@
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"
 
+typedef void (^FPFetchObjectSuccessBlock)(NSDictionary *data);
+typedef void (^FPFetchObjectFailureBlock)(NSError *error);
+typedef void (^FPFetchObjectProgressBlock)(float progress);
+
 @interface FPSourceController ()
+{
+    UIImage *_selectOverlay;
+    UIImage *_selectIcon;
+}
 
 @property int padding;
 @property int numPerRow;
@@ -26,24 +34,20 @@
 
 @implementation FPSourceController
 
-@synthesize contents, path, sourceType, viewType, nextPage, nextPageSpinner, fpdelegate, precacheOperations;
-@synthesize padding, numPerRow, thumbSize;
-@synthesize selectedObjects = _selectedObjects;
-@synthesize selectedObjectThumbnails = _selectedObjectThumbnails;
-
-UIImage *selectOverlay;
-UIImage *selectIcon;
-NSInteger ROW_HEIGHT = 44;
+static const NSInteger ROW_HEIGHT = 44;
 //static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
 
     if (self)
     {
-        self.selectedObjects = [NSMutableSet setWithCapacity:self.maxFiles == 0 ? 10:self.maxFiles];
-        self.selectedObjectThumbnails = [NSMutableDictionary dictionaryWithCapacity:self.maxFiles == 0 ? 10:self.maxFiles];
+        NSUInteger selectedObjectsCapacity = self.maxFiles == 0 ? 10 : self.maxFiles;
+
+        self.selectedObjects = [NSMutableSet setWithCapacity:selectedObjectsCapacity];
+        self.selectedObjectThumbnails = [NSMutableDictionary dictionaryWithCapacity:selectedObjectsCapacity];
     }
 
     return self;
@@ -58,52 +62,65 @@ NSInteger ROW_HEIGHT = 44;
 {
     [super viewDidLoad];
 
-    //Make sure that we have a service
-    if (self.sourceType == nil)
+    // Make sure that we have a service
+
+    if (!self.sourceType)
     {
         return;
     }
 
+    NSString *selectOverlayFilePath;
+
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        selectOverlay = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"SelectOverlayiOS7" ofType:@"png"]];
+        selectOverlayFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                                      ofType:@"png"];
     }
     else
     {
-        selectOverlay = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"SelectOverlay" ofType:@"png"]];
+        selectOverlayFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlay"
+                                                                      ofType:@"png"];
     }
 
-    selectIcon = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"glyphicons_206_ok_2" ofType:@"png"]];
+    _selectOverlay = [UIImage imageWithContentsOfFile:selectOverlayFilePath];
 
-    if (path == nil)
+    NSString *selectIconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_206_ok_2"
+                                                                         ofType:@"png"];
+
+    _selectIcon = [UIImage imageWithContentsOfFile:selectIconFilePath];
+
+    if (!self.path)
     {
-        path = [NSString stringWithFormat:@"%@/", self.sourceType.rootUrl];
+        self.path = [NSString stringWithFormat:@"%@/", self.sourceType.rootUrl];
     }
 
     if (![self.sourceType.identifier isEqualToString:FPSourceImagesearch])
     {
         //For Image Search, loading root is useless
-        [self fpLoadContents:path];
+        [self fpLoadContents:self.path];
     }
 
-    [self setTitle:sourceType.name];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.precacheOperations = [[NSMutableDictionary alloc] init];
+    [self setTitle:self.sourceType.name];
 
-    if (self.selectMultiple && ![viewType isEqualToString:@"thumbnails"])
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.precacheOperations = [NSMutableDictionary dictionary];
+
+    if (self.selectMultiple && ![self.viewType isEqualToString:@"thumbnails"])
     {
         self.tableView.allowsSelection = YES;
         self.tableView.allowsMultipleSelection = YES;
     }
 
-    ;
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(backButtonAction)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:self
+                                                                            action:@selector(backButtonAction)];
 }
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+
     self.contents = nil;
     self.path = nil;
     self.sourceType = nil;
@@ -124,13 +141,13 @@ NSInteger ROW_HEIGHT = 44;
 
     CGRect bounds = [self getViewBounds];
     self.thumbSize = fpRemoteThumbSize;
-    self.numPerRow = (int) bounds.size.width / self.thumbSize;
-    self.padding = (int)((bounds.size.width - numPerRow * self.thumbSize) / ((float)numPerRow + 1));
+    self.numPerRow = (int)bounds.size.width / self.thumbSize;
+    self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
 
-    if (padding < 4)
+    if (self.padding < 4)
     {
         self.numPerRow -= 1;
-        self.padding = (int)((bounds.size.width - numPerRow * self.thumbSize) / ((float)numPerRow + 1));
+        self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
     }
 
     [super viewWillAppear:animated];
@@ -139,17 +156,18 @@ NSInteger ROW_HEIGHT = 44;
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+
     //remove the pull down login label if applicable.
     UIView *v = [self.view viewWithTag:[@"-1" integerValue]];
 
-    if (v != nil)
+    if (v)
     {
         [v removeFromSuperview];
     }
 
     v = [self.view viewWithTag:[@"-2" integerValue]];
 
-    if (v != nil)
+    if (v)
     {
         [v removeFromSuperview];
     }
@@ -171,15 +189,15 @@ NSInteger ROW_HEIGHT = 44;
 {
     if (section == 0)
     {
-        if ([viewType isEqualToString:@"thumbnails"])
+        if ([self.viewType isEqualToString:@"thumbnails"])
         {
-            NSLog(@"Numofrows: %d %lu", (int) ceil([self.contents count] / (self.numPerRow * 1.0)), (unsigned long)[self.contents count]);
+            NSLog(@"Numofrows: %d %lu", (int)ceil(self.contents.count / (self.numPerRow * 1.0)), (unsigned long)self.contents.count);
 
-            return (int) ceil([self.contents count] / (self.numPerRow * 1.0));
+            return (int)ceil(self.contents.count / (self.numPerRow * 1.0));
         }
         else
         {
-            return [self.contents count];
+            return self.contents.count;
         }
     }
     else if (section == 1)
@@ -192,7 +210,7 @@ NSInteger ROW_HEIGHT = 44;
 
 - (CGFloat)tableView:(UITableView *)passedTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([viewType isEqualToString:@"thumbnails"])
+    if ([self.viewType isEqualToString:@"thumbnails"])
     {
         return self.thumbSize + self.padding;
     }
@@ -202,27 +220,30 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)tableView:(UITableView *)passedTableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 1)  //If it is the load more section
+    if (indexPath.section == 1)   // If it is the load more section
     {
-        [self fpLoadNextPage]; //Load More Stuff from Internet
+        [self fpLoadNextPage]; // Load More Stuff from Internet
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)passedTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = fpCellIdentifier;
-    FPThumbCell *cell = [self.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    static NSString *cellIdentifier = fpCellIdentifier;
+    FPThumbCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
-    if (cell == nil)
+    if (!cell)
     {
-        cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     else
     {
         // You need to cancel the old precache request.
-        if ([precacheOperations objectForKey:[NSString stringWithFormat:@"precache_%ld", (long)indexPath.row]])
+
+        NSString *precacheKey = [NSString stringWithFormat:@"precache_%ld", (long)indexPath.row];
+
+        if (self.precacheOperations[precacheKey])
         {
-            [(FPAFURLConnectionOperation*)[precacheOperations objectForKey:[NSString stringWithFormat:@"precache_%ld", (long)indexPath.row]] cancel];
+            [(FPAFURLConnectionOperation *)self.precacheOperations[precacheKey] cancel];
         }
 
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -238,12 +259,12 @@ NSInteger ROW_HEIGHT = 44;
         }
     }
 
-    if (self.nextPage != nil && indexPath.section == 1)
+    if (self.nextPage && indexPath.section == 1)
     {
         return [self setupLoadMoreCell:cell];
     }
 
-    if ([viewType isEqualToString:@"thumbnails"])
+    if ([self.viewType isEqualToString:@"thumbnails"])
     {
         return [self setupThumbnailCell:cell atIndex:indexPath.row];
     }
@@ -253,22 +274,25 @@ NSInteger ROW_HEIGHT = 44;
     }
 }
 
-- (UITableViewCell*)setupLoadMoreCell:(UITableViewCell*)cell
+- (UITableViewCell *)setupLoadMoreCell:(UITableViewCell *)cell
 {
-    nextPageSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    nextPageSpinner.hidesWhenStopped = YES;
+    self.nextPageSpinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.nextPageSpinner.hidesWhenStopped = YES;
 
     NSInteger height = ROW_HEIGHT;
 
-    if ([viewType isEqualToString:@"thumbnails"])
+    if ([self.viewType isEqualToString:@"thumbnails"])
     {
         height = self.thumbSize + self.padding;
     }
 
-    nextPageSpinner.frame = CGRectMake(floorf(floorf(height - 20) / 2), floorf((height - 20) / 2), 20, 20);
+    self.nextPageSpinner.frame = CGRectMake(floorf(floorf(height - 20) / 2),
+                                            floorf((height - 20) / 2),
+                                            20,
+                                            20);
 
-    [cell addSubview:nextPageSpinner];
-    [nextPageSpinner startAnimating];
+    [cell addSubview:self.nextPageSpinner];
+    [self.nextPageSpinner startAnimating];
 
 
     cell.textLabel.text = @"Loading more";
@@ -278,47 +302,58 @@ NSInteger ROW_HEIGHT = 44;
     return cell;
 }
 
-- (UITableViewCell*)setupThumbnailCell:(UITableViewCell*)cell atIndex:(NSInteger)itemIndex
+- (UITableViewCell *)setupThumbnailCell:(UITableViewCell *)cell atIndex:(NSInteger)itemIndex
 {
     NSLog(@"Thumbnail");
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTappedWithGesture:)];
+
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                          action:@selector(singleTappedWithGesture:)];
+
     [cell.contentView addGestureRecognizer:tap];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-    CGRect rect = CGRectMake(self.padding, self.padding, self.thumbSize, self.thumbSize);
+    CGRect rect = CGRectMake(self.padding,
+                             self.padding,
+                             self.thumbSize,
+                             self.thumbSize);
 
-    for (int i = 0; i<self.numPerRow; i++)
+    for (int i = 0; i < self.numPerRow; i++)
     {
         NSInteger index = self.numPerRow * itemIndex + i;
+
         NSLog(@"index: %ld", (long)index);
 
-        if (index >= [self.contents count])
+        if (index >= self.contents.count)
         {
             break;
         }
 
-        if (index >= [self.contents count])
+        if (index >= self.contents.count)
         {
             return cell;
         }
 
-        NSMutableDictionary *obj = [self.contents objectAtIndex:index];
-        NSString *urlString = [obj valueForKey:@"thumbnail"];
+        NSMutableDictionary *obj = self.contents[index];
+        NSString *urlString = obj[@"thumbnail"];
 
         NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 
         if (![urlString hasPrefix:fpBASE_URL])
         {
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:fpBASE_URL]]];
+            NSURL *cookiesURL = [NSURL URLWithString:fpBASE_URL];
+            NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:cookiesURL];
+            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+
             [mrequest setAllHTTPHeaderFields:headers];
         }
 
         UIImageView *image = [[UIImageView alloc] initWithFrame:rect];
+
         image.tag = index;
         image.contentMode = UIViewContentModeScaleAspectFill;
         image.clipsToBounds = YES;
 
-        if ([[NSNumber numberWithInt:1] isEqual:[obj valueForKey:@"disabled"]])
+        if (YES == [obj[@"disabled"] boolValue])
         {
             image.alpha = 0.5;
         }
@@ -329,19 +364,33 @@ NSInteger ROW_HEIGHT = 44;
 
 
         //NSLog(@"Request: %@", mrequest);
-        [image FPsetImageWithURLRequest:mrequest placeholderImage:[UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"placeholder" ofType:@"png"]] success:nil failure:nil];
+        NSString *placeHolderImageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"placeholder"
+                                                                                   ofType:@"png"];
 
-        BOOL thumbExists = [[NSNumber numberWithInt:1] isEqualToNumber:[obj valueForKey:@"thumb_exists"]];
+        UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
+
+        [image FPsetImageWithURLRequest:mrequest
+                       placeholderImage:placeHolderImage
+                                success:nil
+                                failure:nil];
+
+        BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
         if (!thumbExists)
         {
-            UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.thumbSize - 30, self.thumbSize, 30)];
-            [subLabel setTextColor:[UIColor blackColor]];
-            [subLabel setFont:[UIFont systemFontOfSize:16]];
-            [subLabel setBackgroundColor:[UIColor clearColor]];
-            [subLabel setText:[obj valueForKey:@"filename"]];
-            [subLabel setTextAlignment:NSTextAlignmentCenter];
+            UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                          self.thumbSize - 30,
+                                                                          self.thumbSize,
+                                                                          30)];
+
+            subLabel.textColor = [UIColor blackColor];
+            subLabel.font = [UIFont systemFontOfSize:16];
+            subLabel.backgroundColor = [UIColor clearColor];
+            subLabel.text = obj[@"filename"];
+            subLabel.textAlignment = NSTextAlignmentCenter;
+
             [image addSubview:subLabel];
+
             image.contentMode = UIViewContentModeCenter;
             image.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         }
@@ -353,53 +402,59 @@ NSInteger ROW_HEIGHT = 44;
 
         if (self.selectMultiple)
         {
-            //Add overlay
-            UIImageView *overlay = [[UIImageView alloc] initWithImage:selectOverlay];
+            // Add overlay
+
+            UIImageView *overlay = [[UIImageView alloc] initWithImage:_selectOverlay];
+
             overlay.frame = image.bounds;
 
-            //If this object is selected, leave the overlay on.
+            // If this object is selected, leave the overlay on.
             overlay.hidden = ![self.selectedObjects containsObject:obj];
 
             overlay.opaque = NO;
+
             [image addSubview:overlay];
         }
 
         [cell.contentView addSubview:image];
-        rect = CGRectMake((rect.origin.x + self.thumbSize + self.padding), rect.origin.y, rect.size.width, rect.size.height);
+
+        rect.origin.x += self.thumbSize + self.padding;
     }
 
     return cell;
 }
 
-- (UITableViewCell*)setupListCell:(UITableViewCell*)cell atIndex:(NSInteger)itemIndex
+- (UITableViewCell *)setupListCell:(UITableViewCell *)cell atIndex:(NSInteger)itemIndex
 {
-    if (itemIndex >= [self.contents count])
+    if (itemIndex >= self.contents.count)
     {
         return cell;
     }
 
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;;
+    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 
-    NSMutableDictionary *obj = [self.contents objectAtIndex:itemIndex];
+    NSMutableDictionary *obj = self.contents[itemIndex];
 
     cell.tag = itemIndex;
-    cell.textLabel.text = [obj valueForKey:@"filename"];
+    cell.textLabel.text = obj[@"filename"];
 
-    if ([[NSNumber numberWithInt:1] isEqualToNumber:[obj valueForKey:@"is_dir"]])
+    if (YES == [obj[@"is_dir"] boolValue])
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.textColor = [UIColor blackColor];
-        [self fpPreloadContents:[obj valueForKey:@"link_path"] forCell:cell.tag];
+
+        [self fpPreloadContents:obj[@"link_path"]
+                        forCell:cell.tag];
     }
 
-    NSLog(@"Thumb exists%@", [obj valueForKey:@"thumb_exists"]);
+    NSLog(@"Thumb exists%@", obj[@"thumb_exists"]);
 
-    BOOL thumbExists = (BOOL)[obj valueForKey : @"thumb_exists"];
-    BOOL isDir = [[NSNumber numberWithInt:1] isEqualToNumber:[obj valueForKey:@"is_dir"]];
+    BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
+    BOOL isDir = [obj[@"is_dir"] boolValue];
 
     if (thumbExists)
     {
-        NSString *urlString = [obj valueForKey:@"thumbnail"];
+        NSString *urlString = obj[@"thumbnail"];
 
         NSLog(@"Thumb with URL: %@", urlString);
 
@@ -407,19 +462,35 @@ NSInteger ROW_HEIGHT = 44;
 
         if (![urlString hasPrefix:fpBASE_URL])
         {
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:[[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:fpBASE_URL]]];
+            NSURL *cookiesURL = [NSURL URLWithString:fpBASE_URL];
+            NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:cookiesURL];
+            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+
             [mrequest setAllHTTPHeaderFields:headers];
+
             NSLog(@"headers %@", headers);
         }
 
         if (isDir)
         {
-            cell.imageView.image = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open" ofType:@"png"]];
+            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
+                                                                           ofType:@"png"];
+
+            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
             cell.imageView.contentMode = UIViewContentModeCenter;
         }
         else
         {
-            [cell.imageView FPsetImageWithURLRequest:mrequest placeholderImage:[UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"placeholder" ofType:@"png"]] success:nil failure:nil];
+            NSString *placeHolderImageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"placeholder"
+                                                                                       ofType:@"png"];
+
+            UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
+
+            [cell.imageView FPsetImageWithURLRequest:mrequest
+                                    placeholderImage:placeHolderImage
+                                             success:nil
+                                             failure:nil];
+
             cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         }
     }
@@ -427,17 +498,23 @@ NSInteger ROW_HEIGHT = 44;
     {
         if (isDir)
         {
-            cell.imageView.image = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open" ofType:@"png"]];
+            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
+                                                                           ofType:@"png"];
+
+            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
         }
         else
         {
-            cell.imageView.image = [UIImage imageWithContentsOfFile:[[FPLibrary frameworkBundle] pathForResource:@"glyphicons_036_file" ofType:@"png"]];
+            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_036_file"
+                                                                           ofType:@"png"];
+
+            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
         }
 
         cell.imageView.contentMode = UIViewContentModeCenter;
     }
 
-    if ([[NSNumber numberWithInt:1] isEqual:[obj valueForKey:@"disabled"]])
+    if (YES == [obj[@"disabled"] boolValue])
     {
         cell.textLabel.textColor = [UIColor grayColor];
         cell.imageView.alpha = 0.5;
@@ -467,13 +544,14 @@ NSInteger ROW_HEIGHT = 44;
 - (void)tableView:(UITableView *)passedTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIImage *thumbnail = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;
-    NSMutableDictionary *obj = [self.contents objectAtIndex:indexPath.row];
+    NSMutableDictionary *obj = self.contents[indexPath.row];
 
-    BOOL thumbExists = (BOOL) [obj valueForKey : @"thumb_exists"];
+    BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
     if (thumbExists)
     {
-        [self objectSelectedAtIndex:indexPath.row withThumbnail:thumbnail];
+        [self objectSelectedAtIndex:indexPath.row
+                      withThumbnail:thumbnail];
     }
     else
     {
@@ -501,7 +579,8 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)fpAuthResponse
 {
-    [self fpLoadContents:path cachePolicy:NSURLRequestReloadIgnoringCacheData];
+    [self fpLoadContents:self.path
+             cachePolicy:NSURLRequestReloadIgnoringCacheData];
 }
 
 /*
@@ -510,35 +589,49 @@ NSInteger ROW_HEIGHT = 44;
  */
 - (void)fpLoadContents:(NSString *)loadpath
 {
-    [self fpLoadContents:loadpath cachePolicy:NSURLRequestReturnCacheDataElseLoad];
+    [self fpLoadContents:loadpath
+             cachePolicy:NSURLRequestReturnCacheDataElseLoad];
 }
 
 - (void)fpLoadContents:(NSString *)loadpath cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
+                                                  animated:YES];
 
     hud.labelText = @"Loading contents";
 
-    NSURLRequest *request = [self requestForLoadPath:loadpath withFormat:@"info" cachePolicy:policy];
+    NSURLRequest *request = [self requestForLoadPath:loadpath
+                                          withFormat:@"info"
+                                         cachePolicy:policy];
 
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        [self fpLoadResponseSuccessAtPath:loadpath withResult:JSON];
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        [self fpLoadResponseSuccessAtPath:loadpath
+                               withResult:JSON];
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         [self fpLoadResponseFailureAtPath:loadpath withError:error];
-    }];
+    };
 
-    if ([sourceType.identifier isEqualToString:FPSourceImagesearch])
+    FPAFJSONRequestOperation *operation;
+
+    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                  success:operationSuccessBlock
+                                                                  failure:operationFailureBlock];
+
+    if ([self.sourceType.identifier isEqualToString:FPSourceImagesearch])
     {
-        FPAFJSONRequestOperation *oldOperation = (FPAFJSONRequestOperation *) [precacheOperations objectForKey:@"imagesearch_"];
+        FPAFJSONRequestOperation *oldOperation = self.precacheOperations[@"imagesearch_"];
+
         [oldOperation cancel];
-        [precacheOperations removeObjectForKey:@"imagesearch_"];
-        [precacheOperations setObject:operation forKey:@"imagesearch_"];
+
+        self.precacheOperations[@"imagesearch_"] = operation;
     }
 
     [operation start];
 }
 
-- (void)fpLoadResponseSuccessAtPath:(NSString*)loadpath withResult:(id)JSON
+- (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath withResult:(id)JSON
 {
     NSLog(@"Loading Contents: %@", JSON);
 
@@ -547,7 +640,7 @@ NSInteger ROW_HEIGHT = 44;
 
     NSString *next = [JSON valueForKeyPath:@"next"];
 
-    if (next && next != (NSString*)[NSNull null])
+    if (next && next != (NSString *)[NSNull null])
     {
         self.nextPage = next;
     }
@@ -556,7 +649,7 @@ NSInteger ROW_HEIGHT = 44;
         self.nextPage = nil;
     }
 
-    if (![viewType isEqualToString:@"thumbnails"])
+    if (![self.viewType isEqualToString:@"thumbnails"])
     {
         self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     }
@@ -576,23 +669,32 @@ NSInteger ROW_HEIGHT = 44;
         if ([loadpath isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootUrl]])
         {
             //logout only on root level
-            UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout" style:UIBarButtonItemStylePlain target:self action:@selector(logout:)];
+            UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(logout:)];
+
             self.navigationItem.rightBarButtonItem = anotherButton;
         }
 
-        if ([[JSON valueForKeyPath:@"contents"] count] == 0 && (sourceType.identifier != FPSourceImagesearch))
+        if ([[JSON valueForKeyPath:@"contents"] count] == 0 &&
+            (self.sourceType.identifier != FPSourceImagesearch))
         {
             NSLog(@"nothing");
+
             [self setupEmptyView];
         }
     }
 
-    [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [FPMBProgressHUD hideAllHUDsForView:self.view
+                               animated:YES];
+
     [self stopLoading];
     [self.tableView reloadData];
+
     NSLog(@"after reload");
 
-    if ([sourceType.identifier isEqualToString:FPSourceImagesearch])
+    if ([self.sourceType.identifier isEqualToString:FPSourceImagesearch])
     {
         //NSLog(@"%@", self.searchDisplayController);
         [self.searchDisplayController.searchResultsTableView reloadData];
@@ -603,12 +705,17 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)launchAuthView
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fpAuthResponse) name:@"auth" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fpAuthResponse)
+                                                 name:@"auth"
+                                               object:nil];
 
-    FPAuthController *authView = [[FPAuthController alloc] init];
-    authView.service = sourceType.identifier;
-    authView.title = sourceType.name;
-    [self.navigationController pushViewController:authView animated:NO];
+    FPAuthController *authView = [FPAuthController new];
+    authView.service = self.sourceType.identifier;
+    authView.title = self.sourceType.name;
+
+    [self.navigationController pushViewController:authView
+                                         animated:NO];
 }
 
 - (void)setupEmptyView
@@ -616,34 +723,46 @@ NSInteger ROW_HEIGHT = 44;
     CGRect bounds = [self getViewBounds];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (bounds.size.height) / 2 - 60, bounds.size.width, 30)];
+
+    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                      CGRectGetMidY(bounds) - 60,
+                                                                      CGRectGetWidth(bounds),
+                                                                      30)];
     headingLabel.tag = -1;
-    [headingLabel setTextColor:[UIColor grayColor]];
-    [headingLabel setFont:[UIFont systemFontOfSize:25]];
-    [headingLabel setTextAlignment:NSTextAlignmentCenter];
+    headingLabel.textColor = [UIColor grayColor];
+    headingLabel.font = [UIFont systemFontOfSize:25];
+    headingLabel.textAlignment = NSTextAlignmentCenter;
     headingLabel.text = @"No files here";
+
     [self.view addSubview:headingLabel];
 
-    UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (bounds.size.height) / 2 - 30, bounds.size.width, 30)];
+    UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                  CGRectGetMidY(bounds) - 30,
+                                                                  CGRectGetWidth(bounds),
+                                                                  30)];
     subLabel.tag = -2;
-    [subLabel setTextColor:[UIColor grayColor]];
-    [subLabel setTextAlignment:NSTextAlignmentCenter];
+    subLabel.textColor = [UIColor grayColor];
+    subLabel.textAlignment = NSTextAlignmentCenter;
     subLabel.text = @"Pull down to refresh";
+
     [self.view addSubview:subLabel];
 }
 
-- (void)fpLoadResponseFailureAtPath:(NSString*)loadpath withError:(NSError*)error
+- (void)fpLoadResponseFailureAtPath:(NSString *)loadpath withError:(NSError *)error
 {
-    [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [FPMBProgressHUD hideAllHUDsForView:self.view
+                               animated:YES];
 
     NSLog(@"Error: %@", error);
 
     //NSLog(@"Loading Contents: %@", JSON);
 
 
-    if (error.code == -1009 || error.code == -1001)
+    if (error.code == -1009 ||
+        error.code == -1001)
     {
         [self.navigationController popViewControllerAnimated:YES];
+
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
                                                           message:@"You aren't connected to the internet so we can't get your files."
                                                          delegate:nil
@@ -655,7 +774,8 @@ NSInteger ROW_HEIGHT = 44;
 
     if (error.code == -1011)
     {
-        [self fpLoadContents:loadpath cachePolicy:NSURLRequestReloadIgnoringCacheData];
+        [self fpLoadContents:loadpath
+                 cachePolicy:NSURLRequestReloadIgnoringCacheData];
     }
 
     [self stopLoading];
@@ -663,70 +783,101 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)fpPreloadContents:(NSString *)loadpath
 {
-    [self fpPreloadContents:loadpath forCell:-1];
+    [self fpPreloadContents:loadpath
+                    forCell:-1];
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSLog(@"trying to refresh a path");
-    [self fpPreloadContents:loadpath forCell:-1 cachePolicy:policy];
+    [self fpPreloadContents:loadpath
+                    forCell:-1
+                cachePolicy:policy];
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath forCell:(NSInteger)cellIndex
 {
-    [self fpPreloadContents:loadpath forCell:cellIndex cachePolicy:NSURLRequestReturnCacheDataElseLoad];
+    [self fpPreloadContents:loadpath
+                    forCell:cellIndex
+                cachePolicy:NSURLRequestReturnCacheDataElseLoad];
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath forCell:(NSInteger)cellIndex cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSInteger nilInteger = -1;
 
-    NSURLRequest *request = [self requestForLoadPath:loadpath withFormat:@"info" cachePolicy:policy];
+    NSURLRequest *request = [self requestForLoadPath:loadpath
+                                          withFormat:@"info"
+                                         cachePolicy:policy];
 
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    NSString *precacheKey = [NSString stringWithFormat:@"precache_%ld", (long)cellIndex];
+
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         //NSLog(@"JSON: %@", JSON);
         if (cellIndex != nilInteger)
         {
-            [precacheOperations removeObjectForKey:[NSString stringWithFormat:@"precache_%ld", (long)cellIndex]];
+            [self.precacheOperations removeObjectForKey:precacheKey];
         }
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         if (cellIndex != nilInteger)
         {
-            [precacheOperations removeObjectForKey:[NSString stringWithFormat:@"precache_%ld", (long)cellIndex]];
+            [self.precacheOperations removeObjectForKey:precacheKey];
         }
-    }];
+    };
+
+    FPAFJSONRequestOperation *operation;
+
+    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                  success:operationSuccessBlock
+                                                                  failure:operationFailureBlock];
 
     [operation start];
 
     if (cellIndex != nilInteger)
     {
-        [precacheOperations setObject:operation forKey:[NSString stringWithFormat:@"precache_%ld", (long)cellIndex]];
+        self.precacheOperations[precacheKey] = operation;
     }
 }
 
 - (void)fpLoadNextPage
 {
     // Encode a string to embed in an URL.
+
     NSLog(@"Next page: %@", self.nextPage);
-    NSString *encoded = (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                                             (__bridge CFStringRef) self.nextPage,
-                                                                                             NULL,
-                                                                                             (CFStringRef) @"!*'();:@&=+$,/?%#[]",
-                                                                                             kCFStringEncodingUTF8);
+
+//    NSString *encoded = (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
+//                                                                                             (__bridge CFStringRef) self.nextPage,
+//                                                                                             NULL,
+//                                                                                             (CFStringRef) @"!*'();:@&=+$,/?%#[]",
+//                                                                                             kCFStringEncodingUTF8);
+
+    // TODO: Validate that the following two lines are 100% equivalent to what's above
+
+    NSCharacterSet *validCharacters = [NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"];
+    NSString *encoded = [self.nextPage stringByAddingPercentEncodingWithAllowedCharacters:validCharacters];
 
     NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", encoded];
+
     NSLog(@"nextpageparm: %@", nextPageParam);
-    NSURLRequest *request = [self requestForLoadPath:self.path withFormat:@"info" byAppending:nextPageParam cachePolicy:NSURLRequestReloadIgnoringCacheData];
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+
+    NSURLRequest *request = [self requestForLoadPath:self.path
+                                          withFormat:@"info"
+                                         byAppending:nextPageParam
+                                         cachePolicy:NSURLRequestReloadIgnoringCacheData];
+
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"JSON: %@", JSON);
 
         NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.contents];
+
         [tempArray addObjectsFromArray:[JSON valueForKeyPath:@"contents"]];
         self.contents = tempArray;
 
         NSString *next = [JSON valueForKeyPath:@"next"];
 
-        if (next && next != (NSString*)[NSNull null])
+        if (next && next != (NSString *)[NSNull null])
         {
             self.nextPage = next;
         }
@@ -736,38 +887,53 @@ NSInteger ROW_HEIGHT = 44;
         }
 
         [self.tableView reloadData];
-        [nextPageSpinner stopAnimating];
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [self.nextPageSpinner stopAnimating];
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"JSON: %@", JSON);
+
         self.nextPage = nil;
+
         [self.tableView reloadData];
-        [nextPageSpinner stopAnimating];
-    }];
+        [self.nextPageSpinner stopAnimating];
+    };
+
+    FPAFJSONRequestOperation *operation;
+
+    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                  success:operationSuccessBlock
+                                                                  failure:operationFailureBlock];
     [operation start];
 }
 
 - (IBAction)singleTappedWithGesture:(UIGestureRecognizer *)sender
 {
-    CGPoint tapPoint = [sender locationOfTouch:sender.view.tag inView:sender.view];
+    CGPoint tapPoint = [sender locationOfTouch:sender.view.tag
+                                        inView:sender.view];
 
-    int rowIndex = (int) fmin(floor(tapPoint.x / 105), self.numPerRow - 1);
+    int rowIndex = (int)MIN(floor(tapPoint.x / 105), self.numPerRow - 1);
 
-    //Do nothing if there isn't a corresponding image view.
+    // Do nothing if there isn't a corresponding image view.
+
     if (rowIndex >= [sender.view.subviews count])
     {
         return;
     }
 
-    UIImageView *selectedView = [sender.view.subviews objectAtIndex:rowIndex];
+    UIImageView *selectedView = sender.view.subviews[rowIndex];
 
-    NSMutableDictionary *obj = [self.contents objectAtIndex:selectedView.tag];
+    NSMutableDictionary *obj = self.contents[selectedView.tag];
     UIImage *thumbnail;
-    BOOL thumbExists = [[NSNumber numberWithInt:1] isEqualToNumber:[obj valueForKey:@"thumb_exists"]];
+
+    BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
     if (thumbExists)
     {
         thumbnail = selectedView.image;
-        [self objectSelectedAtIndex:selectedView.tag withThumbnail:thumbnail];
+
+        [self objectSelectedAtIndex:selectedView.tag
+                      withThumbnail:thumbnail];
     }
     else
     {
@@ -777,26 +943,33 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)objectSelectedAtIndex:(NSInteger)index
 {
-    [self objectSelectedAtIndex:index withThumbnail:nil];
+    [self objectSelectedAtIndex:index
+                  withThumbnail:nil];
 }
 
 - (void)objectSelectedAtIndex:(NSInteger)index withThumbnail:(UIImage *)thumbnail
 {
-    NSDictionary *obj = [self.contents objectAtIndex:index];
+    NSDictionary *obj = self.contents[index];
 
-    if ([[NSNumber numberWithInt:1] isEqual:[obj valueForKey:@"disabled"]])
+    BOOL isDisabled = [obj[@"disabled"] boolValue];
+    BOOL isDir = [obj[@"is_dir"] boolValue];
+
+    if (isDisabled)
     {
         return;
     }
-    else if ([[NSNumber numberWithInt:1] isEqualToNumber:[obj valueForKey:@"is_dir"]])
+    else if (isDir)
     {
-        FPSourceController *subController = [[FPSourceController alloc] init];
+        FPSourceController *subController = [FPSourceController new];
+
         subController.path = [obj valueForKey:@"link_path"];
-        subController.sourceType = sourceType;
-        subController.fpdelegate = fpdelegate;
+        subController.sourceType = self.sourceType;
+        subController.fpdelegate = self.fpdelegate;
         subController.selectMultiple = self.selectMultiple;
         subController.maxFiles = self.maxFiles;
-        [self.navigationController pushViewController:subController animated:YES];
+
+        [self.navigationController pushViewController:subController
+                                             animated:YES];
 
         return;
     }
@@ -806,17 +979,17 @@ NSInteger ROW_HEIGHT = 44;
     {
         UIView *view = [self.view viewWithTag:index];
 
-        if ([viewType isEqualToString:@"thumbnails"])
+        if ([self.viewType isEqualToString:@"thumbnails"])
         {
             [self toggleSelectionOnThumbnailView:view];
         }
 
-        //Table selection takes care of list views, so no need for an else
+        // Table selection takes care of list views, so no need for an else
 
         if ([self.selectedObjects containsObject:obj])
         {
             [self.selectedObjects removeObject:obj];
-            [self.selectedObjectThumbnails removeObjectForKey:[NSNumber numberWithInteger:index]];
+            [self.selectedObjectThumbnails removeObjectForKey:@(index)];
         }
         else
         {
@@ -824,7 +997,7 @@ NSInteger ROW_HEIGHT = 44;
 
             if (thumbnail)
             {
-                [self.selectedObjectThumbnails setObject:thumbnail forKey:[NSNumber numberWithInteger:index]];
+                self.selectedObjectThumbnails[@(index)] = thumbnail;
             }
         }
 
@@ -834,49 +1007,73 @@ NSInteger ROW_HEIGHT = 44;
     }
     else
     {
-        FPMBProgressHUD __block *hud;
+        __block FPMBProgressHUD *hud;
+
         dispatch_async(dispatch_get_main_queue(), ^{
-            hud = [FPMBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud = [FPMBProgressHUD showHUDAddedTo:self.view
+                                         animated:YES];
+
             hud.mode = FPMBProgressHUDModeDeterminate;
             hud.labelText = @"Downloading file";
         });
-        [self fetchObject:obj withThumbnail:thumbnail success: ^(NSDictionary *data) {
+
+        FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                [fpdelegate FPSourceController:self didFinishPickingMediaWithInfo:data];
+                [FPMBProgressHUD hideAllHUDsForView:self.view
+                                           animated:YES];
+
+                [self.fpdelegate FPSourceController:self
+                      didFinishPickingMediaWithInfo:data];
             });
-        } failure: ^(NSError *error) {
+        };
+
+        FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
             NSLog(@"FAIL %@", error);
 
-            if (error.code == -1009 || error.code == -1001)
+            if (error.code == -1009 ||
+                error.code == -1001)
             {
                 [self.navigationController popViewControllerAnimated:YES];
-                UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                                  message:@"You aren't connected to the internet so we can't get your files."
-                                                                 delegate:nil
-                                                        cancelButtonTitle:@"OK"
-                                                        otherButtonTitles:nil];
+
+                UIAlertView *message;
+
+                message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
+                                                     message:@"You aren't connected to the internet so we can't get your files."
+                                                    delegate:nil
+                                           cancelButtonTitle:@"OK"
+                                           otherButtonTitles:nil];
 
                 [message show];
             }
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
-                [fpdelegate FPSourceControllerDidCancel:self];
+                [FPMBProgressHUD hideAllHUDsForView:self.view
+                                           animated:YES];
+
+                [self.fpdelegate FPSourceControllerDidCancel:self];
             });
-        } progress: ^(float progress) {
+        };
+
+        FPFetchObjectProgressBlock progressBlock = ^(float progress) {
             hud.progress = progress;
-        }];
+        };
+
+        [self fetchObject:obj
+            withThumbnail:thumbnail
+                  success:successBlock
+                  failure:failureBlock
+                 progress:progressBlock];
     }
 }
 
-- (void)toggleSelectionOnThumbnailView:(UIView*)view
+- (void)toggleSelectionOnThumbnailView:(UIView *)view
 {
     //View is an image view
-    UIImageView* imageView = (UIImageView*)view;
+    UIImageView *imageView = (UIImageView *)view;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView* overlay = [imageView.subviews objectAtIndex:0];
+        UIView *overlay = imageView.subviews[0];
+
         overlay.hidden = !overlay.hidden;
     });
 }
@@ -885,11 +1082,13 @@ NSInteger ROW_HEIGHT = 44;
 {
     [super uploadButtonTapped:sender];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view animated:YES];
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
+                                                  animated:YES];
+
     hud.mode = FPMBProgressHUDModeDeterminate;
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    NSMutableArray* results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
+    NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
 
     //TODO: What should we do on failures? Right now we just press forward, but
     //You could imagine wanting to fail fast
@@ -904,23 +1103,26 @@ NSInteger ROW_HEIGHT = 44;
         hud.labelText = [NSString stringWithFormat:@"Downloading 1 of %ld files", (long)totalCount];
     }
 
-    FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.selectedObjects.count];
+    FPProgressTracker *progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.selectedObjects.count];
 
-    for (NSDictionary* obj in self.selectedObjects)
+    for (NSDictionary *obj in self.selectedObjects)
     {
         //We push all the uploads onto background threads. Now we have to be careful
         //as we're working in multi-threaded environment.
         dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSInteger index = [self.contents indexOfObject:obj];
-            UIImage* thumbnail = [self.selectedObjectThumbnails objectForKey:[NSNumber numberWithInteger:index]];
-            [self fetchObject:obj withThumbnail:thumbnail success: ^(NSDictionary *data) {
-                @synchronized(results) {
+            UIImage *thumbnail = [self.selectedObjectThumbnails objectForKey:@(index)];
+
+            FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
+                @synchronized(results)
+                {
                     [results addObject:data];
 
                     //Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
                     if (results.count >= totalCount)
                     {
                         hud.labelText = @"Finished uploading";
+
                         [self finishMultipleUpload:results];
                     }
                     else
@@ -928,102 +1130,149 @@ NSInteger ROW_HEIGHT = 44;
                         hud.labelText = [NSString stringWithFormat:@"Downloading %u of %ld files", results.count + 1, (long)totalCount];
                     }
                 }
-                @synchronized(progressTracker) {
-                    hud.progress = [progressTracker setProgress:1.f forKey:obj];
-                }
-            } failure: ^(NSError *error) {
-                NSLog(@"FAIL %@", error);
-                [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
 
-                if (error.code == -1009 || error.code == -1001)
+                @synchronized(progressTracker)
+                {
+                    hud.progress = [progressTracker setProgress:1.f
+                                                         forKey:obj];
+                }
+            };
+
+            FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
+                NSLog(@"FAIL %@", error);
+
+                [FPMBProgressHUD hideAllHUDsForView:self.view
+                                           animated:YES];
+
+                if (error.code == -1009 ||
+                    error.code == -1001)
                 {
                     [self.navigationController popViewControllerAnimated:YES];
-                    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                                      message:@"You aren't connected to the internet so we can't get your files."
-                                                                     delegate:nil
-                                                            cancelButtonTitle:@"OK"
-                                                            otherButtonTitles:nil];
+
+                    UIAlertView *message;
+
+                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
+                                                         message:@"You aren't connected to the internet so we can't get your files."
+                                                        delegate:nil
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
 
                     [message show];
                 }
 
-                [fpdelegate FPSourceControllerDidCancel:self];
-            } progress: ^(float progress) {
-                @synchronized(progressTracker) {
+                [self.fpdelegate FPSourceControllerDidCancel:self];
+            };
+
+            FPFetchObjectProgressBlock progressBlock = ^(float progress) {
+                @synchronized(progressTracker)
+                {
                     hud.progress = [progressTracker setProgress:progress forKey:obj];
                 }
-            }];
+            };
+
+            [self fetchObject:obj
+                withThumbnail:thumbnail
+                      success:successBlock
+                      failure:failureBlock
+                     progress:progressBlock];
         });
     }
 }
 
-- (void)finishMultipleUpload:(NSArray*)results
+- (void)finishMultipleUpload:(NSArray *)results
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        [fpdelegate FPSourceController:nil didFinishPickingMultipleMediaWithResults:results];
+        [FPMBProgressHUD hideAllHUDsForView:self.view
+                                   animated:YES];
+
+        [self.fpdelegate FPSourceController:nil
+         didFinishPickingMultipleMediaWithResults:results];
     });
 }
 
-- (void)fetchObject:(NSDictionary*)obj withThumbnail:(UIImage*)thumbnail
-            success:(void (^)(NSDictionary *data))success
-            failure:(void (^)(NSError *error))failure
-           progress:(void (^)(float progress))progress
+- (void)fetchObject:(NSDictionary *)obj withThumbnail:(UIImage *)thumbnail
+            success:(FPFetchObjectSuccessBlock)success
+            failure:(FPFetchObjectFailureBlock)failure
+           progress:(FPFetchObjectProgressBlock)progress
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [fpdelegate FPSourceController:self didPickMediaWithInfo:[NSDictionary dictionaryWithObjectsAndKeys:
-                                                                  thumbnail, @"FPPickerControllerThumbnailImage"
-                                                                  , nil]];
+        NSDictionary *mediaInfo = @{
+            @"FPPickerControllerThumbnailImage":thumbnail
+        };
+
+        [self.fpdelegate FPSourceController:self
+                       didPickMediaWithInfo:mediaInfo];
     });
 
     NSLog(@"Selected Contents: %@", obj);
+
     dispatch_async(dispatch_get_main_queue(), ^{
         self.view.userInteractionEnabled = NO;
     });
     BOOL shouldDownload = YES;
 
-    if ([fpdelegate isKindOfClass:[FPPickerController class]])
+    if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
     {
         NSLog(@"Should I download?");
-        FPPickerController *pickerC = (FPPickerController *)fpdelegate;
+
+        FPPickerController *pickerC = (FPPickerController *)self.fpdelegate;
+
         shouldDownload = [pickerC shouldDownload];
     }
 
     if (shouldDownload)
     {
         NSLog(@"Download");
-        [self getObjectInfoAndData:obj success:success failure:failure progress:progress];
+
+        [self getObjectInfoAndData:obj
+                           success:success
+                           failure:failure
+                          progress:progress];
     }
     else
     {
         NSLog(@"No Download");
-        [self getObjectInfo:obj success:success failure:failure progress:progress];
+
+        [self getObjectInfo:obj
+                    success:success
+                    failure:failure
+                   progress:progress];
     }
 }
 
-- (void)getObjectInfo:(NSDictionary*)obj
+- (void)getObjectInfo:(NSDictionary *)obj
               success:(void (^)(NSDictionary *data))success
               failure:(void (^)(NSError *error))failure
              progress:(void (^)(float progress))progress
 {
-    NSURLRequest *request = [self requestForLoadPath:[obj valueForKey:@"link_path"] withFormat:@"fpurl" cachePolicy:NSURLRequestReloadRevalidatingCacheData];
+    NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
+                                          withFormat:@"fpurl"
+                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
     //NSLog(@"request %@", request);
 
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@" result: %@", JSON);
 
-
         //NSLog(@"Headers: %@", headers);
-        NSDictionary *info = [[NSDictionary alloc] initWithObjectsAndKeys:
-                              [JSON valueForKey:@"url"], @"FPPickerControllerRemoteURL",
-                              [JSON valueForKey:@"filename"], @"FPPickerControllerFilename",
-                              [JSON valueForKey:@"key"], @"FPPickerControllerKey",
-                              nil];
+        NSDictionary *info = @{
+            @"FPPickerControllerRemoteURL":[JSON valueForKey:@"url"],
+            @"FPPickerControllerFilename":[JSON valueForKey:@"filename"],
+            @"FPPickerControllerKey":[JSON valueForKey:@"key"]
+        };
+
         success(info);
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         failure(error);
-    }];
+    };
+
+    FPAFJSONRequestOperation *operation;
+
+    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                  success:operationSuccessBlock
+                                                                  failure:operationFailureBlock];
 
     [operation setDownloadProgressBlock: ^(NSInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
         if (totalBytesExpectedToRead > 0)
@@ -1035,29 +1284,35 @@ NSInteger ROW_HEIGHT = 44;
     [operation start];
 }
 
-- (void)getObjectInfoAndData:(NSDictionary*)obj
+- (void)getObjectInfoAndData:(NSDictionary *)obj
                      success:(void (^)(NSDictionary *data))success
                      failure:(void (^)(NSError *error))failure
                     progress:(void (^)(float progress))progress
 {
-    NSURLRequest *request = [self requestForLoadPath:[obj valueForKey:@"link_path"] withFormat:@"data" cachePolicy:NSURLRequestReloadRevalidatingCacheData];
+    NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
+                                          withFormat:@"data"
+                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
     FPAFHTTPRequestOperation *operation = [[FPAFHTTPRequestOperation alloc] initWithRequest:request];
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
-    NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
 
-    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL append:NO];
+    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
+                                isDirectory:NO];
 
-    [operation setCompletionBlockWithSuccess: ^(FPAFHTTPRequestOperation *operation, id responseObject) {
+    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
+                                                          append:NO];
+
+    FPAFHTTPRequestOperationSuccessBlock operationSuccessBlock = ^(FPAFHTTPRequestOperation *operation, id responseObject) {
         NSData *file = [[NSData alloc] initWithContentsOfFile:tempPath];
         NSDictionary *headers = [operation.response allHeaderFields];
-        NSString *mimetype = [headers valueForKey:@"Content-Type"];
+        NSString *mimetype = headers[@"Content-Type"];
+
         // TODO: Should be looking at obj mimetype as well.
 
         if ([mimetype rangeOfString:@";"].location != NSNotFound)
         {
-            mimetype = [[mimetype componentsSeparatedByString:@";"] objectAtIndex:0];
+            mimetype = [mimetype componentsSeparatedByString:@";"][0];
         }
 
         UIImage *fileImage;
@@ -1067,25 +1322,31 @@ NSInteger ROW_HEIGHT = 44;
             fileImage = [UIImage imageWithData:file];
         }
 
-        NSString * UTI = [self utiForMimetype:mimetype];
+        NSString *UTI = [self utiForMimetype:mimetype];
+        NSMutableDictionary *info;
 
-        NSMutableDictionary *info = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
-                                     [headers valueForKey:@"X-Data-Url"], @"FPPickerControllerRemoteURL",
-                                     [headers valueForKey:@"X-File-Name"], @"FPPickerControllerFilename",
-                                     tempURL, @"FPPickerControllerMediaURL",
-                                     UTI, @"FPPickerControllerMediaType",
-                                     fileImage, @"FPPickerControllerOriginalImage", //should be last as it might be nil
-                                     nil];
+        info = [NSMutableDictionary dictionaryWithDictionary:@{
+                    @"FPPickerControllerRemoteURL":[headers valueForKey:@"X-Data-Url"],
+                    @"FPPickerControllerFilename":[headers valueForKey:@"X-File-Name"],
+                    @"FPPickerControllerMediaURL":tempURL,
+                    @"FPPickerControllerMediaType":UTI,
+                    @"FPPickerControllerOriginalImage":fileImage                                                                 //should be last as it might be nil
+                }];
 
         if ([headers valueForKey:@"X-Data-Key"] != nil)
         {
-            [info setValue:[headers valueForKey:@"X-Data-Key"] forKey:@"FPPickerControllerKey"];
+            info[@"FPPickerControllerKey"] = headers[@"X-Data-Key"];
         }
 
         success(info);
-    } failure: ^(FPAFHTTPRequestOperation *operation, NSError *error) {
+    };
+
+    FPAFHTTPRequestOperationFailureBlock operationFailureBlock = ^(FPAFHTTPRequestOperation *operation, NSError *error) {
         failure(error);
-    }];
+    };
+
+    [operation setCompletionBlockWithSuccess:operationSuccessBlock
+                                     failure:operationFailureBlock];
 
     [operation setDownloadProgressBlock: ^(NSInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
         NSLog(@"Get %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
@@ -1099,23 +1360,25 @@ NSInteger ROW_HEIGHT = 44;
     [operation start];
 }
 
-- (NSString*)utiForMimetype:(NSString*)mimetype
+- (NSString *)utiForMimetype:(NSString *)mimetype
 {
     return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType,
                                                                                (__bridge CFStringRef)mimetype,
                                                                                NULL);
 }
 
-- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString*)type cachePolicy:(NSURLRequestCachePolicy)policy
+- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    return [self requestForLoadPath:loadpath withFormat:type byAppending:@"" cachePolicy:policy];
+    return [self requestForLoadPath:loadpath
+                         withFormat:type
+                        byAppending:@""
+                        cachePolicy:policy];
 }
 
-- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString*)type byAppending:(NSString*)additionalString cachePolicy:(NSURLRequestCachePolicy)policy
+- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type byAppending:(NSString *)additionalString cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
-    NSString *js_sessionString = [[NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\": %@}", appString, [sourceType mimetypeString]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
+    NSString *js_sessionString = [[NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\": %@}", appString, [self.sourceType mimetypeString]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
 
     if ([urlString rangeOfString:@"?"].location == NSNotFound)
@@ -1133,7 +1396,10 @@ NSInteger ROW_HEIGHT = 44;
     NSURL *url = [NSURL URLWithString:urlString];
 
 
-    NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:url cachePolicy:policy timeoutInterval:240];
+    NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:url
+                                                            cachePolicy:policy
+                                                        timeoutInterval:240];
+
     [mrequest setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES]];
 
     return mrequest;
@@ -1141,8 +1407,11 @@ NSInteger ROW_HEIGHT = 44;
 
 - (void)refresh
 {
-    [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
-    [self fpLoadContents:path cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+    [FPMBProgressHUD hideAllHUDsForView:self.view
+                               animated:YES];
+
+    [self fpLoadContents:self.path
+             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 }
 
 - (void)logout:(NSObject *)button
@@ -1151,60 +1420,79 @@ NSInteger ROW_HEIGHT = 44;
 
     NSLog(@"Logout: %@", urlString);
 
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString] cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:240];
-    [FPMBProgressHUD showHUDAddedTo:self.view animated:YES];
-    FPAFJSONRequestOperation *operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request success: ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:240];
+
+    [FPMBProgressHUD showHUDAddedTo:self.view
+                           animated:YES];
+
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"Logout result: %@", JSON);
 
-        [self fpPreloadContents:path cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
+        [self fpPreloadContents:self.path
+                    cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
 
 
-        NSHTTPCookieStorage* cookies = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 
-        for (NSHTTPCookie* cookie in [cookies cookies])
+        for (NSHTTPCookie *cookie in cookieStorage.cookies)
         {
             NSLog(@"%@", [cookie domain]);
         }
 
-
-        for (NSString *urlString in sourceType.externalDomains)
+        for (NSString *urlString in self.sourceType.externalDomains)
         {
-            NSArray* siteCookies;
-            siteCookies = [cookies cookiesForURL:[NSURL URLWithString:urlString]];
+            NSArray *siteCookies;
+            siteCookies = [cookieStorage cookiesForURL:[NSURL URLWithString:urlString]];
 
-            for (NSHTTPCookie* cookie in siteCookies)
+            for (NSHTTPCookie *cookie in siteCookies)
             {
-                [cookies deleteCookie:cookie];
+                [cookieStorage deleteCookie:cookie];
             }
         }
 
-        for (NSHTTPCookie* cookie in [cookies cookies])
+        for (NSHTTPCookie *cookie in cookieStorage.cookies)
         {
             NSLog(@"- %@", [cookie domain]);
         }
 
 
-        [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [FPMBProgressHUD hideAllHUDsForView:self.view
+                                   animated:YES];
 
         [self.navigationController popViewControllerAnimated:YES];
-    } failure: ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        [FPMBProgressHUD hideAllHUDsForView:self.view
+                                   animated:YES];
+
         NSLog(@"error: %@ %@", error, JSON);
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Logout Failure"
-                                                          message:@"Hmm. We weren't able to logout."
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
+
+        UIAlertView *message;
+
+        message = [[UIAlertView alloc] initWithTitle:@"Logout Failure"
+                                             message:@"Hmm. We weren't able to logout."
+                                            delegate:nil
+                                   cancelButtonTitle:@"OK"
+                                   otherButtonTitles:nil];
 
         [message show];
-    }];
+    };
+
+    FPAFJSONRequestOperation *operation;
+
+    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                  success:operationSuccessBlock
+                                                                  failure:operationFailureBlock];
+
     [operation start];
 }
 
 - (CGRect)getViewBounds
 {
     CGRect bounds = self.view.bounds;
-
     UIView *parent = self.view.superview;
 
     if (parent)
