@@ -550,7 +550,7 @@
         CFStringRef extension = UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representation.UTI,
                                                                 kUTTagClassFilenameExtension);
 
-        return [NSString stringWithFormat:@"file.%@", extension];
+        return [NSString stringWithFormat:@"file.%@", CFBridgingRelease(extension)];
     }
 }
 

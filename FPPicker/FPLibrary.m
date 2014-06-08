@@ -433,8 +433,6 @@
     NSString *mimetype = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass(utiToConvert,
                                                                                       kUTTagClassMIMEType);
 
-    CFRelease(utiToConvert);
-
     NSLog(@"mimetype: %@", mimetype);
 
 
@@ -491,7 +489,7 @@
         CFStringRef extension = UTTypeCopyPreferredTagWithClass(utiToConvert,
                                                                 kUTTagClassFilenameExtension);
 
-        filename = [NSString stringWithFormat:@"file.%@", extension];
+        filename = [NSString stringWithFormat:@"file.%@", CFBridgingRelease(extension)];
     }
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
