@@ -842,22 +842,9 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (void)fpLoadNextPage
 {
-    // Encode a string to embed in an URL.
-
     NSLog(@"Next page: %@", self.nextPage);
 
-//    NSString *encoded = (__bridge_transfer NSString*)CFURLCreateStringByAddingPercentEscapes(NULL,
-//                                                                                             (__bridge CFStringRef) self.nextPage,
-//                                                                                             NULL,
-//                                                                                             (CFStringRef) @"!*'();:@&=+$,/?%#[]",
-//                                                                                             kCFStringEncodingUTF8);
-
-    // TODO: Validate that the following two lines are 100% equivalent to what's above
-
-    NSCharacterSet *validCharacters = [NSCharacterSet characterSetWithCharactersInString:@"!*'();:@&=+$,/?%#[]"];
-    NSString *encoded = [self.nextPage stringByAddingPercentEncodingWithAllowedCharacters:validCharacters];
-
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", encoded];
+    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [self urlEncodeString:self.nextPage]];
 
     NSLog(@"nextpageparm: %@", nextPageParam);
 
@@ -1505,6 +1492,33 @@ static const NSInteger ROW_HEIGHT = 44;
 - (void)afterReload
 {
     return;
+}
+
+#pragma mark - Private
+
+/**
+   Converts input string into a string safe to be embedded into a query string
+
+   i.e.:
+
+    - input: http://my test.org?name=ståle&car="saab"
+
+    - output: http%3A%2F%2Fmy%20test.org%3Fname%3Dst%C3%A5le%26car%3D%22saab%22
+
+   @returns An URL-encoded string
+ */
+
+- (NSString *)urlEncodeString:(NSString *)inputString
+{
+    NSString *invalidCharactersString = @"!*'();:@&=+$,/?%#[]\" ";
+
+    CFStringRef encoded = CFURLCreateStringByAddingPercentEscapes(NULL,
+                                                                  (__bridge CFStringRef)inputString,
+                                                                  NULL,
+                                                                  (CFStringRef)invalidCharactersString,
+                                                                  kCFStringEncodingUTF8);
+
+    return CFBridgingRelease(encoded);
 }
 
 @end
