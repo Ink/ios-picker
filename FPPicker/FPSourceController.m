@@ -757,9 +757,8 @@ static const NSInteger ROW_HEIGHT = 44;
 
     //NSLog(@"Loading Contents: %@", JSON);
 
-
-    if (error.code == -1009 ||
-        error.code == -1001)
+    if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+        error.code == kCFURLErrorUnsupportedURL)
     {
         [self.navigationController popViewControllerAnimated:YES];
 
@@ -772,7 +771,7 @@ static const NSInteger ROW_HEIGHT = 44;
         [message show];
     }
 
-    if (error.code == -1011)
+    if (error.code == kCFURLErrorUserCancelledAuthentication)
     {
         [self fpLoadContents:loadpath
                  cachePolicy:NSURLRequestReloadIgnoringCacheData];
@@ -1030,8 +1029,8 @@ static const NSInteger ROW_HEIGHT = 44;
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
             NSLog(@"FAIL %@", error);
 
-            if (error.code == -1009 ||
-                error.code == -1001)
+            if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+                error.code == kCFURLErrorUnsupportedURL)
             {
                 [self.navigationController popViewControllerAnimated:YES];
 
@@ -1144,8 +1143,8 @@ static const NSInteger ROW_HEIGHT = 44;
                 [FPMBProgressHUD hideAllHUDsForView:self.view
                                            animated:YES];
 
-                if (error.code == -1009 ||
-                    error.code == -1001)
+                if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+                    error.code == kCFURLErrorUnsupportedURL)
                 {
                     [self.navigationController popViewControllerAnimated:YES];
 
