@@ -1320,9 +1320,13 @@ static const NSInteger ROW_HEIGHT = 44;
                     @"FPPickerControllerRemoteURL":[headers valueForKey:@"X-Data-Url"],
                     @"FPPickerControllerFilename":[headers valueForKey:@"X-File-Name"],
                     @"FPPickerControllerMediaURL":tempURL,
-                    @"FPPickerControllerMediaType":UTI,
-                    @"FPPickerControllerOriginalImage":fileImage //should be last as it might be nil
+                    @"FPPickerControllerMediaType":UTI
                 }];
+
+        if (fileImage)
+        {
+            info[@"FPPickerControllerOriginalImage"] = fileImage;
+        }
 
         if ([headers valueForKey:@"X-Data-Key"])
         {
