@@ -101,7 +101,6 @@
 		83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */; };
 		83A0313915A89D6E0085E186 /* FP_PullRefreshTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */; };
 		83A0313A15A89D6E0085E186 /* FP_PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */; };
-		83A0313D15A89D770085E186 /* JSONKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313B15A89D770085E186 /* JSONKit.h */; };
 		83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */; };
 		83A0315515A89E050085E186 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314315A89E040085E186 /* FPAuthController.h */; settings = {ATTRIBUTES = (); }; };
 		83A0315615A89E050085E186 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314415A89E040085E186 /* FPAuthController.m */; };
@@ -155,7 +154,6 @@
 		83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DD15AA14820085E186 /* FPInternalHeaders.h */; settings = {ATTRIBUTES = (); }; };
 		83C463C61677223F003707BA /* FilepickerSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 83C463C51677223F003707BA /* FilepickerSettings.plist */; };
-		83C5790315AF13D900A601DB /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313C15A89D770085E186 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */; };
 		83C5790515AF13D900A601DB /* FPAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F415A89CD80085E186 /* FPAFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		83C5790615AF13D900A601DB /* FPAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F615A89CD80085E186 /* FPAFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -305,8 +303,6 @@
 		83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPMBProgressHUD.m; sourceTree = "<group>"; };
 		83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FP_PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FP_PullRefreshTableViewController.m; sourceTree = "<group>"; };
-		83A0313B15A89D770085E186 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
-		83A0313C15A89D770085E186 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+FPAFNetworking.h"; sourceTree = "<group>"; };
 		83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+FPAFNetworking.m"; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
@@ -434,8 +430,6 @@
 		83A030F215A89CC40085E186 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				83A0313B15A89D770085E186 /* JSONKit.h */,
-				83A0313C15A89D770085E186 /* JSONKit.m */,
 				83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */,
 				83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */,
 				83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */,
@@ -603,7 +597,6 @@
 				83A0311715A89CD80085E186 /* FPAFXMLRequestOperation.h in Headers */,
 				83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */,
 				83A0313915A89D6E0085E186 /* FP_PullRefreshTableViewController.h in Headers */,
-				83A0313D15A89D770085E186 /* JSONKit.h in Headers */,
 				83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */,
 				83A0315515A89E050085E186 /* FPAuthController.h in Headers */,
 				83A0315715A89E050085E186 /* FPConfig.h in Headers */,
@@ -834,7 +827,6 @@
 				83A031BC15A8F2570085E186 /* FPSaveController.m in Sources */,
 				831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */,
 				831E0B4815AAC3F30081004F /* FPThumbCell.m in Sources */,
-				83C5790315AF13D900A601DB /* JSONKit.m in Sources */,
 				83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */,
 				83C5790515AF13D900A601DB /* FPAFHTTPClient.m in Sources */,
 				83C5790615AF13D900A601DB /* FPAFHTTPRequestOperation.m in Sources */,
