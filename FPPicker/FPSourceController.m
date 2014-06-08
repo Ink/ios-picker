@@ -1116,7 +1116,7 @@ static const NSInteger ROW_HEIGHT = 44;
                     }
                     else
                     {
-                        hud.labelText = [NSString stringWithFormat:@"Downloading %u of %ld files", results.count + 1, (long)totalCount];
+                        hud.labelText = [NSString stringWithFormat:@"Downloading %lu of %ld files", results.count + 1, (long)totalCount];
                     }
                 }
 
