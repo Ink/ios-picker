@@ -12,7 +12,7 @@
 
 @interface ViewController : UIViewController <FPPickerDelegate, UIPopoverControllerDelegate, FPSaveDelegate>
 
-@property (nonatomic, retain) UIImageView *imageView;
+@property (nonatomic, retain) IBOutlet UIImageView *imageView;
 @property (nonatomic, retain) UIPopoverController *myPopoverController;
 
 @end
