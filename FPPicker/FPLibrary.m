@@ -699,48 +699,24 @@
 
 + (id)JSONObjectWithData:(NSData *)data
 {
-    Class jsonSerializationClass = NSClassFromString(@"NSJSONSerialization");
+    NSError *jsonParsingError = nil;
 
-    if (!jsonSerializationClass)
-    {
-        // iOS < 5 didn't have the JSON serialization class
-        return [data objectFromJSONData]; //JSONKit
-    }
-    else
-    {
-        NSError *jsonParsingError = nil;
+    id jsonObject = [NSJSONSerialization JSONObjectWithData:data
+                                                    options:0
+                                                      error:&jsonParsingError];
 
-        id jsonObject = [NSJSONSerialization JSONObjectWithData:data
-                                                        options:0
-                                                          error:&jsonParsingError];
-
-        return jsonObject;
-    }
-
-    return nil;
+    return jsonObject;
 }
 
 + (NSData *)dataWithJSONObject:(id)object
 {
-    Class jsonSerializationClass = NSClassFromString(@"NSJSONSerialization");
+    NSError *jsonParsingError = nil;
 
-    if (!jsonSerializationClass)
-    {
-        // iOS < 5 didn't have the JSON serialization class
-        return [object JSONData]; //JSONKit
-    }
-    else
-    {
-        NSError *jsonParsingError = nil;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:object
+                                                   options:0
+                                                     error:&jsonParsingError];
 
-        NSData *data = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:0
-                                                         error:&jsonParsingError];
-
-        return data;
-    }
-
-    return nil;
+    return data;
 }
 
 + (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype
