@@ -122,7 +122,7 @@
 
 - (IBAction)savingAction:(id)sender
 {
-    if (self.imageView.image == nil)
+    if (!self.imageView.image)
     {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
                                                           message:@"Select an image first."

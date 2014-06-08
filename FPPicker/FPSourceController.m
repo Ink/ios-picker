@@ -177,7 +177,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)passedTableView
 {
-    if (self.nextPage != nil)
+    if (self.nextPage)
     {
         return 2;
     }
@@ -1076,8 +1076,9 @@ static const NSInteger ROW_HEIGHT = 44;
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
 
-    //TODO: What should we do on failures? Right now we just press forward, but
-    //You could imagine wanting to fail fast
+    // TODO: What should we do on failures? Right now we just press forward, but
+    // You could imagine wanting to fail fast
+
     NSInteger __block totalCount = self.selectedObjects.count;
 
     if (totalCount == 1)
@@ -1093,8 +1094,9 @@ static const NSInteger ROW_HEIGHT = 44;
 
     for (NSDictionary *obj in self.selectedObjects)
     {
-        //We push all the uploads onto background threads. Now we have to be careful
-        //as we're working in multi-threaded environment.
+        // We push all the uploads onto background threads. Now we have to be careful
+        // as we're working in multi-threaded environment.
+
         dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSInteger index = [self.contents indexOfObject:obj];
             UIImage *thumbnail = [self.selectedObjectThumbnails objectForKey:@(index)];
@@ -1104,7 +1106,8 @@ static const NSInteger ROW_HEIGHT = 44;
                 {
                     [results addObject:data];
 
-                    //Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
+                    // Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
+
                     if (results.count >= totalCount)
                     {
                         hud.labelText = @"Finished uploading";
@@ -1152,7 +1155,8 @@ static const NSInteger ROW_HEIGHT = 44;
             FPFetchObjectProgressBlock progressBlock = ^(float progress) {
                 @synchronized(progressTracker)
                 {
-                    hud.progress = [progressTracker setProgress:progress forKey:obj];
+                    hud.progress = [progressTracker setProgress:progress
+                                                         forKey:obj];
                 }
             };
 
@@ -1195,6 +1199,7 @@ static const NSInteger ROW_HEIGHT = 44;
     dispatch_async(dispatch_get_main_queue(), ^{
         self.view.userInteractionEnabled = NO;
     });
+
     BOOL shouldDownload = YES;
 
     if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
@@ -1316,10 +1321,10 @@ static const NSInteger ROW_HEIGHT = 44;
                     @"FPPickerControllerFilename":[headers valueForKey:@"X-File-Name"],
                     @"FPPickerControllerMediaURL":tempURL,
                     @"FPPickerControllerMediaType":UTI,
-                    @"FPPickerControllerOriginalImage":fileImage                                                                 //should be last as it might be nil
+                    @"FPPickerControllerOriginalImage":fileImage //should be last as it might be nil
                 }];
 
-        if ([headers valueForKey:@"X-Data-Key"] != nil)
+        if ([headers valueForKey:@"X-Data-Key"])
         {
             info[@"FPPickerControllerKey"] = headers[@"X-Data-Key"];
         }

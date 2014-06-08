@@ -155,7 +155,7 @@
 {
     FPSaveController *fpsave = (FPSaveController *)self.fpdelegate;
 
-    if (fpsave.proposedFilename != nil)
+    if (fpsave.proposedFilename)
     {
         self.textField.text = fpsave.proposedFilename;
     }
@@ -163,7 +163,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
-    if (self.textField.text != nil)
+    if (self.textField.text)
     {
         FPSaveController *fpsave = (FPSaveController *)self.fpdelegate;
         fpsave.proposedFilename = self.textField.text;
