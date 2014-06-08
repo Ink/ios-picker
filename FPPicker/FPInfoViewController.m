@@ -19,7 +19,10 @@
 
     if (self)
     {
-        // Custom initialization
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
     }
 
     return self;
@@ -34,7 +37,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.contentSizeForViewInPopover = fpWindowSize;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        self.contentSizeForViewInPopover = fpWindowSize;
+    }
 
     [super viewWillAppear:animated];
 
@@ -53,26 +59,24 @@
     UIImage *logo = [UIImage imageWithContentsOfFile:logoFilePath];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:logo];
 
-    CGPoint center = CGPointMake(self.view.center.x, 80);
-
-    imageView.center = center;
-
     [self.view addSubview:imageView];
 
+    CGPoint center = CGPointMake(self.view.center.x, logo.size.height);
+    imageView.center = center;
 
     // Description
 
-    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(15,
-                                                                      logo.size.height + 30,
-                                                                      CGRectGetWidth(bounds) - 30,
+    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(12,
+                                                                      CGRectGetMaxY(imageView.frame),
+                                                                      CGRectGetWidth(bounds) - 24,
                                                                       200)];
     headingLabel.tag = -1;
     headingLabel.textColor = [UIColor grayColor];
     headingLabel.font = [UIFont systemFontOfSize:15];
     headingLabel.textAlignment = NSTextAlignmentCenter;
-    headingLabel.text = @"Filepicker.io is a trusted provider that helps\n applications connect with your content,\n no matter where you store it. \n\nYour information and files are secure and\n your username and password\n are never stored.\n\nMore information at https://www.filepicker.io";
+    headingLabel.text = @"Filepicker.io is a trusted provider that helps\n applications connect with your content,\n no matter where you store it. \n\nYour information and files are secure and\n your username and password\n are never stored.\n\nMore information at\nhttps://www.filepicker.io";
     headingLabel.numberOfLines = 0;
-    headingLabel.lineBreakMode = UILineBreakModeWordWrap;
+    headingLabel.lineBreakMode = NSLineBreakByWordWrapping;
 
     [self.view addSubview:headingLabel];
 
