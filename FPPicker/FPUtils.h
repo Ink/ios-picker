@@ -63,4 +63,11 @@
  */
 + (NSString *)genRandStringLength:(int)len;
 
+/**
+   Returns an image with corrected rotation.
+
+   @returns An UIImage
+ */
++ (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
+
 @end
