@@ -7,6 +7,7 @@
 //
 
 #import "FPAuthController.h"
+#import "FPUtils.h"
 
 @implementation FPAuthController
 
@@ -116,8 +117,8 @@
         return NO;
     }
 
-    NSString *FPSettingsFilePath = [[FPLibrary frameworkBundle] pathForResource:@"FilepickerSettings"
-                                                                         ofType:@"plist"];
+    NSString *FPSettingsFilePath = [[FPUtils frameworkBundle] pathForResource:@"FilepickerSettings"
+                                                                       ofType:@"plist"];
 
     NSDictionary *FPSettings = [NSDictionary dictionaryWithContentsOfFile:FPSettingsFilePath];
 
@@ -125,11 +126,11 @@
 
     if ([FPSettings[@"OnlyResolveAllowedLinks"] boolValue])
     {
-        NSString *disallowedUrlPrefixFilePath = [[FPLibrary frameworkBundle] pathForResource:@"disallowedUrlPrefix"
-                                                                                      ofType:@"plist"];
+        NSString *disallowedUrlPrefixFilePath = [[FPUtils frameworkBundle] pathForResource:@"disallowedUrlPrefix"
+                                                                                    ofType:@"plist"];
 
-        NSString *allowedUrlPrefixFilePath = [[FPLibrary frameworkBundle] pathForResource:@"allowedUrlPrefix"
-                                                                                   ofType:@"plist"];
+        NSString *allowedUrlPrefixFilePath = [[FPUtils frameworkBundle] pathForResource:@"allowedUrlPrefix"
+                                                                                 ofType:@"plist"];
 
         NSArray *disallowedUrlPrefix = [NSArray arrayWithContentsOfFile:disallowedUrlPrefixFilePath];
         NSArray *allowedUrlPrefix = [NSArray arrayWithContentsOfFile:allowedUrlPrefixFilePath];
@@ -191,8 +192,8 @@
 
     [webview stringByEvaluatingJavaScriptFromString:js];
 
-    NSString *FPSettingsFilePath = [[FPLibrary frameworkBundle] pathForResource:@"FilepickerSettings"
-                                                                         ofType:@"plist"];
+    NSString *FPSettingsFilePath = [[FPUtils frameworkBundle] pathForResource:@"FilepickerSettings"
+                                                                       ofType:@"plist"];
 
     NSDictionary *FPSettings = [NSDictionary dictionaryWithContentsOfFile:FPSettingsFilePath];
 

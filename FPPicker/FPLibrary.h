@@ -62,15 +62,4 @@ typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, N
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress;
 
-+ (NSString*)urlEscapeString:(NSString *)unencodedString;
-+ (NSString*)addQueryStringToUrlString:(NSString *)urlString withDictionary:(NSDictionary *)dictionary;
-
-+ (NSBundle *)frameworkBundle;
-
-+ (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype;
-
-+ (NSString *)formatTimeInSeconds:(int)timeInSeconds;
-
-+ (NSString *)genRandStringLength:(int)len;
-
 @end

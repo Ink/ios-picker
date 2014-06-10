@@ -9,6 +9,7 @@
 #import "FPInfoViewController.h"
 #import "FPConfig.h"
 #import "FPLibrary.h"
+#import "FPUtils.h"
 
 @implementation FPInfoViewController
 
@@ -53,8 +54,8 @@
 
     // Logo
 
-    NSString *logoFilePath = [[FPLibrary frameworkBundle] pathForResource:@"logo_small"
-                                                                   ofType:@"png"];
+    NSString *logoFilePath = [[FPUtils frameworkBundle] pathForResource:@"logo_small"
+                                                                 ofType:@"png"];
 
     UIImage *logo = [UIImage imageWithContentsOfFile:logoFilePath];
     UIImageView *imageView = [[UIImageView alloc] initWithImage:logo];

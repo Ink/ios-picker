@@ -9,6 +9,7 @@
 #import "FPLibrary.h"
 #import "FPInternalHeaders.h"
 #import "FPProgressTracker.h"
+#import "FPUtils.h"
 
 @implementation FPLibrary
 
@@ -361,7 +362,7 @@
         filename = @"camera.jpg";
     }
 
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath
                                 isDirectory:NO];
@@ -492,7 +493,7 @@
         filename = [NSString stringWithFormat:@"file.%@", CFBridgingRelease(extension)];
     }
 
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath
                                 isDirectory:NO];
@@ -533,7 +534,7 @@
     //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
     //NSLog(@"Mime: %@", mimetype);
 
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
     [filedata writeToURL:tempURL atomically:YES];
 
@@ -650,73 +651,7 @@
     [operation start];
 }
 
-#pragma mark helper functions
-
-+ (NSString*)urlEscapeString:(NSString *)unencodedString
-{
-    return [unencodedString stringByAddingPercentEscapesUsingEncoding:kCFStringEncodingUTF8];
-}
-
-+ (NSString*)addQueryStringToUrlString:(NSString *)urlString
-                        withDictionary:(NSDictionary *)dictionary
-{
-    NSMutableString *urlWithQuerystring = [urlString mutableCopy];
-
-    for (id key in dictionary)
-    {
-        NSString *keyString = [key description];
-        NSString *valueString = [dictionary[key] description];
-
-        if ([urlWithQuerystring rangeOfString:@"?"].location == NSNotFound)
-        {
-            [urlWithQuerystring appendFormat:@"?%@=%@", [self urlEscapeString:keyString], [self urlEscapeString:valueString]];
-        }
-        else
-        {
-            [urlWithQuerystring appendFormat:@"&%@=%@", [self urlEscapeString:keyString], [self urlEscapeString:valueString]];
-        }
-    }
-
-    return urlWithQuerystring;
-}
-
-// Load the framework bundle.
-+ (NSBundle *)frameworkBundle
-{
-    static NSBundle* frameworkBundle = nil;
-    static dispatch_once_t predicate;
-
-    dispatch_once(&predicate, ^{
-        NSString* mainBundlePath = [NSBundle mainBundle].resourcePath;
-        NSString* frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:@"FPPicker.bundle"];
-        frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
-    });
-
-    return frameworkBundle;
-}
-
-+ (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype
-{
-    if ([supermimetype isEqualToString:@"*/*"])
-    {
-        return YES;
-    }
-
-    if (mimetype == supermimetype)
-    {
-        return YES;
-    }
-
-    NSArray *splitType1 = [mimetype componentsSeparatedByString:@"/"];
-    NSArray *splitType2 = [supermimetype componentsSeparatedByString:@"/"];
-
-    if ([splitType1[0] isEqualToString:splitType2[0]])
-    {
-        return YES;
-    }
-
-    return NO;
-}
+#pragma mark - Helper Methods
 
 + (UIImage *)rotateImage:(UIImage *)image
 {
@@ -737,15 +672,15 @@
        int kMaxResolution = 640; // Or whatever
 
        if (width > kMaxResolution || height > kMaxResolution) {
-        CGFloat ratio = width/height;
-        if (ratio > 1) {
-            bounds.size.width = kMaxResolution;
-            bounds.size.height = roundf(bounds.size.width / ratio);
-        }
-        else {
-            bounds.size.height = kMaxResolution;
-            bounds.size.width = roundf(bounds.size.height * ratio);
-        }
+       CGFloat ratio = width/height;
+       if (ratio > 1) {
+       bounds.size.width = kMaxResolution;
+       bounds.size.height = roundf(bounds.size.width / ratio);
+       }
+       else {
+       bounds.size.height = kMaxResolution;
+       bounds.size.width = roundf(bounds.size.height * ratio);
+       }
        }
      */
 
@@ -834,28 +769,6 @@
     UIGraphicsEndImageContext();
 
     return imageCopy;
-}
-
-+ (NSString *)formatTimeInSeconds:(int)timeInSeconds
-{
-    int seconds = timeInSeconds % 60;
-    int minutes = (timeInSeconds / 60);
-
-    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
-}
-
-+ (NSString *)genRandStringLength:(int)len
-{
-    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-
-    NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
-
-    for (int i = 0; i<len; i++)
-    {
-        [randomString appendFormat:@"%C", [letters characterAtIndex:arc4random() % letters.length]];
-    }
-
-    return randomString;
 }
 
 @end

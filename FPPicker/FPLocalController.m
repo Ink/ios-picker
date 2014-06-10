@@ -8,6 +8,7 @@
 
 #import "FPLocalController.h"
 #import "FPProgressTracker.h"
+#import "FPUtils.h"
 
 @interface FPLocalController ()
 {
@@ -51,13 +52,13 @@
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        imageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlayiOS7"
-                                                              ofType:@"png"];
+        imageFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                            ofType:@"png"];
     }
     else
     {
-        imageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlay"
-                                                              ofType:@"png"];
+        imageFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
+                                                            ofType:@"png"];
     }
 
     _selectOverlay = [UIImage imageWithContentsOfFile:imageFilePath];
@@ -228,8 +229,8 @@
             //ALAssetRepresentation *rep = [asset defaultRepresentation];
             NSLog(@"data: %@", [asset valueForProperty:ALAssetPropertyDuration]);
 
-            NSString *videoFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
-                                                                            ofType:@"png"];
+            NSString *videoFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
+                                                                          ofType:@"png"];
 
             UIImage *videoOverlay = [UIImage imageWithContentsOfFile:videoFilePath];
             UIImage *backgroundImage = imageView.image;
@@ -244,7 +245,7 @@
             headingLabel.alpha = 0.7;
             headingLabel.font = [UIFont systemFontOfSize:14];
             headingLabel.textAlignment = NSTextAlignmentRight;
-            headingLabel.text = [FPLibrary formatTimeInSeconds:ceil([[asset valueForProperty:ALAssetPropertyDuration] doubleValue])];
+            headingLabel.text = [FPUtils formatTimeInSeconds:ceil([[asset valueForProperty:ALAssetPropertyDuration] doubleValue])];
 
 
             UIImage *result;
@@ -411,7 +412,7 @@
     });
 }
 
-- (void)uploadButtonTapped:(id)sender
+- (IBAction)uploadButtonTapped:(id)sender
 {
     [super uploadButtonTapped:sender];
 

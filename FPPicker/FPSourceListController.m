@@ -7,7 +7,7 @@
 //
 
 #import "FPSourceListController.h"
-
+#import "FPUtils.h"
 #import "FPLocalAlbumController.h"
 #import "FPSourceController.h"
 #import "FPSaveSourceController.h"
@@ -364,8 +364,8 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
 
-    NSString *imageFilePath = [[FPLibrary frameworkBundle] pathForResource:source.icon
-                                                                    ofType:@"png"];
+    NSString *imageFilePath = [[FPUtils frameworkBundle] pathForResource:source.icon
+                                                                  ofType:@"png"];
 
     cell.imageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
 

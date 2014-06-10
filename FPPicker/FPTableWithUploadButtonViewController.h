@@ -15,6 +15,6 @@
 @property (nonatomic) NSInteger maxFiles;
 
 - (void)updateUploadButton:(NSInteger)count;
-- (void)uploadButtonTapped:(id)sender;
+- (IBAction)uploadButtonTapped:(id)sender;
 
 @end

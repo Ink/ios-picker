@@ -10,6 +10,7 @@
 #import "FPSaveController.h"
 #import "FPAuthController.h"
 #import "FPInternalHeaders.h"
+#import "FPUtils.h"
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"
 
@@ -73,19 +74,19 @@ static const NSInteger ROW_HEIGHT = 44;
 
     if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
     {
-        selectOverlayFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlayiOS7"
-                                                                      ofType:@"png"];
+        selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                                    ofType:@"png"];
     }
     else
     {
-        selectOverlayFilePath = [[FPLibrary frameworkBundle] pathForResource:@"SelectOverlay"
-                                                                      ofType:@"png"];
+        selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
+                                                                    ofType:@"png"];
     }
 
     _selectOverlay = [UIImage imageWithContentsOfFile:selectOverlayFilePath];
 
-    NSString *selectIconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_206_ok_2"
-                                                                         ofType:@"png"];
+    NSString *selectIconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_206_ok_2"
+                                                                       ofType:@"png"];
 
     _selectIcon = [UIImage imageWithContentsOfFile:selectIconFilePath];
 
@@ -364,8 +365,8 @@ static const NSInteger ROW_HEIGHT = 44;
 
 
         //NSLog(@"Request: %@", mrequest);
-        NSString *placeHolderImageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"placeholder"
-                                                                                   ofType:@"png"];
+        NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
+                                                                                 ofType:@"png"];
 
         UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
 
@@ -473,16 +474,16 @@ static const NSInteger ROW_HEIGHT = 44;
 
         if (isDir)
         {
-            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
-                                                                           ofType:@"png"];
+            NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
+                                                                         ofType:@"png"];
 
             cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
             cell.imageView.contentMode = UIViewContentModeCenter;
         }
         else
         {
-            NSString *placeHolderImageFilePath = [[FPLibrary frameworkBundle] pathForResource:@"placeholder"
-                                                                                       ofType:@"png"];
+            NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
+                                                                                     ofType:@"png"];
 
             UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
 
@@ -498,15 +499,15 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         if (isDir)
         {
-            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
-                                                                           ofType:@"png"];
+            NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
+                                                                         ofType:@"png"];
 
             cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
         }
         else
         {
-            NSString *iconFilePath = [[FPLibrary frameworkBundle] pathForResource:@"glyphicons_036_file"
-                                                                           ofType:@"png"];
+            NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_036_file"
+                                                                         ofType:@"png"];
 
             cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
         }
@@ -576,6 +577,149 @@ static const NSInteger ROW_HEIGHT = 44;
         [self updateUploadButton:self.selectedObjects.count];
     });
 }
+
+#pragma mark - Actions
+
+- (IBAction)uploadButtonTapped:(id)sender
+{
+    [super uploadButtonTapped:sender];
+
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
+                                                  animated:YES];
+
+    hud.mode = FPMBProgressHUDModeDeterminate;
+
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
+    NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
+
+    // TODO: What should we do on failures? Right now we just press forward, but
+    // You could imagine wanting to fail fast
+
+    NSInteger __block totalCount = self.selectedObjects.count;
+
+    if (totalCount == 1)
+    {
+        hud.labelText = @"Downloading 1 file";
+    }
+    else
+    {
+        hud.labelText = [NSString stringWithFormat:@"Downloading 1 of %ld files", (long)totalCount];
+    }
+
+    FPProgressTracker *progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.selectedObjects.count];
+
+    for (NSDictionary *obj in self.selectedObjects)
+    {
+        // We push all the uploads onto background threads. Now we have to be careful
+        // as we're working in multi-threaded environment.
+
+        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+            NSInteger index = [self.contents indexOfObject:obj];
+            UIImage *thumbnail = [self.selectedObjectThumbnails objectForKey:@(index)];
+
+            FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
+                @synchronized(results)
+                {
+                    [results addObject:data];
+
+                    // Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
+
+                    if (results.count >= totalCount)
+                    {
+                        hud.labelText = @"Finished uploading";
+
+                        [self finishMultipleUpload:results];
+                    }
+                    else
+                    {
+                        hud.labelText = [NSString stringWithFormat:@"Downloading %lu of %ld files", results.count + 1, (long)totalCount];
+                    }
+                }
+
+                @synchronized(progressTracker)
+                {
+                    hud.progress = [progressTracker setProgress:1.f
+                                                         forKey:obj];
+                }
+            };
+
+            FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
+                NSLog(@"FAIL %@", error);
+
+                [FPMBProgressHUD hideAllHUDsForView:self.view
+                                           animated:YES];
+
+                if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+                    error.code == kCFURLErrorUnsupportedURL)
+                {
+                    [self.navigationController popViewControllerAnimated:YES];
+
+                    UIAlertView *message;
+
+                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
+                                                         message:@"You aren't connected to the internet so we can't get your files."
+                                                        delegate:nil
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+
+                    [message show];
+                }
+
+                [self.fpdelegate FPSourceControllerDidCancel:self];
+            };
+
+            FPFetchObjectProgressBlock progressBlock = ^(float progress) {
+                @synchronized(progressTracker)
+                {
+                    hud.progress = [progressTracker setProgress:progress
+                                                         forKey:obj];
+                }
+            };
+
+            [self fetchObject:obj
+                withThumbnail:thumbnail
+                      success:successBlock
+                      failure:failureBlock
+                     progress:progressBlock];
+        });
+    }
+}
+
+- (IBAction)singleTappedWithGesture:(UIGestureRecognizer *)sender
+{
+    CGPoint tapPoint = [sender locationOfTouch:sender.view.tag
+                                        inView:sender.view];
+
+    int rowIndex = (int)MIN(floor(tapPoint.x / 105), self.numPerRow - 1);
+
+    // Do nothing if there isn't a corresponding image view.
+
+    if (rowIndex >= [sender.view.subviews count])
+    {
+        return;
+    }
+
+    UIImageView *selectedView = sender.view.subviews[rowIndex];
+
+    NSMutableDictionary *obj = self.contents[selectedView.tag];
+    UIImage *thumbnail;
+
+    BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
+
+    if (thumbExists)
+    {
+        thumbnail = selectedView.image;
+
+        [self objectSelectedAtIndex:selectedView.tag
+                      withThumbnail:thumbnail];
+    }
+    else
+    {
+        [self objectSelectedAtIndex:selectedView.tag];
+    }
+}
+
+#pragma mark - Private Methods
 
 - (void)fpAuthResponse
 {
@@ -700,52 +844,8 @@ static const NSInteger ROW_HEIGHT = 44;
         [self.searchDisplayController.searchResultsTableView reloadData];
     }
 
+
     [self afterReload];
-}
-
-- (void)launchAuthView
-{
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(fpAuthResponse)
-                                                 name:@"auth"
-                                               object:nil];
-
-    FPAuthController *authView = [FPAuthController new];
-    authView.service = self.sourceType.identifier;
-    authView.title = self.sourceType.name;
-
-    [self.navigationController pushViewController:authView
-                                         animated:NO];
-}
-
-- (void)setupEmptyView
-{
-    CGRect bounds = [self getViewBounds];
-
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                      CGRectGetMidY(bounds) - 60,
-                                                                      CGRectGetWidth(bounds),
-                                                                      30)];
-    headingLabel.tag = -1;
-    headingLabel.textColor = [UIColor grayColor];
-    headingLabel.font = [UIFont systemFontOfSize:25];
-    headingLabel.textAlignment = NSTextAlignmentCenter;
-    headingLabel.text = @"No files here";
-
-    [self.view addSubview:headingLabel];
-
-    UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                  CGRectGetMidY(bounds) - 30,
-                                                                  CGRectGetWidth(bounds),
-                                                                  30)];
-    subLabel.tag = -2;
-    subLabel.textColor = [UIColor grayColor];
-    subLabel.textAlignment = NSTextAlignmentCenter;
-    subLabel.text = @"Pull down to refresh";
-
-    [self.view addSubview:subLabel];
 }
 
 - (void)fpLoadResponseFailureAtPath:(NSString *)loadpath withError:(NSError *)error
@@ -844,7 +944,7 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     NSLog(@"Next page: %@", self.nextPage);
 
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [self urlEncodeString:self.nextPage]];
+    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
 
     NSLog(@"nextpageparm: %@", nextPageParam);
 
@@ -891,40 +991,6 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                   success:operationSuccessBlock
                                                                   failure:operationFailureBlock];
     [operation start];
-}
-
-- (IBAction)singleTappedWithGesture:(UIGestureRecognizer *)sender
-{
-    CGPoint tapPoint = [sender locationOfTouch:sender.view.tag
-                                        inView:sender.view];
-
-    int rowIndex = (int)MIN(floor(tapPoint.x / 105), self.numPerRow - 1);
-
-    // Do nothing if there isn't a corresponding image view.
-
-    if (rowIndex >= [sender.view.subviews count])
-    {
-        return;
-    }
-
-    UIImageView *selectedView = sender.view.subviews[rowIndex];
-
-    NSMutableDictionary *obj = self.contents[selectedView.tag];
-    UIImage *thumbnail;
-
-    BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
-
-    if (thumbExists)
-    {
-        thumbnail = selectedView.image;
-
-        [self objectSelectedAtIndex:selectedView.tag
-                      withThumbnail:thumbnail];
-    }
-    else
-    {
-        [self objectSelectedAtIndex:selectedView.tag];
-    }
 }
 
 - (void)objectSelectedAtIndex:(NSInteger)index
@@ -1064,111 +1130,6 @@ static const NSInteger ROW_HEIGHT = 44;
     });
 }
 
-- (void)uploadButtonTapped:(id)sender
-{
-    [super uploadButtonTapped:sender];
-
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
-                                                  animated:YES];
-
-    hud.mode = FPMBProgressHUDModeDeterminate;
-
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
-
-    // TODO: What should we do on failures? Right now we just press forward, but
-    // You could imagine wanting to fail fast
-
-    NSInteger __block totalCount = self.selectedObjects.count;
-
-    if (totalCount == 1)
-    {
-        hud.labelText = @"Downloading 1 file";
-    }
-    else
-    {
-        hud.labelText = [NSString stringWithFormat:@"Downloading 1 of %ld files", (long)totalCount];
-    }
-
-    FPProgressTracker *progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.selectedObjects.count];
-
-    for (NSDictionary *obj in self.selectedObjects)
-    {
-        // We push all the uploads onto background threads. Now we have to be careful
-        // as we're working in multi-threaded environment.
-
-        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
-            NSInteger index = [self.contents indexOfObject:obj];
-            UIImage *thumbnail = [self.selectedObjectThumbnails objectForKey:@(index)];
-
-            FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
-                @synchronized(results)
-                {
-                    [results addObject:data];
-
-                    // Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
-
-                    if (results.count >= totalCount)
-                    {
-                        hud.labelText = @"Finished uploading";
-
-                        [self finishMultipleUpload:results];
-                    }
-                    else
-                    {
-                        hud.labelText = [NSString stringWithFormat:@"Downloading %lu of %ld files", results.count + 1, (long)totalCount];
-                    }
-                }
-
-                @synchronized(progressTracker)
-                {
-                    hud.progress = [progressTracker setProgress:1.f
-                                                         forKey:obj];
-                }
-            };
-
-            FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-                NSLog(@"FAIL %@", error);
-
-                [FPMBProgressHUD hideAllHUDsForView:self.view
-                                           animated:YES];
-
-                if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
-                    error.code == kCFURLErrorUnsupportedURL)
-                {
-                    [self.navigationController popViewControllerAnimated:YES];
-
-                    UIAlertView *message;
-
-                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                         message:@"You aren't connected to the internet so we can't get your files."
-                                                        delegate:nil
-                                               cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil];
-
-                    [message show];
-                }
-
-                [self.fpdelegate FPSourceControllerDidCancel:self];
-            };
-
-            FPFetchObjectProgressBlock progressBlock = ^(float progress) {
-                @synchronized(progressTracker)
-                {
-                    hud.progress = [progressTracker setProgress:progress
-                                                         forKey:obj];
-                }
-            };
-
-            [self fetchObject:obj
-                withThumbnail:thumbnail
-                      success:successBlock
-                      failure:failureBlock
-                     progress:progressBlock];
-        });
-    }
-}
-
 - (void)finishMultipleUpload:(NSArray *)results
 {
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -1286,7 +1247,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
     FPAFHTTPRequestOperation *operation = [[FPAFHTTPRequestOperation alloc] initWithRequest:request];
 
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPLibrary genRandStringLength:20]];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath
                                 isDirectory:NO];
@@ -1308,12 +1269,12 @@ static const NSInteger ROW_HEIGHT = 44;
 
         UIImage *fileImage;
 
-        if ([FPLibrary mimetype:mimetype instanceOfMimetype:@"image/*"])
+        if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
         {
             fileImage = [UIImage imageWithData:file];
         }
 
-        NSString *UTI = [self utiForMimetype:mimetype];
+        NSString *UTI = [FPUtils utiForMimetype:mimetype];
         NSMutableDictionary *info;
 
         info = [NSMutableDictionary dictionaryWithDictionary:@{
@@ -1353,13 +1314,6 @@ static const NSInteger ROW_HEIGHT = 44;
     }];
 
     [operation start];
-}
-
-- (NSString *)utiForMimetype:(NSString *)mimetype
-{
-    return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType,
-                                                                               (__bridge CFStringRef)mimetype,
-                                                                               NULL);
 }
 
 - (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type cachePolicy:(NSURLRequestCachePolicy)policy
@@ -1500,34 +1454,53 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (void)afterReload
 {
-    return;
+    // No-op
+    // Will be overriden by subclasses
 }
 
-#pragma mark - Private
-
-/**
-   Converts input string into a string safe to be embedded into a query string
-
-   i.e.:
-
-    - input: http://my test.org?name=ståle&car="saab"
-
-    - output: http%3A%2F%2Fmy%20test.org%3Fname%3Dst%C3%A5le%26car%3D%22saab%22
-
-   @returns An URL-encoded string
- */
-
-- (NSString *)urlEncodeString:(NSString *)inputString
+- (void)launchAuthView
 {
-    NSString *invalidCharactersString = @"!*'();:@&=+$,/?%#[]\" ";
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(fpAuthResponse)
+                                                 name:@"auth"
+                                               object:nil];
 
-    CFStringRef encoded = CFURLCreateStringByAddingPercentEscapes(NULL,
-                                                                  (__bridge CFStringRef)inputString,
-                                                                  NULL,
-                                                                  (CFStringRef)invalidCharactersString,
-                                                                  kCFStringEncodingUTF8);
+    FPAuthController *authView = [FPAuthController new];
+    authView.service = self.sourceType.identifier;
+    authView.title = self.sourceType.name;
 
-    return CFBridgingRelease(encoded);
+    [self.navigationController pushViewController:authView
+                                         animated:NO];
+}
+
+- (void)setupEmptyView
+{
+    CGRect bounds = [self getViewBounds];
+
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                      CGRectGetMidY(bounds) - 60,
+                                                                      CGRectGetWidth(bounds),
+                                                                      30)];
+    headingLabel.tag = -1;
+    headingLabel.textColor = [UIColor grayColor];
+    headingLabel.font = [UIFont systemFontOfSize:25];
+    headingLabel.textAlignment = NSTextAlignmentCenter;
+    headingLabel.text = @"No files here";
+
+    [self.view addSubview:headingLabel];
+
+    UILabel *subLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                  CGRectGetMidY(bounds) - 30,
+                                                                  CGRectGetWidth(bounds),
+                                                                  30)];
+    subLabel.tag = -2;
+    subLabel.textColor = [UIColor grayColor];
+    subLabel.textAlignment = NSTextAlignmentCenter;
+    subLabel.text = @"Pull down to refresh";
+
+    [self.view addSubview:subLabel];
 }
 
 @end

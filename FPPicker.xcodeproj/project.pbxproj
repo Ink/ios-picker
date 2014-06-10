@@ -60,6 +60,8 @@
 		02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C136A81856794000D6940E /* FPProgressTracker.h */; };
 		02C136AB1856794000D6940E /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
 		453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */; };
+		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
+		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
 		83088C3C15B0ABA20078D9D8 /* glyphicons_sb1_gmail.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3815B0ABA20078D9D8 /* glyphicons_sb1_gmail.png */; };
 		83088C3D15B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3915B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png */; };
 		83088C3E15B0ABA20078D9D8 /* glyphicons_sb2_box.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3A15B0ABA20078D9D8 /* glyphicons_sb2_box.png */; };
@@ -227,6 +229,8 @@
 		02C136A81856794000D6940E /* FPProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPProgressTracker.h; sourceTree = "<group>"; };
 		02C136A91856794000D6940E /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
 		453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFNetworkingHeaders.h; sourceTree = "<group>"; };
+		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
+		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		83088C3815B0ABA20078D9D8 /* glyphicons_sb1_gmail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_sb1_gmail.png; sourceTree = "<group>"; };
 		83088C3915B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_sb1_gmail@2x.png"; sourceTree = "<group>"; };
 		83088C3A15B0ABA20078D9D8 /* glyphicons_sb2_box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_sb2_box.png; sourceTree = "<group>"; };
@@ -246,7 +250,7 @@
 		832AE68717444347002EEDAE /* glyphicons_sb3_skydrive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_sb3_skydrive.png; sourceTree = "<group>"; };
 		832AE68817444347002EEDAE /* glyphicons_sb3_skydrive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_sb3_skydrive@2x.png"; sourceTree = "<group>"; };
 		836A9D38169B5CF0006AC920 /* FPInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPInfoViewController.h; sourceTree = "<group>"; };
-		836A9D39169B5CF0006AC920 /* FPInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPInfoViewController.m; sourceTree = "<group>"; };
+		836A9D39169B5CF0006AC920 /* FPInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPInfoViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		836A9D3F169B7F5C006AC920 /* logo_small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "logo_small@2x.png"; sourceTree = "<group>"; };
 		836A9D40169B7F5C006AC920 /* logo_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_small.png; sourceTree = "<group>"; };
 		83799BA316163DB4004807CD /* glyphicons_395_flickr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_395_flickr.png; sourceTree = "<group>"; };
@@ -308,14 +312,14 @@
 		83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+FPAFNetworking.h"; sourceTree = "<group>"; };
 		83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+FPAFNetworking.m"; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
-		83A0314415A89E040085E186 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAuthController.m; sourceTree = "<group>"; };
+		83A0314415A89E040085E186 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAuthController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0314515A89E040085E186 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConfig.h; sourceTree = "<group>"; };
 		83A0314615A89E040085E186 /* FPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConstants.h; sourceTree = "<group>"; };
 		83A0314715A89E040085E186 /* FPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConstants.m; sourceTree = "<group>"; };
 		83A0314815A89E040085E186 /* FPLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPLibrary.h; sourceTree = "<group>"; };
 		83A0314915A89E040085E186 /* FPLibrary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLibrary.m; sourceTree = "<group>"; };
 		83A0314A15A89E040085E186 /* FPLocalController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPLocalController.h; sourceTree = "<group>"; };
-		83A0314B15A89E040085E186 /* FPLocalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLocalController.m; sourceTree = "<group>"; };
+		83A0314B15A89E040085E186 /* FPLocalController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPLocalController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0314C15A89E040085E186 /* FPPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPicker.h; sourceTree = "<group>"; };
 		83A0314D15A89E040085E186 /* FPPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPickerController.h; sourceTree = "<group>"; };
 		83A0314E15A89E040085E186 /* FPPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPickerController.m; sourceTree = "<group>"; };
@@ -324,7 +328,7 @@
 		83A0315115A89E040085E186 /* FPSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceController.h; sourceTree = "<group>"; };
 		83A0315215A89E040085E186 /* FPSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPSourceController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0315315A89E050085E186 /* FPSourceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceListController.h; sourceTree = "<group>"; };
-		83A0315415A89E050085E186 /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceListController.m; sourceTree = "<group>"; };
+		83A0315415A89E050085E186 /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPSourceListController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0317415A8A2A40085E186 /* FPPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FPPicker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A0317515A8A2A40085E186 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		83A0317915A8A2A40085E186 /* FilepickerResources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FilepickerResources-Info.plist"; sourceTree = "<group>"; };
@@ -415,6 +419,8 @@
 				83A031A515A8A4AC0085E186 /* FPSource.m */,
 				83A0314815A89E040085E186 /* FPLibrary.h */,
 				83A0314915A89E040085E186 /* FPLibrary.m */,
+				453096E4194738A6001D970C /* FPUtils.h */,
+				453096E5194738A6001D970C /* FPUtils.m */,
 				83A0311A15A89D350085E186 /* FPAssets */,
 				83A030F215A89CC40085E186 /* Vendor */,
 				83A030E815A89C9D0085E186 /* Supporting Files */,
@@ -605,6 +611,7 @@
 				83A0315715A89E050085E186 /* FPConfig.h in Headers */,
 				83A0315815A89E050085E186 /* FPConstants.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
+				453096E6194738A6001D970C /* FPUtils.h in Headers */,
 				0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */,
 				83A0315C15A89E050085E186 /* FPLocalController.h in Headers */,
 				83A0315E15A89E050085E186 /* FPPicker.h in Headers */,
@@ -820,6 +827,7 @@
 				83A0313A15A89D6E0085E186 /* FP_PullRefreshTableViewController.m in Sources */,
 				83A0315615A89E050085E186 /* FPAuthController.m in Sources */,
 				83A0315915A89E050085E186 /* FPConstants.m in Sources */,
+				453096E7194738A6001D970C /* FPUtils.m in Sources */,
 				83A0315B15A89E050085E186 /* FPLibrary.m in Sources */,
 				83A0315D15A89E050085E186 /* FPLocalController.m in Sources */,
 				83A0316015A89E050085E186 /* FPPickerController.m in Sources */,
