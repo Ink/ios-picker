@@ -367,17 +367,9 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		83088CC815B0AC1E0078D9D8 /* Resources-iPad */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Resources-iPad";
-			sourceTree = "<group>";
-		};
 		83A030D715A89C9D0085E186 = {
 			isa = PBXGroup;
 			children = (
-				83088CC815B0AC1E0078D9D8 /* Resources-iPad */,
 				83A030E715A89C9D0085E186 /* FPPicker */,
 				83A0317715A8A2A40085E186 /* FilepickerResources */,
 				83A030E415A89C9D0085E186 /* Frameworks */,
