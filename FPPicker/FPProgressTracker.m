@@ -9,15 +9,17 @@
 #import "FPProgressTracker.h"
 
 @interface FPProgressTracker ()
+
 @property (nonatomic, strong) NSMutableDictionary *progressMap;
 @property (atomic) NSInteger count;
+
 @end
 
 @implementation FPProgressTracker
 
 - (id)initWithObjectCount:(NSInteger)objectCount
 {
-    self = [super init];
+    self = [self init];
 
     if (self)
     {

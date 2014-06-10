@@ -367,6 +367,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45D7356619476DA8001EF626 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83A0314A15A89E040085E186 /* FPLocalController.h */,
+				83A0314B15A89E040085E186 /* FPLocalController.m */,
+				832739F1171F384E000A4A23 /* FPLocalAlbumController.h */,
+				832739F2171F384F000A4A23 /* FPLocalAlbumController.m */,
+				83A0315115A89E040085E186 /* FPSourceController.h */,
+				83A0315215A89E040085E186 /* FPSourceController.m */,
+				831E0ABC15AA6E460081004F /* FPSaveSourceController.h */,
+				831E0ABD15AA6E460081004F /* FPSaveSourceController.m */,
+				83A0314F15A89E040085E186 /* FPSearchController.h */,
+				83A0315015A89E040085E186 /* FPSearchController.m */,
+				83A0314315A89E040085E186 /* FPAuthController.h */,
+				83A0314415A89E040085E186 /* FPAuthController.m */,
+				836A9D38169B5CF0006AC920 /* FPInfoViewController.h */,
+				836A9D39169B5CF0006AC920 /* FPInfoViewController.m */,
+				0266B3A1184EB1A800A91862 /* FPTableWithUploadButtonViewController.h */,
+				0266B3A2184EB1A800A91862 /* FPTableWithUploadButtonViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		45D7356719476F08001EF626 /* Nav Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83A0314D15A89E040085E186 /* FPPickerController.h */,
+				83A0314E15A89E040085E186 /* FPPickerController.m */,
+				83A031B915A8F2570085E186 /* FPSaveController.h */,
+				83A031BA15A8F2570085E186 /* FPSaveController.m */,
+			);
+			name = "Nav Controllers";
+			sourceTree = "<group>";
+		};
+		45D7356819476F87001EF626 /* Table View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				83A0315315A89E050085E186 /* FPSourceListController.h */,
+				83A0315415A89E050085E186 /* FPSourceListController.m */,
+			);
+			name = "Table View Controllers";
+			sourceTree = "<group>";
+		};
 		83A030D715A89C9D0085E186 = {
 			isa = PBXGroup;
 			children = (
@@ -404,7 +447,6 @@
 				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
 				453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */,
 				83A0314515A89E040085E186 /* FPConfig.h */,
-				83A0316715A89E0C0085E186 /* FPClasses */,
 				83A0314615A89E040085E186 /* FPConstants.h */,
 				83A0314715A89E040085E186 /* FPConstants.m */,
 				83A031A415A8A4AC0085E186 /* FPSource.h */,
@@ -413,6 +455,10 @@
 				83A0314915A89E040085E186 /* FPLibrary.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
 				453096E5194738A6001D970C /* FPUtils.m */,
+				83A0316715A89E0C0085E186 /* Misc Classes */,
+				45D7356719476F08001EF626 /* Nav Controllers */,
+				45D7356619476DA8001EF626 /* View Controllers */,
+				45D7356819476F87001EF626 /* Table View Controllers */,
 				83A0311A15A89D350085E186 /* FPAssets */,
 				83A030F215A89CC40085E186 /* Vendor */,
 				83A030E815A89C9D0085E186 /* Supporting Files */,
@@ -528,37 +574,15 @@
 			name = FPAssets;
 			sourceTree = "<group>";
 		};
-		83A0316715A89E0C0085E186 /* FPClasses */ = {
+		83A0316715A89E0C0085E186 /* Misc Classes */ = {
 			isa = PBXGroup;
 			children = (
-				83A0314D15A89E040085E186 /* FPPickerController.h */,
-				83A0314E15A89E040085E186 /* FPPickerController.m */,
-				83A031B915A8F2570085E186 /* FPSaveController.h */,
-				83A031BA15A8F2570085E186 /* FPSaveController.m */,
-				83A0315315A89E050085E186 /* FPSourceListController.h */,
-				83A0315415A89E050085E186 /* FPSourceListController.m */,
-				83A0314A15A89E040085E186 /* FPLocalController.h */,
-				83A0314B15A89E040085E186 /* FPLocalController.m */,
-				832739F1171F384E000A4A23 /* FPLocalAlbumController.h */,
-				832739F2171F384F000A4A23 /* FPLocalAlbumController.m */,
-				83A0315115A89E040085E186 /* FPSourceController.h */,
-				83A0315215A89E040085E186 /* FPSourceController.m */,
 				831E0B4515AAC3F30081004F /* FPThumbCell.h */,
 				831E0B4615AAC3F30081004F /* FPThumbCell.m */,
-				831E0ABC15AA6E460081004F /* FPSaveSourceController.h */,
-				831E0ABD15AA6E460081004F /* FPSaveSourceController.m */,
-				83A0314F15A89E040085E186 /* FPSearchController.h */,
-				83A0315015A89E040085E186 /* FPSearchController.m */,
-				83A0314315A89E040085E186 /* FPAuthController.h */,
-				83A0314415A89E040085E186 /* FPAuthController.m */,
-				836A9D38169B5CF0006AC920 /* FPInfoViewController.h */,
-				836A9D39169B5CF0006AC920 /* FPInfoViewController.m */,
-				0266B3A1184EB1A800A91862 /* FPTableWithUploadButtonViewController.h */,
-				0266B3A2184EB1A800A91862 /* FPTableWithUploadButtonViewController.m */,
 				02C136A81856794000D6940E /* FPProgressTracker.h */,
 				02C136A91856794000D6940E /* FPProgressTracker.m */,
 			);
-			name = FPClasses;
+			name = "Misc Classes";
 			sourceTree = "<group>";
 		};
 		83A0317715A8A2A40085E186 /* FilepickerResources */ = {

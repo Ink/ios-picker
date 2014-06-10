@@ -42,7 +42,7 @@
 
 
 /**
-   Returns whether a mimetype is an instance another mimetype.
+   Returns whether a mimetype is an instance of another mimetype.
 
    @returns YES or NOT
  */

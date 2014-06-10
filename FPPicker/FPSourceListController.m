@@ -1,5 +1,5 @@
 //
-//  TableViewController.m
+//  FPSourceListController.m
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
