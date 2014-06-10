@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Filepicker.io (Cloudtop Inc.). All rights reserved.
 //
 
-// This class main purpose is simply to be able to import FPAFNetworking
+// This headers' main purpose is simply to be able to import FPAFNetworking
 // and extend parts of the original FPAFNetworking library without directly modifying it.
 
 #import "FPAFNetworking.h"
