@@ -11,8 +11,6 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@class FPAFHTTPRequestOperation;
-
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
 typedef void (^FPUploadAssetFailureBlock)(NSError *error, id JSON);
 typedef void (^FPUploadAssetProgressBlock)(float progress);
