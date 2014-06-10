@@ -80,9 +80,6 @@ typedef void (^FPAFHTTPRequestOperationFailureBlock)(FPAFHTTPRequestOperation *o
 
 + (NSBundle *)frameworkBundle;
 
-+ (id)JSONObjectWithData:(NSData *)data;
-+ (NSData *)dataWithJSONObject:(id)object;
-
 + (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype;
 
 + (NSString *)formatTimeInSeconds:(int)timeInSeconds;

@@ -695,28 +695,6 @@
     return frameworkBundle;
 }
 
-+ (id)JSONObjectWithData:(NSData *)data
-{
-    NSError *jsonParsingError = nil;
-
-    id jsonObject = [NSJSONSerialization JSONObjectWithData:data
-                                                    options:0
-                                                      error:&jsonParsingError];
-
-    return jsonObject;
-}
-
-+ (NSData *)dataWithJSONObject:(id)object
-{
-    NSError *jsonParsingError = nil;
-
-    NSData *data = [NSJSONSerialization dataWithJSONObject:object
-                                                   options:0
-                                                     error:&jsonParsingError];
-
-    return data;
-}
-
 + (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype
 {
     if ([supermimetype isEqualToString:@"*/*"])
