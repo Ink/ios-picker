@@ -118,7 +118,6 @@
     [operation start];
 }
 
-//multipart
 // TODO: Refactor by splitting into smaller and more manageable parts
 
 + (void)multipartUploadData:(NSData*)filedata
@@ -164,11 +163,12 @@
 
     FPARequestOperationSuccessBlock beginPartSuccess = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         NSLog(@"Response: %@", JSON);
-        NSString* upload_id = [[JSON valueForKey:@"data"] valueForKey:@"id"];
+
+        NSString *uploadID = [[JSON valueForKey:@"data"] valueForKey:@"id"];
 
         void (^endMultipart)() = ^() {
             NSDictionary *endParams = @{
-                @"id":upload_id,
+                @"id":uploadID,
                 @"total":@(numOfChunks),
                 @"js_session":js_sessionString
             };
@@ -216,28 +216,20 @@
         /* send the chunks */
         for (int i = 0; i < numOfChunks; i++)
         {
+            NSLog(@"Sending slice #%d", i);
+
             NSString *uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
-                                    upload_id,
+                                    uploadID,
                                     i,
                                     [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
 
-            NSLog(@"Sending slice #%d", i);
+            size_t chunkOffset = i * fpMaxChunkSize;
+            size_t bytesToRead = (i == numOfChunks - 1) ? (filesize - i * fpMaxChunkSize) : fpMaxChunkSize;
+            NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
 
-            NSData *slice;
-
-            if (i == numOfChunks - 1)
-            {
-                NSInteger finalPartSize = filesize - i * fpMaxChunkSize;
-                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, finalPartSize)] bytes]
-                                             length:finalPartSize
-                                       freeWhenDone:NO];
-            }
-            else
-            {
-                slice = [NSData dataWithBytesNoCopy:(void*)[[filedata subdataWithRange:NSMakeRange(i * fpMaxChunkSize, fpMaxChunkSize)] bytes]
-                                             length:fpMaxChunkSize
-                                       freeWhenDone:NO];
-            }
+            NSData *slice = [NSData dataWithBytesNoCopy:(void *)[[filedata subdataWithRange:subdataRange] bytes]
+                                                 length:bytesToRead
+                                           freeWhenDone:NO];
 
             NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
                                                                                  path:uploadPath
@@ -304,8 +296,6 @@
                 [operation start];
             }
         }
-
-        ;
     };
 
     FPARequestOperationFailureBlock beginPartFail = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -334,7 +324,7 @@
     }
 }
 
-#pragma mark camera upload
+#pragma mark - Camera Upload Methods
 
 + (void)uploadImage:(UIImage*)image
          ofMimetype:(NSString*)mimetype
@@ -416,7 +406,7 @@
                              progress:progress];
 }
 
-#pragma mark local source controller
+#pragma mark - Local Source Upload Methods
 
 + (void)uploadAsset:(ALAsset*)asset
         withOptions:(NSDictionary*)options
@@ -464,7 +454,7 @@
     {
         NSLog(@"using png");
 
-        UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage
+        UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
                                              scale:representation.scale
                                        orientation:(UIImageOrientation)representation.orientation];
 
@@ -474,7 +464,7 @@
     {
         NSLog(@"using jpeg");
 
-        UIImage* image = [UIImage imageWithCGImage:representation.fullResolutionImage
+        UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
                                              scale:representation.scale
                                        orientation:(UIImageOrientation)representation.orientation];
 
@@ -519,7 +509,7 @@
                              progress:progress];
 }
 
-#pragma mark for save as
+#pragma mark - Save As Methods
 
 + (void)uploadData:(NSData*)filedata
              named:(NSString *)filename
