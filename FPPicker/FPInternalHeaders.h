@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
-#import "FPAFNetworking.h"
+#import "FPAFNetworkingHeaders.h"
 #import "FPMBProgressHUD.h"
 #import "FP_PullRefreshTableViewController.h"
 
