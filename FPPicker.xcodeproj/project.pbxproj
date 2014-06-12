@@ -294,8 +294,6 @@
 		02C136A81856794000D6940E /* FPProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPProgressTracker.h; sourceTree = "<group>"; };
 		02C136A91856794000D6940E /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
 		1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Integration Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D15071053BD4F5BA7400A13 /* Pods-functional_tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-functional_tests.xcconfig"; path = "Pods/Pods-functional_tests.xcconfig"; sourceTree = "<group>"; };
-		43888B8DF78D4DC0AAD020BF /* Pods-library.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-library.xcconfig"; path = "Pods/Pods-library.xcconfig"; sourceTree = "<group>"; };
 		450B5A4B1949EFC0007AF44A /* FPPicker Integration Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FPPicker Integration Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		450B5A521949EFC0007AF44A /* FPPicker Integration Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker Integration Tests-Info.plist"; sourceTree = "<group>"; };
@@ -624,8 +622,6 @@
 				83A030E415A89C9D0085E186 /* Frameworks */,
 				83A030E315A89C9D0085E186 /* Products */,
 				458B1FE31949D624008360E9 /* Tests */,
-				3D15071053BD4F5BA7400A13 /* Pods-functional_tests.xcconfig */,
-				43888B8DF78D4DC0AAD020BF /* Pods-library.xcconfig */,
 				EE82CD48E25A45FDB861E49A /* Pods-FPPicker Functional Tests.xcconfig */,
 				FE9E6B54507649188D0A8F90 /* Pods-FPPicker Integration Tests.xcconfig */,
 			);
@@ -1558,7 +1554,6 @@
 		};
 		83A030F015A89C9D0085E186 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43888B8DF78D4DC0AAD020BF /* Pods-library.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -1572,7 +1567,6 @@
 		};
 		83A030F115A89C9D0085E186 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 43888B8DF78D4DC0AAD020BF /* Pods-library.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
