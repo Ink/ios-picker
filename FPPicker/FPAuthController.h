@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "FPInternalHeaders.h"
-#import "FPConstants.h"
-#import "FPConfig.h"
 
 @interface FPAuthController : UIViewController <UIWebViewDelegate>
 
