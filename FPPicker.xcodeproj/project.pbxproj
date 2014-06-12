@@ -102,6 +102,7 @@
 		453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
+		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		458B1FEF1949D726008360E9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEE1949D726008360E9 /* UIKit.framework */; };
@@ -229,6 +230,13 @@
 			remoteInfo = FPPicker;
 		};
 		023D83331843CB1700D74A82 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83A0317315A8A2A40085E186;
+			remoteInfo = FilepickerResources;
+		};
+		457868061949FFAB009515E2 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
 			proxyType = 1;
@@ -870,6 +878,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				457868071949FFAB009515E2 /* PBXTargetDependency */,
 			);
 			name = "FPPicker Integration Tests";
 			productName = "FPPicker Integration Tests";
@@ -977,6 +986,7 @@
 				450B5A661949EFC1007AF44A /* Images.xcassets in Resources */,
 				450B5A5E1949EFC1007AF44A /* Main_iPhone.storyboard in Resources */,
 				450B5A551949EFC0007AF44A /* InfoPlist.strings in Resources */,
+				457868091949FFDA009515E2 /* FPPicker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1258,6 +1268,11 @@
 			isa = PBXTargetDependency;
 			target = 83A0317315A8A2A40085E186 /* FilepickerResources */;
 			targetProxy = 023D83331843CB1700D74A82 /* PBXContainerItemProxy */;
+		};
+		457868071949FFAB009515E2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83A0317315A8A2A40085E186 /* FilepickerResources */;
+			targetProxy = 457868061949FFAB009515E2 /* PBXContainerItemProxy */;
 		};
 		458B1FFA1949D726008360E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
