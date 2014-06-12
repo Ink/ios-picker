@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4504565A194A00B500245F96 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45045659194A00B500245F96 /* libFPPicker.a */; };
-		45DE4BD1194A026400B8F6B5 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */; };
+		45F51CB9194A16230040515D /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45F51CB8194A16230040515D /* FPPicker.bundle */; };
 		83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83579F0315A8856900F83C85 /* AssetsLibrary.framework */; };
 		83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */; };
 		83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */; };
@@ -30,7 +30,7 @@
 
 /* Begin PBXFileReference section */
 		45045659194A00B500245F96 /* libFPPicker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFPPicker.a; path = "../build/Debug-iphoneos/libFPPicker.a"; sourceTree = "<group>"; };
-		45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FPPicker.bundle; sourceTree = SOURCE_ROOT; };
+		45F51CB8194A16230040515D /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FPPicker.bundle; path = ../../dist/FPPicker.bundle; sourceTree = "<group>"; };
 		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		836A9D47169B8F20006AC920 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		836A9D4B169B90DA006AC920 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -128,7 +128,7 @@
 		8379A5CE15A7BA9D009D0D28 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */,
+				45F51CB8194A16230040515D /* FPPicker.bundle */,
 				8379A5CF15A7BA9D009D0D28 /* FPPicker Demo-Info.plist */,
 				8379A5D015A7BA9D009D0D28 /* InfoPlist.strings */,
 				8379A5D315A7BA9D009D0D28 /* main.m */,
@@ -187,7 +187,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45DE4BD1194A026400B8F6B5 /* FPPicker.bundle in Resources */,
+				45F51CB9194A16230040515D /* FPPicker.bundle in Resources */,
 				8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */,
 				8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */,
 				836A9D48169B8F20006AC920 /* Default-568h@2x.png in Resources */,
