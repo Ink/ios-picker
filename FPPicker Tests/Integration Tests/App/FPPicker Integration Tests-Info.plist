@@ -22,14 +22,14 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>Filepicker API Key</key>
+	<string>SET_FILEPICKER.IO_APIKEY_HERE</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main_iPhone</string>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>Main_iPad</string>
-	<key>Filepicker API Key</key>
-	<string>AI4VVnXmxRmG1pNzYPSQEz</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

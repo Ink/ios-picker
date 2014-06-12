@@ -1,0 +1,1 @@
+PODS_FPPICKER_INTEGRATION_TESTS_OHHTTPSTUBS_OTHER_LDFLAGS = -framework CFNetwork -framework Foundation
