@@ -26,20 +26,9 @@
 {
     if (!_APIKey)
     {
-        NSString *infoPlistFilepath = [[NSBundle mainBundle] pathForResource:@"Info"
-                                                                      ofType:@"plist"];
+        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
 
-        NSData *infoContents = [NSData dataWithContentsOfFile:infoPlistFilepath];
-
-        id propertyList = [NSPropertyListSerialization propertyListWithData:infoContents
-                                                                    options:NSPropertyListOpenStepFormat
-                                                                     format:nil
-                                                                      error:nil];
-
-        if (propertyList)
-        {
-            _APIKey = [propertyList objectForKey:@"Filepicker API Key"];
-        }
+        _APIKey = [infoDict objectForKey:@"Filepicker API Key"];
     }
 
     return _APIKey;

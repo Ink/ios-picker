@@ -109,6 +109,9 @@
 		458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 458B20021949D7C1008360E9 /* InfoPlist.strings */; };
 		458B200F1949D7C1008360E9 /* FPPicker_Functional_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */; };
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
+		45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; };
+		45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
+		45920DE2194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		83088C3C15B0ABA20078D9D8 /* glyphicons_sb1_gmail.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3815B0ABA20078D9D8 /* glyphicons_sb1_gmail.png */; };
 		83088C3D15B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3915B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png */; };
@@ -155,7 +158,6 @@
 		83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */; };
 		83A0315515A89E050085E186 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314315A89E040085E186 /* FPAuthController.h */; settings = {ATTRIBUTES = (); }; };
 		83A0315615A89E050085E186 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314415A89E040085E186 /* FPAuthController.m */; };
-		83A0315715A89E050085E186 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314515A89E040085E186 /* FPConfig.h */; settings = {ATTRIBUTES = (); }; };
 		83A0315815A89E050085E186 /* FPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314615A89E040085E186 /* FPConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A0315915A89E050085E186 /* FPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314715A89E040085E186 /* FPConstants.m */; };
 		83A0315A15A89E050085E186 /* FPLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314815A89E040085E186 /* FPLibrary.h */; settings = {ATTRIBUTES = (); }; };
@@ -321,6 +323,9 @@
 		458B20071949D7C1008360E9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
 		458B20091949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubs+ConveniencyMethods.h"; sourceTree = "<group>"; };
 		458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+ConveniencyMethods.m"; sourceTree = "<group>"; };
+		45920DDD194A0D2E007003C1 /* FPMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPMacros.h; sourceTree = "<group>"; };
+		45920DDE194A0D8A007003C1 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConfig.h; sourceTree = "<group>"; };
+		45920DDF194A0D8A007003C1 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfig.m; sourceTree = "<group>"; };
 		5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Functional Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83088C3815B0ABA20078D9D8 /* glyphicons_sb1_gmail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = glyphicons_sb1_gmail.png; sourceTree = "<group>"; };
 		83088C3915B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "glyphicons_sb1_gmail@2x.png"; sourceTree = "<group>"; };
@@ -404,7 +409,6 @@
 		83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+FPAFNetworking.m"; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
 		83A0314415A89E040085E186 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAuthController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		83A0314515A89E040085E186 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConfig.h; sourceTree = "<group>"; };
 		83A0314615A89E040085E186 /* FPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConstants.h; sourceTree = "<group>"; };
 		83A0314715A89E040085E186 /* FPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConstants.m; sourceTree = "<group>"; };
 		83A0314815A89E040085E186 /* FPLibrary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPLibrary.h; sourceTree = "<group>"; };
@@ -656,17 +660,19 @@
 		83A030E715A89C9D0085E186 /* FPPicker */ = {
 			isa = PBXGroup;
 			children = (
+				45920DDE194A0D8A007003C1 /* FPConfig.h */,
+				45920DDF194A0D8A007003C1 /* FPConfig.m */,
 				83A0314C15A89E040085E186 /* FPPicker.h */,
 				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
 				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
 				453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */,
-				83A0314515A89E040085E186 /* FPConfig.h */,
 				83A0314615A89E040085E186 /* FPConstants.h */,
 				83A0314715A89E040085E186 /* FPConstants.m */,
-				83A031A415A8A4AC0085E186 /* FPSource.h */,
-				83A031A515A8A4AC0085E186 /* FPSource.m */,
+				45920DDD194A0D2E007003C1 /* FPMacros.h */,
 				83A0314815A89E040085E186 /* FPLibrary.h */,
 				83A0314915A89E040085E186 /* FPLibrary.m */,
+				83A031A415A8A4AC0085E186 /* FPSource.h */,
+				83A031A515A8A4AC0085E186 /* FPSource.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
 				453096E5194738A6001D970C /* FPUtils.m */,
 				83A0316715A89E0C0085E186 /* Misc Classes */,
@@ -838,12 +844,12 @@
 				83A0313915A89D6E0085E186 /* FP_PullRefreshTableViewController.h in Headers */,
 				83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */,
 				83A0315515A89E050085E186 /* FPAuthController.h in Headers */,
-				83A0315715A89E050085E186 /* FPConfig.h in Headers */,
 				83A0315815A89E050085E186 /* FPConstants.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
 				453096E6194738A6001D970C /* FPUtils.h in Headers */,
 				0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */,
 				83A0315C15A89E050085E186 /* FPLocalController.h in Headers */,
+				45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */,
 				83A0315E15A89E050085E186 /* FPPicker.h in Headers */,
 				83A0315F15A89E050085E186 /* FPPickerController.h in Headers */,
 				02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */,
@@ -1193,6 +1199,7 @@
 				450B5A901949F134007AF44A /* FPMBProgressHUD.m in Sources */,
 				450B5A8C1949F0A0007AF44A /* FPAuthController.m in Sources */,
 				450B5A911949F136007AF44A /* FP_PullRefreshTableViewController.m in Sources */,
+				45920DE2194A0D8A007003C1 /* FPConfig.m in Sources */,
 				450B5A991949F14E007AF44A /* FPAFURLConnectionOperation.m in Sources */,
 				450B5A7F1949F087007AF44A /* FPConstants.m in Sources */,
 				450B5A851949F093007AF44A /* FPPickerController.m in Sources */,
@@ -1244,6 +1251,7 @@
 				83C5790D15AF13D900A601DB /* FPAFXMLRequestOperation.m in Sources */,
 				83C5790E15AF13D900A601DB /* UIImageView+FPAFNetworking.m in Sources */,
 				836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */,
+				45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */,
 				832739F4171F384F000A4A23 /* FPLocalAlbumController.m in Sources */,
 				02C136AB1856794000D6940E /* FPProgressTracker.m in Sources */,
 			);
