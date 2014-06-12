@@ -30,15 +30,15 @@
 
         if (envAPIKey)
         {
-            NSLog(@"(DEBUG) Loading API KEY from contents of %@ (Info.plist API KEY will be ignored!)", envAPIKey);
+            NSString *theAPIKey = [NSString stringWithContentsOfFile:envAPIKey
+                                                            encoding:NSUTF8StringEncoding
+                                                               error:nil];
 
-            _APIKey = [NSString stringWithContentsOfFile:envAPIKey
-                                                encoding:NSUTF8StringEncoding
-                                                   error:nil];
+            _APIKey = [theAPIKey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-            if (!_APIKey)
+            if (_APIKey)
             {
-                NSLog(@"ERROR: Unable to load API KEY from contents of %@", envAPIKey);
+                NSLog(@"(DEBUG) Loaded API KEY from contents of %@ (Info.plist API KEY will be ignored!)", envAPIKey);
             }
         }
 
