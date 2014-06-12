@@ -36,7 +36,7 @@
 	<key>CFBundleVersion</key>
 	<string>2.2.3</string>
 	<key>Filepicker API Key</key>
-	<string>YOUR-FILEPICKER-API-KEY-HERE</string>
+	<string>SET_FILEPICKER.IO_APIKEY_HERE</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
