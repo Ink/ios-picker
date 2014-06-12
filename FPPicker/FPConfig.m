@@ -26,9 +26,28 @@
 {
     if (!_APIKey)
     {
-        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+        NSString *envAPIKey = [[NSProcessInfo processInfo] environment][@"API_KEY_FILE"];
 
-        _APIKey = [infoDict objectForKey:@"Filepicker API Key"];
+        if (envAPIKey)
+        {
+            NSLog(@"(DEBUG) Loading API KEY from contents of %@ (Info.plist API KEY will be ignored!)", envAPIKey);
+
+            _APIKey = [NSString stringWithContentsOfFile:envAPIKey
+                                                encoding:NSUTF8StringEncoding
+                                                   error:nil];
+
+            if (!_APIKey)
+            {
+                NSLog(@"ERROR: Unable to load API KEY from contents of %@", envAPIKey);
+            }
+        }
+
+        if (!_APIKey)
+        {
+            NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+
+            _APIKey = [infoDict objectForKey:@"Filepicker API Key"];
+        }
     }
 
     return _APIKey;

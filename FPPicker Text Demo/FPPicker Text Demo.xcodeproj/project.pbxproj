@@ -13,7 +13,6 @@
 		45905FF0194A0565004A1422 /* fp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45905FEE194A0565004A1422 /* fp@2x.png */; };
 		45905FF2194A056C004A1422 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF1194A056C004A1422 /* Default-568h@2x.png */; };
 		45905FF5194A057E004A1422 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF3194A057E004A1422 /* ViewController.xib */; };
-		45905FF8194A0589004A1422 /* FPPicker Text Demo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF6194A0589004A1422 /* FPPicker Text Demo-Info.plist */; };
 		45905FFB194A05A4004A1422 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF9194A05A4004A1422 /* InfoPlist.strings */; };
 		45905FFD194A05AA004A1422 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45905FFC194A05AA004A1422 /* main.m */; };
 		45DA75AB194A045C00213BA5 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA75AA194A045C00213BA5 /* libFPPicker.a */; };
@@ -186,7 +185,6 @@
 			files = (
 				45905FEF194A0565004A1422 /* fp.png in Resources */,
 				45905FFB194A05A4004A1422 /* InfoPlist.strings in Resources */,
-				45905FF8194A0589004A1422 /* FPPicker Text Demo-Info.plist in Resources */,
 				45F51CBB194A163B0040515D /* FPPicker.bundle in Resources */,
 				45905FF0194A0565004A1422 /* fp@2x.png in Resources */,
 				45905FF5194A057E004A1422 /* ViewController.xib in Resources */,
@@ -306,10 +304,6 @@
 					"$(SRCROOT)/../",
 				);
 				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/ruben/src/Apps/ios-picker/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker Text Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -333,10 +327,6 @@
 					"$(SRCROOT)/../",
 				);
 				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
-				LIBRARY_SEARCH_PATHS = (
-					"$(inherited)",
-					"/Users/ruben/src/Apps/ios-picker/build/Debug-iphoneos",
-				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker Text Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
