@@ -1,1 +1,0 @@
-./subliminal-instrument/scripts/subliminal-instrument.sh
