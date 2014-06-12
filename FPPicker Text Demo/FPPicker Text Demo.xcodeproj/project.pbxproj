@@ -7,68 +7,45 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		455E664019429DBF00DC0010 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 455E663B19429DA900DC0010 /* libFPPicker.a */; };
+		45905FEB194A055A004A1422 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45905FE8194A055A004A1422 /* AppDelegate.m */; };
+		45905FEC194A055A004A1422 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45905FEA194A055A004A1422 /* ViewController.m */; };
+		45905FEF194A0565004A1422 /* fp.png in Resources */ = {isa = PBXBuildFile; fileRef = 45905FED194A0565004A1422 /* fp.png */; };
+		45905FF0194A0565004A1422 /* fp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45905FEE194A0565004A1422 /* fp@2x.png */; };
+		45905FF2194A056C004A1422 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF1194A056C004A1422 /* Default-568h@2x.png */; };
+		45905FF5194A057E004A1422 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF3194A057E004A1422 /* ViewController.xib */; };
+		45905FF8194A0589004A1422 /* FPPicker Text Demo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF6194A0589004A1422 /* FPPicker Text Demo-Info.plist */; };
+		45905FFB194A05A4004A1422 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45905FF9194A05A4004A1422 /* InfoPlist.strings */; };
+		45905FFD194A05AA004A1422 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45905FFC194A05AA004A1422 /* main.m */; };
+		45DA75AB194A045C00213BA5 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DA75AA194A045C00213BA5 /* libFPPicker.a */; };
 		830E7F2715AB80D3002351BF /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 830E7F2515AB80D3002351BF /* FPPicker.bundle */; };
-		836A9D64169B9A75006AC920 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D63169B9A75006AC920 /* Default-568h@2x.png */; };
-		836A9D67169B9B0E006AC920 /* fp.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D66169B9B0E006AC920 /* fp.png */; };
-		836A9D69169B9B12006AC920 /* fp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 836A9D68169B9B12006AC920 /* fp@2x.png */; };
 		83A0323915AA33340085E186 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0323815AA33340085E186 /* UIKit.framework */; };
 		83A0323B15AA33340085E186 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0323A15AA33340085E186 /* Foundation.framework */; };
 		83A0323D15AA33340085E186 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0323C15AA33340085E186 /* CoreGraphics.framework */; };
-		83A0324315AA33340085E186 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83A0324115AA33340085E186 /* InfoPlist.strings */; };
-		83A0324515AA33340085E186 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0324415AA33340085E186 /* main.m */; };
-		83A0324915AA33340085E186 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0324815AA33340085E186 /* AppDelegate.m */; };
-		83A0324C15AA33340085E186 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0324B15AA33340085E186 /* ViewController.m */; };
-		83A0324F15AA33340085E186 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83A0324D15AA33340085E186 /* ViewController.xib */; };
 		83A0325E15AA38150085E186 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0325D15AA38150085E186 /* AssetsLibrary.framework */; };
 		83A0326015AA381B0085E186 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0325F15AA381B0085E186 /* MobileCoreServices.framework */; };
 		83A0326215AA38290085E186 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0326115AA38290085E186 /* QuartzCore.framework */; };
 		83A0326415AA38310085E186 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A0326315AA38310085E186 /* CoreFoundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		455E663A19429DA900DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E663219429DA900DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83A030E215A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-		455E663C19429DA900DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E663219429DA900DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83A0317415A8A2A40085E186;
-			remoteInfo = FilepickerResources;
-		};
-		455E663E19429DB400DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E663219429DA900DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		455E663219429DA900DC0010 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
+		45905FE8194A055A004A1422 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "FPPicker Text Demo/AppDelegate.m"; sourceTree = SOURCE_ROOT; };
+		45905FE9194A055A004A1422 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = "FPPicker Text Demo/ViewController.h"; sourceTree = SOURCE_ROOT; };
+		45905FEA194A055A004A1422 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = "FPPicker Text Demo/ViewController.m"; sourceTree = SOURCE_ROOT; };
+		45905FED194A0565004A1422 /* fp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = fp.png; path = "FPPicker Text Demo/fp.png"; sourceTree = SOURCE_ROOT; };
+		45905FEE194A0565004A1422 /* fp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "fp@2x.png"; path = "FPPicker Text Demo/fp@2x.png"; sourceTree = SOURCE_ROOT; };
+		45905FF1194A056C004A1422 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "FPPicker Text Demo/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
+		45905FF4194A057E004A1422 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "FPPicker Text Demo/en.lproj/ViewController.xib"; sourceTree = SOURCE_ROOT; };
+		45905FF6194A0589004A1422 /* FPPicker Text Demo-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "FPPicker Text Demo-Info.plist"; path = "FPPicker Text Demo/FPPicker Text Demo-Info.plist"; sourceTree = SOURCE_ROOT; };
+		45905FF7194A0589004A1422 /* FPPicker Text Demo-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "FPPicker Text Demo-Prefix.pch"; path = "FPPicker Text Demo/FPPicker Text Demo-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		45905FFA194A05A4004A1422 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = "FPPicker Text Demo/en.lproj/InfoPlist.strings"; sourceTree = SOURCE_ROOT; };
+		45905FFC194A05AA004A1422 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "FPPicker Text Demo/main.m"; sourceTree = SOURCE_ROOT; };
+		45DA75AA194A045C00213BA5 /* libFPPicker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFPPicker.a; path = "../build/Debug-iphoneos/libFPPicker.a"; sourceTree = "<group>"; };
 		830E7F2515AB80D3002351BF /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
-		836A9D63169B9A75006AC920 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		836A9D66169B9B0E006AC920 /* fp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fp.png; sourceTree = "<group>"; };
-		836A9D68169B9B12006AC920 /* fp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp@2x.png"; sourceTree = "<group>"; };
-		83A0323415AA33340085E186 /* FilepickerDemoText.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilepickerDemoText.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		83A0323415AA33340085E186 /* FPPicker Text Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FPPicker Text Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A0323815AA33340085E186 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83A0323A15AA33340085E186 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83A0323C15AA33340085E186 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		83A0324015AA33340085E186 /* FilepickerDemoText-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FilepickerDemoText-Info.plist"; sourceTree = "<group>"; };
-		83A0324215AA33340085E186 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		83A0324415AA33340085E186 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		83A0324615AA33340085E186 /* FilepickerDemoText-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilepickerDemoText-Prefix.pch"; sourceTree = "<group>"; };
-		83A0324715AA33340085E186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		83A0324815AA33340085E186 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		83A0324A15AA33340085E186 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		83A0324B15AA33340085E186 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		83A0324E15AA33340085E186 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		83A0324715AA33340085E186 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../FPPicker Text Demo/AppDelegate.h"; sourceTree = "<group>"; };
 		83A0325D15AA38150085E186 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		83A0325F15AA381B0085E186 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		83A0326115AA38290085E186 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -80,7 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				455E664019429DBF00DC0010 /* libFPPicker.a in Frameworks */,
+				45DA75AB194A045C00213BA5 /* libFPPicker.a in Frameworks */,
 				83A0326415AA38310085E186 /* CoreFoundation.framework in Frameworks */,
 				83A0326215AA38290085E186 /* QuartzCore.framework in Frameworks */,
 				83A0326015AA381B0085E186 /* MobileCoreServices.framework in Frameworks */,
@@ -94,20 +71,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		455E663319429DA900DC0010 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				455E663B19429DA900DC0010 /* libFPPicker.a */,
-				455E663D19429DA900DC0010 /* FPPicker.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		83A0322915AA33340085E186 = {
 			isa = PBXGroup;
 			children = (
-				455E663219429DA900DC0010 /* FPPicker.xcodeproj */,
-				83A0323E15AA33340085E186 /* FilepickerDemoText */,
+				83A0323E15AA33340085E186 /* FPPicker Text Demo */,
 				83A0323715AA33340085E186 /* Frameworks */,
 				83A0323515AA33340085E186 /* Products */,
 			);
@@ -116,7 +83,7 @@
 		83A0323515AA33340085E186 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				83A0323415AA33340085E186 /* FilepickerDemoText.app */,
+				83A0323415AA33340085E186 /* FPPicker Text Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -124,6 +91,7 @@
 		83A0323715AA33340085E186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45DA75AA194A045C00213BA5 /* libFPPicker.a */,
 				830E7F2515AB80D3002351BF /* FPPicker.bundle */,
 				83A0326315AA38310085E186 /* CoreFoundation.framework */,
 				83A0326115AA38290085E186 /* QuartzCore.framework */,
@@ -136,29 +104,30 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		83A0323E15AA33340085E186 /* FilepickerDemoText */ = {
+		83A0323E15AA33340085E186 /* FPPicker Text Demo */ = {
 			isa = PBXGroup;
 			children = (
 				83A0324715AA33340085E186 /* AppDelegate.h */,
-				83A0324815AA33340085E186 /* AppDelegate.m */,
-				83A0324A15AA33340085E186 /* ViewController.h */,
-				83A0324B15AA33340085E186 /* ViewController.m */,
-				83A0324D15AA33340085E186 /* ViewController.xib */,
-				836A9D68169B9B12006AC920 /* fp@2x.png */,
-				836A9D66169B9B0E006AC920 /* fp.png */,
-				836A9D63169B9A75006AC920 /* Default-568h@2x.png */,
+				45905FE8194A055A004A1422 /* AppDelegate.m */,
+				45905FE9194A055A004A1422 /* ViewController.h */,
+				45905FEA194A055A004A1422 /* ViewController.m */,
+				45905FF3194A057E004A1422 /* ViewController.xib */,
+				45905FED194A0565004A1422 /* fp.png */,
+				45905FEE194A0565004A1422 /* fp@2x.png */,
+				45905FF1194A056C004A1422 /* Default-568h@2x.png */,
 				83A0323F15AA33340085E186 /* Supporting Files */,
 			);
+			name = "FPPicker Text Demo";
 			path = FilepickerDemoText;
 			sourceTree = "<group>";
 		};
 		83A0323F15AA33340085E186 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				83A0324015AA33340085E186 /* FilepickerDemoText-Info.plist */,
-				83A0324115AA33340085E186 /* InfoPlist.strings */,
-				83A0324415AA33340085E186 /* main.m */,
-				83A0324615AA33340085E186 /* FilepickerDemoText-Prefix.pch */,
+				45905FF6194A0589004A1422 /* FPPicker Text Demo-Info.plist */,
+				45905FF7194A0589004A1422 /* FPPicker Text Demo-Prefix.pch */,
+				45905FF9194A05A4004A1422 /* InfoPlist.strings */,
+				45905FFC194A05AA004A1422 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -166,9 +135,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		83A0323315AA33340085E186 /* FilepickerDemoText */ = {
+		83A0323315AA33340085E186 /* FPPicker Text Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 83A0325215AA33340085E186 /* Build configuration list for PBXNativeTarget "FilepickerDemoText" */;
+			buildConfigurationList = 83A0325215AA33340085E186 /* Build configuration list for PBXNativeTarget "FPPicker Text Demo" */;
 			buildPhases = (
 				83A0323015AA33340085E186 /* Sources */,
 				83A0323115AA33340085E186 /* Frameworks */,
@@ -177,11 +146,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				455E663F19429DB400DC0010 /* PBXTargetDependency */,
 			);
-			name = FilepickerDemoText;
+			name = "FPPicker Text Demo";
 			productName = FilepickerDemoText;
-			productReference = 83A0323415AA33340085E186 /* FilepickerDemoText.app */;
+			productReference = 83A0323415AA33340085E186 /* FPPicker Text Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +160,7 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 83A0322E15AA33340085E186 /* Build configuration list for PBXProject "FilepickerDemoText" */;
+			buildConfigurationList = 83A0322E15AA33340085E186 /* Build configuration list for PBXProject "FPPicker Text Demo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -202,47 +170,25 @@
 			mainGroup = 83A0322915AA33340085E186;
 			productRefGroup = 83A0323515AA33340085E186 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 455E663319429DA900DC0010 /* Products */;
-					ProjectRef = 455E663219429DA900DC0010 /* FPPicker.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				83A0323315AA33340085E186 /* FilepickerDemoText */,
+				83A0323315AA33340085E186 /* FPPicker Text Demo */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		455E663B19429DA900DC0010 /* libFPPicker.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFPPicker.a;
-			remoteRef = 455E663A19429DA900DC0010 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		455E663D19429DA900DC0010 /* FPPicker.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FPPicker.bundle;
-			remoteRef = 455E663C19429DA900DC0010 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		83A0323215AA33340085E186 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A0324315AA33340085E186 /* InfoPlist.strings in Resources */,
-				83A0324F15AA33340085E186 /* ViewController.xib in Resources */,
+				45905FEF194A0565004A1422 /* fp.png in Resources */,
+				45905FFB194A05A4004A1422 /* InfoPlist.strings in Resources */,
+				45905FF8194A0589004A1422 /* FPPicker Text Demo-Info.plist in Resources */,
 				830E7F2715AB80D3002351BF /* FPPicker.bundle in Resources */,
-				836A9D64169B9A75006AC920 /* Default-568h@2x.png in Resources */,
-				836A9D67169B9B0E006AC920 /* fp.png in Resources */,
-				836A9D69169B9B12006AC920 /* fp@2x.png in Resources */,
+				45905FF0194A0565004A1422 /* fp@2x.png in Resources */,
+				45905FF5194A057E004A1422 /* ViewController.xib in Resources */,
+				45905FF2194A056C004A1422 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,37 +199,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A0324515AA33340085E186 /* main.m in Sources */,
-				83A0324915AA33340085E186 /* AppDelegate.m in Sources */,
-				83A0324C15AA33340085E186 /* ViewController.m in Sources */,
+				45905FEC194A055A004A1422 /* ViewController.m in Sources */,
+				45905FEB194A055A004A1422 /* AppDelegate.m in Sources */,
+				45905FFD194A05AA004A1422 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		455E663F19429DB400DC0010 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FPPicker;
-			targetProxy = 455E663E19429DB400DC0010 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
-		83A0324115AA33340085E186 /* InfoPlist.strings */ = {
+		45905FF3194A057E004A1422 /* ViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				83A0324215AA33340085E186 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		83A0324D15AA33340085E186 /* ViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				83A0324E15AA33340085E186 /* en */,
+				45905FF4194A057E004A1422 /* en */,
 			);
 			name = ViewController.xib;
+			sourceTree = "<group>";
+		};
+		45905FF9194A05A4004A1422 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45905FFA194A05A4004A1422 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -317,7 +255,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -344,7 +282,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -359,11 +297,19 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
-				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "FPPicker Text Demo/FPPicker Text Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ruben/src/Apps/ios-picker/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FPPicker Text Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
@@ -378,11 +324,19 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FilepickerDemoText/FilepickerDemoText-Prefix.pch";
-				INFOPLIST_FILE = "FilepickerDemoText/FilepickerDemoText-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "FPPicker Text Demo/FPPicker Text Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/ruben/src/Apps/ios-picker/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FPPicker Text Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_LDFLAGS = "";
 				WRAPPER_EXTENSION = app;
@@ -392,7 +346,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		83A0322E15AA33340085E186 /* Build configuration list for PBXProject "FilepickerDemoText" */ = {
+		83A0322E15AA33340085E186 /* Build configuration list for PBXProject "FPPicker Text Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83A0325015AA33340085E186 /* Debug */,
@@ -401,7 +355,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83A0325215AA33340085E186 /* Build configuration list for PBXNativeTarget "FilepickerDemoText" */ = {
+		83A0325215AA33340085E186 /* Build configuration list for PBXNativeTarget "FPPicker Text Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83A0325315AA33340085E186 /* Debug */,

@@ -8,6 +8,9 @@
       location = "group:FPPicker Demo/FPPicker Demo.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:FPPicker Text Demo/FPPicker Text Demo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
 </Workspace>
