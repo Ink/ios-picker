@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		455E663119423B0200DC0010 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 455E662C19423AF100DC0010 /* libFPPicker.a */; };
-		830E7F2315AB8036002351BF /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 830E7F2115AB8036002351BF /* FPPicker.bundle */; };
+		4504565A194A00B500245F96 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45045659194A00B500245F96 /* libFPPicker.a */; };
+		45DE4BD1194A026400B8F6B5 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */; };
 		83579F0415A8856900F83C85 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83579F0315A8856900F83C85 /* AssetsLibrary.framework */; };
 		83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */; };
 		83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8379A5EA15A7BB9F009D0D28 /* QuartzCore.framework */; };
@@ -28,33 +28,9 @@
 		8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8379A5DC15A7BA9D009D0D28 /* ViewController.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		455E662B19423AF100DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E662319423AF100DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83A030E215A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-		455E662D19423AF100DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E662319423AF100DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 83A0317415A8A2A40085E186;
-			remoteInfo = FilepickerResources;
-		};
-		455E662F19423AFA00DC0010 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 455E662319423AF100DC0010 /* FPPicker.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		455E662319423AF100DC0010 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
-		830E7F2115AB8036002351BF /* FPPicker.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = FPPicker.bundle; sourceTree = "<group>"; };
+		45045659194A00B500245F96 /* libFPPicker.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libFPPicker.a; path = "../build/Debug-iphoneos/libFPPicker.a"; sourceTree = "<group>"; };
+		45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = FPPicker.bundle; sourceTree = SOURCE_ROOT; };
 		83579F0315A8856900F83C85 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		836A9D47169B8F20006AC920 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		836A9D4B169B90DA006AC920 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = "en.lproj/ViewController~iphone.xib"; sourceTree = "<group>"; };
@@ -62,14 +38,14 @@
 		836A9D55169B9518006AC920 /* fp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp@2x.png"; sourceTree = "<group>"; };
 		836A9D5B169B9609006AC920 /* fp-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp-ipad.png"; sourceTree = "<group>"; };
 		836A9D5D169B9614006AC920 /* fp-ipad@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "fp-ipad@2x.png"; sourceTree = "<group>"; };
-		8379A5C315A7BA9D009D0D28 /* FilepickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilepickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8379A5C315A7BA9D009D0D28 /* FPPicker Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FPPicker Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8379A5C715A7BA9D009D0D28 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8379A5C915A7BA9D009D0D28 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8379A5CB15A7BA9D009D0D28 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		8379A5CF15A7BA9D009D0D28 /* FilepickerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FilepickerDemo-Info.plist"; sourceTree = "<group>"; };
+		8379A5CF15A7BA9D009D0D28 /* FPPicker Demo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker Demo-Info.plist"; sourceTree = "<group>"; };
 		8379A5D115A7BA9D009D0D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8379A5D315A7BA9D009D0D28 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8379A5D515A7BA9D009D0D28 /* FilepickerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FilepickerDemo-Prefix.pch"; sourceTree = "<group>"; };
+		8379A5D515A7BA9D009D0D28 /* FPPicker Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPPicker Demo-Prefix.pch"; sourceTree = "<group>"; };
 		8379A5D615A7BA9D009D0D28 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8379A5D715A7BA9D009D0D28 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8379A5D915A7BA9D009D0D28 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -85,7 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				455E663119423B0200DC0010 /* libFPPicker.a in Frameworks */,
+				4504565A194A00B500245F96 /* libFPPicker.a in Frameworks */,
 				83579F0715A885BC00F83C85 /* CoreGraphics.framework in Frameworks */,
 				83579F0615A885A900F83C85 /* QuartzCore.framework in Frameworks */,
 				83579F0515A8859600F83C85 /* MobileCoreServices.framework in Frameworks */,
@@ -98,20 +74,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		455E662419423AF100DC0010 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				455E662C19423AF100DC0010 /* libFPPicker.a */,
-				455E662E19423AF100DC0010 /* FPPicker.bundle */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		8379A5B815A7BA9D009D0D28 = {
 			isa = PBXGroup;
 			children = (
-				455E662319423AF100DC0010 /* FPPicker.xcodeproj */,
-				8379A5CD15A7BA9D009D0D28 /* FilepickerDemo */,
+				8379A5CD15A7BA9D009D0D28 /* FPPicker Demo */,
 				8379A5C615A7BA9D009D0D28 /* Frameworks */,
 				8379A5C415A7BA9D009D0D28 /* Products */,
 			);
@@ -120,7 +86,7 @@
 		8379A5C415A7BA9D009D0D28 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8379A5C315A7BA9D009D0D28 /* FilepickerDemo.app */,
+				8379A5C315A7BA9D009D0D28 /* FPPicker Demo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,7 +94,7 @@
 		8379A5C615A7BA9D009D0D28 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				830E7F2115AB8036002351BF /* FPPicker.bundle */,
+				45045659194A00B500245F96 /* libFPPicker.a */,
 				83579F0315A8856900F83C85 /* AssetsLibrary.framework */,
 				8379A5EE15A7BBBA009D0D28 /* CoreFoundation.framework */,
 				8379A5EC15A7BBB0009D0D28 /* MobileCoreServices.framework */,
@@ -140,7 +106,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		8379A5CD15A7BA9D009D0D28 /* FilepickerDemo */ = {
+		8379A5CD15A7BA9D009D0D28 /* FPPicker Demo */ = {
 			isa = PBXGroup;
 			children = (
 				8379A5D615A7BA9D009D0D28 /* AppDelegate.h */,
@@ -156,16 +122,17 @@
 				836A9D53169B950F006AC920 /* fp.png */,
 				8379A5CE15A7BA9D009D0D28 /* Supporting Files */,
 			);
-			path = FilepickerDemo;
+			path = "FPPicker Demo";
 			sourceTree = "<group>";
 		};
 		8379A5CE15A7BA9D009D0D28 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8379A5CF15A7BA9D009D0D28 /* FilepickerDemo-Info.plist */,
+				45DE4BCF194A024300B8F6B5 /* FPPicker.bundle */,
+				8379A5CF15A7BA9D009D0D28 /* FPPicker Demo-Info.plist */,
 				8379A5D015A7BA9D009D0D28 /* InfoPlist.strings */,
 				8379A5D315A7BA9D009D0D28 /* main.m */,
-				8379A5D515A7BA9D009D0D28 /* FilepickerDemo-Prefix.pch */,
+				8379A5D515A7BA9D009D0D28 /* FPPicker Demo-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -173,9 +140,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8379A5C215A7BA9D009D0D28 /* FilepickerDemo */ = {
+		8379A5C215A7BA9D009D0D28 /* FPPicker Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8379A5E115A7BA9D009D0D28 /* Build configuration list for PBXNativeTarget "FilepickerDemo" */;
+			buildConfigurationList = 8379A5E115A7BA9D009D0D28 /* Build configuration list for PBXNativeTarget "FPPicker Demo" */;
 			buildPhases = (
 				8379A5BF15A7BA9D009D0D28 /* Sources */,
 				8379A5C015A7BA9D009D0D28 /* Frameworks */,
@@ -184,11 +151,10 @@
 			buildRules = (
 			);
 			dependencies = (
-				455E663019423AFA00DC0010 /* PBXTargetDependency */,
 			);
-			name = FilepickerDemo;
+			name = "FPPicker Demo";
 			productName = FilepickerDemo;
-			productReference = 8379A5C315A7BA9D009D0D28 /* FilepickerDemo.app */;
+			productReference = 8379A5C315A7BA9D009D0D28 /* FPPicker Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -199,7 +165,7 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 			};
-			buildConfigurationList = 8379A5BD15A7BA9D009D0D28 /* Build configuration list for PBXProject "FilepickerDemo" */;
+			buildConfigurationList = 8379A5BD15A7BA9D009D0D28 /* Build configuration list for PBXProject "FPPicker Demo" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -209,44 +175,21 @@
 			mainGroup = 8379A5B815A7BA9D009D0D28;
 			productRefGroup = 8379A5C415A7BA9D009D0D28 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 455E662419423AF100DC0010 /* Products */;
-					ProjectRef = 455E662319423AF100DC0010 /* FPPicker.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
-				8379A5C215A7BA9D009D0D28 /* FilepickerDemo */,
+				8379A5C215A7BA9D009D0D28 /* FPPicker Demo */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		455E662C19423AF100DC0010 /* libFPPicker.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFPPicker.a;
-			remoteRef = 455E662B19423AF100DC0010 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		455E662E19423AF100DC0010 /* FPPicker.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FPPicker.bundle;
-			remoteRef = 455E662D19423AF100DC0010 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8379A5C115A7BA9D009D0D28 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45DE4BD1194A026400B8F6B5 /* FPPicker.bundle in Resources */,
 				8379A5D215A7BA9D009D0D28 /* InfoPlist.strings in Resources */,
 				8379A5DE15A7BA9D009D0D28 /* ViewController.xib in Resources */,
-				830E7F2315AB8036002351BF /* FPPicker.bundle in Resources */,
 				836A9D48169B8F20006AC920 /* Default-568h@2x.png in Resources */,
 				836A9D4C169B90DA006AC920 /* ViewController~iphone.xib in Resources */,
 				836A9D54169B950F006AC920 /* fp.png in Resources */,
@@ -270,14 +213,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		455E663019423AFA00DC0010 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FPPicker;
-			targetProxy = 455E662F19423AFA00DC0010 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		836A9D4A169B90DA006AC920 /* ViewController~iphone.xib */ = {
@@ -380,11 +315,16 @@
 					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";
-				INFOPLIST_FILE = "FilepickerDemo/FilepickerDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "FPPicker Demo/FPPicker Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = "FPPicker Demo/FPPicker Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FPPicker Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -398,11 +338,16 @@
 					"$(SRCROOT)",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FilepickerDemo/FilepickerDemo-Prefix.pch";
-				INFOPLIST_FILE = "FilepickerDemo/FilepickerDemo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				GCC_PREFIX_HEADER = "FPPicker Demo/FPPicker Demo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../",
+				);
+				INFOPLIST_FILE = "FPPicker Demo/FPPicker Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_LDFLAGS = "-all_load";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "FPPicker Demo";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -411,7 +356,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8379A5BD15A7BA9D009D0D28 /* Build configuration list for PBXProject "FilepickerDemo" */ = {
+		8379A5BD15A7BA9D009D0D28 /* Build configuration list for PBXProject "FPPicker Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8379A5DF15A7BA9D009D0D28 /* Debug */,
@@ -420,7 +365,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8379A5E115A7BA9D009D0D28 /* Build configuration list for PBXNativeTarget "FilepickerDemo" */ = {
+		8379A5E115A7BA9D009D0D28 /* Build configuration list for PBXNativeTarget "FPPicker Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8379A5E215A7BA9D009D0D28 /* Debug */,
