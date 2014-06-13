@@ -15,9 +15,6 @@
 
 @end
 
-// Ignore warning because this is an "abstract" class, and subclasses
-// should implement the table delegate/data source methods
-
 @implementation FPTableWithUploadButtonViewController
 
 static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
@@ -242,6 +239,22 @@ static UIColor *ANGRY_COLOR;
 
     [self.uploadButton setTitle:@"Uploading files"
                        forState:UIControlStateDisabled];
+}
+
+#pragma mark - UITableViewDataSource Methods
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    NSAssert(NO, @"This method must be implemented by subclasses.");
+
+    return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSAssert(NO, @"This method must be implemented by subclasses.");
+
+    return nil;
 }
 
 @end
