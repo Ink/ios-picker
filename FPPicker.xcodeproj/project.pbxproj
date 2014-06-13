@@ -20,32 +20,6 @@
 			name = "MultiArch Framework";
 			productName = "MultiArch Framework";
 		};
-		83A0316915A8A2210085E186 /* Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 83A0316A15A8A2210085E186 /* Build configuration list for PBXAggregateTarget "Framework" */;
-			buildPhases = (
-				83A0316F15A8A2340085E186 /* ShellScript */,
-			);
-			dependencies = (
-				83A0319A15A8A3130085E186 /* PBXTargetDependency */,
-				83A0316E15A8A22B0085E186 /* PBXTargetDependency */,
-			);
-			name = Framework;
-			productName = Framework;
-		};
-		83FEB830179B2428009097B8 /* Release Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 83FEB836179B2428009097B8 /* Build configuration list for PBXAggregateTarget "Release Framework" */;
-			buildPhases = (
-				83FEB835179B2428009097B8 /* ShellScript */,
-			);
-			dependencies = (
-				83FEB831179B2428009097B8 /* PBXTargetDependency */,
-				83FEB833179B2428009097B8 /* PBXTargetDependency */,
-			);
-			name = "Release Framework";
-			productName = Framework;
-		};
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
@@ -246,34 +220,6 @@
 			remoteInfo = FilepickerResources;
 		};
 		458B1FF91949D726008360E9 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-		83A0316D15A8A22B0085E186 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-		83A0319915A8A3130085E186 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A0317315A8A2A40085E186;
-			remoteInfo = FilepickerResources;
-		};
-		83FEB832179B2428009097B8 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A0317315A8A2A40085E186;
-			remoteInfo = FilepickerResources;
-		};
-		83FEB834179B2428009097B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
 			proxyType = 1;
@@ -970,8 +916,6 @@
 			targets = (
 				83A030E115A89C9D0085E186 /* FPPicker */,
 				83A0317315A8A2A40085E186 /* FPPicker Resources */,
-				83A0316915A8A2210085E186 /* Framework */,
-				83FEB830179B2428009097B8 /* Release Framework */,
 				023D832D1843CB1100D74A82 /* MultiArch Framework */,
 				458B1FE91949D726008360E9 /* FPPicker Functional Tests */,
 				450B5A4A1949EFC0007AF44A /* FPPicker Integration Tests */,
@@ -1066,7 +1010,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		023D83351843CB2C00D74A82 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -1091,32 +1035,6 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Pods-FPPicker Integration Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
-		};
-		83A0316F15A8A2340085E186 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
-		};
-		83FEB835179B2428009097B8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
 		};
 		BA7FC857201B4B809C740F9E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1282,26 +1200,6 @@
 			isa = PBXTargetDependency;
 			target = 83A030E115A89C9D0085E186 /* FPPicker */;
 			targetProxy = 458B1FF91949D726008360E9 /* PBXContainerItemProxy */;
-		};
-		83A0316E15A8A22B0085E186 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A030E115A89C9D0085E186 /* FPPicker */;
-			targetProxy = 83A0316D15A8A22B0085E186 /* PBXContainerItemProxy */;
-		};
-		83A0319A15A8A3130085E186 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
-			targetProxy = 83A0319915A8A3130085E186 /* PBXContainerItemProxy */;
-		};
-		83FEB831179B2428009097B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
-			targetProxy = 83FEB832179B2428009097B8 /* PBXContainerItemProxy */;
-		};
-		83FEB833179B2428009097B8 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A030E115A89C9D0085E186 /* FPPicker */;
-			targetProxy = 83FEB834179B2428009097B8 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1578,22 +1476,6 @@
 			};
 			name = Release;
 		};
-		83A0316B15A8A2210085E186 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		83A0316C15A8A2210085E186 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		83A0317F15A8A2A40085E186 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1628,22 +1510,6 @@
 				PRODUCT_NAME = FPPicker;
 				SDKROOT = iphoneos;
 				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		83FEB837179B2428009097B8 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				GCC_PREPROCESSOR_DEFINITIONS = "";
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "Framework copy";
-			};
-			name = Debug;
-		};
-		83FEB838179B2428009097B8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "Framework copy";
 			};
 			name = Release;
 		};
@@ -1695,29 +1561,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83A0316A15A8A2210085E186 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83A0316B15A8A2210085E186 /* Debug */,
-				83A0316C15A8A2210085E186 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		83A0317E15A8A2A40085E186 /* Build configuration list for PBXNativeTarget "FPPicker Resources" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83A0317F15A8A2A40085E186 /* Debug */,
 				83A0318015A8A2A40085E186 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		83FEB836179B2428009097B8 /* Build configuration list for PBXAggregateTarget "Release Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				83FEB837179B2428009097B8 /* Debug */,
-				83FEB838179B2428009097B8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
