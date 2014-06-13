@@ -542,6 +542,7 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     UIImage *thumbnail = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;
     NSMutableDictionary *obj = self.contents[indexPath.row];
+    BOOL isDir = [obj[@"is_dir"] boolValue];
 
     BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
@@ -553,6 +554,12 @@ static const NSInteger ROW_HEIGHT = 44;
     else
     {
         [self objectSelectedAtIndex:indexPath.row];
+    }
+
+    // Clear selection if object is a directory
+    if (isDir)
+    {
+        [passedTableView deselectRowAtIndexPath:indexPath animated:NO];
     }
 }
 
