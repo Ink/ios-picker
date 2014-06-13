@@ -297,7 +297,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
 
     cell.textLabel.text = @"Loading more";
-    cell.textLabel.textAlignment = UITextAlignmentCenter;
+    cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.userInteractionEnabled = NO;
 
     return cell;
@@ -1388,9 +1388,9 @@ static const NSInteger ROW_HEIGHT = 44;
 
         NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 
-        for (NSHTTPCookie *cookie in cookieStorage.cookies)
+        for (NSHTTPCookie __unused *cookie in cookieStorage.cookies)
         {
-            NSLog(@"%@", [cookie domain]);
+            NSLog(@"%@", cookie.domain);
         }
 
         for (NSString *urlString in self.sourceType.externalDomains)
@@ -1404,9 +1404,9 @@ static const NSInteger ROW_HEIGHT = 44;
             }
         }
 
-        for (NSHTTPCookie *cookie in cookieStorage.cookies)
+        for (NSHTTPCookie __unused *cookie in cookieStorage.cookies)
         {
-            NSLog(@"- %@", [cookie domain]);
+            NSLog(@"- %@", cookie.domain);
         }
 
 

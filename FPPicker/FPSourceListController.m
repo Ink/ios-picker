@@ -454,8 +454,9 @@
 
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
 
-            [self presentModalViewController:imgPicker
-                                    animated:YES];
+            [self presentViewController:imgPicker
+                               animated:YES
+                             completion:nil];
         }
         else
         {
