@@ -209,7 +209,11 @@
 
     for (NSDictionary *data in results)
     {
-        [images addObject:data[@"FPPickerControllerOriginalImage"]];
+        // Check if uploaded file is an image to add it to carousel
+        if (data[@"FPPickerControllerOriginalImage"])
+        {
+            [images addObject:data[@"FPPickerControllerOriginalImage"]];
+        }
     }
 
     self.imageView.animationImages = images;
