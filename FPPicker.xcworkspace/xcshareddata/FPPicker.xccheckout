@@ -5,34 +5,34 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>07CC68E4-502D-4460-9D6C-CF6387F2BD9F</string>
+	<string>00937168-5C35-4BCC-8927-B135B7F5976C</string>
 	<key>IDESourceControlProjectName</key>
 	<string>FPPicker</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3EC4B093-CFEF-499C-BC7B-6401B720C83F</key>
-		<string>ssh://github.com/sonicbee9/ios-picker.git</string>
+		<key>EDD1EBBF-7118-4EE8-836E-A22A1C2C46E1</key>
+		<string>ssh://github.com/Ink/ios-picker.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>FPPicker.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3EC4B093-CFEF-499C-BC7B-6401B720C83F</key>
+		<key>EDD1EBBF-7118-4EE8-836E-A22A1C2C46E1</key>
 		<string>..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/sonicbee9/ios-picker.git</string>
+	<string>ssh://github.com/Ink/ios-picker.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3EC4B093-CFEF-499C-BC7B-6401B720C83F</string>
+	<string>EDD1EBBF-7118-4EE8-836E-A22A1C2C46E1</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3EC4B093-CFEF-499C-BC7B-6401B720C83F</string>
+			<string>EDD1EBBF-7118-4EE8-836E-A22A1C2C46E1</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ios-picker</string>
 		</dict>
