@@ -30,7 +30,8 @@
 #import <UIKit/UIKit.h>
 #import "FPTableWithUploadButtonViewController.h"
 
-@interface FP_PullRefreshTableViewController : FPTableWithUploadButtonViewController {
+@interface FP_PullRefreshTableViewController : FPTableWithUploadButtonViewController
+{
     UIView *refreshHeaderView;
     UILabel *refreshLabel;
     UIImageView *refreshArrow;
