@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		455CF097194B173C00668BEB /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B281D194B0EFB00FBC09E /* libFPPicker.a */; };
 		456B27DB194B0EF300FBC09E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B27DA194B0EF300FBC09E /* Foundation.framework */; };
 		456B27DD194B0EF300FBC09E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B27DC194B0EF300FBC09E /* CoreGraphics.framework */; };
 		456B27DF194B0EF300FBC09E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B27DE194B0EF300FBC09E /* UIKit.framework */; };
@@ -15,7 +16,6 @@
 		456B27EB194B0EF300FBC09E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B27EA194B0EF300FBC09E /* AppDelegate.m */; };
 		456B27F4194B0EF300FBC09E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456B27F3194B0EF300FBC09E /* ViewController.m */; };
 		456B27F6194B0EF300FBC09E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456B27F5194B0EF300FBC09E /* Images.xcassets */; };
-		456B2828194B0F0A00FBC09E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B281D194B0EFB00FBC09E /* libFPPicker.a */; };
 		456B282A194B0F1000FBC09E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B2829194B0F1000FBC09E /* AssetsLibrary.framework */; };
 		456B282B194B0F1C00FBC09E /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 456B281F194B0EFB00FBC09E /* FPPicker.bundle */; };
 /* End PBXBuildFile section */
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				456B2828194B0F0A00FBC09E /* libFPPicker.a in Frameworks */,
+				455CF097194B173C00668BEB /* libFPPicker.a in Frameworks */,
 				456B282A194B0F1000FBC09E /* AssetsLibrary.framework in Frameworks */,
 				456B27DD194B0EF300FBC09E /* CoreGraphics.framework in Frameworks */,
 				456B27DF194B0EF300FBC09E /* UIKit.framework in Frameworks */,
@@ -387,6 +387,7 @@
 					$SRCROOT/../,
 				);
 				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -405,6 +406,7 @@
 					$SRCROOT/../,
 				);
 				INFOPLIST_FILE = "FPPicker Text Demo/FPPicker Text Demo-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -429,6 +431,7 @@
 				456B280E194B0EF400FBC09E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
