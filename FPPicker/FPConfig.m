@@ -65,14 +65,9 @@
 
 - (NSArray *)cookies
 {
-    if (!_cookies)
-    {
-        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 
-        _cookies = [cookieStorage cookiesForURL:self.baseURL];
-    }
-
-    return _cookies;
+    return [cookieStorage cookiesForURL:self.baseURL];
 }
 
 @end

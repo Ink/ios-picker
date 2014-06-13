@@ -22,7 +22,6 @@
 #define fpDEVICE_TYPE_IPHONE        UIUserInterfaceIdiomPhone
 
 #define fpCOOKIES                   [[FPConfig sharedInstance] cookies]
-#define fpBASE_NSURL                [[FPConfig sharedInstance] baseURL]
 #define fpAPIKEY                    [[FPConfig sharedInstance] APIKey]
 
 #define fpWindowSize                CGSizeMake(320, 480)
@@ -39,8 +38,8 @@
 
 @property (nonatomic, strong) NSString *APIKey;
 @property (nonatomic, strong) NSURL *baseURL;
-@property (nonatomic, strong) NSArray *cookies;
 
 + (instancetype)sharedInstance;
+- (NSArray *)cookies;
 
 @end

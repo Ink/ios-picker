@@ -341,9 +341,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
         if (![urlString hasPrefix:fpBASE_URL])
         {
-            NSURL *cookiesURL = [NSURL URLWithString:fpBASE_URL];
-            NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:cookiesURL];
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES];
 
             [mrequest setAllHTTPHeaderFields:headers];
         }
@@ -463,9 +461,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
         if (![urlString hasPrefix:fpBASE_URL])
         {
-            NSURL *cookiesURL = [NSURL URLWithString:fpBASE_URL];
-            NSArray *cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:cookiesURL];
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:cookies];
+            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES];
 
             [mrequest setAllHTTPHeaderFields:headers];
 
