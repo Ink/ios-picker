@@ -35,7 +35,6 @@
 		02C136AB1856794000D6940E /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
 		450B5A4C1949EFC0007AF44A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		450B5A4E1949EFC0007AF44A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */; };
-		450B5A4F1949EFC0007AF44A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEE1949D726008360E9 /* UIKit.framework */; };
 		450B5A551949EFC0007AF44A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 450B5A531949EFC0007AF44A /* InfoPlist.strings */; };
 		450B5A571949EFC0007AF44A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A561949EFC0007AF44A /* main.m */; };
 		450B5A5B1949EFC1007AF44A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A5A1949EFC1007AF44A /* AppDelegate.m */; };
@@ -76,10 +75,10 @@
 		453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
+		455C6646194B82DE005711DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C6645194B82DE005711DE /* UIKit.framework */; };
 		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
-		458B1FEF1949D726008360E9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEE1949D726008360E9 /* UIKit.framework */; };
 		458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 458B20021949D7C1008360E9 /* InfoPlist.strings */; };
 		458B200F1949D7C1008360E9 /* FPPicker_Functional_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */; };
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
@@ -259,9 +258,9 @@
 		453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFNetworkingHeaders.h; sourceTree = "<group>"; };
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
+		455C6645194B82DE005711DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		458B1FEE1949D726008360E9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		458B20041949D7C1008360E9 /* FPPicker Functional Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FPPicker Functional Tests-Info.plist"; sourceTree = "<group>"; };
 		458B20051949D7C1008360E9 /* FPPicker Functional Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker Functional Tests-Prefix.pch"; sourceTree = "<group>"; };
@@ -392,8 +391,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455C6646194B82DE005711DE /* UIKit.framework in Frameworks */,
 				450B5A4E1949EFC0007AF44A /* CoreGraphics.framework in Frameworks */,
-				450B5A4F1949EFC0007AF44A /* UIKit.framework in Frameworks */,
 				450B5A4C1949EFC0007AF44A /* Foundation.framework in Frameworks */,
 				467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */,
 			);
@@ -404,7 +403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */,
-				458B1FEF1949D726008360E9 /* UIKit.framework in Frameworks */,
 				458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */,
 				BF9B225B4EF04726B4764DEB /* libPods-FPPicker Functional Tests.a in Frameworks */,
 			);
@@ -587,13 +585,13 @@
 		83A030E415A89C9D0085E186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				455C6645194B82DE005711DE /* UIKit.framework */,
 				83A031B615A8EEC40085E186 /* MobileCoreServices.framework */,
 				83A030E515A89C9D0085E186 /* Foundation.framework */,
 				83A0317515A8A2A40085E186 /* CoreFoundation.framework */,
 				458B1FEB1949D726008360E9 /* XCTest.framework */,
-				458B1FEE1949D726008360E9 /* UIKit.framework */,
-				5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */,
 				450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */,
+				5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */,
 				1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */,
 			);
 			name = Frameworks;

@@ -38,16 +38,6 @@
                ReferencedContainer = "container:FPPicker.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "450B5A6A1949EFC1007AF44A"
-               BuildableName = "FPPicker Integration TestsTests.xctest"
-               BlueprintName = "FPPicker Integration TestsTests"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
