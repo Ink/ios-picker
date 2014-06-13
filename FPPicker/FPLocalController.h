@@ -13,6 +13,10 @@
 #import "FPInternalHeaders.h"
 #import "FPTableWithUploadButtonViewController.h"
 
+typedef void (^FPLocalUploadAssetSuccessBlock)(NSDictionary *data);
+typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, NSDictionary *data);
+typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
+
 @interface FPLocalController : FPTableWithUploadButtonViewController
 
 @property (nonatomic, strong) NSArray *photos;
