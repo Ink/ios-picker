@@ -1,16 +1,20 @@
 //
 //  ViewController.m
-//  FilepickerDemoText
+//  FPPicker Text Demo
 //
-//  Created by Liyan David Chang on 7/8/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Created by Ruben Nine on 13/06/14.
+//  Copyright (c) 2014 Ruben Nine. All rights reserved.
 //
 
 #import "ViewController.h"
 
+@interface ViewController ()
+
+@end
+
 @implementation ViewController
 
-#warning Be sure to register for a filepicker apikey at http: //filepicker.io and add it to the Supporting Files/FilepickerDemo-Info.plist
+#warning Be sure to register for a filepicker apikey at http: //filepicker.io and add it to the Supporting Files/FPPicker Text Demo-Info.plist
 
 
 - (void)viewDidLoad
