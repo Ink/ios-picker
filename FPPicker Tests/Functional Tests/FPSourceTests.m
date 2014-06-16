@@ -33,6 +33,10 @@
 {
     FPSource *source = [FPSource new];
 
+    XCTAssertEqual(source.mimetypes.count,
+                   0,
+                   @"Should be zero");
+
     XCTAssertEqualObjects([source mimetypeString],
                           @"[]",
                           @"Should be empty");
