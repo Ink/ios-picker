@@ -33,9 +33,6 @@
 
 - (void)testFrameworkBundle
 {
-    NSLog(@"bundlePath = %@", [FPUtils frameworkBundle].bundlePath);
-    NSLog(@"resourcePath = %@", [NSBundle mainBundle].resourcePath);
-
     XCTAssertNotNil([FPUtils frameworkBundle].bundlePath,
                     @"Bundle path expected");
 
