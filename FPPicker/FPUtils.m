@@ -18,7 +18,7 @@
     static dispatch_once_t predicate;
 
     dispatch_once(&predicate, ^{
-        NSString *mainBundlePath = [NSBundle mainBundle].resourcePath;
+        NSString *mainBundlePath = [[NSBundle bundleForClass:self.class] resourcePath];
         NSString *frameworkBundlePath = [mainBundlePath stringByAppendingPathComponent:@"FPPicker.bundle"];
 
         frameworkBundle = [NSBundle bundleWithPath:frameworkBundlePath];
