@@ -1337,7 +1337,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE82CD48E25A45FDB861E49A /* Pods-FPPicker Functional Tests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FPPicker Integration Tests.app/FPPicker Integration Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1359,7 +1358,6 @@
 				INFOPLIST_FILE = "FPPicker Tests/Functional Tests/FPPicker Functional Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -1368,7 +1366,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EE82CD48E25A45FDB861E49A /* Pods-FPPicker Functional Tests.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FPPicker Integration Tests.app/FPPicker Integration Tests";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1388,7 +1385,6 @@
 				INFOPLIST_FILE = "FPPicker Tests/Functional Tests/FPPicker Functional Tests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

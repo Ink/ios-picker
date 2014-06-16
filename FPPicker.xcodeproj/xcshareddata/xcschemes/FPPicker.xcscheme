@@ -20,6 +20,20 @@
                ReferencedContainer = "container:FPPicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "458B1FE91949D726008360E9"
+               BuildableName = "FPPicker Functional Tests.xctest"
+               BlueprintName = "FPPicker Functional Tests"
+               ReferencedContainer = "container:FPPicker.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
