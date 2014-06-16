@@ -21,16 +21,16 @@
 			name = "MultiArch Framework";
 			productName = "MultiArch Framework";
 		};
-		45DAC343194EE56300B26E4F /* Update Framework & Resouces Bundle */ = {
+		45DAC343194EE56300B26E4F /* Update Framework & Resources Bundle */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resouces Bundle" */;
+			buildConfigurationList = 45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resources Bundle" */;
 			buildPhases = (
 			);
 			dependencies = (
 				45DAC348194EE56B00B26E4F /* PBXTargetDependency */,
 				45DAC34A194EE56B00B26E4F /* PBXTargetDependency */,
 			);
-			name = "Update Framework & Resouces Bundle";
+			name = "Update Framework & Resources Bundle";
 			productName = "Update dist";
 		};
 /* End PBXAggregateTarget section */
@@ -943,7 +943,7 @@
 				023D832D1843CB1100D74A82 /* MultiArch Framework */,
 				458B1FE91949D726008360E9 /* FPPicker Functional Tests */,
 				450B5A4A1949EFC0007AF44A /* FPPicker Integration Tests */,
-				45DAC343194EE56300B26E4F /* Update Framework & Resouces Bundle */,
+				45DAC343194EE56300B26E4F /* Update Framework & Resources Bundle */,
 			);
 		};
 /* End PBXProject section */
@@ -1621,7 +1621,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resouces Bundle" */ = {
+		45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resources Bundle" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45DAC344194EE56300B26E4F /* Debug */,
