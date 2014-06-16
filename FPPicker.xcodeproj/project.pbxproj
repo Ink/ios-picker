@@ -12,7 +12,6 @@
 			buildConfigurationList = 023D83301843CB1100D74A82 /* Build configuration list for PBXAggregateTarget "MultiArch Framework" */;
 			buildPhases = (
 				023D83351843CB2C00D74A82 /* Build Framework Script */,
-				459B4DFF194EF621000838D1 /* Copy Framework into /dist */,
 			);
 			dependencies = (
 				023D83341843CB1700D74A82 /* PBXTargetDependency */,
@@ -25,6 +24,7 @@
 			isa = PBXAggregateTarget;
 			buildConfigurationList = 45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resources Bundle" */;
 			buildPhases = (
+				456D947C194F028700D0A34E /* Copy Framework & Resources Bundle in /dist */,
 			);
 			dependencies = (
 				45DAC348194EE56B00B26E4F /* PBXTargetDependency */,
@@ -55,40 +55,13 @@
 		450B5A611949EFC1007AF44A /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 450B5A5F1949EFC1007AF44A /* Main_iPad.storyboard */; };
 		450B5A641949EFC1007AF44A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A631949EFC1007AF44A /* ViewController.m */; };
 		450B5A661949EFC1007AF44A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450B5A651949EFC1007AF44A /* Images.xcassets */; };
-		450B5A7F1949F087007AF44A /* FPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314715A89E040085E186 /* FPConstants.m */; };
-		450B5A801949F087007AF44A /* FPSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A031A515A8A4AC0085E186 /* FPSource.m */; };
-		450B5A811949F087007AF44A /* FPLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314915A89E040085E186 /* FPLibrary.m */; };
-		450B5A821949F087007AF44A /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
-		450B5A831949F08E007AF44A /* FPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0B4615AAC3F30081004F /* FPThumbCell.m */; };
-		450B5A841949F08E007AF44A /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
-		450B5A851949F093007AF44A /* FPPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314E15A89E040085E186 /* FPPickerController.m */; };
-		450B5A861949F093007AF44A /* FPSaveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A031BA15A8F2570085E186 /* FPSaveController.m */; };
-		450B5A871949F0A0007AF44A /* FPLocalController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314B15A89E040085E186 /* FPLocalController.m */; };
-		450B5A881949F0A0007AF44A /* FPLocalAlbumController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832739F2171F384F000A4A23 /* FPLocalAlbumController.m */; };
-		450B5A891949F0A0007AF44A /* FPSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315215A89E040085E186 /* FPSourceController.m */; };
-		450B5A8A1949F0A0007AF44A /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
-		450B5A8B1949F0A0007AF44A /* FPSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315015A89E040085E186 /* FPSearchController.m */; };
-		450B5A8C1949F0A0007AF44A /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314415A89E040085E186 /* FPAuthController.m */; };
-		450B5A8D1949F0A0007AF44A /* FPInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836A9D39169B5CF0006AC920 /* FPInfoViewController.m */; };
-		450B5A8E1949F0A0007AF44A /* FPTableWithUploadButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266B3A2184EB1A800A91862 /* FPTableWithUploadButtonViewController.m */; };
-		450B5A8F1949F0A8007AF44A /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315415A89E050085E186 /* FPSourceListController.m */; };
-		450B5A901949F134007AF44A /* FPMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */; };
-		450B5A911949F136007AF44A /* FP_PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */; };
-		450B5A921949F13B007AF44A /* FPAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F415A89CD80085E186 /* FPAFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A931949F13E007AF44A /* FPAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F615A89CD80085E186 /* FPAFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A941949F141007AF44A /* FPAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F815A89CD80085E186 /* FPAFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A951949F143007AF44A /* FPAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FA15A89CD80085E186 /* FPAFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A961949F146007AF44A /* FPAFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FC15A89CD80085E186 /* FPAFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A971949F148007AF44A /* FPAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FE15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A981949F14C007AF44A /* FPAFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310115A89CD80085E186 /* FPAFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A991949F14E007AF44A /* FPAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310315A89CD80085E186 /* FPAFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A9A1949F151007AF44A /* FPAFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310515A89CD80085E186 /* FPAFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		450B5A9B1949F154007AF44A /* UIImageView+FPAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		450B5A9F1949F325007AF44A /* FPExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A9E1949F325007AF44A /* FPExampleTest.m */; };
 		453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
 		455C6646194B82DE005711DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C6645194B82DE005711DE /* UIKit.framework */; };
+		456D9477194F00D600D0A34E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E215A89C9D0085E186 /* libFPPicker.a */; };
+		456D9479194F010400D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
@@ -97,7 +70,6 @@
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; };
 		45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
-		45920DE2194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		83088C3C15B0ABA20078D9D8 /* glyphicons_sb1_gmail.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3815B0ABA20078D9D8 /* glyphicons_sb1_gmail.png */; };
 		83088C3D15B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83088C3915B0ABA20078D9D8 /* glyphicons_sb1_gmail@2x.png */; };
@@ -223,12 +195,19 @@
 			remoteGlobalIDString = 83A0317315A8A2A40085E186;
 			remoteInfo = FilepickerResources;
 		};
-		457868061949FFAB009515E2 /* PBXContainerItemProxy */ = {
+		456D9475194F00D200D0A34E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83A030E115A89C9D0085E186;
+			remoteInfo = FPPicker;
+		};
+		456D947A194F01B600D0A34E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 83A0317315A8A2A40085E186;
-			remoteInfo = FilepickerResources;
+			remoteInfo = "FPPicker Resources";
 		};
 		458B1FF91949D726008360E9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -285,6 +264,7 @@
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		455C6645194B82DE005711DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -417,6 +397,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456D9477194F00D600D0A34E /* libFPPicker.a in Frameworks */,
+				456D9479194F010400D0A34E /* AssetsLibrary.framework in Frameworks */,
 				455C6646194B82DE005711DE /* UIKit.framework in Frameworks */,
 				450B5A4E1949EFC0007AF44A /* CoreGraphics.framework in Frameworks */,
 				450B5A4C1949EFC0007AF44A /* Foundation.framework in Frameworks */,
@@ -610,6 +592,7 @@
 		83A030E415A89C9D0085E186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				456D9478194F010400D0A34E /* AssetsLibrary.framework */,
 				455C6645194B82DE005711DE /* UIKit.framework */,
 				83A031B615A8EEC40085E186 /* MobileCoreServices.framework */,
 				83A030E515A89C9D0085E186 /* Foundation.framework */,
@@ -849,7 +832,8 @@
 			buildRules = (
 			);
 			dependencies = (
-				457868071949FFAB009515E2 /* PBXTargetDependency */,
+				456D947B194F01B600D0A34E /* PBXTargetDependency */,
+				456D9476194F00D200D0A34E /* PBXTargetDependency */,
 			);
 			name = "FPPicker Integration Tests";
 			productName = "FPPicker Integration Tests";
@@ -900,7 +884,6 @@
 				83A0317015A8A2A40085E186 /* Sources */,
 				83A0317115A8A2A40085E186 /* Frameworks */,
 				83A0317215A8A2A40085E186 /* Resources */,
-				45DAC34D194EF48500B26E4F /* Copy Resources Bundle into /dist */,
 			);
 			buildRules = (
 			);
@@ -1062,33 +1045,19 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-FPPicker Integration Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		459B4DFF194EF621000838D1 /* Copy Framework into /dist */ = {
+		456D947C194F028700D0A34E /* Copy Framework & Resources Bundle in /dist */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Framework into /dist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/bash;
-			shellScript = "set -e\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-framework";
-		};
-		45DAC34D194EF48500B26E4F /* Copy Resources Bundle into /dist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Resources Bundle into /dist";
+			name = "Copy Framework & Resources Bundle in /dist";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-resources-bundle";
+			shellScript = "set -e\n\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-resources-bundle\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-framework\n";
 		};
 		BA7FC857201B4B809C740F9E /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1142,40 +1111,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				450B5A971949F148007AF44A /* FPAFNetworkActivityIndicatorManager.m in Sources */,
 				450B5A641949EFC1007AF44A /* ViewController.m in Sources */,
-				450B5A801949F087007AF44A /* FPSource.m in Sources */,
-				450B5A9B1949F154007AF44A /* UIImageView+FPAFNetworking.m in Sources */,
-				450B5A941949F141007AF44A /* FPAFImageRequestOperation.m in Sources */,
-				450B5A841949F08E007AF44A /* FPProgressTracker.m in Sources */,
-				450B5A871949F0A0007AF44A /* FPLocalController.m in Sources */,
 				450B5A5B1949EFC1007AF44A /* AppDelegate.m in Sources */,
-				450B5A8E1949F0A0007AF44A /* FPTableWithUploadButtonViewController.m in Sources */,
-				450B5A811949F087007AF44A /* FPLibrary.m in Sources */,
-				450B5A881949F0A0007AF44A /* FPLocalAlbumController.m in Sources */,
-				450B5A861949F093007AF44A /* FPSaveController.m in Sources */,
-				450B5A8A1949F0A0007AF44A /* FPSaveSourceController.m in Sources */,
-				450B5A8F1949F0A8007AF44A /* FPSourceListController.m in Sources */,
-				450B5A981949F14C007AF44A /* FPAFPropertyListRequestOperation.m in Sources */,
-				450B5A961949F146007AF44A /* FPAFJSONUtilities.m in Sources */,
-				450B5A951949F143007AF44A /* FPAFJSONRequestOperation.m in Sources */,
-				450B5A9A1949F151007AF44A /* FPAFXMLRequestOperation.m in Sources */,
 				450B5A9F1949F325007AF44A /* FPExampleTest.m in Sources */,
 				450B5A571949EFC0007AF44A /* main.m in Sources */,
-				450B5A931949F13E007AF44A /* FPAFHTTPRequestOperation.m in Sources */,
-				450B5A921949F13B007AF44A /* FPAFHTTPClient.m in Sources */,
-				450B5A901949F134007AF44A /* FPMBProgressHUD.m in Sources */,
-				450B5A8C1949F0A0007AF44A /* FPAuthController.m in Sources */,
-				450B5A911949F136007AF44A /* FP_PullRefreshTableViewController.m in Sources */,
-				45920DE2194A0D8A007003C1 /* FPConfig.m in Sources */,
-				450B5A991949F14E007AF44A /* FPAFURLConnectionOperation.m in Sources */,
-				450B5A7F1949F087007AF44A /* FPConstants.m in Sources */,
-				450B5A851949F093007AF44A /* FPPickerController.m in Sources */,
-				450B5A831949F08E007AF44A /* FPThumbCell.m in Sources */,
-				450B5A8D1949F0A0007AF44A /* FPInfoViewController.m in Sources */,
-				450B5A891949F0A0007AF44A /* FPSourceController.m in Sources */,
-				450B5A821949F087007AF44A /* FPUtils.m in Sources */,
-				450B5A8B1949F0A0007AF44A /* FPSearchController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1245,10 +1184,15 @@
 			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
 			targetProxy = 023D83331843CB1700D74A82 /* PBXContainerItemProxy */;
 		};
-		457868071949FFAB009515E2 /* PBXTargetDependency */ = {
+		456D9476194F00D200D0A34E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83A030E115A89C9D0085E186 /* FPPicker */;
+			targetProxy = 456D9475194F00D200D0A34E /* PBXContainerItemProxy */;
+		};
+		456D947B194F01B600D0A34E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
-			targetProxy = 457868061949FFAB009515E2 /* PBXContainerItemProxy */;
+			targetProxy = 456D947A194F01B600D0A34E /* PBXContainerItemProxy */;
 		};
 		458B1FFA1949D726008360E9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
