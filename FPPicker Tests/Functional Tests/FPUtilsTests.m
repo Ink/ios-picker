@@ -11,8 +11,6 @@
 // Collaborators
 #import "FPUtils.h"
 
-// Test support
-
 @interface FPUtilsTests : XCTestCase
 
 @end
