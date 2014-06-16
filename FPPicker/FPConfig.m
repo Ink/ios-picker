@@ -56,7 +56,7 @@ static FPConfig *FPSharedInstance = nil;
         {
             NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
 
-            _APIKey = [infoDict objectForKey:@"Filepicker API Key"];
+            _APIKey = infoDict[@"Filepicker API Key"];
         }
     }
 
