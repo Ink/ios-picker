@@ -72,10 +72,18 @@
 
 + (NSString *)formatTimeInSeconds:(int)timeInSeconds
 {
+    int hours = timeInSeconds / 3600.0;
+    int minutes = (timeInSeconds % 3600) / 60;
     int seconds = timeInSeconds % 60;
-    int minutes = timeInSeconds / 60;
 
-    return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    if (hours == 0)
+    {
+        return [NSString stringWithFormat:@"%02d:%02d", minutes, seconds];
+    }
+    else
+    {
+        return [NSString stringWithFormat:@"%02d:%02d:%02d", hours, minutes, seconds];
+    }
 }
 
 + (NSString *)genRandStringLength:(int)len
