@@ -10,4 +10,7 @@
 
 @interface NSDictionary (FPMerge)
 
++ (NSDictionary *)mergeDictionary:(NSDictionary *)dictionary
+                             into:(NSDictionary *)anotherDictionary;
+
 @end

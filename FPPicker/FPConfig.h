@@ -42,4 +42,6 @@
 + (instancetype)sharedInstance;
 - (NSArray *)cookies;
 
+- (NSString *)APIKeyContentsFromFile;
+
 @end

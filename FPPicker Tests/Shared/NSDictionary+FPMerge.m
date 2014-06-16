@@ -10,4 +10,14 @@
 
 @implementation NSDictionary (FPMerge)
 
++ (NSDictionary *)mergeDictionary:(NSDictionary *)dictionary
+                             into:(NSDictionary *)anotherDictionary
+{
+    NSMutableDictionary *tmpMutableDictionary = [dictionary mutableCopy];
+
+    [tmpMutableDictionary addEntriesFromDictionary:anotherDictionary];
+
+    return [tmpMutableDictionary copy];
+}
+
 @end

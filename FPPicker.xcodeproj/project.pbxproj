@@ -109,6 +109,10 @@
 		456D94E5194F069000D0A34E /* SelectOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 456D94B0194F068F00D0A34E /* SelectOverlay@2x.png */; };
 		456D94E6194F069000D0A34E /* SelectOverlayiOS7.png in Resources */ = {isa = PBXBuildFile; fileRef = 456D94B1194F068F00D0A34E /* SelectOverlayiOS7.png */; };
 		456D94E7194F069000D0A34E /* SelectOverlayiOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 456D94B2194F068F00D0A34E /* SelectOverlayiOS7@2x.png */; };
+		456D94E9194F0B3F00D0A34E /* FPConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D94E8194F0B3F00D0A34E /* FPConfigTests.m */; };
+		456D94EA194F0BC900D0A34E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E215A89C9D0085E186 /* libFPPicker.a */; };
+		456D94EB194F0BD500D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
+		456D94EC194F0C0000D0A34E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031B615A8EEC40085E186 /* MobileCoreServices.framework */; };
 		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
@@ -117,6 +121,7 @@
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; };
 		45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
+		45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 831E0ABC15AA6E460081004F /* FPSaveSourceController.h */; };
 		831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
@@ -312,6 +317,7 @@
 		456D94B0194F068F00D0A34E /* SelectOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectOverlay@2x.png"; sourceTree = "<group>"; };
 		456D94B1194F068F00D0A34E /* SelectOverlayiOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectOverlayiOS7.png; sourceTree = "<group>"; };
 		456D94B2194F068F00D0A34E /* SelectOverlayiOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectOverlayiOS7@2x.png"; sourceTree = "<group>"; };
+		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -324,6 +330,8 @@
 		45920DDD194A0D2E007003C1 /* FPMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPMacros.h; sourceTree = "<group>"; };
 		45920DDE194A0D8A007003C1 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConfig.h; sourceTree = "<group>"; };
 		45920DDF194A0D8A007003C1 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfig.m; sourceTree = "<group>"; };
+		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
+		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
 		5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Functional Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831E0ABC15AA6E460081004F /* FPSaveSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSaveSourceController.h; sourceTree = "<group>"; };
 		831E0ABD15AA6E460081004F /* FPSaveSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSaveSourceController.m; sourceTree = "<group>"; };
@@ -410,6 +418,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				456D94EC194F0C0000D0A34E /* MobileCoreServices.framework in Frameworks */,
+				456D94EB194F0BD500D0A34E /* AssetsLibrary.framework in Frameworks */,
+				456D94EA194F0BC900D0A34E /* libFPPicker.a in Frameworks */,
 				458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */,
 				458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */,
 				BF9B225B4EF04726B4764DEB /* libPods-FPPicker Functional Tests.a in Frameworks */,
@@ -556,6 +567,7 @@
 			children = (
 				458B20051949D7C1008360E9 /* FPPicker Functional Tests-Prefix.pch */,
 				458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */,
+				456D94E8194F0B3F00D0A34E /* FPConfigTests.m */,
 				458B20071949D7C1008360E9 /* TestHelpers.h */,
 				458B20111949D7D5008360E9 /* Supporting Files */,
 			);
@@ -568,6 +580,8 @@
 			children = (
 				458B20091949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.h */,
 				458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */,
+				45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */,
+				45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */,
 			);
 			name = Shared;
 			path = "FPPicker Tests/Shared";
@@ -1123,7 +1137,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */,
+				45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */,
 				458B200F1949D7C1008360E9 /* FPPicker_Functional_Tests.m in Sources */,
+				456D94E9194F0B3F00D0A34E /* FPConfigTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
