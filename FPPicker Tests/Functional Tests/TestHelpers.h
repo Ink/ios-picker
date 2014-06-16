@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
+// Categories
+#import "NSDictionary+FPMerge.h"
+#import "OHHTTPStubs+ConveniencyMethods.h"
+
 /**
    Runs the loop once so the run loop has a chance to process some events
  */

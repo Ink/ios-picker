@@ -117,11 +117,14 @@
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 458B20021949D7C1008360E9 /* InfoPlist.strings */; };
-		458B200F1949D7C1008360E9 /* FPPicker_Functional_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */; };
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; };
 		45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
 		45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
+		45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A07194F3388008C633A /* FPUtilsTests.m */; };
+		45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
+		45C14A10194F3840008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
+		45C14A11194F3843008C633A /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 831E0ABC15AA6E460081004F /* FPSaveSourceController.h */; };
 		831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
@@ -220,6 +223,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 83A030E115A89C9D0085E186;
 			remoteInfo = FPPicker;
+		};
+		45C14A0A194F35C5008C633A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 83A0317315A8A2A40085E186;
+			remoteInfo = "FPPicker Resources";
 		};
 		45DAC347194EE56B00B26E4F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -323,7 +333,6 @@
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		458B20041949D7C1008360E9 /* FPPicker Functional Tests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FPPicker Functional Tests-Info.plist"; sourceTree = "<group>"; };
 		458B20051949D7C1008360E9 /* FPPicker Functional Tests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker Functional Tests-Prefix.pch"; sourceTree = "<group>"; };
-		458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Functional_Tests.m; sourceTree = "<group>"; };
 		458B20071949D7C1008360E9 /* TestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestHelpers.h; sourceTree = "<group>"; };
 		458B20091949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "OHHTTPStubs+ConveniencyMethods.h"; sourceTree = "<group>"; };
 		458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "OHHTTPStubs+ConveniencyMethods.m"; sourceTree = "<group>"; };
@@ -332,6 +341,7 @@
 		45920DDF194A0D8A007003C1 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfig.m; sourceTree = "<group>"; };
 		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
 		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
+		45C14A07194F3388008C633A /* FPUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtilsTests.m; sourceTree = "<group>"; };
 		5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Functional Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831E0ABC15AA6E460081004F /* FPSaveSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSaveSourceController.h; sourceTree = "<group>"; };
 		831E0ABD15AA6E460081004F /* FPSaveSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSaveSourceController.m; sourceTree = "<group>"; };
@@ -565,10 +575,9 @@
 		458B20011949D7C1008360E9 /* Functional Tests */ = {
 			isa = PBXGroup;
 			children = (
-				458B20051949D7C1008360E9 /* FPPicker Functional Tests-Prefix.pch */,
-				458B20061949D7C1008360E9 /* FPPicker_Functional_Tests.m */,
+				45C14A09194F343A008C633A /* Helpers */,
 				456D94E8194F0B3F00D0A34E /* FPConfigTests.m */,
-				458B20071949D7C1008360E9 /* TestHelpers.h */,
+				45C14A07194F3388008C633A /* FPUtilsTests.m */,
 				458B20111949D7D5008360E9 /* Supporting Files */,
 			);
 			name = "Functional Tests";
@@ -592,8 +601,17 @@
 			children = (
 				458B20021949D7C1008360E9 /* InfoPlist.strings */,
 				458B20041949D7C1008360E9 /* FPPicker Functional Tests-Info.plist */,
+				458B20051949D7C1008360E9 /* FPPicker Functional Tests-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45C14A09194F343A008C633A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				458B20071949D7C1008360E9 /* TestHelpers.h */,
+			);
+			name = Helpers;
 			sourceTree = "<group>";
 		};
 		45D7356619476DA8001EF626 /* View Controllers */ = {
@@ -867,6 +885,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				45C14A0B194F35C5008C633A /* PBXTargetDependency */,
 				458B1FFA1949D726008360E9 /* PBXTargetDependency */,
 			);
 			name = "FPPicker Functional Tests";
@@ -962,6 +981,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */,
 				458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1125,9 +1145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C14A10194F3840008C633A /* NSDictionary+FPMerge.m in Sources */,
 				450B5A641949EFC1007AF44A /* ViewController.m in Sources */,
 				450B5A5B1949EFC1007AF44A /* AppDelegate.m in Sources */,
 				450B5A9F1949F325007AF44A /* FPExampleTest.m in Sources */,
+				45C14A11194F3843008C633A /* OHHTTPStubs+ConveniencyMethods.m in Sources */,
 				450B5A571949EFC0007AF44A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1136,9 +1158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */,
 				458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */,
 				45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */,
-				458B200F1949D7C1008360E9 /* FPPicker_Functional_Tests.m in Sources */,
 				456D94E9194F0B3F00D0A34E /* FPConfigTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1214,6 +1236,11 @@
 			isa = PBXTargetDependency;
 			target = 83A030E115A89C9D0085E186 /* FPPicker */;
 			targetProxy = 458B1FF91949D726008360E9 /* PBXContainerItemProxy */;
+		};
+		45C14A0B194F35C5008C633A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
+			targetProxy = 45C14A0A194F35C5008C633A /* PBXContainerItemProxy */;
 		};
 		45DAC348194EE56B00B26E4F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

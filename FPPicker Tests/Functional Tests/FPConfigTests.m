@@ -7,8 +7,6 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "TestHelpers.h"
-#import "NSDictionary+FPMerge.h"
 
 // Collaborators
 #import "FPConfig.h"
@@ -41,8 +39,6 @@
     [super tearDown];
 
     [FPConfig destroyAndRecreateSingleton];
-
-    NSLog(@"sharedInstance = %@", [FPConfig sharedInstance]);
 }
 
 - (void)testSharedInstance
@@ -98,6 +94,62 @@
                           @"API key does not match");
 
     OCMVerifyAll(configMock);
+}
+
+- (void)testAPIKeyUsingMacro
+{
+    FPConfig *config = [FPConfig sharedInstance];
+    id configMock = OCMPartialMock(config);
+
+    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_API_KEY");
+
+    XCTAssertEqualObjects(config.APIKey,
+                          fpAPIKEY,
+                          @"fpAPIKEY macro should return the same as config.APIKey");
+
+    OCMVerifyAll(configMock);
+}
+
+- (void)testBaseURL
+{
+    XCTAssertEqualObjects([FPConfig sharedInstance].baseURL.absoluteString,
+                          fpBASE_URL,
+                          @"BaseURL does not match");
+}
+
+- (void)testCookies
+{
+    NSArray *expectedCookies = @[
+        @"someCookie=1"
+                               ];
+
+    id cookieStorageMock = OCMPartialMock([NSHTTPCookieStorage sharedHTTPCookieStorage]);
+
+    OCMStub([cookieStorageMock cookiesForURL:[OCMArg any]]).andReturn(expectedCookies);
+
+    XCTAssertEqualObjects([FPConfig sharedInstance].cookies,
+                          expectedCookies,
+                          @"Cookies do not match");
+
+    OCMVerifyAll(cookieStorageMock);
+}
+
+- (void)testCookiesUsingMacro
+{
+    NSArray *expectedCookies = @[
+        @"cookieOne=10",
+        @"cookieTwo=20"
+                               ];
+
+    id cookieStorageMock = OCMPartialMock([NSHTTPCookieStorage sharedHTTPCookieStorage]);
+
+    OCMStub([cookieStorageMock cookiesForURL:[OCMArg any]]).andReturn(expectedCookies);
+
+    XCTAssertEqualObjects(fpCOOKIES,
+                          expectedCookies,
+                          @"Cookies do not match");
+
+    OCMVerifyAll(cookieStorageMock);
 }
 
 @end
