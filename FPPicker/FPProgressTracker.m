@@ -32,14 +32,14 @@
 
 - (float)setProgress:(float)progress forKey:(id<NSCopying>)key
 {
-    if (progress < 0 || progress > 1.f)
+    float clampedProgress = FPCLAMP(progress, 0.0f, 1.0f);
+
+    if (progress != clampedProgress)
     {
         NSLog(@"Invalid progress: %f, bounding", progress);
     }
 
-    progress = MAX(MIN(progress, 1.f), 0.0f);
-
-    self.progressMap[key] = @(progress);
+    self.progressMap[key] = @(clampedProgress);
 
     return [self calculateProgress];
 }
@@ -50,7 +50,7 @@
 
     for (id<NSCopying> key in self.progressMap)
     {
-        NSNumber *val = [self.progressMap objectForKey:key];
+        NSNumber *val = self.progressMap[key];
 
         if (val)
         {
@@ -58,7 +58,7 @@
         }
     }
 
-    return MAX(MIN(totalProgress / self.count, 1.f), 0.0f);
+    return FPCLAMP(totalProgress / self.count, 0.0f, 1.0f);
 }
 
 @end
