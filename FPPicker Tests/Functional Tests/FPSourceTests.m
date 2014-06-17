@@ -48,6 +48,10 @@
         @"video/quicktime"
                        ];
 
+    XCTAssertEqual(source.mimetypes.count,
+                   4,
+                   @"Should be 4");
+
     XCTAssertEqualObjects([source mimetypeString],
                           @"[\"image/png\",\"image/jpeg\",\"video/mp4\",\"video/quicktime\"]",
                           @"Should contain mimetypes");
