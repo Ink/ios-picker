@@ -62,17 +62,25 @@
 + (NSString *)genRandStringLength:(int)len;
 
 /**
-   Returns an image with corrected rotation.
-
-   @returns An UIImage
- */
-+ (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
-
-/**
    Takes an object and returns a JSON encoded NSString.
 
    @returns A NSString
  */
 + (NSString *)JSONEncodeObject:(id)object error:(NSError **)error;
+
+/**
+   Returns a JSON string representing a session with an API key, and
+   optionally a mimetype or array of mimetypes.
+
+   @returns A NSString
+ */
++ (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes;
+
+/**
+   Returns an image with corrected rotation.
+
+   @returns An UIImage
+ */
++ (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
 
 @end

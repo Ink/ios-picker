@@ -38,7 +38,6 @@
 
 @property (nonatomic, strong) NSString *APIKey;
 @property (nonatomic, strong) NSURL *baseURL;
-@property (nonatomic, strong) NSString *JSSessionString;
 
 + (instancetype)sharedInstance;
 - (NSArray *)cookies;

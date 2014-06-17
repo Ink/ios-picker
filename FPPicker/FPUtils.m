@@ -113,6 +113,26 @@
     return JSONString;
 }
 
++ (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes
+{
+    NSError *error;
+
+    NSMutableDictionary *sessionObject = [@{@"app":[@{} mutableCopy]} mutableCopy];
+
+    if (APIKey)
+    {
+        sessionObject[@"app"][@"apikey"] = APIKey;
+    }
+
+    if (mimetypes)
+    {
+        sessionObject[@"app"][@"mimetypes"] = mimetypes;
+    }
+
+    return [FPUtils JSONEncodeObject:sessionObject
+                               error:&error];
+}
+
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
     /*

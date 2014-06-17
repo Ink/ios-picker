@@ -341,8 +341,11 @@
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:nil];
+
     NSDictionary *params = @{
-        @"js_session":[FPConfig sharedInstance].JSSessionString
+        @"js_session":js_sessionString
     };
 
     FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
@@ -424,10 +427,13 @@
         filename = @"filename";
     }
 
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:nil];
+
     NSDictionary *params = @{
         @"name":filename,
         @"filesize":@(filesize),
-        @"js_session":[FPConfig sharedInstance].JSSessionString
+        @"js_session":js_sessionString
     };
 
     /* begin multipart */
@@ -448,7 +454,7 @@
             NSDictionary *endParams = @{
                 @"id":uploadID,
                 @"total":@(numOfChunks),
-                @"js_session":[FPConfig sharedInstance].JSSessionString
+                @"js_session":js_sessionString
             };
 
             NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
@@ -496,15 +502,17 @@
         FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:numOfChunks];
         __block int numberSent = 0;
 
+        NSString *escapedSessionString;
+
+        escapedSessionString = [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
         /* send the chunks */
         for (int i = 0; i < numOfChunks; i++)
         {
             NSLog(@"Sending slice #%d", i);
 
-            NSString *escapedSessionString;
             NSString *uploadPath;
 
-            escapedSessionString = [[FPConfig sharedInstance].JSSessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
                           uploadID,
                           i,
@@ -637,8 +645,8 @@
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
-    NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
-    NSString *js_sessionString = [NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\":[\"%@\"] }", appString, mimetype];
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:mimetype];
 
     NSDictionary *params = @{
         @"js_session":js_sessionString,

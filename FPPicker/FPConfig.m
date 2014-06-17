@@ -81,25 +81,6 @@ static FPConfig *FPSharedInstance = nil;
     return [cookieStorage cookiesForURL:self.baseURL];
 }
 
-- (NSString *)JSSessionString
-{
-    if (!_JSSessionString)
-    {
-        NSError *error;
-
-        NSDictionary *sessionEntry = @{
-            @"app":@{
-                @"apikey":[FPConfig sharedInstance].APIKey
-            }
-        };
-
-        _JSSessionString = [FPUtils JSONEncodeObject:sessionEntry
-                                               error:&error];
-    }
-
-    return _JSSessionString;
-}
-
 #pragma mark - Only to be used in tests
 
 + (void)destroyAndRecreateSingleton
