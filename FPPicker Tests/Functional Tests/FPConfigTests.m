@@ -53,12 +53,11 @@
 
 - (void)testAPIKeyFromFile
 {
-    FPConfig *config = [FPConfig sharedInstance];
-    id configMock = OCMPartialMock(config);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_API_KEY");
 
-    XCTAssertEqualObjects(config.APIKey,
+    XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
                           @"MY_API_KEY",
                           @"API key does not match");
 
@@ -67,8 +66,7 @@
 
 - (void)testAPIKeyFromPList
 {
-    FPConfig *config = [FPConfig sharedInstance];
-    id configMock = OCMPartialMock(config);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
 
     OCMStub([configMock APIKeyContentsFromFile]); // return nil
 
@@ -79,7 +77,7 @@
 
     OCMStub([mainBundleMock infoDictionary]).andReturn(infoDictionary);
 
-    XCTAssertEqualObjects(config.APIKey,
+    XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
                           @"MY_OTHER_API_KEY",
                           @"API key does not match");
 
@@ -88,12 +86,11 @@
 
 - (void)testAPIKeyUsingMacro
 {
-    FPConfig *config = [FPConfig sharedInstance];
-    id configMock = OCMPartialMock(config);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_API_KEY");
 
-    XCTAssertEqualObjects(config.APIKey,
+    XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
                           fpAPIKEY,
                           @"fpAPIKEY macro should return the same as config.APIKey");
 
