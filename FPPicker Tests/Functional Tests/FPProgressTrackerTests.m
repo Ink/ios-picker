@@ -84,19 +84,23 @@
     int numObjects = 10;
     FPProgressTracker *progressTracker = [[FPProgressTracker alloc] initWithObjectCount:numObjects];
 
-    XCTAssertEqual([progressTracker calculateProgress], 0, @"Should be zero at startup");
-
-    NSLog(@"calculateProgress = %f", [progressTracker calculateProgress]);
+    XCTAssertEqual([progressTracker calculateProgress],
+                   0.0f,
+                   @"Should be zero at startup");
 
     [progressTracker setProgress:1.00f
                           forKey:@(0)];
 
-    XCTAssertEqual([progressTracker calculateProgress], 0.1f, @"Should be 0.1 after one block completed");
+    XCTAssertEqual([progressTracker calculateProgress],
+                   0.1f,
+                   @"Should be 0.1 after one block completed");
 
     [progressTracker setProgress:1.23f
                           forKey:@(1)];
 
-    XCTAssertEqual([progressTracker calculateProgress], 0.2f, @"Should be 0.2 after another block completed");
+    XCTAssertEqual([progressTracker calculateProgress],
+                   0.2f,
+                   @"Should be 0.2 after another block completed");
 
     for (int c = 2; c < numObjects; c++)
     {
@@ -104,12 +108,16 @@
                               forKey:@(c)];
     }
 
-    XCTAssertEqual([progressTracker calculateProgress], 1.0f, @"Should be 1.0 after completing another 8 blocks");
+    XCTAssertEqual([progressTracker calculateProgress],
+                   1.0f,
+                   @"Should be 1.0 after completing another 8 blocks");
 
     [progressTracker setProgress:1.00f
                           forKey:@(numObjects + 1)];
 
-    XCTAssertEqual([progressTracker calculateProgress], 1.0f, @"Should still be 1.0 when going beyond object count");
+    XCTAssertEqual([progressTracker calculateProgress],
+                   1.0f,
+                   @"Should still be 1.0 when going beyond object count");
 }
 
 @end
