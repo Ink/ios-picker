@@ -65,7 +65,6 @@
 
     FPUploadAssetSuccessBlock successBlock;
     FPUploadAssetFailureBlock failureBlock;
-    FPUploadAssetProgressBlock progressBlock;
 
     successBlock = ^(id JSON) {
         XCTFail(@"Should not succeed");
@@ -73,10 +72,9 @@
 
     failureBlock = ^(NSError *error, id JSON) {
         XCTAssertTrue(error, @"An error was expected");
+
         dispatch_semaphore_signal(waitSemaphore);
     };
-
-    progressBlock = ^(float progress) {};
 
     [FPLibrary uploadDataToFilepicker:nil
                                 named:nil
@@ -84,7 +82,7 @@
                          shouldUpload:NO
                               success:successBlock
                               failure:failureBlock
-                             progress:progressBlock];
+                             progress:nil];
 
     // Wait for our block to return
 
@@ -193,14 +191,12 @@
         XCTFail(@"Should not fail");
     };
 
-    FPUploadAssetProgressBlock progressBlock = ^(float progress) {};
-
     [FPLibrary singlepartUploadData:data
                               named:imageFilename
                          ofMimetype:imageMimetype
                             success:successBlock
                             failure:failureBlock
-                           progress:progressBlock];
+                           progress:nil];
 
     // Wait for our block to return
 
@@ -244,14 +240,12 @@
         dispatch_semaphore_signal(waitSemaphore);
     };
 
-    FPUploadAssetProgressBlock progressBlock = ^(float progress) {};
-
     [FPLibrary singlepartUploadData:data
                               named:imageFilename
                          ofMimetype:imageMimetype
                             success:successBlock
                             failure:failureBlock
-                           progress:progressBlock];
+                           progress:nil];
 
     // Wait for our block to return
 
