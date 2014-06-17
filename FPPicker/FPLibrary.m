@@ -209,16 +209,18 @@
            failure:(FPUploadAssetFailureBlock)failure
           progress:(FPUploadAssetProgressBlock)progress
 {
-    NSLog(@"Type: %@", mimetype);
-    //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
-    //NSLog(@"Mime: %@", mimetype);
+    NSLog(@"Mimetype: %@", mimetype);
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
-    NSURL *tempURL = [NSURL fileURLWithPath:tempPath isDirectory:NO];
-    [filedata writeToURL:tempURL atomically:YES];
+
+    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
+                                isDirectory:NO];
+
+    [filedata writeToURL:tempURL
+              atomically:YES];
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        NSString *filepickerURL = [[[JSON objectForKey:@"data"] objectAtIndex:0] objectForKey:@"url"];
+        NSString *filepickerURL = JSON[@"data"][0][@"url"];
 
         [FPLibrary uploadDataHelper_saveAs:filepickerURL
                                     toPath:[NSString stringWithFormat:@"%@%@", path, filename]
@@ -251,12 +253,10 @@
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress
 {
-    NSLog(@"Type: %@", mimetype);
-    //NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(type, kUTTagClassMIMEType);
-    //NSLog(@"Mime: %@", mimetype);
+    NSLog(@"Mimetype: %@", mimetype);
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        NSString *filepickerURL = [[[JSON objectForKey:@"data"] objectAtIndex:0] objectForKey:@"url"];
+        NSString *filepickerURL = JSON[@"data"][0][@"url"];
 
         [FPLibrary uploadDataHelper_saveAs:filepickerURL
                                     toPath:[NSString stringWithFormat:@"%@%@", path, filename]
