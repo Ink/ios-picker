@@ -11,17 +11,7 @@
 // Collaborators
 #import "FPConfig.h"
 
-// Test support
-#import "OCMock.h"
-#import "OCClassMockObject.h"
-
 @interface FPConfigTests : XCTestCase
-
-@end
-
-@interface FPConfig (DestroyableSingleton)
-
-+ (void)destroyAndRecreateSingleton;
 
 @end
 
