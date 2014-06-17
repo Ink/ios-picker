@@ -1329,17 +1329,20 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type byAppending:(NSString *)additionalString cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
-    NSString *js_sessionString = [[NSString stringWithFormat:@"{\"app\": %@, \"mimetypes\": %@}", appString, [self.sourceType mimetypeString]] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:self.sourceType.mimetypeString];
+
+    NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
+
     NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
 
     if ([urlString rangeOfString:@"?"].location == NSNotFound)
     {
-        [urlString appendFormat:@"?format=%@&%@=%@", type, @"js_session", js_sessionString];
+        [urlString appendFormat:@"?format=%@&%@=%@", type, @"js_session", escapedSessionString];
     }
     else
     {
-        [urlString appendFormat:@"&format=%@&%@=%@", type, @"js_session", js_sessionString];
+        [urlString appendFormat:@"&format=%@&%@=%@", type, @"js_session", escapedSessionString];
     }
 
     [urlString appendString:additionalString];

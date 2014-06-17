@@ -485,8 +485,7 @@
         @"url":fileLocation
     };
 
-    NSString *savePath = [NSString stringWithFormat:@"/api/path%@",
-                          [saveLocation stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *savePath = [NSString stringWithFormat:@"/api/path%@", [FPUtils urlEncodeString:saveLocation]];
 
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
                                                             path:savePath
@@ -598,9 +597,7 @@
     FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:numOfChunks];
     __block int numberSent = 0;
 
-    NSString *escapedSessionString;
-
-    escapedSessionString = [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
 
     /* send the chunks */
 

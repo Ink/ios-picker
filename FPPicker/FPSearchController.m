@@ -7,6 +7,7 @@
 //
 
 #import "FPSearchController.h"
+#import "FPUtils.h"
 
 @interface FPSearchController ()
 
@@ -73,7 +74,7 @@
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
 {
     //NSLog(@"Search String %@", searchString);
-    NSString *path = [NSString stringWithFormat:@"%@/%@", self.sourceType.rootUrl, [searchString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    NSString *path = [NSString stringWithFormat:@"%@/%@", self.sourceType.rootUrl, [FPUtils urlEncodeString:searchString]];
 
     self.path = path;
     [self fpLoadContents:path];
