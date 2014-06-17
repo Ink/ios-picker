@@ -6,7 +6,6 @@
 //  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>

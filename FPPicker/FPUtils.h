@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @class UIImage;
 
 @interface FPUtils : NSObject

@@ -6,8 +6,6 @@
 //  Copyright (c) 2013 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 @interface FPProgressTracker : NSObject
 
 - (id)initWithObjectCount:(NSInteger)objectCount;
