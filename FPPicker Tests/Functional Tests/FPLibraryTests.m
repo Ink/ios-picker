@@ -141,12 +141,12 @@
 
     size_t largeImageSize = fpMaxChunkSize + 1;
     char *largeImageBuffer = malloc(largeImageSize);
-    NSData *smallImage = [NSData dataWithBytes:largeImageBuffer
+    NSData *largeImage = [NSData dataWithBytes:largeImageBuffer
                                         length:largeImageSize];
 
     id NSDataMock = OCMClassMock([NSData class]);
 
-    OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(smallImage);
+    OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(largeImage);
 
     [FPLibrary uploadDataToFilepicker:[NSURL URLWithString:@""]
                                 named:@"chunkyImage.png"
