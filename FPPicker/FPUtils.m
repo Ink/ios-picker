@@ -103,14 +103,19 @@
 + (NSString *)JSONEncodeObject:(id)object
                          error:(NSError **)error
 {
-    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:object
-                                                       options:0
-                                                         error:error];
+    if ([NSJSONSerialization isValidJSONObject:object])
+    {
+        NSData *JSONData = [NSJSONSerialization dataWithJSONObject:object
+                                                           options:0
+                                                             error:error];
 
-    NSString *JSONString = [[NSString alloc] initWithData:JSONData
-                                                 encoding:NSUTF8StringEncoding];
+        NSString *JSONString = [[NSString alloc] initWithData:JSONData
+                                                     encoding:NSUTF8StringEncoding];
 
-    return JSONString;
+        return JSONString;
+    }
+
+    return nil;
 }
 
 + (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes
