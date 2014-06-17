@@ -1,15 +1,19 @@
 PODS:
-  - OCMock (2.2.4)
+  - OCMock (3.0)
   - OHHTTPStubs (3.1.2)
   - Subliminal (1.1.0)
 
 DEPENDENCIES:
-  - OCMock (~> 2.2.4)
+  - OCMock (from `OCMock.podspec.json`)
   - OHHTTPStubs (~> 3.1.2)
   - Subliminal (~> 1.1.0)
 
+EXTERNAL SOURCES:
+  OCMock:
+    :podspec: OCMock.podspec.json
+
 SPEC CHECKSUMS:
-  OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
+  OCMock: ef1732f0541e848eec35bf9cab7468017137e628
   OHHTTPStubs: c1c2007839687eaf9b80f061ce84440515080ebb
   Subliminal: ed7811c592f738e99e0d89b80dbbeb08af14f1bf
 

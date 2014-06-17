@@ -10,43 +10,53 @@
 
 @implementation FPConfig
 
+static FPConfig *FPSharedInstance = nil;
+
 + (instancetype)sharedInstance
 {
-    static FPConfig *sharedInstance = nil;
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        sharedInstance = [FPConfig new];
+        FPSharedInstance = [[super allocWithZone:NULL] init];
     });
 
-    return sharedInstance;
+    return FPSharedInstance;
+}
+
++ (id)allocWithZone:(NSZone *)zone
+{
+    return [self sharedInstance];
+}
+
+- (NSString *)APIKeyContentsFromFile
+{
+    NSString *envAPIKey = [[NSProcessInfo processInfo] environment][@"API_KEY_FILE"];
+
+    NSString *theAPIKey = [NSString stringWithContentsOfFile:envAPIKey
+                                                    encoding:NSUTF8StringEncoding
+                                                       error:nil];
+
+    // Trim whitespace and new lines
+
+    theAPIKey = [theAPIKey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    return theAPIKey;
 }
 
 - (NSString *)APIKey
 {
     if (!_APIKey)
     {
-        NSString *envAPIKey = [[NSProcessInfo processInfo] environment][@"API_KEY_FILE"];
-
-        if (envAPIKey)
+        if ((_APIKey = [self APIKeyContentsFromFile]))
         {
-            NSString *theAPIKey = [NSString stringWithContentsOfFile:envAPIKey
-                                                            encoding:NSUTF8StringEncoding
-                                                               error:nil];
-
-            _APIKey = [theAPIKey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-            if (_APIKey)
-            {
-                NSLog(@"(DEBUG) Loaded API KEY from contents of %@ (Info.plist API KEY will be ignored!)", envAPIKey);
-            }
+            NSLog(@"(DEBUG) Loaded API KEY from contents of %@ (Info.plist API KEY will be ignored!)", _APIKey);
         }
 
         if (!_APIKey)
         {
             NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
 
-            _APIKey = [infoDict objectForKey:@"Filepicker API Key"];
+            _APIKey = infoDict[@"Filepicker API Key"];
         }
     }
 
@@ -68,6 +78,13 @@
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
 
     return [cookieStorage cookiesForURL:self.baseURL];
+}
+
+#pragma mark - Only to be used in tests
+
++ (void)destroyAndRecreateSingleton
+{
+    FPSharedInstance = [[super allocWithZone:NULL] init];
 }
 
 @end
