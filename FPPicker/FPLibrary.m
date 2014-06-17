@@ -392,8 +392,6 @@
     [operation start];
 }
 
-// TODO: Refactor by splitting into smaller and more manageable parts
-
 + (void)multipartUploadData:(NSData*)filedata
                       named:(NSString*)filename
                  ofMimetype:(NSString*)mimetype
@@ -402,7 +400,7 @@
                    progress:(FPUploadAssetProgressBlock)progress
 {
     void (^tryOperation)();
-    __block int numberOfTries = 0;
+    __block int numberOfTries;
 
     NSInteger filesize = filedata.length;
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
@@ -427,7 +425,7 @@
                                                               id JSON) {
         NSLog(@"Response: %@", JSON);
 
-        [self processBeginPartWithData:filedata
+        [self processMultipartWithData:filedata
                                  named:filename
                             ofMimetype:mimetype
                           JSONResponse:JSON
@@ -449,6 +447,7 @@
         }
         else
         {
+            numberOfTries++;
             tryOperation();
         }
     };
@@ -457,13 +456,12 @@
                                                             path:@"/api/path/computer/?multipart=start"
                                                       parameters:params];
 
-    tryOperation = ^() {
-        FPAFJSONRequestOperation *operation;
+    numberOfTries = 0;
 
-        operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                      success:operationSuccessBlock
-                                                                      failure:operationFailureBlock];
-        [operation start];
+    tryOperation = ^() {
+        [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                           success:operationSuccessBlock
+                                                           failure:operationFailureBlock] start];
     };
 
     tryOperation();
@@ -519,15 +517,12 @@
         failure(error, JSON);
     };
 
-    FPAFJSONRequestOperation *operation;
-
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
-    [operation start];
+    [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                       success:operationSuccessBlock
+                                                       failure:operationFailureBlock] start];
 }
 
-+ (void)processBeginPartWithData:(NSData*)filedata
++ (void)processMultipartWithData:(NSData*)filedata
                            named:(NSString*)filename
                       ofMimetype:(NSString*)mimetype
                     JSONResponse:(id)JSON
@@ -536,7 +531,7 @@
                         progress:(FPUploadAssetProgressBlock)progress
 {
     __block void (^tryOperation)();
-    __block int numberOfTries = 0;
+    __block int numberOfTries;
 
     NSInteger filesize = filedata.length;
     NSInteger numOfChunks = ceil(1.0 * filesize / fpMaxChunkSize);
@@ -587,6 +582,8 @@
             }
         };
 
+
+        numberOfTries = 0;
 
         tryOperation = ^() {
             [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
@@ -640,7 +637,7 @@
                                                   parameters:nil
                                    constructingBodyWithBlock:constructingBody];
 
-        [request setHTTPShouldUsePipelining:YES];
+        request.HTTPShouldUsePipelining = YES;
 
 
         FPARequestOperationSuccessBlock onePartSuccess = ^(NSURLRequest *request,
