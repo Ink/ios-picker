@@ -26,6 +26,21 @@
                      failure:(FPUploadAssetFailureBlock)failure
                     progress:(FPUploadAssetProgressBlock)progress;
 
++ (void)multipartUploadData:(NSData*)filedata
+                      named:(NSString*)filename
+                 ofMimetype:(NSString*)mimetype
+                    success:(FPUploadAssetSuccessBlock)success
+                    failure:(FPUploadAssetFailureBlock)failure
+                   progress:(FPUploadAssetProgressBlock)progress;
+
++ (void)uploadDataToFilepicker:(NSURL*)fileURL
+                         named:(NSString*)filename
+                    ofMimetype:(NSString*)mimetype
+                  shouldUpload:(BOOL)shouldUpload
+                       success:(FPUploadAssetSuccessBlock)success
+                       failure:(FPUploadAssetFailureBlock)failure
+                      progress:(FPUploadAssetProgressBlock)progress;
+
 @end
 
 @implementation FPLibraryTests
@@ -42,6 +57,109 @@
     [super tearDown];
 
     [FPConfig destroyAndRecreateSingleton];
+}
+
+- (void)testUploadDataToFilePickerWithShouldUploadSetToFalse
+{
+    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+
+    FPUploadAssetSuccessBlock successBlock;
+    FPUploadAssetFailureBlock failureBlock;
+    FPUploadAssetProgressBlock progressBlock;
+
+    successBlock = ^(id JSON) {
+        XCTFail(@"Should not succeed");
+    };
+
+    failureBlock = ^(NSError *error, id JSON) {
+        XCTAssertTrue(error, @"An error was expected");
+        dispatch_semaphore_signal(waitSemaphore);
+    };
+
+    progressBlock = ^(float progress) {};
+
+    [FPLibrary uploadDataToFilepicker:nil
+                                named:nil
+                           ofMimetype:nil
+                         shouldUpload:NO
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progressBlock];
+
+    // Wait for our block to return
+
+    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
+    {
+        runTheRunLoopOnce();
+    }
+}
+
+- (void)testUploadDataToFilePickerWithSinglepartUpload
+{
+    id FPLibraryMock = OCMClassMock([FPLibrary class]);
+
+    OCMExpect(ClassMethod([FPLibraryMock singlepartUploadData:[OCMArg any]
+                                                        named:[OCMArg any]
+                                                   ofMimetype:[OCMArg any]
+                                                      success:[OCMArg any]
+                                                      failure:[OCMArg any]
+                                                     progress:[OCMArg any]]));
+
+    size_t smallImageSize = fpMaxChunkSize - 1;
+    char *smallImageBuffer = malloc(smallImageSize);
+    NSData *smallImage = [NSData dataWithBytes:smallImageBuffer
+                                        length:smallImageSize];
+
+    id NSDataMock = OCMClassMock([NSData class]);
+
+    OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(smallImage);
+
+    [FPLibrary uploadDataToFilepicker:[NSURL URLWithString:@""]
+                                named:@"chunkyImage.png"
+                           ofMimetype:@"image/png"
+                         shouldUpload:YES
+                              success:nil
+                              failure:nil
+                             progress:nil];
+
+    free(smallImageBuffer);
+
+    OCMVerifyAll(FPLibraryMock);
+    OCMVerifyAll(NSDataMock);
+}
+
+- (void)testUploadDataToFilePickerWithMultipartUpload
+{
+    id FPLibraryMock = OCMClassMock([FPLibrary class]);
+
+    OCMExpect(ClassMethod([FPLibraryMock multipartUploadData:[OCMArg any]
+                                                       named:[OCMArg any]
+                                                  ofMimetype:[OCMArg any]
+                                                     success:[OCMArg any]
+                                                     failure:[OCMArg any]
+                                                    progress:[OCMArg any]]));
+
+    size_t largeImageSize = fpMaxChunkSize + 1;
+    char *largeImageBuffer = malloc(largeImageSize);
+    NSData *smallImage = [NSData dataWithBytes:largeImageBuffer
+                                        length:largeImageSize];
+
+    id NSDataMock = OCMClassMock([NSData class]);
+
+    OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(smallImage);
+
+    [FPLibrary uploadDataToFilepicker:[NSURL URLWithString:@""]
+                                named:@"chunkyImage.png"
+                           ofMimetype:@"image/png"
+                         shouldUpload:YES
+                              success:nil
+                              failure:nil
+                             progress:nil];
+
+    free(largeImageBuffer);
+
+    OCMVerifyAll(FPLibraryMock);
+    OCMVerifyAll(NSDataMock);
 }
 
 - (void)testSucessfulSinglepartUpload

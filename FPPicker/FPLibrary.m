@@ -422,13 +422,13 @@
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:nil];
+
     if (!filename)
     {
         filename = @"filename";
     }
-
-    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                                        andMimetypes:nil];
 
     NSDictionary *params = @{
         @"name":filename,
