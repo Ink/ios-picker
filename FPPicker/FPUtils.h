@@ -68,4 +68,11 @@
  */
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
 
+/**
+    Takes an object and returns a JSON encoded NSString.
+
+    @return An NSString
+ */
++ (NSString *)JSONEncodeObject:(id)object error:(NSError **)error;
+
 @end

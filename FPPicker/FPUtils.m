@@ -100,6 +100,19 @@
     return randomString;
 }
 
++ (NSString *)JSONEncodeObject:(id)object
+                         error:(NSError **)error
+{
+    NSData *JSONData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:0
+                                                         error:error];
+
+    NSString *JSONString = [[NSString alloc] initWithData:JSONData
+                                                 encoding:NSUTF8StringEncoding];
+
+    return JSONString;
+}
+
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
     /*
