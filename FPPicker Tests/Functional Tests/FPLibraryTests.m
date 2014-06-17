@@ -92,7 +92,7 @@
     }
 }
 
-- (void)testUploadDataToFilePickerWithSinglepartUpload
+- (void)testUploadDataToFilePickerWithSmallFile
 {
     id FPLibraryMock = OCMClassMock([FPLibrary class]);
 
@@ -126,7 +126,7 @@
     OCMVerifyAll(NSDataMock);
 }
 
-- (void)testUploadDataToFilePickerWithMultipartUpload
+- (void)testUploadDataToFilePickerWithLargeFile
 {
     id FPLibraryMock = OCMClassMock([FPLibrary class]);
 
