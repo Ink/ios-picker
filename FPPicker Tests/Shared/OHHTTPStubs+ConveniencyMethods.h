@@ -13,6 +13,7 @@
 + (void)stubHTTPRequestAndResponseWithHost:(NSString *)host
                                       path:(NSString *)path
                                     scheme:(NSString *)scheme
+                                HTTPMethod:(NSString *)HTTPMethod
                                fixtureFile:(NSString *)fixtureFile
                                 statusCode:(int)statusCode
                                 andHeaders:(NSDictionary *)headers;

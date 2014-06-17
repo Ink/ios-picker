@@ -18,6 +18,7 @@ static inline NSString *boolAsString(BOOL value)
 + (void)stubHTTPRequestAndResponseWithHost:(NSString *)host
                                       path:(NSString *)path
                                     scheme:(NSString *)scheme
+                                HTTPMethod:(NSString *)HTTPMethod
                                fixtureFile:(NSString *)fixtureFile
                                 statusCode:(int)statusCode
                                 andHeaders:(NSDictionary *)headers
@@ -25,8 +26,13 @@ static inline NSString *boolAsString(BOOL value)
     OHHTTPStubsTestBlock testBlock = ^BOOL (NSURLRequest *request) {
         BOOL shouldStub = [request.URL.scheme isEqualToString:scheme] &&
                           [request.URL.host isEqualToString:host] &&
-                          [request.URL.path isEqualToString:path];
+                          [request.URL.path isEqualToString:path] &&
+                          [request.HTTPMethod isEqualToString:HTTPMethod];
 
+        NSLog(@"(OHHTTPS DEBUG) request.URL.scheme = %@, scheme = %@", request.URL.scheme, scheme);
+        NSLog(@"(OHHTTPS DEBUG) request.URL.host = %@, host = %@", request.URL.host, host);
+        NSLog(@"(OHHTTPS DEBUG) request.URL.path = %@, path = %@", request.URL.path, path);
+        NSLog(@"(OHHTTPS DEBUG) request.HTTPMethod = %@, HTTPMethod = %@", request.HTTPMethod, HTTPMethod);
         NSLog(@"(OHHTTPS DEBUG) host = %@, path = %@, willStub = %@", host, path, boolAsString(shouldStub));
 
         return shouldStub;
