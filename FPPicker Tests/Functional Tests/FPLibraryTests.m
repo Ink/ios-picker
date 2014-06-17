@@ -47,8 +47,7 @@
 - (void)testSucessfulSinglepartUpload
 {
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-    FPConfig *config = [FPConfig sharedInstance];
-    id configMock = OCMPartialMock(config);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
     id httpClientMock = OCMClassMock([FPAFHTTPClient class]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
@@ -74,8 +73,6 @@
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
         XCTFail(@"Should not fail");
-
-        dispatch_semaphore_signal(waitSemaphore);
     };
 
     FPUploadAssetProgressBlock progressBlock = ^(float progress) {};
@@ -101,8 +98,7 @@
 - (void)testFailingSinglepartUpload
 {
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-    FPConfig *config = [FPConfig sharedInstance];
-    id configMock = OCMPartialMock(config);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
     id httpClientMock = OCMClassMock([FPAFHTTPClient class]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
@@ -124,8 +120,6 @@
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         XCTFail(@"Should not succeed");
-
-        dispatch_semaphore_signal(waitSemaphore);
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
