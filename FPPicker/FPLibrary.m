@@ -338,19 +338,11 @@
                      failure:(FPUploadAssetFailureBlock)failure
                     progress:(FPUploadAssetProgressBlock)progress
 {
-    NSError *error;
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
-    NSDictionary *sessionEntry = @{
-        @"app":@{
-            @"apikey":fpAPIKEY
-        }
-    };
-
     NSDictionary *params = @{
-        @"js_session":[FPUtils JSONEncodeObject:sessionEntry
-                                          error:&error]
+        @"js_session":[FPConfig sharedInstance].JSSessionString
     };
 
     FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
@@ -370,9 +362,7 @@
     FPARequestOperationSuccessBlock successOperationBlock = ^(NSURLRequest *request,
                                                               NSHTTPURLResponse *response,
                                                               id JSON) {
-        NSLog(@"JSON = %@", JSON);
-
-        if ([@"ok" isEqual :[JSON valueForKey:@"result"]])
+        if ([@"ok" isEqual : JSON[@"result"]])
         {
             success(JSON);
         }
@@ -429,26 +419,22 @@
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
-    NSString *appString = [NSString stringWithFormat:@"{\"apikey\": \"%@\"}", fpAPIKEY];
-    NSString *js_sessionString = [NSString stringWithFormat:@"{\"app\": %@}", appString];
-
-    /* begin multipart */
-
-
     if (!filename)
     {
         filename = @"filename";
     }
 
-    NSDictionary *startParams = @{
+    NSDictionary *params = @{
         @"name":filename,
         @"filesize":@(filesize),
-        @"js_session":js_sessionString
+        @"js_session":[FPConfig sharedInstance].JSSessionString
     };
+
+    /* begin multipart */
 
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
                                                             path:@"/api/path/computer/?multipart=start"
-                                                      parameters:startParams];
+                                                      parameters:params];
 
 
     FPARequestOperationSuccessBlock beginPartSuccess = ^(NSURLRequest *request,
@@ -456,13 +442,13 @@
                                                          id JSON) {
         NSLog(@"Response: %@", JSON);
 
-        NSString *uploadID = [[JSON valueForKey:@"data"] valueForKey:@"id"];
+        NSString *uploadID = JSON[@"data"][@"id"];
 
         void (^endMultipart)() = ^() {
             NSDictionary *endParams = @{
                 @"id":uploadID,
                 @"total":@(numOfChunks),
-                @"js_session":js_sessionString
+                @"js_session":[FPConfig sharedInstance].JSSessionString
             };
 
             NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
@@ -518,7 +504,7 @@
             NSString *escapedSessionString;
             NSString *uploadPath;
 
-            escapedSessionString = [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            escapedSessionString = [[FPConfig sharedInstance].JSSessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
                           uploadID,
                           i,
@@ -532,17 +518,19 @@
                                                  length:bytesToRead
                                            freeWhenDone:NO];
 
+            FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
+                [formData appendPartWithFileData:slice
+                                            name:@"fileUpload"
+                                        fileName:filename
+                                        mimeType:mimetype];
+            };
+
             NSMutableURLRequest *request;
 
             request = [httpClient multipartFormRequestWithMethod:@"POST"
                                                             path:uploadPath
                                                       parameters:nil
-                                       constructingBodyWithBlock: ^(id <FPAFMultipartFormData>formData) {
-                [formData appendPartWithFileData:slice
-                                            name:@"fileUpload"
-                                        fileName:filename
-                                        mimeType:mimetype];
-            }];
+                                       constructingBodyWithBlock:constructingBody];
 
             [request setHTTPShouldUsePipelining:YES];
 
@@ -669,7 +657,7 @@
     FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request,
                                                               NSHTTPURLResponse *response,
                                                               id JSON) {
-        if ([JSON valueForKey:@"url"])
+        if (JSON[@"url"])
         {
             success(JSON);
         }
