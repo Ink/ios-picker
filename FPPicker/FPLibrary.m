@@ -321,7 +321,6 @@
     }
 }
 
-//single file upload
 + (void)singlepartUploadData:(NSData*)filedata
                        named:(NSString*)filename
                   ofMimetype:(NSString*)mimetype
@@ -402,14 +401,10 @@
                     failure:(FPUploadAssetFailureBlock)failure
                    progress:(FPUploadAssetProgressBlock)progress
 {
-    __block BOOL hasFinished;
-    __block int numberOfTries;
+    void (^tryOperation)();
+    __block int numberOfTries = 0;
 
-    NSInteger filesize = [filedata length];
-    NSInteger numOfChunks = ceil(1.0 * filesize / fpMaxChunkSize);
-
-    NSLog(@"Filesize: %ld chuncks: %ld", (long)filesize, (long)numOfChunks);
-
+    NSInteger filesize = filedata.length;
     NSURL *baseURL = [FPConfig sharedInstance].baseURL;
     FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
 
@@ -427,203 +422,51 @@
         @"js_session":js_sessionString
     };
 
-    /* begin multipart */
+    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request,
+                                                              NSHTTPURLResponse *response,
+                                                              id JSON) {
+        NSLog(@"Response: %@", JSON);
+
+        [self processBeginPartWithData:filedata
+                                 named:filename
+                            ofMimetype:mimetype
+                          JSONResponse:JSON
+                               success:success
+                               failure:failure
+                              progress:progress];
+    };
+
+    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request,
+                                                              NSHTTPURLResponse *response,
+                                                              NSError *error,
+                                                              id JSON) {
+        NSLog(@"Operation failed with error: %@", error);
+
+        if (numberOfTries > fpNumRetries)
+        {
+            NSLog(@"Response error: %@ %@", error, JSON);
+            failure(error, JSON);
+        }
+        else
+        {
+            tryOperation();
+        }
+    };
 
     NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
                                                             path:@"/api/path/computer/?multipart=start"
                                                       parameters:params];
 
+    tryOperation = ^() {
+        FPAFJSONRequestOperation *operation;
 
-    FPARequestOperationSuccessBlock beginPartSuccess = ^(NSURLRequest *request,
-                                                         NSHTTPURLResponse *response,
-                                                         id JSON) {
-        NSLog(@"Response: %@", JSON);
-
-        NSString *uploadID = JSON[@"data"][@"id"];
-
-        void (^endMultipart)() = ^() {
-            NSDictionary *endParams = @{
-                @"id":uploadID,
-                @"total":@(numOfChunks),
-                @"js_session":js_sessionString
-            };
-
-            NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
-                                                                    path:@"/api/path/computer/?multipart=end"
-                                                              parameters:endParams];
-
-            FPARequestOperationSuccessBlock endPartSuccess = ^(NSURLRequest *request,
-                                                               NSHTTPURLResponse *response,
-                                                               id JSON) {
-                NSLog(@"DONE!: %@", JSON);
-                hasFinished = YES;
-                success(JSON);
-            };
-
-            FPARequestOperationFailureBlock endPartFail = ^(NSURLRequest *request,
-                                                            NSHTTPURLResponse *response,
-                                                            NSError *error,
-                                                            id JSON) {
-                if (numberOfTries >= fpNumRetries)
-                {
-                    NSLog(@"failed at the end: %@ %@", error, JSON);
-                    hasFinished = YES;
-                    failure(error, JSON);
-                }
-                else
-                {
-                    hasFinished = NO;
-                    numberOfTries++;
-                }
-            };
-
-
-            numberOfTries = 0;
-            hasFinished = NO;
-
-            while (!hasFinished)
-            {
-                [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                   success:endPartSuccess
-                                                                   failure:endPartFail] start];
-            }
-        };
-
-
-        FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:numOfChunks];
-        __block int numberSent = 0;
-
-        NSString *escapedSessionString;
-
-        escapedSessionString = [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-
-        /* send the chunks */
-        for (int i = 0; i < numOfChunks; i++)
-        {
-            NSLog(@"Sending slice #%d", i);
-
-            NSString *uploadPath;
-
-            uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
-                          uploadID,
-                          i,
-                          escapedSessionString];
-
-            size_t chunkOffset = i * fpMaxChunkSize;
-            size_t bytesToRead = (i == numOfChunks - 1) ? (filesize - i * fpMaxChunkSize) : fpMaxChunkSize;
-            NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
-
-            NSData *slice = [NSData dataWithBytesNoCopy:(void *)[filedata subdataWithRange:subdataRange].bytes
-                                                 length:bytesToRead
-                                           freeWhenDone:NO];
-
-            FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
-                [formData appendPartWithFileData:slice
-                                            name:@"fileUpload"
-                                        fileName:filename
-                                        mimeType:mimetype];
-            };
-
-            NSMutableURLRequest *request;
-
-            request = [httpClient multipartFormRequestWithMethod:@"POST"
-                                                            path:uploadPath
-                                                      parameters:nil
-                                       constructingBodyWithBlock:constructingBody];
-
-            [request setHTTPShouldUsePipelining:YES];
-
-
-            FPARequestOperationSuccessBlock onePartSuccess = ^(NSURLRequest *request,
-                                                               NSHTTPURLResponse *response,
-                                                               id JSON) {
-                float overallProgress = [progressTracker setProgress:1.f
-                                                              forKey:@(i)];
-                progress(overallProgress);
-                numberSent++;
-
-                NSLog(@"Send %d: %@ (sent: %d)", i, JSON, numberSent);
-
-                if (numberSent == numOfChunks)
-                {
-                    hasFinished = YES;
-                    endMultipart();
-                }
-            };
-
-            FPARequestOperationFailureBlock onePartFail = ^(NSURLRequest *request,
-                                                            NSHTTPURLResponse *response,
-                                                            NSError *error,
-                                                            id JSON) {
-                if (numberOfTries > fpNumRetries)
-                {
-                    NSLog(@"Fail: %@ %@", error, JSON);
-                    hasFinished = YES;
-                    failure(error, JSON);
-                }
-                else
-                {
-                    NSLog(@"Retrying part %d time: %d", i, numberOfTries);
-                    numberOfTries++;
-                    hasFinished = NO;
-                }
-            };
-
-
-            numberOfTries = 0;
-            hasFinished = NO;
-
-            while (!hasFinished)
-            {
-                FPAFJSONRequestOperation *operation;
-
-                operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                              success:onePartSuccess
-                                                                              failure:onePartFail];
-
-                [operation setUploadProgressBlock: ^(NSInteger bytesWritten,
-                                                     NSInteger totalBytesWritten,
-                                                     NSInteger totalBytesExpectedToWrite) {
-                    if (totalBytesExpectedToWrite > 0)
-                    {
-                        float overallProgress = [progressTracker setProgress:((float)totalBytesWritten) / totalBytesExpectedToWrite
-                                                                      forKey:@(i)];
-                        progress(overallProgress);
-                    }
-                }];
-
-                [operation start];
-            }
-        }
+        operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                      success:operationSuccessBlock
+                                                                      failure:operationFailureBlock];
+        [operation start];
     };
 
-    FPARequestOperationFailureBlock beginPartFail = ^(NSURLRequest *request,
-                                                      NSHTTPURLResponse *response,
-                                                      NSError *error,
-                                                      id JSON) {
-        if (numberOfTries > fpNumRetries)
-        {
-            NSLog(@"Response error: %@ %@", error, JSON);
-            hasFinished = YES;
-            failure(error, JSON);
-        }
-        else
-        {
-            numberOfTries++;
-            hasFinished = NO;
-        }
-    };
-
-
-    numberOfTries = 0;
-    hasFinished = NO;
-
-    while (!hasFinished)
-    {
-        [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                           success:beginPartSuccess
-                                                           failure:beginPartFail] start];
-    }
+    tryOperation();
 }
 
 + (void)uploadDataHelper_saveAs:(NSString *)fileLocation
@@ -682,6 +525,183 @@
                                                                   success:operationSuccessBlock
                                                                   failure:operationFailureBlock];
     [operation start];
+}
+
++ (void)processBeginPartWithData:(NSData*)filedata
+                           named:(NSString*)filename
+                      ofMimetype:(NSString*)mimetype
+                    JSONResponse:(id)JSON
+                         success:(FPUploadAssetSuccessBlock)success
+                         failure:(FPUploadAssetFailureBlock)failure
+                        progress:(FPUploadAssetProgressBlock)progress
+{
+    __block void (^tryOperation)();
+    __block int numberOfTries = 0;
+
+    NSInteger filesize = filedata.length;
+    NSInteger numOfChunks = ceil(1.0 * filesize / fpMaxChunkSize);
+
+    NSString *uploadID = JSON[@"data"][@"id"];
+
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:nil];
+
+    NSURL *baseURL = [FPConfig sharedInstance].baseURL;
+    FPAFHTTPClient *httpClient = [[FPAFHTTPClient alloc] initWithBaseURL:baseURL];
+
+    NSLog(@"Response: %@", JSON);
+    NSLog(@"Filesize: %ld chunks: %ld", (long)filesize, (long)numOfChunks);
+
+
+    void (^endMultipart)() = ^() {
+        NSDictionary *endParams = @{
+            @"id":uploadID,
+            @"total":@(numOfChunks),
+            @"js_session":js_sessionString
+        };
+
+        NSMutableURLRequest *request = [httpClient requestWithMethod:@"POST"
+                                                                path:@"/api/path/computer/?multipart=end"
+                                                          parameters:endParams];
+
+        FPARequestOperationSuccessBlock endPartSuccess = ^(NSURLRequest *request,
+                                                           NSHTTPURLResponse *response,
+                                                           id JSON) {
+            NSLog(@"DONE!: %@", JSON);
+            success(JSON);
+        };
+
+        FPARequestOperationFailureBlock endPartFail = ^(NSURLRequest *request,
+                                                        NSHTTPURLResponse *response,
+                                                        NSError *error,
+                                                        id JSON) {
+            if (numberOfTries >= fpNumRetries)
+            {
+                NSLog(@"failed at the end: %@ %@", error, JSON);
+                failure(error, JSON);
+            }
+            else
+            {
+                numberOfTries++;
+                tryOperation();
+            }
+        };
+
+
+        tryOperation = ^() {
+            [[FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                               success:endPartSuccess
+                                                               failure:endPartFail] start];
+        };
+
+        tryOperation();
+    };
+
+
+    FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:numOfChunks];
+    __block int numberSent = 0;
+
+    NSString *escapedSessionString;
+
+    escapedSessionString = [js_sessionString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+
+    /* send the chunks */
+
+    for (int i = 0; i < numOfChunks; i++)
+    {
+        NSLog(@"Sending slice #%d", i);
+
+        NSString *uploadPath;
+
+        uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
+                      uploadID,
+                      i,
+                      escapedSessionString];
+
+        size_t chunkOffset = i * fpMaxChunkSize;
+        size_t bytesToRead = (i == numOfChunks - 1) ? (filesize - i * fpMaxChunkSize) : fpMaxChunkSize;
+        NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
+
+        NSData *slice = [NSData dataWithBytesNoCopy:(void *)[filedata subdataWithRange:subdataRange].bytes
+                                             length:bytesToRead
+                                       freeWhenDone:NO];
+
+        FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
+            [formData appendPartWithFileData:slice
+                                        name:@"fileUpload"
+                                    fileName:filename
+                                    mimeType:mimetype];
+        };
+
+        NSMutableURLRequest *request;
+
+        request = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                        path:uploadPath
+                                                  parameters:nil
+                                   constructingBodyWithBlock:constructingBody];
+
+        [request setHTTPShouldUsePipelining:YES];
+
+
+        FPARequestOperationSuccessBlock onePartSuccess = ^(NSURLRequest *request,
+                                                           NSHTTPURLResponse *response,
+                                                           id JSON) {
+            float overallProgress = [progressTracker setProgress:1.f
+                                                          forKey:@(i)];
+            progress(overallProgress);
+            numberSent++;
+
+            NSLog(@"Send %d: %@ (sent: %d)", i, JSON, numberSent);
+
+            if (numberSent == numOfChunks)
+            {
+                endMultipart();
+            }
+        };
+
+        FPARequestOperationFailureBlock onePartFail = ^(NSURLRequest *request,
+                                                        NSHTTPURLResponse *response,
+                                                        NSError *error,
+                                                        id JSON) {
+            if (numberOfTries > fpNumRetries)
+            {
+                NSLog(@"Fail: %@ %@", error, JSON);
+                failure(error, JSON);
+            }
+            else
+            {
+                NSLog(@"Retrying part %d time: %d", i, numberOfTries);
+                numberOfTries++;
+                tryOperation();
+            }
+        };
+
+
+        numberOfTries = 0;
+
+        tryOperation = ^() {
+            FPAFJSONRequestOperation *operation;
+
+            operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
+                                                                          success:onePartSuccess
+                                                                          failure:onePartFail];
+
+            [operation setUploadProgressBlock: ^(NSInteger bytesWritten,
+                                                 NSInteger totalBytesWritten,
+                                                 NSInteger totalBytesExpectedToWrite) {
+                if (totalBytesExpectedToWrite > 0)
+                {
+                    float overallProgress = [progressTracker setProgress:((float)totalBytesWritten) / totalBytesExpectedToWrite
+                                                                  forKey:@(i)];
+                    progress(overallProgress);
+                }
+            }];
+
+            [operation start];
+        };
+
+        tryOperation();
+    }
 }
 
 @end
