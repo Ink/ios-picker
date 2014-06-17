@@ -118,15 +118,6 @@
 
     if ([mimetype isEqualToString:@"video/quicktime"])
     {
-        if (representation.size > SIZE_T_MAX)
-        {
-            NSLog(@"ERROR: Asset size %lld too large. Max allowed size: %ld",
-                  representation.size,
-                  SIZE_T_MAX);
-
-            return;
-        }
-
         size_t bufferLen = (size_t)representation.size;
         Byte *buffer = (Byte *)malloc(bufferLen);
 
