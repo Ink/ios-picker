@@ -30,9 +30,9 @@
 
    i.e.:
 
-   - input: http://my test.org?name=ståle&car="saab"
+   - input: ?name=ståle&car="saab"
 
-   - output: http%3A%2F%2Fmy%20test.org%3Fname%3Dst%C3%A5le%26car%3D%22saab%22
+   - output: %3Fname%3Dst%C3%A5le%26car%3D%22saab%22
 
    @returns An URL-encoded NSString
  */
@@ -42,7 +42,7 @@
 /**
    Returns whether a mimetype is an instance of another mimetype.
 
-   @returns YES or NOT
+   @returns YES or NO
  */
 + (BOOL)mimetype:(NSString *)mimetype instanceOfMimetype:(NSString *)supermimetype;
 
@@ -69,8 +69,8 @@
 + (NSString *)JSONEncodeObject:(id)object error:(NSError **)error;
 
 /**
-   Returns a JSON string representing a session with an API key, and
-   optionally a mimetype or array of mimetypes.
+   Returns a JSON string representing a session with an API key and,
+   optionally, a mimetype or array of mimetypes.
 
    @returns A NSString
  */
