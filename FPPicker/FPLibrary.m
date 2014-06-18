@@ -658,10 +658,7 @@
     size_t bytesToRead = (index == totalSlices - 1) ? (data.length - index * maxChunkSize) : maxChunkSize;
     NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
 
-    NSData *dataSlice = [NSData dataWithBytesNoCopy:(void *)[data subdataWithRange:subdataRange].bytes
-                                             length:bytesToRead
-                                       freeWhenDone:NO];
-
+    NSData *dataSlice = [data subdataWithRange:subdataRange];
 
     return dataSlice;
 }
