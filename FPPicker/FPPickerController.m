@@ -193,6 +193,7 @@
         if ([[info objectForKey:@"UIImagePickerControllerMediaType"] isEqual:(NSString*) kUTTypeImage])
         {
             NSString *dataType;
+            NSString *dataType = @"image/*";
 
             for (NSString *type in self.dataTypes)
             {
