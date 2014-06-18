@@ -13,6 +13,7 @@
 #import "FPUtils.h"
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"
+#import "UIImageView+AFNetworking.h"
 
 typedef void (^FPFetchObjectSuccessBlock)(NSDictionary *data);
 typedef void (^FPFetchObjectFailureBlock)(NSError *error);
@@ -244,7 +245,9 @@ static const NSInteger ROW_HEIGHT = 44;
 
         if (self.precacheOperations[precacheKey])
         {
-            [(FPAFURLConnectionOperation *)self.precacheOperations[precacheKey] cancel];
+            AFHTTPRequestOperation *operation = self.precacheOperations[precacheKey];
+
+            [operation cancel];
         }
 
         cell.accessoryType = UITableViewCellAccessoryNone;
@@ -337,15 +340,6 @@ static const NSInteger ROW_HEIGHT = 44;
         NSMutableDictionary *obj = self.contents[index];
         NSString *urlString = obj[@"thumbnail"];
 
-        NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-
-        if (![urlString hasPrefix:fpBASE_URL])
-        {
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES];
-
-            [mrequest setAllHTTPHeaderFields:headers];
-        }
-
         UIImageView *image = [[UIImageView alloc] initWithFrame:rect];
 
         image.tag = index;
@@ -361,17 +355,14 @@ static const NSInteger ROW_HEIGHT = 44;
             image.alpha = 1.0;
         }
 
-
         //NSLog(@"Request: %@", mrequest);
         NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
                                                                                  ofType:@"png"];
 
         UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
 
-        [image FPsetImageWithURLRequest:mrequest
-                       placeholderImage:placeHolderImage
-                                success:nil
-                                failure:nil];
+        [image setImageWithURL:[NSURL URLWithString:urlString]
+              placeholderImage:placeHolderImage];
 
         BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
@@ -457,17 +448,6 @@ static const NSInteger ROW_HEIGHT = 44;
 
         NSLog(@"Thumb with URL: %@", urlString);
 
-        NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-
-        if (![urlString hasPrefix:fpBASE_URL])
-        {
-            NSDictionary *headers = [NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES];
-
-            [mrequest setAllHTTPHeaderFields:headers];
-
-            NSLog(@"headers %@", headers);
-        }
-
         if (isDir)
         {
             NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
@@ -483,10 +463,8 @@ static const NSInteger ROW_HEIGHT = 44;
 
             UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
 
-            [cell.imageView FPsetImageWithURLRequest:mrequest
-                                    placeholderImage:placeHolderImage
-                                             success:nil
-                                             failure:nil];
+            [cell.imageView setImageWithURL:[NSURL URLWithString:urlString]
+                           placeholderImage:placeHolderImage];
 
             cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
         }
@@ -751,24 +729,27 @@ static const NSInteger ROW_HEIGHT = 44;
                                           withFormat:@"info"
                                          cachePolicy:policy];
 
-    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
         [self fpLoadResponseSuccessAtPath:loadpath
-                               withResult:JSON];
+                               withResult:responseObject];
     };
 
-    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        [self fpLoadResponseFailureAtPath:loadpath withError:error];
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        [self fpLoadResponseFailureAtPath:loadpath
+                                withError:error];
     };
 
-    FPAFJSONRequestOperation *operation;
+    AFHTTPRequestOperation *operation;
 
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
 
     if ([self.sourceType.identifier isEqualToString:FPSourceImagesearch])
     {
-        FPAFJSONRequestOperation *oldOperation = self.precacheOperations[@"imagesearch_"];
+        AFHTTPRequestOperation *oldOperation = self.precacheOperations[@"imagesearch_"];
 
         [oldOperation cancel];
 
@@ -851,7 +832,8 @@ static const NSInteger ROW_HEIGHT = 44;
     [self afterReload];
 }
 
-- (void)fpLoadResponseFailureAtPath:(NSString *)loadpath withError:(NSError *)error
+- (void)fpLoadResponseFailureAtPath:(NSString *)loadpath
+                          withError:(NSError *)error
 {
     [FPMBProgressHUD hideAllHUDsForView:self.view
                                animated:YES];
@@ -889,7 +871,8 @@ static const NSInteger ROW_HEIGHT = 44;
                     forCell:-1];
 }
 
-- (void)fpPreloadContents:(NSString *)loadpath cachePolicy:(NSURLRequestCachePolicy)policy
+- (void)fpPreloadContents:(NSString *)loadpath
+              cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSLog(@"trying to refresh a path");
     [self fpPreloadContents:loadpath
@@ -897,14 +880,17 @@ static const NSInteger ROW_HEIGHT = 44;
                 cachePolicy:policy];
 }
 
-- (void)fpPreloadContents:(NSString *)loadpath forCell:(NSInteger)cellIndex
+- (void)fpPreloadContents:(NSString *)loadpath
+                  forCell:(NSInteger)cellIndex
 {
     [self fpPreloadContents:loadpath
                     forCell:cellIndex
                 cachePolicy:NSURLRequestReturnCacheDataElseLoad];
 }
 
-- (void)fpPreloadContents:(NSString *)loadpath forCell:(NSInteger)cellIndex cachePolicy:(NSURLRequestCachePolicy)policy
+- (void)fpPreloadContents:(NSString *)loadpath
+                  forCell:(NSInteger)cellIndex
+              cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSInteger nilInteger = -1;
 
@@ -914,7 +900,8 @@ static const NSInteger ROW_HEIGHT = 44;
 
     NSString *precacheKey = [NSString stringWithFormat:@"precache_%ld", (long)cellIndex];
 
-    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
         //NSLog(@"JSON: %@", JSON);
         if (cellIndex != nilInteger)
         {
@@ -922,18 +909,19 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     };
 
-    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
         if (cellIndex != nilInteger)
         {
             [self.precacheOperations removeObjectForKey:precacheKey];
         }
     };
 
-    FPAFJSONRequestOperation *operation;
+    AFHTTPRequestOperation *operation;
 
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
 
     [operation start];
 
@@ -956,15 +944,16 @@ static const NSInteger ROW_HEIGHT = 44;
                                          byAppending:nextPageParam
                                          cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
-    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"JSON: %@", JSON);
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
 
         NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.contents];
 
-        [tempArray addObjectsFromArray:[JSON valueForKeyPath:@"contents"]];
+        [tempArray addObjectsFromArray:responseObject[@"contents"]];
         self.contents = tempArray;
 
-        NSString *next = [JSON valueForKeyPath:@"next"];
+        NSString *next = responseObject[@"next"];
 
         if (next && next != (NSString *)[NSNull null])
         {
@@ -979,8 +968,9 @@ static const NSInteger ROW_HEIGHT = 44;
         [self.nextPageSpinner stopAnimating];
     };
 
-    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"JSON: %@", JSON);
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        NSLog(@"Error: %@", error);
 
         self.nextPage = nil;
 
@@ -988,11 +978,11 @@ static const NSInteger ROW_HEIGHT = 44;
         [self.nextPageSpinner stopAnimating];
     };
 
-    FPAFJSONRequestOperation *operation;
+    AFHTTPRequestOperation *operation;
 
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
     [operation start];
 }
 
@@ -1206,30 +1196,34 @@ static const NSInteger ROW_HEIGHT = 44;
 
     //NSLog(@"request %@", request);
 
-    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@" result: %@", JSON);
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSLog(@"result: %@", responseObject);
 
         //NSLog(@"Headers: %@", headers);
         NSDictionary *info = @{
-            @"FPPickerControllerRemoteURL":[JSON valueForKey:@"url"],
-            @"FPPickerControllerFilename":[JSON valueForKey:@"filename"],
-            @"FPPickerControllerKey":[JSON valueForKey:@"key"]
+            @"FPPickerControllerRemoteURL":responseObject[@"url"],
+            @"FPPickerControllerFilename":responseObject[@"filename"],
+            @"FPPickerControllerKey":responseObject[@"key"]
         };
 
         success(info);
     };
 
-    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
         failure(error);
     };
 
-    FPAFJSONRequestOperation *operation;
+    AFHTTPRequestOperation *operation;
 
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
 
-    [operation setDownloadProgressBlock: ^(NSInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
+                                           long long totalBytesRead,
+                                           long long totalBytesExpectedToRead) {
         if (totalBytesExpectedToRead > 0)
         {
             progress(((float)totalBytesRead) / totalBytesExpectedToRead);
@@ -1248,17 +1242,13 @@ static const NSInteger ROW_HEIGHT = 44;
                                           withFormat:@"data"
                                          cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
-    FPAFHTTPRequestOperation *operation = [[FPAFHTTPRequestOperation alloc] initWithRequest:request];
-
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath
                                 isDirectory:NO];
 
-    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
-                                                          append:NO];
-
-    FPAFHTTPRequestOperationSuccessBlock operationSuccessBlock = ^(FPAFHTTPRequestOperation *operation, id responseObject) {
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
         NSData *file = [[NSData alloc] initWithContentsOfFile:tempPath];
         NSDictionary *headers = [operation.response allHeaderFields];
         NSString *mimetype = headers[@"Content-Type"];
@@ -1300,14 +1290,23 @@ static const NSInteger ROW_HEIGHT = 44;
         success(info);
     };
 
-    FPAFHTTPRequestOperationFailureBlock operationFailureBlock = ^(FPAFHTTPRequestOperation *operation, NSError *error) {
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
         failure(error);
     };
 
-    [operation setCompletionBlockWithSuccess:operationSuccessBlock
-                                     failure:operationFailureBlock];
+    AFHTTPRequestOperation *operation;
 
-    [operation setDownloadProgressBlock: ^(NSInteger bytesRead, NSInteger totalBytesRead, NSInteger totalBytesExpectedToRead) {
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+
+    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
+                                                          append:NO];
+
+    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
+                                           long long totalBytesRead,
+                                           long long totalBytesExpectedToRead) {
         NSLog(@"Get %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
 
         if (totalBytesExpectedToRead > 0)
@@ -1319,7 +1318,9 @@ static const NSInteger ROW_HEIGHT = 44;
     [operation start];
 }
 
-- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type cachePolicy:(NSURLRequestCachePolicy)policy
+- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
+                          withFormat:(NSString *)type
+                         cachePolicy:(NSURLRequestCachePolicy)policy
 {
     return [self requestForLoadPath:loadpath
                          withFormat:type
@@ -1327,7 +1328,10 @@ static const NSInteger ROW_HEIGHT = 44;
                         cachePolicy:policy];
 }
 
-- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath withFormat:(NSString *)type byAppending:(NSString *)additionalString cachePolicy:(NSURLRequestCachePolicy)policy
+- (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
+                          withFormat:(NSString *)type
+                         byAppending:(NSString *)additionalString
+                         cachePolicy:(NSURLRequestCachePolicy)policy
 {
     NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
                                                         andMimetypes:self.sourceType.mimetypeString];
@@ -1382,8 +1386,9 @@ static const NSInteger ROW_HEIGHT = 44;
     [FPMBProgressHUD showHUDAddedTo:self.view
                            animated:YES];
 
-    FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        NSLog(@"Logout result: %@", JSON);
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSLog(@"Logout result: %@", responseObject);
 
         [self fpPreloadContents:self.path
                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
@@ -1419,11 +1424,12 @@ static const NSInteger ROW_HEIGHT = 44;
         [self.navigationController popViewControllerAnimated:YES];
     };
 
-    FPARequestOperationFailureBlock operationFailureBlock = ^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
         [FPMBProgressHUD hideAllHUDsForView:self.view
                                    animated:YES];
 
-        NSLog(@"error: %@ %@", error, JSON);
+        NSLog(@"error: %@", error);
 
         UIAlertView *message;
 
@@ -1436,11 +1442,11 @@ static const NSInteger ROW_HEIGHT = 44;
         [message show];
     };
 
-    FPAFJSONRequestOperation *operation;
+    AFHTTPRequestOperation *operation;
 
-    operation = [FPAFJSONRequestOperation JSONRequestOperationWithRequest:request
-                                                                  success:operationSuccessBlock
-                                                                  failure:operationFailureBlock];
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
 
     [operation start];
 }
