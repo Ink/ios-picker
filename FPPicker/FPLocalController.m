@@ -28,7 +28,8 @@
 
 @implementation FPLocalController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
@@ -117,7 +118,9 @@
 
     NSMutableArray *collector = [[NSMutableArray alloc] initWithCapacity:0];
 
-    [self.assetGroup enumerateAssetsUsingBlock: ^(ALAsset *asset, NSUInteger index, BOOL *stop) {
+    [self.assetGroup enumerateAssetsUsingBlock: ^(ALAsset *asset,
+                                                  NSUInteger index,
+                                                  BOOL *stop) {
         if (asset)
         {
             [collector addObject:asset];
@@ -180,7 +183,8 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)   tableView:(UITableView *)tableView
+    numberOfRowsInSection:(NSInteger)section
 {
     return (int)ceil(self.photos.count / (self.numPerRow * 1.0));
 }
@@ -297,7 +301,8 @@
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)       tableView:(UITableView *)tableView
+    heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return self.thumbSize + self.padding;
 }
@@ -361,7 +366,8 @@
             });
         };
 
-        FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error, NSDictionary *data) {
+        FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error,
+                                                        NSDictionary *data) {
             NSLog(@"Error %@:", error);
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -454,7 +460,7 @@
             {
                 [results addObject:data];
 
-                //OK to do from background thread
+                // OK to do from background thread
 
                 hud.progress = [progressTracker setProgress:1.f
                                                      forKey:progressKey];
@@ -474,7 +480,8 @@
             }
         };
 
-        FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error, NSDictionary *data) {
+        FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error,
+                                                        NSDictionary *data) {
             // Carry on!
 
             NSLog(@"Had an error while uploading multiple files, pressing onwards. Error was %@, data was %@", error, data);
