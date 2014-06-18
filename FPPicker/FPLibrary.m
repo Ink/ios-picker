@@ -613,8 +613,7 @@
                       escapedSessionString];
 
         NSData *slice = [self dataSliceWithData:filedata
-                                     sliceIndex:i
-                               totalSizeInBytes:filesize];
+                                     sliceIndex:i];
 
         FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
             [formData appendPartWithFileData:slice
@@ -696,20 +695,19 @@
 
 + (NSData *)dataSliceWithData:(NSData *)data
                    sliceIndex:(NSUInteger)index
-             totalSizeInBytes:(size_t)totalSizeInBytes
 {
-    size_t maxChunkSize = MIN(fpMaxChunkSize, totalSizeInBytes);
-    size_t totalSlices = ceil(1.0 * totalSizeInBytes / maxChunkSize);
+    size_t maxChunkSize = MIN(fpMaxChunkSize, data.length);
+    size_t totalSlices = ceil(1.0 * data.length / maxChunkSize);
 
-    if (index + 1 > totalSlices)
+    if (index > totalSlices - 1)
     {
-        NSLog(@"Slice index %lu beyond bounds (max index: %lu)", index, totalSlices - 1);
+        NSLog(@"Slice index %lu beyond bounds (max index: %lu)", (unsigned long)index, (unsigned long)totalSlices - 1);
 
         return nil;
     }
 
     size_t chunkOffset = index * maxChunkSize;
-    size_t bytesToRead = (index == totalSlices - 1) ? (totalSizeInBytes - index * maxChunkSize) : maxChunkSize;
+    size_t bytesToRead = (index == totalSlices - 1) ? (data.length - index * maxChunkSize) : maxChunkSize;
     NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
 
     NSData *dataSlice = [NSData dataWithBytesNoCopy:(void *)[data subdataWithRange:subdataRange].bytes

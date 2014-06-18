@@ -42,8 +42,7 @@
                       progress:(FPUploadAssetProgressBlock)progress;
 
 + (NSData *)dataSliceWithData:(NSData *)data
-                   sliceIndex:(NSUInteger)index
-             totalSizeInBytes:(size_t)totalSizeInBytes;
+                   sliceIndex:(NSUInteger)index;
 
 @end
 
@@ -272,8 +271,7 @@
     NSData *dataSlice;
 
     dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:0
-                            totalSizeInBytes:totalSize];
+                                  sliceIndex:0];
 
     XCTAssertEqual(data.length, dataSlice.length, @"Lengths should be equal");
     XCTAssertEqualObjects(data, dataSlice, @"Data should be fully contained in dataSlice");
@@ -292,8 +290,7 @@
                                   freeWhenDone:YES];
 
     dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:0
-                            totalSizeInBytes:totalSize];
+                                  sliceIndex:0];
 
     XCTAssertEqual(dataSlice.length,
                    fpMaxChunkSize,
@@ -305,8 +302,7 @@
                   @"Should match");
 
     dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:1
-                            totalSizeInBytes:totalSize];
+                                  sliceIndex:1];
 
     XCTAssertEqual(dataSlice.length, fpMaxChunkSize - 1,
                    @"Length should be equal to fpMaxChunkSize - 1");
@@ -329,8 +325,7 @@
                                   freeWhenDone:YES];
 
     dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:1
-                            totalSizeInBytes:totalSize];
+                                  sliceIndex:1];
 
     XCTAssertNil(dataSlice,
                  @"should be nil");
