@@ -317,4 +317,23 @@
                   @"Should match");
 }
 
+- (void)testDataSliceBeyondBounds
+{
+    NSData *dataSlice;
+
+    size_t totalSize = fpMaxChunkSize;
+    char *bytes = malloc(totalSize);
+
+    NSData *data = [NSData dataWithBytesNoCopy:bytes
+                                        length:totalSize
+                                  freeWhenDone:YES];
+
+    dataSlice = [FPLibrary dataSliceWithData:data
+                                  sliceIndex:1
+                            totalSizeInBytes:totalSize];
+
+    XCTAssertNil(dataSlice,
+                 @"should be nil");
+}
+
 @end

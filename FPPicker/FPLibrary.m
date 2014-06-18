@@ -700,6 +700,14 @@
 {
     size_t maxChunkSize = MIN(fpMaxChunkSize, totalSizeInBytes);
     size_t totalSlices = ceil(1.0 * totalSizeInBytes / maxChunkSize);
+
+    if (index + 1 > totalSlices)
+    {
+        NSLog(@"Slice index %lu beyond bounds (max index: %lu)", index, totalSlices - 1);
+
+        return nil;
+    }
+
     size_t chunkOffset = index * maxChunkSize;
     size_t bytesToRead = (index == totalSlices - 1) ? (totalSizeInBytes - index * maxChunkSize) : maxChunkSize;
     NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
