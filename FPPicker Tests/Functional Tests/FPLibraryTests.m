@@ -11,7 +11,7 @@
 // Collaborators
 #import "FPConfig.h"
 #import "FPLibrary.h"
-#import "FPAFHTTPClient.h"
+#import "FPAPIClient.h"
 
 @interface FPLibraryTests : XCTestCase
 
@@ -165,7 +165,6 @@
 {
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
-    id httpClientMock = OCMClassMock([FPAFHTTPClient class]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
 
@@ -206,7 +205,6 @@
         runTheRunLoopOnce();
     }
 
-    OCMVerifyAll(httpClientMock);
     OCMVerifyAll(configMock);
 }
 
@@ -214,7 +212,6 @@
 {
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
-    id httpClientMock = OCMClassMock([FPAFHTTPClient class]);
 
     OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
 
@@ -255,7 +252,6 @@
         runTheRunLoopOnce();
     }
 
-    OCMVerifyAll(httpClientMock);
     OCMVerifyAll(configMock);
 }
 
