@@ -41,6 +41,10 @@
                        failure:(FPUploadAssetFailureBlock)failure
                       progress:(FPUploadAssetProgressBlock)progress;
 
++ (NSData *)dataSliceWithData:(NSData *)data
+                   sliceIndex:(NSUInteger)index
+             totalSizeInBytes:(size_t)totalSizeInBytes;
+
 @end
 
 @implementation FPLibraryTests
@@ -254,6 +258,63 @@
 
     OCMVerifyAll(httpClientMock);
     OCMVerifyAll(configMock);
+}
+
+- (void)testDataSliceWithSmallData
+{
+    size_t totalSize = 32;
+    char *bytes = malloc(totalSize);
+
+    NSData *data = [NSData dataWithBytesNoCopy:bytes
+                                        length:totalSize
+                                  freeWhenDone:YES];
+
+    NSData *dataSlice;
+
+    dataSlice = [FPLibrary dataSliceWithData:data
+                                  sliceIndex:0
+                            totalSizeInBytes:totalSize];
+
+    XCTAssertEqual(data.length, dataSlice.length, @"Lengths should be equal");
+    XCTAssertEqualObjects(data, dataSlice, @"Data should be fully contained in dataSlice");
+}
+
+- (void)testDataSliceWithLargeData
+{
+    NSData *dataSlice;
+    NSRange subdataRange;
+
+    size_t totalSize = (fpMaxChunkSize * 2) - 1;
+    char *bytes = malloc(totalSize);
+
+    NSData *data = [NSData dataWithBytesNoCopy:bytes
+                                        length:totalSize
+                                  freeWhenDone:YES];
+
+    dataSlice = [FPLibrary dataSliceWithData:data
+                                  sliceIndex:0
+                            totalSizeInBytes:totalSize];
+
+    XCTAssertEqual(dataSlice.length,
+                   fpMaxChunkSize,
+                   @"Length should be equal to fpMaxChunkSize");
+
+    subdataRange = NSMakeRange(0, fpMaxChunkSize);
+
+    XCTAssertTrue([dataSlice isEqualToData:[data subdataWithRange:subdataRange]],
+                  @"Should match");
+
+    dataSlice = [FPLibrary dataSliceWithData:data
+                                  sliceIndex:1
+                            totalSizeInBytes:totalSize];
+
+    XCTAssertEqual(dataSlice.length, fpMaxChunkSize - 1,
+                   @"Length should be equal to fpMaxChunkSize - 1");
+
+    subdataRange = NSMakeRange(fpMaxChunkSize, fpMaxChunkSize - 1);
+
+    XCTAssertTrue([dataSlice isEqualToData:[data subdataWithRange:subdataRange]],
+                  @"Should match");
 }
 
 @end
