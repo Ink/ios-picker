@@ -99,7 +99,7 @@
     fpController.dataTypes = @[@"image/*"];
     //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
 
-    fpController.shouldUpload = NO;
+    fpController.shouldUpload = YES;
 
     /*
      * Select and order the sources (Optional) Default is all sources
@@ -126,7 +126,10 @@
 
 - (IBAction)savingAction:(id)sender
 {
-    if (!self.imageView.image)
+    UIImage *firstImage;
+
+    if (!self.imageView.image &&
+        !self.imageView.animationImages)
     {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
                                                           message:@"Select an image first."
@@ -139,7 +142,18 @@
         return;
     }
 
-    NSData *imgData = UIImagePNGRepresentation(self.imageView.image);
+    if (self.imageView.image)
+    {
+        firstImage = self.imageView.image;
+    }
+    else if (self.imageView.animationImages)
+    {
+        // For the purposes of our demo, we will simply use the first image
+
+        firstImage = self.imageView.animationImages[0];
+    }
+
+    NSData *imgData = UIImagePNGRepresentation(firstImage);
 
     /*
      * Create the object

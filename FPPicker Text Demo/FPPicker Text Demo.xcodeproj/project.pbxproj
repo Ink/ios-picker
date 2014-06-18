@@ -18,6 +18,7 @@
 		456B27F6194B0EF300FBC09E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 456B27F5194B0EF300FBC09E /* Images.xcassets */; };
 		456B282A194B0F1000FBC09E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456B2829194B0F1000FBC09E /* AssetsLibrary.framework */; };
 		456B282B194B0F1C00FBC09E /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 456B281F194B0EFB00FBC09E /* FPPicker.bundle */; };
+		45ADBF7F1951BC9600EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF7E1951BC9600EB2215 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		456B27FC194B0EF400FBC09E /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		456B2812194B0EFB00FBC09E /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
 		456B2829194B0F1000FBC09E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		45ADBF7E1951BC9600EB2215 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,8 +94,9 @@
 				455CF097194B173C00668BEB /* libFPPicker.a in Frameworks */,
 				456B282A194B0F1000FBC09E /* AssetsLibrary.framework in Frameworks */,
 				456B27DD194B0EF300FBC09E /* CoreGraphics.framework in Frameworks */,
-				456B27DF194B0EF300FBC09E /* UIKit.framework in Frameworks */,
 				456B27DB194B0EF300FBC09E /* Foundation.framework in Frameworks */,
+				456B27DF194B0EF300FBC09E /* UIKit.framework in Frameworks */,
+				45ADBF7F1951BC9600EB2215 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +124,7 @@
 		456B27D9194B0EF300FBC09E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45ADBF7E1951BC9600EB2215 /* SystemConfiguration.framework */,
 				456B2829194B0F1000FBC09E /* AssetsLibrary.framework */,
 				456B27DA194B0EF300FBC09E /* Foundation.framework */,
 				456B27DC194B0EF300FBC09E /* CoreGraphics.framework */,

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45923217194B0DF700259974 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45923216194B0DF700259974 /* AssetsLibrary.framework */; };
+		45ADBF761951AEEA00EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */; };
 		45F38DA4194B0AA900568BC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA3194B0AA900568BC7 /* Foundation.framework */; };
 		45F38DA6194B0AA900568BC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA5194B0AA900568BC7 /* CoreGraphics.framework */; };
 		45F38DA8194B0AA900568BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA7194B0AA900568BC7 /* UIKit.framework */; };
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		45923216194B0DF700259974 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45F38DA0194B0AA900568BC7 /* FPPicker Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FPPicker Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45F38DA3194B0AA900568BC7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45F38DA5194B0AA900568BC7 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -96,8 +98,9 @@
 				45F38DF1194B0AF500568BC7 /* libFPPicker.a in Frameworks */,
 				45923217194B0DF700259974 /* AssetsLibrary.framework in Frameworks */,
 				45F38DA6194B0AA900568BC7 /* CoreGraphics.framework in Frameworks */,
-				45F38DA8194B0AA900568BC7 /* UIKit.framework in Frameworks */,
 				45F38DA4194B0AA900568BC7 /* Foundation.framework in Frameworks */,
+				45F38DA8194B0AA900568BC7 /* UIKit.framework in Frameworks */,
+				45ADBF761951AEEA00EB2215 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +128,7 @@
 		45F38DA2194B0AA900568BC7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */,
 				45923216194B0DF700259974 /* AssetsLibrary.framework */,
 				45F38DA3194B0AA900568BC7 /* Foundation.framework */,
 				45F38DA5194B0AA900568BC7 /* CoreGraphics.framework */,
