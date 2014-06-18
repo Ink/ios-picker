@@ -10,14 +10,11 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@protocol FPAFMultipartFormData;
-
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
 typedef void (^FPUploadAssetFailureBlock)(NSError *error, id JSON);
 typedef void (^FPUploadAssetProgressBlock)(float progress);
 typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON, NSURL *localurl);
 typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, NSURL *localurl);
-typedef void (^FPConstructingBodyBlock)(id <FPAFMultipartFormData>formData);
 
 @interface FPLibrary : NSObject
 

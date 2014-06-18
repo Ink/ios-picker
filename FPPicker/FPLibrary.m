@@ -380,7 +380,7 @@
                                              andMimetypes:nil]
     };
 
-    AFConstructingBodyBlock constructingBody = ^(id <AFMultipartFormData>formData) {
+    AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {
         [formData appendPartWithFileData:filedata
                                     name:@"fileUpload"
                                 fileName:filename
@@ -408,7 +408,7 @@
 
     AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/"
                                                               parameters:params
-                                               constructingBodyWithBlock:constructingBody
+                                               constructingBodyWithBlock:constructingBodyBlock
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 
@@ -557,9 +557,8 @@
 
 
     FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:totalChunks];
-    __block int sentChunks = 0;
-
     NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
+    __block int sentChunks = 0;
 
     /* send the chunks */
 
@@ -574,7 +573,7 @@
                       i,
                       escapedSessionString];
 
-        AFConstructingBodyBlock constructingBody = ^(id <AFMultipartFormData>formData) {
+        AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {
             NSData *dataSlice = [self dataSliceWithData:filedata
                                              sliceIndex:i];
 
@@ -619,7 +618,7 @@
         tryOperation = ^() {
             AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:uploadPath
                                                                       parameters:nil
-                                                       constructingBodyWithBlock:constructingBody
+                                                       constructingBodyWithBlock:constructingBodyBlock
                                                                          success:successOperationBlock
                                                                          failure:failureOperationBlock];
 
