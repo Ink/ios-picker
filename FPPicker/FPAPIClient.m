@@ -17,7 +17,7 @@
     static dispatch_once_t onceToken;
 
     dispatch_once(&onceToken, ^{
-        _sharedClient = [[FPAPIClient alloc] initWithBaseURL:[[FPConfig sharedInstance] baseURL]];
+        _sharedClient = [[FPAPIClient alloc] initWithBaseURL:[FPConfig sharedInstance].baseURL];
         _sharedClient.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
         _sharedClient.responseSerializer = [AFJSONResponseSerializer serializer];
     });

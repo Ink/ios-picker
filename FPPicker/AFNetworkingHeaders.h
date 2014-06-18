@@ -1,13 +1,13 @@
 //
-//  FPAFNetworkingHeaders.h
+//  AFNetworkingHeaders.h
 //  FPPicker
 //
-//  Created by Ruben Nine on 10/06/14.
+//  Created by Ruben Nine on 18/06/14.
 //  Copyright (c) 2014 Filepicker.io (Cloudtop Inc.). All rights reserved.
 //
 
-// This headers' main purpose is simply to be able to import FPAFNetworking
-// and extend parts of the original FPAFNetworking library without directly modifying it.
+// This headers' main purpose is simply to be able to import AFNetworking
+// and extend parts of the original AFNetworking library without directly modifying it.
 
 #import "AFNetworking.h"
 
