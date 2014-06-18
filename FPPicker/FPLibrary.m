@@ -612,25 +612,15 @@
                       i,
                       escapedSessionString];
 
-        NSData *slice = [self dataSliceWithData:filedata
-                                     sliceIndex:i];
-
         FPConstructingBodyBlock constructingBody = ^(id <FPAFMultipartFormData>formData) {
+            NSData *slice = [self dataSliceWithData:filedata
+                                         sliceIndex:i];
+
             [formData appendPartWithFileData:slice
                                         name:@"fileUpload"
                                     fileName:filename
                                     mimeType:mimetype];
         };
-
-        NSMutableURLRequest *request;
-
-        request = [httpClient multipartFormRequestWithMethod:@"POST"
-                                                        path:uploadPath
-                                                  parameters:nil
-                                   constructingBodyWithBlock:constructingBody];
-
-        request.HTTPShouldUsePipelining = YES;
-
 
         FPARequestOperationSuccessBlock operationSuccessBlock = ^(NSURLRequest *request,
                                                                   NSHTTPURLResponse *response,
@@ -665,6 +655,13 @@
             }
         };
 
+
+        NSMutableURLRequest *request = [httpClient multipartFormRequestWithMethod:@"POST"
+                                                                             path:uploadPath
+                                                                       parameters:nil
+                                                        constructingBodyWithBlock:constructingBody];
+
+        request.HTTPShouldUsePipelining = YES;
 
         numberOfTries = 0;
 
