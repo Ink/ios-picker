@@ -50,7 +50,6 @@
 		450B5A641949EFC1007AF44A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A631949EFC1007AF44A /* ViewController.m */; };
 		450B5A661949EFC1007AF44A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450B5A651949EFC1007AF44A /* Images.xcassets */; };
 		450B5A9F1949F325007AF44A /* FPExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A9E1949F325007AF44A /* FPExampleTest.m */; };
-		453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
 		455C6646194B82DE005711DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C6645194B82DE005711DE /* UIKit.framework */; };
@@ -160,20 +159,9 @@
 		836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 836A9D38169B5CF0006AC920 /* FPInfoViewController.h */; };
 		836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836A9D39169B5CF0006AC920 /* FPInfoViewController.m */; };
 		83A030E615A89C9D0085E186 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
-		83A0310615A89CD80085E186 /* FPAFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030F315A89CD80085E186 /* FPAFHTTPClient.h */; };
-		83A0310815A89CD80085E186 /* FPAFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030F515A89CD80085E186 /* FPAFHTTPRequestOperation.h */; };
-		83A0310A15A89CD80085E186 /* FPAFImageRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030F715A89CD80085E186 /* FPAFImageRequestOperation.h */; };
-		83A0310C15A89CD80085E186 /* FPAFJSONRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030F915A89CD80085E186 /* FPAFJSONRequestOperation.h */; };
-		83A0310E15A89CD80085E186 /* FPAFJSONUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030FB15A89CD80085E186 /* FPAFJSONUtilities.h */; };
-		83A0311015A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030FD15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.h */; };
-		83A0311215A89CD80085E186 /* FPAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A030FF15A89CD80085E186 /* FPAFNetworking.h */; };
-		83A0311315A89CD80085E186 /* FPAFPropertyListRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0310015A89CD80085E186 /* FPAFPropertyListRequestOperation.h */; };
-		83A0311515A89CD80085E186 /* FPAFURLConnectionOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0310215A89CD80085E186 /* FPAFURLConnectionOperation.h */; };
-		83A0311715A89CD80085E186 /* FPAFXMLRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0310415A89CD80085E186 /* FPAFXMLRequestOperation.h */; };
 		83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */; };
 		83A0313915A89D6E0085E186 /* FP_PullRefreshTableViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */; };
 		83A0313A15A89D6E0085E186 /* FP_PullRefreshTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */; };
-		83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */; };
 		83A0315515A89E050085E186 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314315A89E040085E186 /* FPAuthController.h */; settings = {ATTRIBUTES = (); }; };
 		83A0315615A89E050085E186 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314415A89E040085E186 /* FPAuthController.m */; };
 		83A0315815A89E050085E186 /* FPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314615A89E040085E186 /* FPConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -200,16 +188,6 @@
 		83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DD15AA14820085E186 /* FPInternalHeaders.h */; settings = {ATTRIBUTES = (); }; };
 		83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */; };
-		83C5790515AF13D900A601DB /* FPAFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F415A89CD80085E186 /* FPAFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790615AF13D900A601DB /* FPAFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F615A89CD80085E186 /* FPAFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790715AF13D900A601DB /* FPAFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030F815A89CD80085E186 /* FPAFImageRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790815AF13D900A601DB /* FPAFJSONRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FA15A89CD80085E186 /* FPAFJSONRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790915AF13D900A601DB /* FPAFJSONUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FC15A89CD80085E186 /* FPAFJSONUtilities.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790A15AF13D900A601DB /* FPAFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A030FE15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790B15AF13D900A601DB /* FPAFPropertyListRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310115A89CD80085E186 /* FPAFPropertyListRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790C15AF13D900A601DB /* FPAFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310315A89CD80085E186 /* FPAFURLConnectionOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790D15AF13D900A601DB /* FPAFXMLRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0310515A89CD80085E186 /* FPAFXMLRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		83C5790E15AF13D900A601DB /* UIImageView+FPAFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		BF9B225B4EF04726B4764DEB /* libPods-FPPicker Functional Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -294,7 +272,6 @@
 		450B5A9E1949F325007AF44A /* FPExampleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExampleTest.m; sourceTree = "<group>"; };
 		4512050F194B089C0097B08E /* FPPicker_Resources-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FPPicker_Resources-Info.plist"; sourceTree = "<group>"; };
 		45120510194B089C0097B08E /* FPPicker_Resources-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker_Resources-Prefix.pch"; sourceTree = "<group>"; };
-		453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFNetworkingHeaders.h; sourceTree = "<group>"; };
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		455C6645194B82DE005711DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -426,31 +403,10 @@
 		83A030E215A89C9D0085E186 /* libFPPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFPPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A030E515A89C9D0085E186 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPPicker-Prefix.pch"; sourceTree = "<group>"; };
-		83A030F315A89CD80085E186 /* FPAFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFHTTPClient.h; sourceTree = "<group>"; };
-		83A030F415A89CD80085E186 /* FPAFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFHTTPClient.m; sourceTree = "<group>"; };
-		83A030F515A89CD80085E186 /* FPAFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFHTTPRequestOperation.h; sourceTree = "<group>"; };
-		83A030F615A89CD80085E186 /* FPAFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFHTTPRequestOperation.m; sourceTree = "<group>"; };
-		83A030F715A89CD80085E186 /* FPAFImageRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFImageRequestOperation.h; sourceTree = "<group>"; };
-		83A030F815A89CD80085E186 /* FPAFImageRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFImageRequestOperation.m; sourceTree = "<group>"; };
-		83A030F915A89CD80085E186 /* FPAFJSONRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFJSONRequestOperation.h; sourceTree = "<group>"; };
-		83A030FA15A89CD80085E186 /* FPAFJSONRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFJSONRequestOperation.m; sourceTree = "<group>"; };
-		83A030FB15A89CD80085E186 /* FPAFJSONUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFJSONUtilities.h; sourceTree = "<group>"; };
-		83A030FC15A89CD80085E186 /* FPAFJSONUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFJSONUtilities.m; sourceTree = "<group>"; };
-		83A030FD15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		83A030FE15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		83A030FF15A89CD80085E186 /* FPAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFNetworking.h; sourceTree = "<group>"; };
-		83A0310015A89CD80085E186 /* FPAFPropertyListRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFPropertyListRequestOperation.h; sourceTree = "<group>"; };
-		83A0310115A89CD80085E186 /* FPAFPropertyListRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFPropertyListRequestOperation.m; sourceTree = "<group>"; };
-		83A0310215A89CD80085E186 /* FPAFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFURLConnectionOperation.h; sourceTree = "<group>"; };
-		83A0310315A89CD80085E186 /* FPAFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFURLConnectionOperation.m; sourceTree = "<group>"; };
-		83A0310415A89CD80085E186 /* FPAFXMLRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAFXMLRequestOperation.h; sourceTree = "<group>"; };
-		83A0310515A89CD80085E186 /* FPAFXMLRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAFXMLRequestOperation.m; sourceTree = "<group>"; };
 		83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPMBProgressHUD.h; sourceTree = "<group>"; };
 		83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPMBProgressHUD.m; sourceTree = "<group>"; };
 		83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FP_PullRefreshTableViewController.h; sourceTree = "<group>"; };
 		83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FP_PullRefreshTableViewController.m; sourceTree = "<group>"; };
-		83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+FPAFNetworking.h"; sourceTree = "<group>"; };
-		83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+FPAFNetworking.m"; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
 		83A0314415A89E040085E186 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAuthController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0314615A89E040085E186 /* FPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConstants.h; sourceTree = "<group>"; };
@@ -850,7 +806,6 @@
 				83A0314C15A89E040085E186 /* FPPicker.h */,
 				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
 				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
-				453096E2194730D6001D970C /* FPAFNetworkingHeaders.h */,
 				83A0314615A89E040085E186 /* FPConstants.h */,
 				83A0314715A89E040085E186 /* FPConstants.m */,
 				45920DDD194A0D2E007003C1 /* FPMacros.h */,
@@ -886,37 +841,8 @@
 				83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */,
 				83A0313515A89D6E0085E186 /* FP_PullRefreshTableViewController.h */,
 				83A0313615A89D6E0085E186 /* FP_PullRefreshTableViewController.m */,
-				83A0311915A89CF90085E186 /* FPAFNetworking */,
 			);
 			name = Vendor;
-			sourceTree = "<group>";
-		};
-		83A0311915A89CF90085E186 /* FPAFNetworking */ = {
-			isa = PBXGroup;
-			children = (
-				83A030F315A89CD80085E186 /* FPAFHTTPClient.h */,
-				83A030F415A89CD80085E186 /* FPAFHTTPClient.m */,
-				83A030F515A89CD80085E186 /* FPAFHTTPRequestOperation.h */,
-				83A030F615A89CD80085E186 /* FPAFHTTPRequestOperation.m */,
-				83A030F715A89CD80085E186 /* FPAFImageRequestOperation.h */,
-				83A030F815A89CD80085E186 /* FPAFImageRequestOperation.m */,
-				83A030F915A89CD80085E186 /* FPAFJSONRequestOperation.h */,
-				83A030FA15A89CD80085E186 /* FPAFJSONRequestOperation.m */,
-				83A030FB15A89CD80085E186 /* FPAFJSONUtilities.h */,
-				83A030FC15A89CD80085E186 /* FPAFJSONUtilities.m */,
-				83A030FD15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.h */,
-				83A030FE15A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.m */,
-				83A030FF15A89CD80085E186 /* FPAFNetworking.h */,
-				83A0310015A89CD80085E186 /* FPAFPropertyListRequestOperation.h */,
-				83A0310115A89CD80085E186 /* FPAFPropertyListRequestOperation.m */,
-				83A0310215A89CD80085E186 /* FPAFURLConnectionOperation.h */,
-				83A0310315A89CD80085E186 /* FPAFURLConnectionOperation.m */,
-				83A0310415A89CD80085E186 /* FPAFXMLRequestOperation.h */,
-				83A0310515A89CD80085E186 /* FPAFXMLRequestOperation.m */,
-				83A0313F15A89D820085E186 /* UIImageView+FPAFNetworking.h */,
-				83A0314015A89D820085E186 /* UIImageView+FPAFNetworking.m */,
-			);
-			name = FPAFNetworking;
 			sourceTree = "<group>";
 		};
 		83A0316715A89E0C0085E186 /* Misc Classes */ = {
@@ -956,19 +882,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				83A0310615A89CD80085E186 /* FPAFHTTPClient.h in Headers */,
-				83A0310815A89CD80085E186 /* FPAFHTTPRequestOperation.h in Headers */,
-				83A0310A15A89CD80085E186 /* FPAFImageRequestOperation.h in Headers */,
-				83A0310C15A89CD80085E186 /* FPAFJSONRequestOperation.h in Headers */,
-				83A0310E15A89CD80085E186 /* FPAFJSONUtilities.h in Headers */,
-				83A0311015A89CD80085E186 /* FPAFNetworkActivityIndicatorManager.h in Headers */,
-				83A0311215A89CD80085E186 /* FPAFNetworking.h in Headers */,
-				83A0311315A89CD80085E186 /* FPAFPropertyListRequestOperation.h in Headers */,
-				83A0311515A89CD80085E186 /* FPAFURLConnectionOperation.h in Headers */,
-				83A0311715A89CD80085E186 /* FPAFXMLRequestOperation.h in Headers */,
 				83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */,
 				83A0313915A89D6E0085E186 /* FP_PullRefreshTableViewController.h in Headers */,
-				83A0314115A89D820085E186 /* UIImageView+FPAFNetworking.h in Headers */,
 				83A0315515A89E050085E186 /* FPAuthController.h in Headers */,
 				83A0315815A89E050085E186 /* FPConstants.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
@@ -987,7 +902,6 @@
 				83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */,
 				83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */,
 				831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */,
-				453096E3194730D6001D970C /* FPAFNetworkingHeaders.h in Headers */,
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
 				836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */,
 				832739F3171F384F000A4A23 /* FPLocalAlbumController.h in Headers */,
@@ -1345,23 +1259,13 @@
 				831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */,
 				831E0B4815AAC3F30081004F /* FPThumbCell.m in Sources */,
 				83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */,
-				83C5790515AF13D900A601DB /* FPAFHTTPClient.m in Sources */,
-				83C5790615AF13D900A601DB /* FPAFHTTPRequestOperation.m in Sources */,
-				83C5790715AF13D900A601DB /* FPAFImageRequestOperation.m in Sources */,
-				83C5790815AF13D900A601DB /* FPAFJSONRequestOperation.m in Sources */,
-				83C5790915AF13D900A601DB /* FPAFJSONUtilities.m in Sources */,
 				45ADBF3A1951A3C600EB2215 /* AFSecurityPolicy.m in Sources */,
 				45ADBF4A1951A3C600EB2215 /* AFURLSessionManager.m in Sources */,
-				83C5790A15AF13D900A601DB /* FPAFNetworkActivityIndicatorManager.m in Sources */,
 				45ADBF2D1951A3C600EB2215 /* AFHTTPRequestOperationManager.m in Sources */,
-				83C5790B15AF13D900A601DB /* FPAFPropertyListRequestOperation.m in Sources */,
-				83C5790C15AF13D900A601DB /* FPAFURLConnectionOperation.m in Sources */,
 				45ADBF5E1951A3C600EB2215 /* UIImageView+AFNetworking.m in Sources */,
 				45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */,
 				45ADBF561951A3C600EB2215 /* UIAlertView+AFNetworking.m in Sources */,
 				45ADBF461951A3C600EB2215 /* AFURLResponseSerialization.m in Sources */,
-				83C5790D15AF13D900A601DB /* FPAFXMLRequestOperation.m in Sources */,
-				83C5790E15AF13D900A601DB /* UIImageView+FPAFNetworking.m in Sources */,
 				45ADBF311951A3C600EB2215 /* AFHTTPSessionManager.m in Sources */,
 				45ADBF361951A3C600EB2215 /* AFNetworkReachabilityManager.m in Sources */,
 				836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */,
