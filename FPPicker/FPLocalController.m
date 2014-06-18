@@ -319,8 +319,11 @@
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
 
-    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+    dispatch_after(popTime,
+                   dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
+                   ^(void) {
         UIImageView *selectedView = sender.view.subviews[colIndex];
+
         [self objectSelectedAtIndex:selectedView.tag];
     });
 }
@@ -520,7 +523,9 @@
                                                  forKey:progressKey];
         };
 
-        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        dispatch_after(popTime,
+                       dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
+                       ^(void) {
             [self uploadAsset:asset
                       success:successBlock
                       failure:failureBlock
@@ -629,27 +634,24 @@
 
     NSString *filename = [self getFilenameForAssetRepresentation:representation];
 
-    FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON, NSURL *localurl) {
+    FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
+                                                           NSURL *localurl) {
         NSDictionary *data = JSON[@"data"][0];
-        NSMutableDictionary *output = [@{
-                                           @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
-                                           @"FPPickerControllerOriginalImage":image,
-                                           @"FPPickerControllerMediaURL":localurl,
-                                           @"FPPickerControllerRemoteURL":data[@"url"],
-                                           @"FPPickerControllerFilename":data[@"data"][@"filename"],
-                                       } mutableCopy];
 
-        // This key may be missing, so we conditionally check for it
+        NSDictionary *output = @{
+            @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
+            @"FPPickerControllerOriginalImage":image,
+            @"FPPickerControllerMediaURL":localurl,
+            @"FPPickerControllerRemoteURL":data[@"url"],
+            @"FPPickerControllerFilename":data[@"data"][@"filename"],
+        };
 
-        if (data[@"data"][@"key"])
-        {
-            output[@"FPPickerControllerKey"] = data[@"data"][@"key"];
-        }
-
-        success([output copy]);
+        success(output);
     };
 
-    FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error, id JSON, NSURL *localurl) {
+    FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
+                                                           id JSON,
+                                                           NSURL *localurl) {
         NSDictionary *output = @{
             @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
             @"FPPickerControllerOriginalImage":image,
@@ -677,27 +679,23 @@
     ALAssetRepresentation *representation = [asset defaultRepresentation];
     NSString *filename = [self getFilenameForAssetRepresentation:representation];
 
-    FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON, NSURL *localurl) {
+    FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
+                                                           NSURL *localurl) {
         NSDictionary *data = JSON[@"data"][0];
-        NSMutableDictionary *output = [@{
-                                           @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
-                                           @"FPPickerControllerMediaURL":localurl,
-                                           @"FPPickerControllerRemoteURL":data[@"url"],
-                                           @"FPPickerControllerFilename":data[@"data"][@"filename"],
-                                           @"FPPickerControllerKey":data[@"data"][@"key"]
-                                       } mutableCopy];
 
-        // This key may be missing, so we conditionally check for it
+        NSDictionary *output = @{
+            @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
+            @"FPPickerControllerMediaURL":localurl,
+            @"FPPickerControllerRemoteURL":data[@"url"],
+            @"FPPickerControllerFilename":data[@"data"][@"filename"],
+        };
 
-        if (data[@"data"][@"key"])
-        {
-            output[@"FPPickerControllerKey"] = data[@"data"][@"key"];
-        }
-
-        success([output copy]);
+        success(output);
     };
 
-    FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error, id JSON, NSURL *localurl) {
+    FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
+                                                           id JSON,
+                                                           NSURL *localurl) {
         NSDictionary *output = @{
             @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
             @"FPPickerControllerMediaURL":localurl,
@@ -708,7 +706,8 @@
         failure(error, output);
     };
 
-    [FPLibrary uploadAsset:asset withOptions:nil
+    [FPLibrary uploadAsset:asset
+               withOptions:nil
               shouldUpload:shouldUpload
                    success:successBlock
                    failure:failureBlock
