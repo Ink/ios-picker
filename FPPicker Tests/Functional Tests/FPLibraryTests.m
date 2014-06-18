@@ -105,8 +105,9 @@
 
     size_t smallImageSize = fpMaxChunkSize - 1;
     char *smallImageBuffer = malloc(smallImageSize);
-    NSData *smallImage = [NSData dataWithBytes:smallImageBuffer
-                                        length:smallImageSize];
+    NSData *smallImage = [NSData dataWithBytesNoCopy:smallImageBuffer
+                                              length:smallImageSize
+                                        freeWhenDone:YES];
 
     id NSDataMock = OCMClassMock([NSData class]);
 
@@ -119,8 +120,6 @@
                               success:nil
                               failure:nil
                              progress:nil];
-
-    free(smallImageBuffer);
 
     OCMVerifyAll(FPLibraryMock);
     OCMVerifyAll(NSDataMock);
@@ -139,8 +138,9 @@
 
     size_t largeImageSize = fpMaxChunkSize + 1;
     char *largeImageBuffer = malloc(largeImageSize);
-    NSData *largeImage = [NSData dataWithBytes:largeImageBuffer
-                                        length:largeImageSize];
+    NSData *largeImage = [NSData dataWithBytesNoCopy:largeImageBuffer
+                                              length:largeImageSize
+                                        freeWhenDone:YES];
 
     id NSDataMock = OCMClassMock([NSData class]);
 
@@ -153,8 +153,6 @@
                               success:nil
                               failure:nil
                              progress:nil];
-
-    free(largeImageBuffer);
 
     OCMVerifyAll(FPLibraryMock);
     OCMVerifyAll(NSDataMock);
