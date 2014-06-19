@@ -49,7 +49,14 @@
     self.searchDisplayController.searchResultsDataSource = self;
     self.searchDisplayController.searchResultsDelegate = self;
 
-    [self.view addSubview:self.searchBar];
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        [self.view addSubview:self.searchBar];
+    }
+    else
+    {
+        self.tableView.tableHeaderView = self.searchBar;
+    }
 }
 
 - (void)viewDidUnload

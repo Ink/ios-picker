@@ -729,6 +729,8 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (void)fpLoadContents:(NSString *)loadpath cachePolicy:(NSURLRequestCachePolicy)policy
 {
+    [self clearSelection];
+
     FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
                                                   animated:YES];
 
@@ -797,7 +799,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
     [self setTitle:[JSON valueForKey:@"filename"]];
 
-    if ([JSON valueForKey:@"auth"])
+    if (JSON[@"auth"])
     {
         [self launchAuthView];
     }
@@ -814,7 +816,7 @@ static const NSInteger ROW_HEIGHT = 44;
             self.navigationItem.rightBarButtonItem = anotherButton;
         }
 
-        if ([[JSON valueForKeyPath:@"contents"] count] == 0 &&
+        if ([JSON[@"contents"] count] == 0 &&
             (self.sourceType.identifier != FPSourceImagesearch))
         {
             NSLog(@"nothing");
@@ -990,6 +992,19 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
     [operation start];
+}
+
+- (void)clearSelection
+{
+    for (id index in self.selectedObjectThumbnails)
+    {
+        UIView *view = [self.view viewWithTag:CELL_FIRST_TAG + [index intValue]];
+
+        [self toggleSelectionOnThumbnailView:view];
+    }
+
+    [self.selectedObjects removeAllObjects];
+    [self.selectedObjectThumbnails removeAllObjects];
 }
 
 - (void)objectSelectedAtIndex:(NSInteger)index
