@@ -141,12 +141,15 @@ static UIColor *ANGRY_COLOR;
 
             [UIView animateWithDuration:0.2f animations: ^{
                 self.uploadButtonContainer.frame = CGRectMake(0,
-                                                              bounds.size.height,
-                                                              bounds.size.width,
+                                                              CGRectGetHeight(bounds),
+                                                              CGRectGetWidth(bounds),
                                                               UPLOAD_BUTTON_CONTAINER_HEIGHT);
                 // Put the tableView back
 
-                self.tableView.frame = bounds;
+                CGRect newFrame = self.tableView.frame;
+                newFrame.size.height += UPLOAD_BUTTON_CONTAINER_HEIGHT;
+
+                self.tableView.frame = newFrame;
             } completion: ^(BOOL finished) {
                 if (finished)
                 {
@@ -167,8 +170,8 @@ static UIColor *ANGRY_COLOR;
             CGRect bounds = self.view.bounds;
 
             self.uploadButtonContainer.frame = CGRectMake(0,
-                                                          bounds.size.height,
-                                                          bounds.size.width,
+                                                          CGRectGetHeight(bounds),
+                                                          CGRectGetWidth(bounds),
                                                           UPLOAD_BUTTON_CONTAINER_HEIGHT);
 
             self.uploadButtonContainer.hidden = NO;
@@ -176,14 +179,14 @@ static UIColor *ANGRY_COLOR;
             [UIView animateWithDuration:0.2f animations: ^{
                 // Shrink the tableView so we don't have overlap
 
-                self.tableView.frame = CGRectMake(0,
-                                                  0,
-                                                  bounds.size.width,
-                                                  bounds.size.height - UPLOAD_BUTTON_CONTAINER_HEIGHT);
+                CGRect newFrame = self.tableView.frame;
+                newFrame.size.height -= UPLOAD_BUTTON_CONTAINER_HEIGHT;
+
+                self.tableView.frame = newFrame;
 
                 self.uploadButtonContainer.frame = CGRectMake(0,
-                                                              bounds.size.height - UPLOAD_BUTTON_CONTAINER_HEIGHT,
-                                                              bounds.size.width,
+                                                              CGRectGetHeight(bounds) - UPLOAD_BUTTON_CONTAINER_HEIGHT,
+                                                              CGRectGetWidth(bounds),
                                                               UPLOAD_BUTTON_CONTAINER_HEIGHT);
             }];
         }

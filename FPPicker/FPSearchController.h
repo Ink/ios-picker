@@ -12,7 +12,4 @@
 
 @interface FPSearchController : FPSourceController <UISearchDisplayDelegate>
 
-@property (nonatomic, strong) IBOutlet UISearchBar *searchBar;
-@property (nonatomic, strong) IBOutlet UISearchDisplayController *searchDisplayController;
-
 @end

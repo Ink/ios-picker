@@ -35,6 +35,7 @@ typedef void (^FPFetchObjectProgressBlock)(float progress);
 
 @implementation FPSourceController
 
+static const NSInteger CELL_FIRST_TAG = 1000;
 static const NSInteger ROW_HEIGHT = 44;
 //static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
@@ -354,7 +355,7 @@ static const NSInteger ROW_HEIGHT = 44;
         NSURL *imageURL = [NSURL URLWithString:obj[@"thumbnail"]];
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 
-        imageView.tag = index;
+        imageView.tag = CELL_FIRST_TAG + index;
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
 
@@ -688,8 +689,9 @@ static const NSInteger ROW_HEIGHT = 44;
     }
 
     UIImageView *selectedView = sender.view.subviews[rowIndex];
+    NSInteger index = selectedView.tag - CELL_FIRST_TAG;
 
-    NSMutableDictionary *obj = self.contents[selectedView.tag];
+    NSMutableDictionary *obj = self.contents[index];
     UIImage *thumbnail;
 
     BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
@@ -698,12 +700,12 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         thumbnail = selectedView.image;
 
-        [self objectSelectedAtIndex:selectedView.tag
+        [self objectSelectedAtIndex:index
                       withThumbnail:thumbnail];
     }
     else
     {
-        [self objectSelectedAtIndex:selectedView.tag];
+        [self objectSelectedAtIndex:index];
     }
 }
 
@@ -1029,7 +1031,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
     if (self.selectMultiple)
     {
-        UIView *view = [self.view viewWithTag:index];
+        UIView *view = [self.view viewWithTag:CELL_FIRST_TAG + index];
 
         if ([self.viewType isEqualToString:@"thumbnails"])
         {

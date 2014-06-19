@@ -11,16 +11,18 @@
 
 @interface FPSearchController ()
 
-@property UITableView* backgroundTableView;
+@property (nonatomic, strong) UITableView *backgroundTableView;
+@property (nonatomic, strong) UISearchBar *searchBar;
+@property (nonatomic, strong) UISearchDisplayController *searchDisplayController;
 
 @end
 
 @implementation FPSearchController
 
-// NOTE: UIViewController already implements _searchDisplayController
 @synthesize searchDisplayController = _ourSearchDisplayController;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
@@ -33,7 +35,7 @@
     [super viewDidLoad];
 
     self.pullToRefreshEnabled = NO;
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 70, 320, 44)];
+    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 
     // iOS7 fix
 
@@ -47,7 +49,8 @@
     self.searchDisplayController.delegate = self;
     self.searchDisplayController.searchResultsDataSource = self;
     self.searchDisplayController.searchResultsDelegate = self;
-    self.tableView.tableHeaderView = self.searchBar;
+
+    [self.view addSubview:self.searchBar];
 }
 
 - (void)viewDidUnload
@@ -55,12 +58,18 @@
     [super viewDidUnload];
 
     self.searchBar = nil;
+    self.searchDisplayController.delegate = nil;
+    self.searchDisplayController.searchResultsDataSource = nil;
+    self.searchDisplayController.searchResultsDelegate = nil;
     self.searchDisplayController = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.contentSizeForViewInPopover = fpWindowSize;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        self.contentSizeForViewInPopover = fpWindowSize;
+    }
 
     [super viewWillAppear:animated];
 }
@@ -71,12 +80,16 @@
                                    animated:YES];
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString
+- (BOOL)     searchDisplayController:(UISearchDisplayController *)controller
+    shouldReloadTableForSearchString:(NSString *)searchString
 {
     //NSLog(@"Search String %@", searchString);
-    NSString *path = [NSString stringWithFormat:@"%@/%@", self.sourceType.rootUrl, [FPUtils urlEncodeString:searchString]];
+    NSString *path = [NSString stringWithFormat:@"%@/%@",
+                      self.sourceType.rootUrl,
+                      [FPUtils urlEncodeString:searchString]];
 
     self.path = path;
+
     [self fpLoadContents:path];
     [self.searchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
@@ -85,33 +98,32 @@
     return NO;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+- (BOOL)    searchDisplayController:(UISearchDisplayController *)controller
+    shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
     // will reload when I have the results
 
     return NO;
 }
 
+#pragma mark - UISearchDisplayDelegate Methods
+
 // On iOS7 and above because table views are transparent we get overlapping cells, so this hides the background
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller willShowSearchResultsTableView:(UITableView *)tableView
+- (void)   searchDisplayController:(UISearchDisplayController *)controller
+    willShowSearchResultsTableView:(UITableView *)tableView
 {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        self.backgroundTableView = self.tableView;
-        self.backgroundTableView.hidden = YES;
-        self.tableView = tableView;
-    }
+    self.backgroundTableView = self.tableView;
+    self.backgroundTableView.hidden = YES;
+    self.tableView = tableView;
 }
 
-- (void)searchDisplayController:(UISearchDisplayController *)controller willHideSearchResultsTableView:(UITableView *)tableView
+- (void)   searchDisplayController:(UISearchDisplayController *)controller
+    willHideSearchResultsTableView:(UITableView *)tableView
 {
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        self.tableView = self.backgroundTableView;
-        self.tableView.hidden = NO;
-        self.backgroundTableView = nil;
-    }
+    self.tableView = self.backgroundTableView;
+    self.tableView.hidden = NO;
+    self.backgroundTableView = nil;
 }
 
 @end
