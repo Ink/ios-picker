@@ -20,10 +20,6 @@ typedef void (^FPFetchObjectFailureBlock)(NSError *error);
 typedef void (^FPFetchObjectProgressBlock)(float progress);
 
 @interface FPSourceController ()
-{
-    UIImage *_selectOverlay;
-    UIImage *_selectIcon;
-}
 
 @property int padding;
 @property int numPerRow;
@@ -31,6 +27,9 @@ typedef void (^FPFetchObjectProgressBlock)(float progress);
 @property NSMutableSet *selectedObjects;
 //Map from object id to thumbnail
 @property NSMutableDictionary *selectedObjectThumbnails;
+
+@property (nonatomic, strong) UIImage *placeholderImage;
+@property (nonatomic, strong) UIImage *selectionOverlayImage;
 
 @end
 
@@ -70,26 +69,6 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         return;
     }
-
-    NSString *selectOverlayFilePath;
-
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
-                                                                    ofType:@"png"];
-    }
-    else
-    {
-        selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
-                                                                    ofType:@"png"];
-    }
-
-    _selectOverlay = [UIImage imageWithContentsOfFile:selectOverlayFilePath];
-
-    NSString *selectIconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_206_ok_2"
-                                                                       ofType:@"png"];
-
-    _selectIcon = [UIImage imageWithContentsOfFile:selectIconFilePath];
 
     if (!self.path)
     {
@@ -160,14 +139,14 @@ static const NSInteger ROW_HEIGHT = 44;
     [super viewDidAppear:animated];
 
     //remove the pull down login label if applicable.
-    UIView *v = [self.view viewWithTag:[@"-1" integerValue]];
+    UIView *v = [self.view viewWithTag:-1];
 
     if (v)
     {
         [v removeFromSuperview];
     }
 
-    v = [self.view viewWithTag:[@"-2" integerValue]];
+    v = [self.view viewWithTag:-2];
 
     if (v)
     {
@@ -175,9 +154,45 @@ static const NSInteger ROW_HEIGHT = 44;
     }
 }
 
+- (UIImage *)placeholderImage
+{
+    if (!_placeholderImage)
+    {
+        NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
+                                                                                 ofType:@"png"];
+
+        _placeholderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
+    }
+
+    return _placeholderImage;
+}
+
+- (UIImage *)selectionOverlayImage
+{
+    if (!_selectionOverlayImage)
+    {
+        NSString *selectOverlayFilePath;
+
+        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
+        {
+            selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                                        ofType:@"png"];
+        }
+        else
+        {
+            selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
+                                                                        ofType:@"png"];
+        }
+
+        _selectionOverlayImage = [UIImage imageWithContentsOfFile:selectOverlayFilePath];
+    }
+
+    return _selectionOverlayImage;
+}
+
 #pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)passedTableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.nextPage)
     {
@@ -187,7 +202,7 @@ static const NSInteger ROW_HEIGHT = 44;
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)passedTableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
     {
@@ -210,7 +225,7 @@ static const NSInteger ROW_HEIGHT = 44;
     return 0;
 }
 
-- (CGFloat)tableView:(UITableView *)passedTableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([self.viewType isEqualToString:@"thumbnails"])
     {
@@ -220,7 +235,7 @@ static const NSInteger ROW_HEIGHT = 44;
     return ROW_HEIGHT;
 }
 
-- (void)tableView:(UITableView *)passedTableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1)   // If it is the load more section
     {
@@ -228,14 +243,15 @@ static const NSInteger ROW_HEIGHT = 44;
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)passedTableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = fpCellIdentifier;
     FPThumbCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
 
     if (!cell)
     {
-        cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                  reuseIdentifier:cellIdentifier];
     }
     else
     {
@@ -270,11 +286,13 @@ static const NSInteger ROW_HEIGHT = 44;
 
     if ([self.viewType isEqualToString:@"thumbnails"])
     {
-        return [self setupThumbnailCell:cell atIndex:indexPath.row];
+        return [self setupThumbnailCell:cell
+                                atIndex:indexPath.row];
     }
     else
     {
-        return [self setupListCell:cell atIndex:indexPath.row];
+        return [self setupListCell:cell
+                           atIndex:indexPath.row];
     }
 }
 
@@ -329,40 +347,28 @@ static const NSInteger ROW_HEIGHT = 44;
 
         if (index >= self.contents.count)
         {
-            break;
-        }
-
-        if (index >= self.contents.count)
-        {
             return cell;
         }
 
         NSMutableDictionary *obj = self.contents[index];
-        NSString *urlString = obj[@"thumbnail"];
+        NSURL *imageURL = [NSURL URLWithString:obj[@"thumbnail"]];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 
-        UIImageView *image = [[UIImageView alloc] initWithFrame:rect];
-
-        image.tag = index;
-        image.contentMode = UIViewContentModeScaleAspectFill;
-        image.clipsToBounds = YES;
+        imageView.tag = index;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        imageView.clipsToBounds = YES;
 
         if (YES == [obj[@"disabled"] boolValue])
         {
-            image.alpha = 0.5;
+            imageView.alpha = 0.5;
         }
         else
         {
-            image.alpha = 1.0;
+            imageView.alpha = 1.0;
         }
 
-        //NSLog(@"Request: %@", mrequest);
-        NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
-                                                                                 ofType:@"png"];
-
-        UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
-
-        [image setImageWithURL:[NSURL URLWithString:urlString]
-              placeholderImage:placeHolderImage];
+        [imageView setImageWithURL:imageURL
+                  placeholderImage:self.placeholderImage];
 
         BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
@@ -379,14 +385,14 @@ static const NSInteger ROW_HEIGHT = 44;
             subLabel.text = obj[@"filename"];
             subLabel.textAlignment = NSTextAlignmentCenter;
 
-            [image addSubview:subLabel];
+            [imageView addSubview:subLabel];
 
-            image.contentMode = UIViewContentModeCenter;
-            image.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
+            imageView.contentMode = UIViewContentModeCenter;
+            imageView.backgroundColor = [UIColor colorWithWhite:0.0 alpha:0.1];
         }
         else
         {
-            image.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
         }
 
 
@@ -394,19 +400,19 @@ static const NSInteger ROW_HEIGHT = 44;
         {
             // Add overlay
 
-            UIImageView *overlay = [[UIImageView alloc] initWithImage:_selectOverlay];
+            UIImageView *overlay = [[UIImageView alloc] initWithImage:self.selectionOverlayImage];
 
-            overlay.frame = image.bounds;
+            overlay.frame = imageView.bounds;
 
             // If this object is selected, leave the overlay on.
             overlay.hidden = ![self.selectedObjects containsObject:obj];
 
             overlay.opaque = NO;
 
-            [image addSubview:overlay];
+            [imageView addSubview:overlay];
         }
 
-        [cell.contentView addSubview:image];
+        [cell.contentView addSubview:imageView];
 
         rect.origin.x += self.thumbSize + self.padding;
     }
@@ -516,12 +522,11 @@ static const NSInteger ROW_HEIGHT = 44;
 
 #pragma mark - Table view delegate
 
-- (void)tableView:(UITableView *)passedTableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIImage *thumbnail = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;
     NSMutableDictionary *obj = self.contents[indexPath.row];
     BOOL isDir = [obj[@"is_dir"] boolValue];
-
+    UIImage *thumbnail = [self.tableView cellForRowAtIndexPath:indexPath].imageView.image;
     BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
 
     if (thumbExists)
@@ -535,13 +540,15 @@ static const NSInteger ROW_HEIGHT = 44;
     }
 
     // Clear selection if object is a directory
+
     if (isDir)
     {
-        [passedTableView deselectRowAtIndexPath:indexPath animated:NO];
+        [tableView deselectRowAtIndexPath:indexPath
+                                 animated:NO];
     }
 }
 
-- (void)tableView:(UITableView *)passedTableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSMutableDictionary *obj = [self.contents objectAtIndex:indexPath.row];
 
@@ -763,10 +770,10 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     NSLog(@"Loading Contents: %@", JSON);
 
-    self.contents = [JSON valueForKeyPath:@"contents"];
-    self.viewType = [JSON valueForKeyPath:@"view"];
+    self.contents = JSON[@"contents"];
+    self.viewType = JSON[@"view"];
 
-    NSString *next = [JSON valueForKeyPath:@"next"];
+    NSString *next = JSON[@"next"];
 
     if (next && next != (NSString *)[NSNull null])
     {
@@ -1007,7 +1014,7 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         FPSourceController *subController = [FPSourceController new];
 
-        subController.path = [obj valueForKey:@"link_path"];
+        subController.path = obj[@"link_path"];
         subController.sourceType = self.sourceType;
         subController.fpdelegate = self.fpdelegate;
         subController.selectMultiple = self.selectMultiple;
@@ -1117,7 +1124,7 @@ static const NSInteger ROW_HEIGHT = 44;
     UIImageView *imageView = (UIImageView *)view;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        UIView *overlay = imageView.subviews[0];
+        UIImageView *overlay = imageView.subviews[0];
 
         overlay.hidden = !overlay.hidden;
     });
