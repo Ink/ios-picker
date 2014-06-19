@@ -34,7 +34,6 @@
 {
     [super viewDidLoad];
 
-    self.pullToRefreshEnabled = NO;
     self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 
     // iOS7 fix
@@ -107,8 +106,6 @@
 }
 
 #pragma mark - UISearchDisplayDelegate Methods
-
-// On iOS7 and above because table views are transparent we get overlapping cells, so this hides the background
 
 - (void)   searchDisplayController:(UISearchDisplayController *)controller
     willShowSearchResultsTableView:(UITableView *)tableView

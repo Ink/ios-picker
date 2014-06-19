@@ -826,7 +826,6 @@ static const NSInteger ROW_HEIGHT = 44;
     [FPMBProgressHUD hideAllHUDsForView:self.view
                                animated:YES];
 
-    [self stopLoading];
     [self.tableView reloadData];
 
     NSLog(@"after reload");
@@ -870,8 +869,6 @@ static const NSInteger ROW_HEIGHT = 44;
         [self fpLoadContents:loadpath
                  cachePolicy:NSURLRequestReloadIgnoringCacheData];
     }
-
-    [self stopLoading];
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath

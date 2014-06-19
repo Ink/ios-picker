@@ -8,7 +8,7 @@
 
 #import "AFNetworkingHeaders.h"
 #import "FPMBProgressHUD.h"
-#import "FP_PullRefreshTableViewController.h"
+#import "FPTableWithUploadButtonViewController.h"
 
 #import "FPConfig.h"
 #import "FPLibrary.h"

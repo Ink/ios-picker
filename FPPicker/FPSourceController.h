@@ -11,7 +11,7 @@
 #import "FPPicker.h"
 #import "FPInternalHeaders.h"
 
-@interface FPSourceController : FP_PullRefreshTableViewController
+@interface FPSourceController : FPTableWithUploadButtonViewController
 
 @property (nonatomic, strong) NSMutableArray *contents;
 @property (nonatomic, strong) NSString *path;
