@@ -731,7 +731,7 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     [self clearSelection];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view.superview
                                                   animated:YES];
 
     hud.labelText = @"Loading contents";
@@ -825,7 +825,7 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }
 
-    [FPMBProgressHUD hideAllHUDsForView:self.view
+    [FPMBProgressHUD hideAllHUDsForView:self.view.superview
                                animated:YES];
 
     [self.tableView reloadData];
@@ -1005,6 +1005,10 @@ static const NSInteger ROW_HEIGHT = 44;
 
     [self.selectedObjects removeAllObjects];
     [self.selectedObjectThumbnails removeAllObjects];
+
+    // Hide upload button too
+
+    [self updateUploadButton:0];
 }
 
 - (void)objectSelectedAtIndex:(NSInteger)index
