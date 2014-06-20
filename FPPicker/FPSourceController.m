@@ -731,7 +731,9 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     [self clearSelection];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view.superview
+    UIView *hudParentView = self.view.superview ? self.view.superview : self.view;
+    
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:hudParentView
                                                   animated:YES];
 
     hud.labelText = @"Loading contents";
@@ -825,7 +827,9 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }
 
-    [FPMBProgressHUD hideAllHUDsForView:self.view.superview
+    UIView *hudParentView = self.view.superview ? self.view.superview : self.view;
+
+    [FPMBProgressHUD hideAllHUDsForView:hudParentView
                                animated:YES];
 
     [self.tableView reloadData];
