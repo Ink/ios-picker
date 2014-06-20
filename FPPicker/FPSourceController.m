@@ -732,7 +732,7 @@ static const NSInteger ROW_HEIGHT = 44;
     [self clearSelection];
 
     UIView *hudParentView = self.view.superview ? self.view.superview : self.view;
-    
+
     FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:hudParentView
                                                   animated:YES];
 
@@ -827,9 +827,13 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }
 
-    UIView *hudParentView = self.view.superview ? self.view.superview : self.view;
+    if (self.view.superview)
+    {
+        [FPMBProgressHUD hideAllHUDsForView:self.view.superview
+                                   animated:YES];
+    }
 
-    [FPMBProgressHUD hideAllHUDsForView:hudParentView
+    [FPMBProgressHUD hideAllHUDsForView:self.view
                                animated:YES];
 
     [self.tableView reloadData];
