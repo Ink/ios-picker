@@ -211,7 +211,7 @@
 
         NSLog(@"Index %ld", (long)index);
 
-        if (self.photos.count < index)
+        if (self.photos.count <= index)
         {
             break;
         }
