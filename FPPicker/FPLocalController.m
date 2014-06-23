@@ -19,7 +19,7 @@
 @property int numPerRow;
 @property int thumbSize;
 @property UILabel *emptyLabel;
-@property NSMutableArray *imageViews;
+@property NSCache *imageViews;
 @property NSMutableSet *selectedAssets;
 @property UITableView *tableView;
 
@@ -38,7 +38,7 @@
     {
         NSUInteger selectedAssetsCapacity = self.maxFiles == 0 ? 10 : self.maxFiles;
 
-        self.imageViews = [NSMutableArray array];
+        self.imageViews = [NSCache new];
         self.selectedAssets = [NSMutableSet setWithCapacity:selectedAssetsCapacity];
     }
 
@@ -172,7 +172,7 @@
 
     NSUInteger selectedAssetsCapacity = self.maxFiles == 0 ? 10 : self.maxFiles;
 
-    self.imageViews = [NSMutableArray array];
+    self.imageViews = [NSCache new];
     self.selectedAssets = [NSMutableSet setWithCapacity:selectedAssetsCapacity];
 }
 
@@ -208,18 +208,20 @@
     for (int i = 0; i < self.numPerRow; i++)
     {
         NSInteger index = self.numPerRow * indexPath.row + i;
+
         NSLog(@"Index %ld", (long)index);
 
-        if (index >= self.photos.count)
+        if (self.photos.count < index)
         {
             break;
         }
 
-        ALAsset *asset = [self.photos objectAtIndex:index];
+        ALAsset *asset = self.photos[index];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 
-        self.imageViews[index] = imageView;
+        [self.imageViews setObject:imageView
+                            forKey:@(index)];
 
         imageView.tag = index;
         imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
@@ -341,7 +343,7 @@
 
     if (self.selectMultiple)
     {
-        [self toggleSelectedImageOnView:self.imageViews[index]];
+        [self toggleSelectedImageOnView:[self.imageViews objectForKey:@(index)]];
         [self toggleSelection:asset];
     }
     else
