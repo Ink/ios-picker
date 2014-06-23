@@ -338,13 +338,13 @@
         return;
     }
 
-    NSData *filedata = [NSData dataWithContentsOfURL:fileURL];
+    NSUInteger fileSize = [[self fileSizeForURL:fileURL] unsignedIntegerValue];
 
-    NSInteger filesize = filedata.length;
-
-    if (filesize <= fpMaxChunkSize)
+    if (fileSize <= fpMaxChunkSize)
     {
         NSLog(@"Uploading singlepart");
+
+        NSData *filedata = [NSData dataWithContentsOfURL:fileURL];
 
         [FPLibrary singlepartUploadData:filedata
                                   named:filename
@@ -357,12 +357,12 @@
     {
         NSLog(@"Uploading Multipart");
 
-        [FPLibrary multipartUploadData:filedata
-                                 named:filename
-                            ofMimetype:mimetype
-                               success:success
-                               failure:failure
-                              progress:progress];
+        [FPLibrary multipartUploadWithLocalURL:fileURL
+                                         named:filename
+                                    ofMimetype:mimetype
+                                       success:success
+                                       failure:failure
+                                      progress:progress];
     }
 }
 
@@ -420,12 +420,12 @@
     }];
 }
 
-+ (void)multipartUploadData:(NSData*)filedata
-                      named:(NSString*)filename
-                 ofMimetype:(NSString*)mimetype
-                    success:(FPUploadAssetSuccessBlock)success
-                    failure:(FPUploadAssetFailureBlock)failure
-                   progress:(FPUploadAssetProgressBlock)progress
++ (void)multipartUploadWithLocalURL:(NSURL *)localURL
+                              named:(NSString*)filename
+                         ofMimetype:(NSString*)mimetype
+                            success:(FPUploadAssetSuccessBlock)success
+                            failure:(FPUploadAssetFailureBlock)failure
+                           progress:(FPUploadAssetProgressBlock)progress
 {
     void (^tryOperation)();
     __block int numberOfTries;
@@ -435,11 +435,13 @@
         filename = @"filename";
     }
 
+    NSNumber *fileSizeValue = [self fileSizeForURL:localURL];
+
     NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
                                                         andMimetypes:nil];
     NSDictionary *params = @{
         @"name":filename,
-        @"filesize":@(filedata.length),
+        @"filesize":fileSizeValue,
         @"js_session":js_sessionString
     };
 
@@ -447,13 +449,13 @@
                                                              id responseObject) {
         NSLog(@"Response: %@", responseObject);
 
-        [self processMultipartWithData:filedata
-                                 named:filename
-                            ofMimetype:mimetype
-                          JSONResponse:responseObject
-                               success:success
-                               failure:failure
-                              progress:progress];
+        [self processMultipartWithLocalURL:localURL
+                                     named:filename
+                                ofMimetype:mimetype
+                              JSONResponse:responseObject
+                                   success:success
+                                   failure:failure
+                                  progress:progress];
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -484,19 +486,19 @@
     tryOperation();
 }
 
-+ (void)processMultipartWithData:(NSData*)filedata
-                           named:(NSString*)filename
-                      ofMimetype:(NSString*)mimetype
-                    JSONResponse:(id)JSON
-                         success:(FPUploadAssetSuccessBlock)success
-                         failure:(FPUploadAssetFailureBlock)failure
-                        progress:(FPUploadAssetProgressBlock)progress
++ (void)processMultipartWithLocalURL:(NSURL *)localURL
+                               named:(NSString*)filename
+                          ofMimetype:(NSString*)mimetype
+                        JSONResponse:(id)JSON
+                             success:(FPUploadAssetSuccessBlock)success
+                             failure:(FPUploadAssetFailureBlock)failure
+                            progress:(FPUploadAssetProgressBlock)progress
 {
     __block void (^tryOperation)();
     __block int numberOfTries;
 
-    NSInteger filesize = filedata.length;
-    NSInteger totalChunks = ceil(1.0 * filesize / fpMaxChunkSize);
+    NSUInteger fileSize = [[self fileSizeForURL:localURL] unsignedIntegerValue];
+    NSUInteger totalChunks = ceil(1.0 * fileSize / fpMaxChunkSize);
 
     NSString *uploadID = JSON[@"data"][@"id"];
 
@@ -504,7 +506,7 @@
                                                         andMimetypes:nil];
 
     NSLog(@"Response: %@", JSON);
-    NSLog(@"Filesize: %ld chunks: %ld", (long)filesize, (long)totalChunks);
+    NSLog(@"Filesize: %ld chunks: %ld", (long)fileSize, (long)totalChunks);
 
 
     void (^endMultipart)() = ^() {
@@ -552,6 +554,10 @@
     NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
     __block int sentChunks = 0;
 
+    NSInputStream *inputStream = [NSInputStream inputStreamWithURL:localURL];
+
+    [inputStream open];
+
     /* send the chunks */
 
     for (int i = 0; i < totalChunks; i++)
@@ -566,13 +572,29 @@
                       escapedSessionString];
 
         AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {
-            NSData *dataSlice = [self dataSliceWithData:filedata
-                                             sliceIndex:i];
+            uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
 
-            [formData appendPartWithFileData:dataSlice
-                                        name:@"fileUpload"
-                                    fileName:filename
-                                    mimeType:mimetype];
+            NSData *dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
+                                                     length:fpMaxChunkSize
+                                               freeWhenDone:YES];
+            NSInteger actualBytesRead;
+
+            actualBytesRead = [inputStream read:chunkBuffer
+                                      maxLength:fpMaxChunkSize];
+
+            if (actualBytesRead > 0)
+            {
+                dataSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
+
+                [formData appendPartWithFileData:dataSlice
+                                            name:@"fileUpload"
+                                        fileName:filename
+                                        mimeType:mimetype];
+            }
+            else
+            {
+                NSLog(@"Tried to read from input stream but received: %ld", (long)actualBytesRead);
+            }
         };
 
         AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -591,6 +613,7 @@
 
             if (sentChunks == totalChunks)
             {
+                [inputStream close];
                 endMultipart();
             }
         };
@@ -600,6 +623,8 @@
             if (numberOfTries > fpNumRetries)
             {
                 NSLog(@"Fail: %@", error);
+
+                [inputStream close];
                 failure(error, nil);
             }
             else
@@ -636,26 +661,21 @@
     }
 }
 
-+ (NSData *)dataSliceWithData:(NSData *)data
-                   sliceIndex:(NSUInteger)index
++ (NSNumber *)fileSizeForURL:(NSURL *)url
 {
-    size_t maxChunkSize = MIN(fpMaxChunkSize, data.length);
-    size_t totalSlices = ceil(1.0 * data.length / maxChunkSize);
+    NSNumber *fileSizeValue = nil;
+    NSError *fileSizeError = nil;
 
-    if (index > totalSlices - 1)
+    [url getResourceValue:&fileSizeValue
+                   forKey:NSURLFileSizeKey
+                    error:&fileSizeError];
+
+    if (fileSizeError)
     {
-        NSLog(@"Slice index %lu beyond bounds (max index: %lu)", (unsigned long)index, (unsigned long)totalSlices - 1);
-
-        return nil;
+        NSLog(@"Error when getting filesize of %@: %@", url, fileSizeError);
     }
 
-    size_t chunkOffset = index * maxChunkSize;
-    size_t bytesToRead = (index == totalSlices - 1) ? (data.length - index * maxChunkSize) : maxChunkSize;
-    NSRange subdataRange = NSMakeRange(chunkOffset, bytesToRead);
-
-    NSData *dataSlice = [data subdataWithRange:subdataRange];
-
-    return dataSlice;
+    return fileSizeValue;
 }
 
 @end
