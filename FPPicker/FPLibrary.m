@@ -587,7 +587,12 @@
                                                                  id responseObject) {
             float overallProgress = [progressTracker setProgress:1.f
                                                           forKey:@(i)];
-            progress(overallProgress);
+
+            if (progress)
+            {
+                progress(overallProgress);
+            }
+
             sentChunks++;
 
             NSLog(@"Send %d: %@ (sent: %d)", i, JSON, sentChunks);
