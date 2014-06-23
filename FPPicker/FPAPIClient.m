@@ -20,6 +20,7 @@
         _sharedClient = [[FPAPIClient alloc] initWithBaseURL:[FPConfig sharedInstance].baseURL];
         _sharedClient.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
         _sharedClient.responseSerializer = [AFJSONResponseSerializer serializer];
+        _sharedClient.operationQueue.maxConcurrentOperationCount = 5;
     });
 
     return _sharedClient;
