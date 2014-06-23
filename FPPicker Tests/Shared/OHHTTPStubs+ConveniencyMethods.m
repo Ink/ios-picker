@@ -26,7 +26,7 @@
 
             if (!shouldStub)
             {
-                NSLog(@"(OHHTTPS DEBUG) Host %@ does not match %@", url.host, request.URL.host);
+                NSLog(@"(OHHTTPS DEBUG) ✖︎ Host %@ does not match %@", url.host, request.URL.host);
 
                 return NO;
             }
@@ -38,7 +38,7 @@
 
             if (!shouldStub)
             {
-                NSLog(@"(OHHTTPS DEBUG) Path %@ does not match %@", url.path, request.URL.path);
+                NSLog(@"(OHHTTPS DEBUG) ✖︎ Path %@ does not match %@", url.path, request.URL.path);
 
                 return NO;
             }
@@ -55,7 +55,7 @@
 
             if (!shouldStub)
             {
-                NSLog(@"(OHHTTPS DEBUG) Query string %@ does not match %@", url.query, request.URL.query);
+                NSLog(@"(OHHTTPS DEBUG) ✖︎ Query string %@ does not match %@", url.query, request.URL.query);
 
                 return NO;
             }
@@ -67,7 +67,7 @@
 
             if (!shouldStub)
             {
-                NSLog(@"(OHHTTPS DEBUG) Scheme %@ does not match %@", url.scheme, request.URL.scheme);
+                NSLog(@"(OHHTTPS DEBUG) ✖︎ Scheme %@ does not match %@", url.scheme, request.URL.scheme);
 
                 return NO;
             }

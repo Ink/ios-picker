@@ -12,6 +12,7 @@
 #import "FPConfig.h"
 #import "FPLibrary.h"
 #import "FPAPIClient.h"
+#import "FPUtils.h"
 
 @interface FPLibraryTests : XCTestCase
 
@@ -161,7 +162,7 @@
     OCMVerifyAll(NSDataMock);
 }
 
-- (void)testSucessfulSinglepartUpload
+- (void)testSuccessfulSinglepartUpload
 {
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
@@ -181,7 +182,7 @@
     [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
                             andHTTPMethod:@"POST"
                                  matching:OHHTTPMatchAll
-                          withFixtureFile:@"sucessfulResponse.json"
+                          withFixtureFile:@"successfulResponse.json"
                                statusCode:200
                                andHeaders:@{@"Content-Type":@"text/json"}];
 
@@ -257,6 +258,116 @@
     }
 
     OCMVerifyAll(configMock);
+}
+
+- (void)testSuccessfulMultipartUpload
+{
+    /**
+        This test ensures a multipart upload is performed following this sequence:
+
+        1. POST to /api/path/computer?multipart=start
+        2. For each chunk { POST to /api/path/computer/?multipart=upload&... }
+        3. POST to /api/path/computer?multipart=end
+
+        In this test, our upload will contain 2 chunks of: fpMaxChunkSize and 1 byte respectively.
+     */
+
+    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+
+    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
+
+    NSString *imageFilename = @"outline.png";
+    NSString *imageMimetype = @"image/png";
+
+    size_t totalSize = fpMaxChunkSize + 1;
+    char *bytes = malloc(totalSize);
+
+    NSData *data = [NSData dataWithBytesNoCopy:bytes
+                                        length:totalSize
+                                  freeWhenDone:YES];
+
+    NSURL *expectedStartURL = [NSURL URLWithString:@"/api/path/computer?multipart=start"
+                                     relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedStartURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"successfulMultipartStartResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
+
+    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
+                                                        andMimetypes:nil];
+
+    NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
+
+
+    NSString *firstChunkPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=BQOwM2NHSFOsNKM3STwG&index=0&js_session=%@",
+                                escapedSessionString];
+
+    NSURL *expectedFirstChunkURL = [NSURL URLWithString:firstChunkPath
+                                          relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedFirstChunkURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"successfulMultipartUploadResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
+
+
+    NSString *secondChunkPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=BQOwM2NHSFOsNKM3STwG&index=1&js_session=%@",
+                                 escapedSessionString];
+
+    NSURL *expectedSecondChunkURL = [NSURL URLWithString:secondChunkPath
+                                           relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedSecondChunkURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"successfulMultipartUploadResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
+
+    NSURL *expectedEndURL = [NSURL URLWithString:@"/api/path/computer?multipart=end"
+                                   relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedEndURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"successfulMultipartEndResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
+
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        dispatch_semaphore_signal(waitSemaphore);
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        XCTFail(@"Should not fail");
+    };
+
+    [FPLibrary multipartUploadData:data
+                             named:imageFilename
+                        ofMimetype:imageMimetype
+                           success:successBlock
+                           failure:failureBlock
+                          progress:nil];
+
+    // Wait for our block to return
+
+    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
+    {
+        runTheRunLoopOnce();
+    }
+
+    OCMVerifyAll(configMock);
+}
+
+- (void)testFailingMultipartUpload
+{
+    // TODO: Implement
 }
 
 - (void)testDataSliceWithSmallData

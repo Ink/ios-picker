@@ -146,9 +146,12 @@
 		45C14A11194F3843008C633A /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		45DB53DA19503E0B0062061F /* FPLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB53D919503E0B0062061F /* FPLibraryTests.m */; };
 		45DB53DC195047580062061F /* outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DB195047580062061F /* outline.png */; };
-		45DB53DE195050EE0062061F /* sucessfulResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DD195050EE0062061F /* sucessfulResponse.json */; };
+		45DB53DE195050EE0062061F /* successfulResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DD195050EE0062061F /* successfulResponse.json */; };
 		45DB53E0195058E90062061F /* failureResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DF195058E90062061F /* failureResponse.json */; };
 		45DB53E3195064AA0062061F /* FPProgressTrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB53E2195064AA0062061F /* FPProgressTrackerTests.m */; };
+		45DF54A01958306500B694CD /* successfulMultipartStartResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */; };
+		45DF54A21958342F00B694CD /* successfulMultipartUploadResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */; };
+		45DF54A41958354200B694CD /* successfulMultipartEndResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 831E0ABC15AA6E460081004F /* FPSaveSourceController.h */; };
 		831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
@@ -385,10 +388,13 @@
 		45C14A07194F3388008C633A /* FPUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtilsTests.m; sourceTree = "<group>"; };
 		45DB53D919503E0B0062061F /* FPLibraryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLibraryTests.m; sourceTree = "<group>"; };
 		45DB53DB195047580062061F /* outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = outline.png; path = "FPPicker Tests/Functional Tests/Fixtures/outline.png"; sourceTree = SOURCE_ROOT; };
-		45DB53DD195050EE0062061F /* sucessfulResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = sucessfulResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/sucessfulResponse.json"; sourceTree = SOURCE_ROOT; };
+		45DB53DD195050EE0062061F /* successfulResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DB53DF195058E90062061F /* failureResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = failureResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/failureResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DB53E119505ADA0062061F /* FPConfig+DestroyableSingleton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPConfig+DestroyableSingleton.h"; sourceTree = "<group>"; };
 		45DB53E2195064AA0062061F /* FPProgressTrackerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTrackerTests.m; sourceTree = "<group>"; };
+		45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartStartResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartStartResponse.json"; sourceTree = SOURCE_ROOT; };
+		45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartUploadResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartUploadResponse.json"; sourceTree = SOURCE_ROOT; };
+		45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartEndResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartEndResponse.json"; sourceTree = SOURCE_ROOT; };
 		5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Functional Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831E0ABC15AA6E460081004F /* FPSaveSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSaveSourceController.h; sourceTree = "<group>"; };
 		831E0ABD15AA6E460081004F /* FPSaveSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSaveSourceController.m; sourceTree = "<group>"; };
@@ -593,8 +599,11 @@
 			isa = PBXGroup;
 			children = (
 				45DB53DB195047580062061F /* outline.png */,
-				45DB53DD195050EE0062061F /* sucessfulResponse.json */,
+				45DB53DD195050EE0062061F /* successfulResponse.json */,
 				45DB53DF195058E90062061F /* failureResponse.json */,
+				45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */,
+				45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */,
+				45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */,
 			);
 			name = Fixtures;
 			path = "FPPicker Tests/Fixtures";
@@ -1036,8 +1045,11 @@
 			files = (
 				45DB53DC195047580062061F /* outline.png in Resources */,
 				45DB53E0195058E90062061F /* failureResponse.json in Resources */,
+				45DF54A01958306500B694CD /* successfulMultipartStartResponse.json in Resources */,
+				45DF54A41958354200B694CD /* successfulMultipartEndResponse.json in Resources */,
 				45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */,
-				45DB53DE195050EE0062061F /* sucessfulResponse.json in Resources */,
+				45DB53DE195050EE0062061F /* successfulResponse.json in Resources */,
+				45DF54A21958342F00B694CD /* successfulMultipartUploadResponse.json in Resources */,
 				458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
