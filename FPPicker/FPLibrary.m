@@ -312,12 +312,10 @@
         failure(error, nil);
     };
 
-    AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:savePath
-                                                              parameters:params
-                                                                 success:successOperationBlock
-                                                                 failure:failureOperationBlock];
-
-    [operation start];
+    [[FPAPIClient sharedClient] POST:savePath
+                          parameters:params
+                             success:successOperationBlock
+                             failure:failureOperationBlock];
 }
 
 + (void)uploadDataToFilepicker:(NSURL*)fileURL
@@ -420,8 +418,6 @@
             progress(((float)totalBytesWritten) / totalBytesExpectedToWrite);
         }
     }];
-
-    [operation start];
 }
 
 + (void)multipartUploadData:(NSData*)filedata
@@ -479,12 +475,10 @@
     numberOfTries = 0;
 
     tryOperation = ^() {
-        AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
-                                                                  parameters:params
-                                                                     success:successOperationBlock
-                                                                     failure:failureOperationBlock];
-
-        [operation start];
+        [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
+                              parameters:params
+                                 success:successOperationBlock
+                                 failure:failureOperationBlock];
     };
 
     tryOperation();
@@ -544,12 +538,10 @@
         numberOfTries = 0;
 
         tryOperation = ^() {
-            AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
-                                                                      parameters:params
-                                                                         success:successOperationBlock
-                                                                         failure:failureOperationBlock];
-
-            [operation start];
+            [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
+                                  parameters:params
+                                     success:successOperationBlock
+                                     failure:failureOperationBlock];
         };
 
         tryOperation();
@@ -638,8 +630,6 @@
                     progress(overallProgress);
                 }
             }];
-
-            [operation start];
         };
 
         tryOperation();
