@@ -175,13 +175,15 @@
 
     XCTAssertTrue(data.length > 0, @"Fixture data expected");
 
-    [OHHTTPStubs stubHTTPRequestAndResponseWithHost:@"dialog.filepicker.io"
-                                               path:@"/api/path/computer"
-                                             scheme:@"https"
-                                         HTTPMethod:@"POST"
-                                        fixtureFile:@"sucessfulResponse.json"
-                                         statusCode:200
-                                         andHeaders:@{@"Content-Type":@"text/json"}];
+    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
+                                relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"sucessfulResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         dispatch_semaphore_signal(waitSemaphore);
@@ -222,13 +224,15 @@
 
     XCTAssertTrue(data.length > 0, @"Fixture data expected");
 
-    [OHHTTPStubs stubHTTPRequestAndResponseWithHost:@"dialog.filepicker.io"
-                                               path:@"/api/path/computer"
-                                             scheme:@"https"
-                                         HTTPMethod:@"POST"
-                                        fixtureFile:@"failureResponse.json"
-                                         statusCode:200
-                                         andHeaders:@{@"Content-Type":@"text/json"}];
+    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
+                                relativeToURL:[FPConfig sharedInstance].baseURL];
+
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"failureResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         XCTFail(@"Should not succeed");

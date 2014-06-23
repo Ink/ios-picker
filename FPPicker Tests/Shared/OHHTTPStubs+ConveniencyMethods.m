@@ -8,34 +8,72 @@
 
 #import "OHHTTPStubs+ConveniencyMethods.h"
 
-static inline NSString *boolAsString(BOOL value)
-{
-    return value ? @"YES" : @"NO";
-}
-
 @implementation OHHTTPStubs (ConveniencyMethods)
 
-+ (void)stubHTTPRequestAndResponseWithHost:(NSString *)host
-                                      path:(NSString *)path
-                                    scheme:(NSString *)scheme
-                                HTTPMethod:(NSString *)HTTPMethod
-                               fixtureFile:(NSString *)fixtureFile
-                                statusCode:(int)statusCode
-                                andHeaders:(NSDictionary *)headers
++ (void)stubHTTPRequestWithNSURL:(NSURL *)url
+                   andHTTPMethod:()HTTPMethod
+                        matching:(OHHTTPMatchingMode)matchingOptions
+                 withFixtureFile:(NSString *)fixtureFile
+                      statusCode:(int)statusCode
+                      andHeaders:(NSDictionary *)headers
 {
     OHHTTPStubsTestBlock testBlock = ^BOOL (NSURLRequest *request) {
-        BOOL shouldStub = [request.URL.scheme isEqualToString:scheme] &&
-                          [request.URL.host isEqualToString:host] &&
-                          [request.URL.path isEqualToString:path] &&
-                          [request.HTTPMethod isEqualToString:HTTPMethod];
+        BOOL shouldStub = NO;
 
-        NSLog(@"(OHHTTPS DEBUG) request.URL.scheme = %@, scheme = %@", request.URL.scheme, scheme);
-        NSLog(@"(OHHTTPS DEBUG) request.URL.host = %@, host = %@", request.URL.host, host);
-        NSLog(@"(OHHTTPS DEBUG) request.URL.path = %@, path = %@", request.URL.path, path);
-        NSLog(@"(OHHTTPS DEBUG) request.HTTPMethod = %@, HTTPMethod = %@", request.HTTPMethod, HTTPMethod);
-        NSLog(@"(OHHTTPS DEBUG) host = %@, path = %@, willStub = %@", host, path, boolAsString(shouldStub));
+        if (matchingOptions & OHHTTPMatchHost)
+        {
+            shouldStub = [request.URL.host isEqualToString:url.host];
 
-        return shouldStub;
+            if (!shouldStub)
+            {
+                NSLog(@"(OHHTTPS DEBUG) Host %@ does not match %@", url.host, request.URL.host);
+
+                return NO;
+            }
+        }
+
+        if (matchingOptions & OHHTTPMatchPath)
+        {
+            shouldStub = [request.URL.path isEqualToString:url.path];
+
+            if (!shouldStub)
+            {
+                NSLog(@"(OHHTTPS DEBUG) Path %@ does not match %@", url.path, request.URL.path);
+
+                return NO;
+            }
+        }
+
+        if (matchingOptions & OHHTTPMatchQueryString)
+        {
+            shouldStub = !request.URL.query && !url.query; // if both are nil, they are also a match
+
+            if (!shouldStub)
+            {
+                shouldStub = [request.URL.query isEqualToString:url.query];
+            }
+
+            if (!shouldStub)
+            {
+                NSLog(@"(OHHTTPS DEBUG) Query string %@ does not match %@", url.query, request.URL.query);
+
+                return NO;
+            }
+        }
+
+        if (matchingOptions & OHHTTPMatchScheme)
+        {
+            shouldStub = [request.URL.scheme isEqualToString:url.scheme];
+
+            if (!shouldStub)
+            {
+                NSLog(@"(OHHTTPS DEBUG) Scheme %@ does not match %@", url.scheme, request.URL.scheme);
+
+                return NO;
+            }
+        }
+
+        return YES;
     };
 
     OHHTTPStubsResponseBlock responseBlock = ^OHHTTPStubsResponse *(NSURLRequest *request) {
