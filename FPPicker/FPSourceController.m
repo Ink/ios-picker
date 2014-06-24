@@ -604,7 +604,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
         dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
             NSInteger index = [self.contents indexOfObject:obj];
-            UIImage *thumbnail = [self.selectedObjectThumbnails objectForKey:@(index)];
+            UIImage *thumbnail = self.selectedObjectThumbnails[@(index)];
 
             FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
                 @synchronized(results)
@@ -769,7 +769,7 @@ static const NSInteger ROW_HEIGHT = 44;
         self.precacheOperations[@"imagesearch_"] = operation;
     }
 
-    [operation start];
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 }
 
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath withResult:(id)JSON
@@ -939,7 +939,7 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [operation start];
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 
     if (cellIndex != nilInteger)
     {
@@ -999,7 +999,8 @@ static const NSInteger ROW_HEIGHT = 44;
     operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
-    [operation start];
+
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 }
 
 - (void)clearSelection
@@ -1025,7 +1026,8 @@ static const NSInteger ROW_HEIGHT = 44;
                   withThumbnail:nil];
 }
 
-- (void)objectSelectedAtIndex:(NSInteger)index withThumbnail:(UIImage *)thumbnail
+- (void)objectSelectedAtIndex:(NSInteger)index
+                withThumbnail:(UIImage *)thumbnail
 {
     NSDictionary *obj = self.contents[index];
 
@@ -1167,11 +1169,14 @@ static const NSInteger ROW_HEIGHT = 44;
     });
 }
 
-- (void)fetchObject:(NSDictionary *)obj withThumbnail:(UIImage *)thumbnail
+- (void)fetchObject:(NSDictionary *)obj
+      withThumbnail:(UIImage *)thumbnail
             success:(FPFetchObjectSuccessBlock)success
             failure:(FPFetchObjectFailureBlock)failure
            progress:(FPFetchObjectProgressBlock)progress
 {
+    NSLog(@"Selected Contents: %@", obj);
+
     dispatch_async(dispatch_get_main_queue(), ^{
         NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionary];
 
@@ -1182,11 +1187,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
         [self.fpdelegate FPSourceController:self
                        didPickMediaWithInfo:mediaInfo];
-    });
 
-    NSLog(@"Selected Contents: %@", obj);
-
-    dispatch_async(dispatch_get_main_queue(), ^{
         self.view.userInteractionEnabled = NO;
     });
 
@@ -1230,13 +1231,10 @@ static const NSInteger ROW_HEIGHT = 44;
                                           withFormat:@"fpurl"
                                          cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
-    //NSLog(@"request %@", request);
-
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
         NSLog(@"result: %@", responseObject);
 
-        //NSLog(@"Headers: %@", headers);
         NSDictionary *info = @{
             @"FPPickerControllerRemoteURL":responseObject[@"url"],
             @"FPPickerControllerFilename":responseObject[@"filename"],
@@ -1266,7 +1264,7 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }];
 
-    [operation start];
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 }
 
 - (void)getObjectInfoAndData:(NSDictionary *)obj
@@ -1283,6 +1281,7 @@ static const NSInteger ROW_HEIGHT = 44;
     NSURL *tempURL = [NSURL fileURLWithPath:tempPath
                                 isDirectory:NO];
 
+
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
         NSData *file = [[NSData alloc] initWithContentsOfFile:tempPath];
@@ -1296,29 +1295,22 @@ static const NSInteger ROW_HEIGHT = 44;
             mimetype = [mimetype componentsSeparatedByString:@";"][0];
         }
 
-        UIImage *fileImage;
-
-        if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
-        {
-            fileImage = [UIImage imageWithData:file];
-        }
-
         NSString *UTI = [FPUtils utiForMimetype:mimetype];
         NSMutableDictionary *info;
 
         info = [NSMutableDictionary dictionaryWithDictionary:@{
-                    @"FPPickerControllerRemoteURL":[headers valueForKey:@"X-Data-Url"],
-                    @"FPPickerControllerFilename":[headers valueForKey:@"X-File-Name"],
+                    @"FPPickerControllerRemoteURL":headers[@"X-Data-Url"],
+                    @"FPPickerControllerFilename":headers[@"X-File-Name"],
                     @"FPPickerControllerMediaURL":tempURL,
                     @"FPPickerControllerMediaType":UTI
                 }];
 
-        if (fileImage)
+        if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
         {
-            info[@"FPPickerControllerOriginalImage"] = fileImage;
+            info[@"FPPickerControllerOriginalImage"] = [UIImage imageWithData:file];
         }
 
-        if ([headers valueForKey:@"X-Data-Key"])
+        if (headers[@"X-Data-Key"])
         {
             info[@"FPPickerControllerKey"] = headers[@"X-Data-Key"];
         }
@@ -1351,7 +1343,7 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }];
 
-    [operation start];
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 }
 
 - (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
@@ -1484,7 +1476,7 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [operation start];
+    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
 }
 
 - (CGRect)getViewBounds
