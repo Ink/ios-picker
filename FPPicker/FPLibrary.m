@@ -151,17 +151,7 @@
         filedata = UIImageJPEGRepresentation(image, 0.6);
     }
 
-    if ([representation respondsToSelector:@selector(filename)])
-    {
-        filename = representation.filename;
-    }
-    else
-    {
-        CFStringRef extension = UTTypeCopyPreferredTagWithClass(utiToConvert,
-                                                                kUTTagClassFilenameExtension);
-
-        filename = [NSString stringWithFormat:@"file.%@", CFBridgingRelease(extension)];
-    }
+    filename = representation.filename;
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
