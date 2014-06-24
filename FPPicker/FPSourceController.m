@@ -1173,9 +1173,12 @@ static const NSInteger ROW_HEIGHT = 44;
            progress:(FPFetchObjectProgressBlock)progress
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *mediaInfo = @{
-            @"FPPickerControllerThumbnailImage":thumbnail
-        };
+        NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionary];
+
+        if (thumbnail)
+        {
+            mediaInfo[@"FPPickerControllerThumbnailImage"] = thumbnail;
+        }
 
         [self.fpdelegate FPSourceController:self
                        didPickMediaWithInfo:mediaInfo];
