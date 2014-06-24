@@ -7,6 +7,7 @@
 //
 
 @class UIImage;
+@class ALAssetRepresentation;
 
 @interface FPUtils : NSObject
 
