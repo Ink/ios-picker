@@ -167,7 +167,7 @@
     }
 
 
-    uint8_t *bufferChunk = malloc(sizeof(uint8_t) * fpMaxChunkSize);
+    uint8_t *bufferChunk = malloc(sizeof(uint8_t) * fpMaxLocalChunkCopySize);
 
     if (!bufferChunk)
     {
@@ -178,7 +178,7 @@
         return NO;
     }
 
-    int chunksNeeded = (int)ceilf(representation.size / (float)fpMaxChunkSize);
+    int chunksNeeded = (int)ceilf(representation.size / (float)fpMaxLocalChunkCopySize);
 
     size_t actualBytesRead;
     size_t actualBytesWritten;
@@ -188,7 +188,7 @@
     {
         actualBytesRead = [representation getBytes:bufferChunk
                                         fromOffset:offset
-                                            length:fpMaxChunkSize
+                                            length:fpMaxLocalChunkCopySize
                                              error:&error];
 
         if (error)

@@ -89,7 +89,7 @@
 
     @notes
 
-    - Chunk size equals to fpMaxChunkSize (~256kb)
+    - Chunk size equals to fpMaxLocalChunkCopySize (~2mb)
     - By ALAssetRepresentation we mean the "best" or original size representation of an asset.
 
     @returns YES on success; NO otherwise

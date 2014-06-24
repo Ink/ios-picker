@@ -33,6 +33,7 @@
 #define fpMaxChunkSize              262144 //.25mb
 #define fpNumRetries                10
 
+#define fpMaxLocalChunkCopySize     2097152 //2.0mb
 
 @interface FPConfig : NSObject
 
