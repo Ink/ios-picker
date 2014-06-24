@@ -951,7 +951,9 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     NSLog(@"Next page: %@", self.nextPage);
 
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
+    NSString *nextPageString = [NSString stringWithFormat:@"%@", self.nextPage];
+
+    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:nextPageString]];
 
     NSLog(@"nextpageparm: %@", nextPageParam);
 
