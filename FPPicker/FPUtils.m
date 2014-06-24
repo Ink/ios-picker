@@ -7,8 +7,10 @@
 //
 
 #import "FPUtils.h"
+#import "FPConfig.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation FPUtils
 
@@ -100,6 +102,15 @@
     return randomString;
 }
 
++ (NSURL *)genRandTemporaryURLWithFileLength:(int)length
+{
+    NSString *rndString = [FPUtils genRandStringLength:length];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:rndString];
+
+    return [NSURL fileURLWithPath:tempPath
+                      isDirectory:NO];
+}
+
 + (NSString *)JSONEncodeObject:(id)object
                          error:(NSError **)error
 {
@@ -136,6 +147,71 @@
 
     return [FPUtils JSONEncodeObject:sessionObject
                                error:&error];
+}
+
++ (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
+                   intoLocalURL:(NSURL *)localURL
+{
+    NSError *error;
+    const char *path;
+    FILE *fd;
+
+    path = localURL.path.UTF8String;
+    fd = fopen(path, "w");
+
+    if (!fd)
+    {
+        NSLog(@"Asset copy failed: Could not open file at path %s for writing.", path);
+
+        return NO;
+    }
+
+
+    uint8_t *bufferChunk = malloc(sizeof(uint8_t) * fpMaxChunkSize);
+
+    if (!bufferChunk)
+    {
+        NSLog(@"Asset copy failed: Buffer could not be allocated");
+
+        fclose(fd);
+
+        return NO;
+    }
+
+    int chunksNeeded = (int)ceilf(representation.size / (float)fpMaxChunkSize);
+
+    size_t actualBytesRead;
+    size_t actualBytesWritten;
+    size_t offset = 0;
+
+    for (int c = 0; c < chunksNeeded; c++)
+    {
+        actualBytesRead = [representation getBytes:bufferChunk
+                                        fromOffset:offset
+                                            length:fpMaxChunkSize
+                                             error:&error];
+
+        if (error)
+        {
+            NSLog(@"Asset copy failed: An error ocurred when reading bytes at offset %lu from %@: %@",
+                  offset,
+                  representation,
+                  error);
+
+            fclose(fd);
+
+            return NO;
+        }
+
+        offset += actualBytesRead;
+
+        actualBytesWritten = fwrite(bufferChunk, 1, actualBytesRead, fd);
+    }
+
+    free(bufferChunk);
+    fclose(fd);
+
+    return YES;
 }
 
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image

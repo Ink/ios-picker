@@ -62,6 +62,13 @@
 + (NSString *)genRandStringLength:(int)len;
 
 /**
+   Returns a temporary URL with a random file name of a given length.
+
+   @returns A randomly generated temporary NSURL
+ */
++ (NSURL *)genRandTemporaryURLWithFileLength:(int)length;
+
+/**
    Takes an object and returns a JSON encoded NSString.
 
    @returns A NSString
@@ -75,6 +82,19 @@
    @returns A NSString
  */
 + (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes;
+
+/**
+    Performs a copy in chunks from a given ALAssetRepresentation into a local URL.
+
+    @notes
+
+    - Chunk size equals to fpMaxChunkSize (~256kb)
+    - By ALAssetRepresentation we mean the "best" or original size representation of an asset.
+
+    @returns YES on success; NO otherwise
+ */
++ (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
+                   intoLocalURL:(NSURL *)localURL;
 
 /**
    Returns an image with corrected rotation.
