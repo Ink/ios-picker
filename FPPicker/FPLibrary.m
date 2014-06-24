@@ -122,6 +122,18 @@
     }
     else
     {
+        /*
+            NOTE: This is another area that needs focus.
+
+            We are compressing a full resolution JPEG image that is loaded fully into memory.
+            This can easily cause memory pressure on the device.
+
+            Alternatives:
+
+            1. Just copy it (as we currently do with PNG and video)
+            2. Compressing an smaller representation of the image.
+         */
+
         NSLog(@"Compressing and copying JPEG");
 
         UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
