@@ -559,7 +559,10 @@
 
             if (actualBytesRead > 0)
             {
-                dataSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
+                if (actualBytesRead < fpMaxChunkSize)
+                {
+                    dataSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
+                }
 
                 [formData appendPartWithFileData:dataSlice
                                             name:@"fileUpload"
