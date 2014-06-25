@@ -95,7 +95,7 @@
 
     if (fpAPIKEY == NULL || [fpAPIKEY isEqualToString:@""] || [fpAPIKEY isEqualToString:@"SET_FILEPICKER.IO_APIKEY_HERE"])
     {
-        NSException* apikeyException = [NSException
+        NSException *apikeyException = [NSException
                                         exceptionWithName:@"Filepicker Configuration Error"
                                                    reason:@"APIKEY not set. You can get one at https://www.filepicker.io and insert it into your project's info.plist as 'Filepicker API Key'"
                                                  userInfo:nil];
@@ -142,10 +142,9 @@
     /* resizing the thumbnail */
 
     UIImage *originalImage, *editedImage, *imageToSave;
-    editedImage = (UIImage *) [info objectForKey:
-                               UIImagePickerControllerEditedImage];
-    originalImage = (UIImage *) [info objectForKey:
-                                 UIImagePickerControllerOriginalImage];
+
+    editedImage = (UIImage *)info[UIImagePickerControllerEditedImage];
+    originalImage = (UIImage *)info[UIImagePickerControllerOriginalImage];
 
     if (editedImage)
     {
@@ -165,7 +164,7 @@
 
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
     [imageToSave drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
-    UIImage* thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIImage *thumbImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
 
     if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
@@ -190,7 +189,7 @@
         // nb: The camera roll is handled like a normal source as it is in FPLocalController
         NSLog(@"Picked something from local camera: %@ %@", info, kUTTypeImage);
 
-        if ([[info objectForKey:@"UIImagePickerControllerMediaType"] isEqual:(NSString*) kUTTypeImage])
+        if ([info[@"UIImagePickerControllerMediaType"] isEqual:(NSString *)kUTTypeImage])
         {
             NSString *dataType = @"image/*";
 
@@ -264,7 +263,7 @@
         }
         else if ([info[@"UIImagePickerControllerMediaType"] isEqual:(NSString *)kUTTypeMovie])
         {
-            NSURL *url = [info objectForKey:@"UIImagePickerControllerMediaURL"];
+            NSURL *url = info[@"UIImagePickerControllerMediaURL"];
 
             FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                                    NSURL *localurl) {
@@ -326,7 +325,7 @@
         {
             dispatch_async(dispatch_get_main_queue(), ^{
                 NSLog(@"Error. We couldn't handle this file %@", info);
-                NSLog(@"Type: %@", [info objectForKey:@"UIImagePickerControllerMediaType"]);
+                NSLog(@"Type: %@", info[@"UIImagePickerControllerMediaType"]);
 
                 [FPMBProgressHUD hideHUDForView:self.view
                                        animated:YES];
