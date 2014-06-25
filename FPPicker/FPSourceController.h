@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSString *nextPage;
 @property (nonatomic, strong) UIActivityIndicatorView *nextPageSpinner;
 
-@property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSMutableDictionary *precacheOperations;
 
 - (void)fpLoadContents:(NSString *)loadpath;

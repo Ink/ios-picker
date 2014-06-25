@@ -20,7 +20,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 @interface FPLocalController : FPTableWithUploadButtonViewController
 
 @property (nonatomic, strong) NSArray *photos;
-@property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, retain) ALAssetsGroup *assetGroup;
 
 @end
