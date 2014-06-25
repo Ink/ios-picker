@@ -225,6 +225,25 @@
     return YES;
 }
 
++ (size_t)fileSizeForLocalURL:(NSURL *)url
+{
+    NSNumber *fileSizeValue;
+    NSError *fileSizeError;
+
+    [url getResourceValue:&fileSizeValue
+                   forKey:NSURLFileSizeKey
+                    error:&fileSizeError];
+
+    if (fileSizeError)
+    {
+        NSLog(@"Error when getting filesize of %@: %@",
+              url,
+              fileSizeError);
+    }
+
+    return fileSizeValue.unsignedLongValue;
+}
+
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
     /*

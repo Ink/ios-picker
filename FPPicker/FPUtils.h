@@ -98,6 +98,13 @@
                    intoLocalURL:(NSURL *)localURL;
 
 /**
+   Returns the file size of a file represented by a given local URL
+
+   @returns The file size
+ */
++ (size_t)fileSizeForLocalURL:(NSURL *)url;
+
+/**
    Returns an image with corrected rotation.
 
    @returns An UIImage

@@ -313,7 +313,7 @@
         return;
     }
 
-    NSUInteger fileSize = [[self fileSizeForURL:localURL] unsignedIntegerValue];
+    size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
 
     if (fileSize <= fpMaxChunkSize)
     {
@@ -410,13 +410,13 @@
         filename = @"filename";
     }
 
-    NSNumber *fileSizeValue = [self fileSizeForURL:localURL];
+    size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
 
     NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
                                                         andMimetypes:nil];
     NSDictionary *params = @{
         @"name":filename,
-        @"filesize":fileSizeValue,
+        @"filesize":@(fileSize),
         @"js_session":js_sessionString
     };
 
@@ -472,7 +472,7 @@
     __block void (^tryOperation)();
     __block int numberOfTries;
 
-    size_t fileSize = [[self fileSizeForURL:localURL] unsignedLongValue];
+    size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
     int totalChunks = (int)ceilf(fileSize / (float)fpMaxChunkSize);
 
     NSString *uploadID = JSON[@"data"][@"id"];
@@ -634,23 +634,6 @@
 
         tryOperation();
     }
-}
-
-+ (NSNumber *)fileSizeForURL:(NSURL *)url
-{
-    NSNumber *fileSizeValue = nil;
-    NSError *fileSizeError = nil;
-
-    [url getResourceValue:&fileSizeValue
-                   forKey:NSURLFileSizeKey
-                    error:&fileSizeError];
-
-    if (fileSizeError)
-    {
-        NSLog(@"Error when getting filesize of %@: %@", url, fileSizeError);
-    }
-
-    return fileSizeValue;
 }
 
 @end
