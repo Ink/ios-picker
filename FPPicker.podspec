@@ -1,17 +1,23 @@
 # TODO before release:
 #
-# - Update screenshots URL to point to the master branch
+# - Update screenshot URL to point to the master branch
 # - Point source to tag 'v3.0.0'
 
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
   s.version      = '3.0.0'
-  s.summary      = 'FPPicker.framework is the Filepicker.io iOS framework.'
+  s.summary      = 'SDK to access Filepicker.io API'
+
+  s.description  = <<-DESC
+    Filepicker helps developers connect with all the data sources they might have.
+    This is an SDK that lets developers easily add a bunch of cloud file handling features without coding.
+  DESC
+
   s.homepage     = 'https://github.com/Ink/ios-picker/'
-  s.screenshots  = 'https://github.com/Filepicker/ios/raw/cleanup-for-ios6/Docs/filepicker_ios.png'
+  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/cleanup-for-ios6/Docs/filepicker_ios.png'
   s.license      = { :type => 'MIT', :file => 'license.txt' }
 
-  s.author       = { 'Liyan Chang' => 'liyan@filepicker.io' }
+  s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
