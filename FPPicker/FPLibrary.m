@@ -472,8 +472,8 @@
     __block void (^tryOperation)();
     __block int numberOfTries;
 
-    NSUInteger fileSize = [[self fileSizeForURL:localURL] unsignedIntegerValue];
-    NSUInteger totalChunks = ceil(1.0 * fileSize / fpMaxChunkSize);
+    size_t fileSize = [[self fileSizeForURL:localURL] unsignedLongValue];
+    int totalChunks = (int)ceilf(fileSize / (float)fpMaxChunkSize);
 
     NSString *uploadID = JSON[@"data"][@"id"];
 
@@ -481,7 +481,7 @@
                                                         andMimetypes:nil];
 
     NSLog(@"Response: %@", JSON);
-    NSLog(@"Filesize: %ld chunks: %ld", (long)fileSize, (long)totalChunks);
+    NSLog(@"Filesize: %lu chunks: %d", (unsigned long)fileSize, (int)totalChunks);
 
 
     void (^endMultipart)() = ^() {
