@@ -124,12 +124,12 @@ static const NSInteger ROW_HEIGHT = 44;
     CGRect bounds = [self getViewBounds];
     self.thumbSize = fpRemoteThumbSize;
     self.numPerRow = (int)bounds.size.width / self.thumbSize;
-    self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+    self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
 
     if (self.padding < 4)
     {
         self.numPerRow -= 1;
-        self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+        self.padding = (int)((bounds.size.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
     }
 
     [super viewWillAppear:animated];
@@ -209,9 +209,11 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         if ([self.viewType isEqualToString:@"thumbnails"])
         {
-            NSLog(@"Numofrows: %d %lu", (int)ceil(self.contents.count / (self.numPerRow * 1.0)), (unsigned long)self.contents.count);
+            NSLog(@"Numofrows: %d %lu",
+                  (int)ceilf(1.0f * self.contents.count / self.numPerRow),
+                  (unsigned long)self.contents.count);
 
-            return (int)ceil(self.contents.count / (self.numPerRow * 1.0));
+            return (int)ceilf(1.0f * self.contents.count / self.numPerRow);
         }
         else
         {
@@ -1258,9 +1260,9 @@ static const NSInteger ROW_HEIGHT = 44;
     [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
                                            long long totalBytesRead,
                                            long long totalBytesExpectedToRead) {
-        if (totalBytesExpectedToRead > 0)
+        if (progress && totalBytesExpectedToRead > 0)
         {
-            progress(((float)totalBytesRead) / totalBytesExpectedToRead);
+            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
         }
     }];
 
@@ -1337,9 +1339,9 @@ static const NSInteger ROW_HEIGHT = 44;
                                            long long totalBytesExpectedToRead) {
         NSLog(@"Get %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
 
-        if (totalBytesExpectedToRead > 0)
+        if (progress && totalBytesExpectedToRead > 0)
         {
-            progress(((float)totalBytesRead) / totalBytesExpectedToRead);
+            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
         }
     }];
 

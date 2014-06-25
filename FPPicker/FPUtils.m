@@ -178,7 +178,7 @@
         return NO;
     }
 
-    int chunksNeeded = (int)ceilf(representation.size / (float)fpMaxLocalChunkCopySize);
+    int chunksNeeded = (int)ceilf(1.0f * representation.size / fpMaxLocalChunkCopySize);
 
     size_t actualBytesRead;
     size_t actualBytesWritten;

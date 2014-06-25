@@ -93,12 +93,12 @@
     CGRect bounds = [self getViewBounds];
     self.thumbSize = fpLocalThumbSize;
     self.numPerRow = (int)CGRectGetWidth(bounds) / self.thumbSize;
-    self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+    self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
 
     if (self.padding < 4)
     {
         self.numPerRow -= 1;
-        self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / ((float)self.numPerRow + 1));
+        self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
     }
 
     NSLog(@"numperro; %d", self.numPerRow);
@@ -186,7 +186,7 @@
 - (NSInteger)   tableView:(UITableView *)tableView
     numberOfRowsInSection:(NSInteger)section
 {
-    return (int)ceil(self.photos.count / (self.numPerRow * 1.0));
+    return (int)ceilf(1.0f * self.photos.count / self.numPerRow);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

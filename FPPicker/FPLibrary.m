@@ -388,9 +388,9 @@
     [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
                                          long long totalBytesWritten,
                                          long long totalBytesExpectedToWrite) {
-        if (totalBytesExpectedToWrite > 0)
+        if (progress && totalBytesExpectedToWrite > 0)
         {
-            progress(((float)totalBytesWritten) / totalBytesExpectedToWrite);
+            progress(1.0f * totalBytesWritten / totalBytesExpectedToWrite);
         }
     }];
 }
@@ -473,7 +473,7 @@
     __block int numberOfTries;
 
     size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
-    int totalChunks = (int)ceilf(fileSize / (float)fpMaxChunkSize);
+    int totalChunks = (int)ceilf(1.0f * fileSize / fpMaxChunkSize);
 
     NSString *uploadID = JSON[@"data"][@"id"];
 
@@ -577,11 +577,11 @@
 
         AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                                  id responseObject) {
-            float overallProgress = [progressTracker setProgress:1.f
-                                                          forKey:@(i)];
-
             if (progress)
             {
+                float overallProgress = [progressTracker setProgress:1.f
+                                                              forKey:@(i)];
+
                 progress(overallProgress);
             }
 
@@ -625,9 +625,9 @@
             [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
                                                  long long totalBytesWritten,
                                                  long long totalBytesExpectedToWrite) {
-                if (totalBytesExpectedToWrite > 0)
+                if (progress && totalBytesExpectedToWrite > 0)
                 {
-                    float overallProgress = [progressTracker setProgress:((float)totalBytesWritten) / totalBytesExpectedToWrite
+                    float overallProgress = [progressTracker setProgress:(1.0f * totalBytesWritten) / totalBytesExpectedToWrite
                                                                   forKey:@(i)];
 
                     progress(overallProgress);
