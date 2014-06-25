@@ -50,6 +50,8 @@
 		450B5A641949EFC1007AF44A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A631949EFC1007AF44A /* ViewController.m */; };
 		450B5A661949EFC1007AF44A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 450B5A651949EFC1007AF44A /* Images.xcassets */; };
 		450B5A9F1949F325007AF44A /* FPExampleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 450B5A9E1949F325007AF44A /* FPExampleTest.m */; };
+		451051E1195B300E00F877B3 /* FPMultipartUpload.h in Headers */ = {isa = PBXBuildFile; fileRef = 451051DF195B300E00F877B3 /* FPMultipartUpload.h */; };
+		451051E2195B300E00F877B3 /* FPMultipartUpload.m in Sources */ = {isa = PBXBuildFile; fileRef = 451051E0195B300E00F877B3 /* FPMultipartUpload.m */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
 		455C6646194B82DE005711DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C6645194B82DE005711DE /* UIKit.framework */; };
@@ -271,6 +273,8 @@
 		450B5A631949EFC1007AF44A /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		450B5A651949EFC1007AF44A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		450B5A9E1949F325007AF44A /* FPExampleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPExampleTest.m; sourceTree = "<group>"; };
+		451051DF195B300E00F877B3 /* FPMultipartUpload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPMultipartUpload.h; sourceTree = "<group>"; };
+		451051E0195B300E00F877B3 /* FPMultipartUpload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPMultipartUpload.m; sourceTree = "<group>"; };
 		4512050F194B089C0097B08E /* FPPicker_Resources-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FPPicker_Resources-Info.plist"; sourceTree = "<group>"; };
 		45120510194B089C0097B08E /* FPPicker_Resources-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker_Resources-Prefix.pch"; sourceTree = "<group>"; };
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
@@ -808,14 +812,16 @@
 				45ADBF6F1951A44000EB2215 /* FPAPIClient.m */,
 				45920DDE194A0D8A007003C1 /* FPConfig.h */,
 				45920DDF194A0D8A007003C1 /* FPConfig.m */,
-				83A0314C15A89E040085E186 /* FPPicker.h */,
-				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
-				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
 				83A0314615A89E040085E186 /* FPConstants.h */,
 				83A0314715A89E040085E186 /* FPConstants.m */,
-				45920DDD194A0D2E007003C1 /* FPMacros.h */,
+				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
+				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
 				83A0314815A89E040085E186 /* FPLibrary.h */,
 				83A0314915A89E040085E186 /* FPLibrary.m */,
+				45920DDD194A0D2E007003C1 /* FPMacros.h */,
+				451051DF195B300E00F877B3 /* FPMultipartUpload.h */,
+				451051E0195B300E00F877B3 /* FPMultipartUpload.m */,
+				83A0314C15A89E040085E186 /* FPPicker.h */,
 				83A031A415A8A4AC0085E186 /* FPSource.h */,
 				83A031A515A8A4AC0085E186 /* FPSource.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
@@ -888,6 +894,7 @@
 				83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */,
 				83A0315515A89E050085E186 /* FPAuthController.h in Headers */,
 				83A0315815A89E050085E186 /* FPConstants.h in Headers */,
+				451051E1195B300E00F877B3 /* FPMultipartUpload.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
 				453096E6194738A6001D970C /* FPUtils.h in Headers */,
 				0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */,
@@ -1243,6 +1250,7 @@
 				45ADBF671951A3C600EB2215 /* UIRefreshControl+AFNetworking.m in Sources */,
 				83A0315615A89E050085E186 /* FPAuthController.m in Sources */,
 				83A0315915A89E050085E186 /* FPConstants.m in Sources */,
+				451051E2195B300E00F877B3 /* FPMultipartUpload.m in Sources */,
 				45ADBF6B1951A3C600EB2215 /* UIWebView+AFNetworking.m in Sources */,
 				453096E7194738A6001D970C /* FPUtils.m in Sources */,
 				45ADBF631951A3C600EB2215 /* UIProgressView+AFNetworking.m in Sources */,
