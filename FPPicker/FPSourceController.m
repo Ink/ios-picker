@@ -580,7 +580,6 @@ static const NSInteger ROW_HEIGHT = 44;
 
     hud.mode = FPMBProgressHUDModeDeterminate;
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
 
     // TODO: What should we do on failures? Right now we just press forward, but
@@ -604,7 +603,7 @@ static const NSInteger ROW_HEIGHT = 44;
         // We push all the uploads onto background threads. Now we have to be careful
         // as we're working in multi-threaded environment.
 
-        dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
             NSInteger index = [self.contents indexOfObject:obj];
             UIImage *thumbnail = self.selectedObjectThumbnails[@(index)];
 

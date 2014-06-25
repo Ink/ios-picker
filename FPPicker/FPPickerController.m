@@ -183,8 +183,7 @@
     hud.labelText = @"Uploading...";
     hud.mode = FPMBProgressHUDModeDeterminate;
 
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         // Picked Something From the Local Camera
         // nb: The camera roll is handled like a normal source as it is in FPLocalController
         NSLog(@"Picked something from local camera: %@ %@", info, kUTTypeImage);
