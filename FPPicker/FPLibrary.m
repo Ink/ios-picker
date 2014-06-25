@@ -525,10 +525,9 @@
     };
 
 
+    __block int sentChunks = 0;
     FPProgressTracker* progressTracker = [[FPProgressTracker alloc] initWithObjectCount:totalChunks];
     NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
-    __block int sentChunks = 0;
-
     NSInputStream *inputStream = [NSInputStream inputStreamWithURL:localURL];
 
     [inputStream open];
