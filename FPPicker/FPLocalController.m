@@ -554,21 +554,6 @@
     });
 }
 
-- (NSString *)getFilenameForAssetRepresentation:(ALAssetRepresentation *)representation
-{
-    if ([representation respondsToSelector:@selector(filename)])
-    {
-        return representation.filename;
-    }
-    else
-    {
-        CFStringRef extension = UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)representation.UTI,
-                                                                kUTTagClassFilenameExtension);
-
-        return [NSString stringWithFormat:@"file.%@", CFBridgingRelease(extension)];
-    }
-}
-
 - (void)uploadAsset:(ALAsset *)asset
             success:(FPLocalUploadAssetSuccessBlock)success
             failure:(FPLocalUploadAssetFailureBlock)failure
@@ -641,7 +626,7 @@
 
     NSLog(@"uti: %@", representation.UTI);
 
-    NSString *filename = [self getFilenameForAssetRepresentation:representation];
+    NSString *filename = representation.filename;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localurl) {
@@ -686,7 +671,7 @@
                 progress:(void (^)(float progress))progress
 {
     ALAssetRepresentation *representation = [asset defaultRepresentation];
-    NSString *filename = [self getFilenameForAssetRepresentation:representation];
+    NSString *filename = representation.filename;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localurl) {
