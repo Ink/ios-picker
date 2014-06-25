@@ -552,7 +552,7 @@
             NSData *dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
                                                      length:fpMaxChunkSize
                                                freeWhenDone:YES];
-            NSInteger actualBytesRead;
+            size_t actualBytesRead;
 
             actualBytesRead = [inputStream read:chunkBuffer
                                       maxLength:fpMaxChunkSize];
@@ -571,7 +571,7 @@
             }
             else
             {
-                NSLog(@"Tried to read from input stream but received: %ld", (long)actualBytesRead);
+                NSLog(@"Tried to read from input stream but received: %lu", (unsigned long)actualBytesRead);
             }
         };
 
