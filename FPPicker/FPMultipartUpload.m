@@ -161,22 +161,22 @@
         }
         else
         {
-            NSString *errorString = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
-                                     (unsigned long)actualBytesRead];
+            NSString *localizedErrorDescription = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
+                                                   (unsigned long)actualBytesRead];
+
+            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:localizedErrorDescription};
+
+            NSError *error = [NSError errorWithDomain:@"io.filepicker"
+                                                 code:200
+                                             userInfo:userInfo];
 
             if (self.failureBlock)
             {
-                NSDictionary *userInfo = @{NSLocalizedDescriptionKey:errorString};
-
-                NSError *error = [NSError errorWithDomain:@"io.filepicker"
-                                                     code:200
-                                                 userInfo:userInfo];
-
                 self.failureBlock(error, nil);
             }
             else
             {
-                NSAssert(true, errorString);
+                NSAssert(true, error.localizedDescription);
             }
         }
 
