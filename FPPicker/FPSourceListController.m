@@ -300,7 +300,7 @@
     self.sourceNames = nil;
     self.sources = nil;
     self.fpdelegate = nil;
-    self.imgdelagate = nil;
+    self.imageDelegate = nil;
     self.dataTypes = nil;
 
     [super viewDidUnload];
@@ -399,7 +399,7 @@
         {
             UIImagePickerController *imgPicker = [UIImagePickerController new];
 
-            imgPicker.delegate = self.imgdelagate;
+            imgPicker.delegate = self.imageDelegate;
             imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
 
             if ([self.fpdelegate isKindOfClass:[FPPickerController class]])

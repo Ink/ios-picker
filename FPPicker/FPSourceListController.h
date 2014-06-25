@@ -16,7 +16,7 @@
 
 @property (nonatomic, strong) NSMutableDictionary *sources;
 @property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
-@property (nonatomic, assign) id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> imgdelagate;
+@property (nonatomic, weak) id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> imageDelegate;
 
 @property (nonatomic, strong) NSArray *dataTypes;
 @property (nonatomic) BOOL selectMultiple;

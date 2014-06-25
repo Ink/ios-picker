@@ -104,7 +104,7 @@
 
     FPSourceListController *fpSourceListController = [FPSourceListController alloc];
     fpSourceListController.fpdelegate = self;
-    fpSourceListController.imgdelagate = self;
+    fpSourceListController.imageDelegate = self;
     fpSourceListController.sourceNames = _sourceNames;
     fpSourceListController.dataTypes = _dataTypes;
     fpSourceListController.selectMultiple = _selectMultiple;
