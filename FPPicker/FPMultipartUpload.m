@@ -84,9 +84,16 @@
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        if (self.failureBlock && retries <= 1)
+        if (retries <= 1)
         {
-            self.failureBlock(error, nil);
+            if (self.failureBlock)
+            {
+                self.failureBlock(error, nil);
+            }
+            else
+            {
+                NSAssert(true, error.description);
+            }
         }
         else
         {
@@ -154,14 +161,23 @@
         }
         else
         {
-            NSLog(@"Tried to read from input stream but received: %lu",
-                  (unsigned long)actualBytesRead);
+            NSString *errorString = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
+                                     (unsigned long)actualBytesRead];
 
-            NSError *error = [NSError errorWithDomain:@"io.filepicker"
-                                                 code:200
-                                             userInfo:nil];
+            if (self.failureBlock)
+            {
+                NSDictionary *userInfo = @{NSLocalizedDescriptionKey:errorString};
 
-            self.failureBlock(error, nil);
+                NSError *error = [NSError errorWithDomain:@"io.filepicker"
+                                                     code:200
+                                                 userInfo:userInfo];
+
+                self.failureBlock(error, nil);
+            }
+            else
+            {
+                NSAssert(true, errorString);
+            }
         }
 
         [self uploadChunkWithDataSlice:dataSlice
@@ -169,40 +185,6 @@
                                  index:i
                                  retry:fpNumRetries];
     }
-}
-
-- (void)endMultipartUploadWithRetries:(int)retries
-{
-    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             id responseObject) {
-        if (self.successBlock)
-        {
-            self.successBlock(responseObject);
-        }
-    };
-
-    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             NSError *error) {
-        if (self.failureBlock && retries <= 1)
-        {
-            self.failureBlock(error, nil);
-        }
-        else
-        {
-            [self endMultipartUploadWithRetries:retries - 1];
-        }
-    };
-
-    NSDictionary *params = @{
-        @"id":self.uploadID,
-        @"total":@(self.totalChunks),
-        @"js_session":self.js_sessionString
-    };
-
-    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
-                          parameters:params
-                             success:successOperationBlock
-                             failure:failureOperationBlock];
 }
 
 - (void)uploadChunkWithDataSlice:(NSData *)dataSlice
@@ -240,9 +222,16 @@
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        if (self.failureBlock && retryTimes <= 1)
+        if (retryTimes <= 1)
         {
-            self.failureBlock(error, nil);
+            if (self.failureBlock)
+            {
+                self.failureBlock(error, nil);
+            }
+            else
+            {
+                NSAssert(true, error.description);
+            }
         }
         else
         {
@@ -270,6 +259,47 @@
             self.progressBlock(overallProgress);
         }
     }];
+}
+
+- (void)endMultipartUploadWithRetries:(int)retries
+{
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        if (self.successBlock)
+        {
+            self.successBlock(responseObject);
+        }
+    };
+
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        if (retries <= 1)
+        {
+            if (self.failureBlock)
+            {
+                self.failureBlock(error, nil);
+            }
+            else
+            {
+                NSAssert(true, error.description);
+            }
+        }
+        else
+        {
+            [self endMultipartUploadWithRetries:retries - 1];
+        }
+    };
+
+    NSDictionary *params = @{
+        @"id":self.uploadID,
+        @"total":@(self.totalChunks),
+        @"js_session":self.js_sessionString
+    };
+
+    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
+                          parameters:params
+                             success:successOperationBlock
+                             failure:failureOperationBlock];
 }
 
 @end
