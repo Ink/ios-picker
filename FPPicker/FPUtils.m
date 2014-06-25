@@ -182,6 +182,7 @@
 
     size_t actualBytesRead;
     size_t actualBytesWritten;
+    size_t totalBytesWritten = 0;
     size_t offset = 0;
 
     for (int c = 0; c < chunksNeeded; c++)
@@ -206,10 +207,20 @@
         offset += actualBytesRead;
 
         actualBytesWritten = fwrite(bufferChunk, 1, actualBytesRead, fd);
+        totalBytesWritten += actualBytesWritten;
     }
 
     free(bufferChunk);
     fclose(fd);
+
+    if (totalBytesWritten < representation.size)
+    {
+        NSLog(@"Asset copy failed: Incomplete copy. Only %lu out of %lld bytes were copied",
+              totalBytesWritten,
+              representation.size);
+
+        return NO;
+    }
 
     return YES;
 }
