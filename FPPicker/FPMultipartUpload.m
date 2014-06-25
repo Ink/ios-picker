@@ -156,6 +156,11 @@
         {
             if (actualBytesRead < fpMaxChunkSize)
             {
+                /*
+                    NOTE: We assume that this is the last chunk,
+                    so we simply truncate the buffer.
+                 */
+
                 dataSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
             }
         }
