@@ -28,7 +28,8 @@ Pod::Spec.new do |s|
   s.platforms    = { :ios => '6.0' }
 
   s.prefix_header_file  = 'FPPicker/FPPicker-Prefix.pch'
-  s.public_header_files = 'FPPicker/*.h'
+
+  s.public_header_files = 'FPPicker/FPConstants.h', 'FPPicker/FPPicker.h', 'FPPicker/FPPickerController.h', 'FPPicker/FPSaveController.h', 'FPPicker/FPExternalHeaders.h'
   s.source_files = 'FPPicker/*.{h,m}'
 
   s.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'Foundation', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
