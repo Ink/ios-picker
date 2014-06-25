@@ -79,8 +79,7 @@
 
         self.uploadID = responseObject[@"data"][@"id"];
 
-        [self processMultipartWithUploadID:self.uploadID
-                                     retry:fpNumRetries];
+        [self uploadChunks];
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -117,13 +116,11 @@
                                                    andMimetypes:nil];
 }
 
-- (void)processMultipartWithUploadID:(NSString *)uploadID
-                               retry:(int)totalRetries
+- (void)uploadChunks
 {
     NSLog(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
-
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
 
     NSData *dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
@@ -141,7 +138,7 @@
         NSString *uploadPath;
 
         uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
-                      uploadID,
+                      self.uploadID,
                       i,
                       escapedSessionString];
 
@@ -167,10 +164,10 @@
             self.failureBlock(error, nil);
         }
 
-        [self uploadMultiPartChunkWithDataSlice:dataSlice
-                                     uploadPath:uploadPath
-                                          index:i
-                                          retry:fpNumRetries];
+        [self uploadChunkWithDataSlice:dataSlice
+                            uploadPath:uploadPath
+                                 index:i
+                                 retry:fpNumRetries];
     }
 }
 
@@ -208,12 +205,12 @@
                              failure:failureOperationBlock];
 }
 
-- (void)uploadMultiPartChunkWithDataSlice:(NSData *)dataSlice
-                               uploadPath:(NSString *)uploadPath
-                                    index:(int)index
-                                    retry:(int)retryTimes
+- (void)uploadChunkWithDataSlice:(NSData *)dataSlice
+                      uploadPath:(NSString *)uploadPath
+                           index:(int)index
+                           retry:(int)retryTimes
 {
-    AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {
+    AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData> formData) {
         [formData appendPartWithFileData:dataSlice
                                     name:@"fileUpload"
                                 fileName:self.filename
@@ -249,10 +246,10 @@
         }
         else
         {
-            [self uploadMultiPartChunkWithDataSlice:dataSlice
-                                         uploadPath:uploadPath
-                                              index:index
-                                              retry:retryTimes - 1];
+            [self uploadChunkWithDataSlice:dataSlice
+                                uploadPath:uploadPath
+                                     index:index
+                                     retry:retryTimes - 1];
         }
     };
 
