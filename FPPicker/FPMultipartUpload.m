@@ -142,13 +142,12 @@
                                                              NSError *error) {
         if (retries <= 1)
         {
-            if (self.failureBlock)
-            {
-                self.failureBlock(error, nil);
-            }
+            [self finishWithError:error];
         }
         else
         {
+            dispatch_semaphore_signal([self.class lock_semaphore]);
+
             [self uploadWithRetries:retries - 1];
         }
     };
@@ -244,10 +243,7 @@
                                                  code:200
                                              userInfo:userInfo];
 
-            if (self.failureBlock)
-            {
-                self.failureBlock(error, nil);
-            }
+            [self finishWithError:error];
         }
 
         [self uploadChunkWithDataSlice:dataSlice
@@ -294,10 +290,7 @@
                                                              NSError *error) {
         if (retryTimes <= 1)
         {
-            if (self.failureBlock)
-            {
-                self.failureBlock(error, nil);
-            }
+            [self finishWithError:error];
         }
         else
         {
@@ -353,10 +346,7 @@
                                                              NSError *error) {
         if (retries <= 1)
         {
-            if (self.failureBlock)
-            {
-                self.failureBlock(error, nil);
-            }
+            [self finishWithError:error];
         }
         else
         {
@@ -374,6 +364,16 @@
                           parameters:params
                              success:successOperationBlock
                              failure:failureOperationBlock];
+}
+
+- (void)finishWithError:(NSError *)error
+{
+    if (self.failureBlock)
+    {
+        self.failureBlock(error, nil);
+    }
+
+    dispatch_semaphore_signal([self.class lock_semaphore]);
 }
 
 - (void)updateProgressAtIndex:(int)index
