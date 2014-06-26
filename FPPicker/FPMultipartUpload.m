@@ -22,6 +22,7 @@
 @property (nonatomic, assign) int totalChunks;
 @property (nonatomic, assign) int sentChunks;
 @property (nonatomic, assign) size_t fileSize;
+@property (nonatomic, assign) int progressIndex;
 
 @end
 
@@ -102,6 +103,9 @@
                                                              id responseObject) {
         NSLog(@"Response: %@", responseObject);
 
+        [self updateProgressAtIndex:self.progressIndex++
+                          withValue:1.0f];
+
         self.uploadID = responseObject[@"data"][@"id"];
 
         [self uploadChunks];
@@ -136,10 +140,21 @@
 
     NSAssert(self.fileSize > 0, @"File %@ is empty", self.localURL);
 
+    self.inputStream = [NSInputStream inputStreamWithURL:self.localURL];
     self.totalChunks = (int)ceilf(1.0f * self.fileSize / fpMaxChunkSize);
     self.sentChunks = 0;
-    self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks];
-    self.inputStream = [NSInputStream inputStreamWithURL:self.localURL];
+    self.progressIndex = 0;
+
+    /*
+       Our progress tracker will measure progress of:
+
+        1. multipart start request
+        2. each chunk uploaded
+        3. multipart end request
+     */
+
+    self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks + 2];
+
     self.js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
                                                    andMimetypes:nil];
 }
@@ -223,13 +238,8 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        if (self.progressBlock)
-        {
-            float overallProgress = [self.progressTracker setProgress:1.f
-                                                               forKey:@(index)];
-
-            self.progressBlock(overallProgress);
-        }
+        [self updateProgressAtIndex:self.progressIndex + index
+                          withValue:1.0f];
 
         self.sentChunks++;
 
@@ -269,12 +279,12 @@
     [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
                                          long long totalBytesWritten,
                                          long long totalBytesExpectedToWrite) {
-        if (self.progressBlock && totalBytesExpectedToWrite > 0)
+        if (totalBytesExpectedToWrite > 0)
         {
-            float overallProgress = [self.progressTracker setProgress:(1.0f * totalBytesWritten) / totalBytesExpectedToWrite
-                                                               forKey:@(index)];
+            float progress = (1.0f * totalBytesWritten) / totalBytesExpectedToWrite;
 
-            self.progressBlock(overallProgress);
+            [self updateProgressAtIndex:self.progressIndex + index
+                              withValue:progress];
         }
     }];
 }
@@ -283,6 +293,11 @@
 {
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
+        self.progressIndex += self.totalChunks;
+
+        [self updateProgressAtIndex:self.progressIndex
+                          withValue:1.0f];
+
         if (self.successBlock)
         {
             self.successBlock(responseObject);
@@ -314,6 +329,17 @@
                           parameters:params
                              success:successOperationBlock
                              failure:failureOperationBlock];
+}
+
+- (void)updateProgressAtIndex:(int)index
+                    withValue:(float)value
+{
+    if (self.progressBlock)
+    {
+        float overallProgress = [self.progressTracker setProgress:value
+                                                           forKey:@(index)];
+        self.progressBlock(overallProgress);
+    }
 }
 
 @end
