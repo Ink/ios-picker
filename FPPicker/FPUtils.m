@@ -90,7 +90,7 @@
 
 + (NSString *)genRandStringLength:(int)len
 {
-    NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    const NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     NSMutableString *randomString = [NSMutableString stringWithCapacity:len];
 
@@ -99,7 +99,7 @@
         [randomString appendFormat:@"%C", [letters characterAtIndex:arc4random() % letters.length]];
     }
 
-    return randomString;
+    return [randomString copy];
 }
 
 + (NSURL *)genRandTemporaryURLWithFileLength:(int)length
