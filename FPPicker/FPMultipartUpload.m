@@ -12,6 +12,7 @@
 
 @interface FPMultipartUpload ()
 
+@property (nonatomic, assign) BOOL hasFinished;
 @property (nonatomic, strong) NSURL *localURL;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *mimetype;
@@ -27,6 +28,25 @@
 @end
 
 @implementation FPMultipartUpload
+
+/**
+   This semaphore will allow us to perform multiple file uploads in a synchronized fashion.
+   One of the advantages of this is that we will be able to monitor total uploaded files in
+   the order the user expects them.
+
+   @note This does not affect chunk uploads. These will continue to be uploaded in parallel.
+ */
++ (dispatch_semaphore_t)lock_semaphore
+{
+    static dispatch_semaphore_t _lock_semaphore;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        _lock_semaphore = dispatch_semaphore_create(1);
+    });
+
+    return _lock_semaphore;
+}
 
 - (instancetype)initWithLocalURL:(NSURL *)localURL
                         filename:(NSString *)filename
@@ -81,18 +101,20 @@
 
 - (void)upload
 {
-    if (self.sentChunks == self.totalChunks)
-    {
-        NSLog(@"%@ has already been uploaded.", self.filename);
-
-        return;
-    }
-
     [self uploadWithRetries:fpNumRetries];
 }
 
 - (void)uploadWithRetries:(int)retries
 {
+    dispatch_semaphore_wait([self.class lock_semaphore], DISPATCH_TIME_FOREVER);
+
+    if (self.hasFinished)
+    {
+        NSLog(@"%@ already finished uploading.", self.filename);
+
+        return;
+    }
+
     NSDictionary *params = @{
         @"name":self.filename,
         @"filesize":@(self.fileSize),
@@ -103,8 +125,13 @@
                                                              id responseObject) {
         NSLog(@"Response: %@", responseObject);
 
-        [self updateProgressAtIndex:self.progressIndex++
-                          withValue:1.0f];
+        // Set progress to 1/3 of the total
+
+        for (int c = 0; c < self.totalChunks; c++)
+        {
+            [self updateProgressAtIndex:self.progressIndex++
+                              withValue:1.0f];
+        }
 
         self.uploadID = responseObject[@"data"][@"id"];
 
@@ -144,16 +171,22 @@
     self.totalChunks = (int)ceilf(1.0f * self.fileSize / fpMaxChunkSize);
     self.sentChunks = 0;
     self.progressIndex = 0;
+    self.hasFinished = NO;
 
     /*
-       Our progress tracker will measure progress of:
+       Our progress tracker will measure progress of the sum of:
 
-        1. multipart start request
-        2. each chunk uploaded
-        3. multipart end request
+       1. multipart start request
+       2. each chunk uploaded
+       3. multipart end request
+
+       Each step will represent 1/3 of the total.
+
+       In our case, this means each part will represent exactly self.totalChunks.
+       This way, we give equal weight to each step.
      */
 
-    self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks + 2];
+    self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks * 3];
 
     self.js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
                                                    andMimetypes:nil];
@@ -238,7 +271,12 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        [self updateProgressAtIndex:self.progressIndex + index
+        // Add one more processed chunk to progress bar
+        // Once all chunks complete, 2/3 out of the total will be complete
+
+        self.progressIndex++;
+
+        [self updateProgressAtIndex:self.progressIndex
                           withValue:1.0f];
 
         self.sentChunks++;
@@ -293,15 +331,22 @@
 {
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        self.progressIndex += self.totalChunks;
+        // Set progress to 3/3 by filling the last 1/3
 
-        [self updateProgressAtIndex:self.progressIndex
-                          withValue:1.0f];
+        for (int c = 0; c < self.totalChunks; c++)
+        {
+            [self updateProgressAtIndex:self.progressIndex++
+                              withValue:1.0f];
+        }
 
         if (self.successBlock)
         {
             self.successBlock(responseObject);
         }
+
+        self.hasFinished = YES;
+
+        dispatch_semaphore_signal([self.class lock_semaphore]);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,

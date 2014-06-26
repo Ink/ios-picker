@@ -11,6 +11,13 @@
 @interface FPMultipartUpload : NSObject
 
 /**
+   Returns whether the file has completed uploading.
+
+   @return YES or NO
+ */
+@property (readonly, assign) BOOL hasFinished;
+
+/**
     Block to call after an upload succeeds without errors.
 
     This block returns a JSON response object.
