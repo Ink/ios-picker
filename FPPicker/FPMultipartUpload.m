@@ -195,12 +195,9 @@
 {
     NSLog(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
 
+    NSData *dataSlice;
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
-
-    NSData *dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
-                                             length:fpMaxChunkSize
-                                       freeWhenDone:YES];
 
     [self.inputStream open];
 
@@ -217,6 +214,15 @@
                       i,
                       escapedSessionString];
 
+        if (!dataSlice || dataSlice.length < fpMaxChunkSize)
+        {
+            // NOTE: dataSlice will take ownership of our C buffer, so we MUST NOT free it ourselves.
+
+            dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
+                                             length:fpMaxChunkSize
+                                       freeWhenDone:YES];
+        }
+
         size_t actualBytesRead = [self.inputStream read:chunkBuffer
                                               maxLength:fpMaxChunkSize];
 
@@ -224,11 +230,6 @@
         {
             if (actualBytesRead < fpMaxChunkSize)
             {
-                /*
-                    NOTE: We assume that this is the last chunk,
-                    so we simply truncate the buffer.
-                 */
-
                 dataSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
             }
         }
