@@ -53,6 +53,31 @@
     return self;
 }
 
+- (FPUploadAssetSuccessBlock)successBlock
+{
+    if (!_successBlock)
+    {
+        _successBlock = ^(id JSON) {
+            NSLog(@"Upload succeeded with response: %@", JSON);
+        };
+    }
+
+    return _successBlock;
+}
+
+- (FPUploadAssetFailureBlock)failureBlock
+{
+    if (!_failureBlock)
+    {
+        _failureBlock = ^(NSError *error, id JSON) {
+            NSLog(@"FAILURE %@ %@", error, JSON);
+            assert(false);
+        };
+    }
+
+    return _failureBlock;
+}
+
 - (void)upload
 {
     if (self.sentChunks == self.totalChunks)
@@ -89,10 +114,6 @@
             if (self.failureBlock)
             {
                 self.failureBlock(error, nil);
-            }
-            else
-            {
-                NSAssert(true, error.description);
             }
         }
         else
@@ -179,10 +200,6 @@
             {
                 self.failureBlock(error, nil);
             }
-            else
-            {
-                NSAssert(true, error.localizedDescription);
-            }
         }
 
         [self uploadChunkWithDataSlice:dataSlice
@@ -233,10 +250,6 @@
             {
                 self.failureBlock(error, nil);
             }
-            else
-            {
-                NSAssert(true, error.description);
-            }
         }
         else
         {
@@ -283,10 +296,6 @@
             if (self.failureBlock)
             {
                 self.failureBlock(error, nil);
-            }
-            else
-            {
-                NSAssert(true, error.description);
             }
         }
         else
