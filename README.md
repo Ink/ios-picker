@@ -12,13 +12,15 @@ The easiest way to import content into your application.
   - Xcode 5
   - [Cocoapods](http://cocoapods.org) (optional)
 
-  - Other Linked Libraries (You don't need to download these. Already installed.)
-    - AFNetworking 2.x (https://github.com/AFNetworking/AFNetworking/)
-    - MBProgressHUD (https://github.com/jdg/MBProgressHUD)
+  - Other Linked Libraries (you don't need to download these. Already installed.)
+    - [AFNetworking 2.x](https://github.com/AFNetworking/AFNetworking/)
+    - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
 
 ## Installation
 
-  - [Installation](https://github.com/Ink/ios-picker/wiki/1.-Installation)
+  Filepicker can be integrated into your iOS app by using [Cocoapods](http://cocoapods.org/) or, alternatively, including our prebuilt `FPPicker.framework` + `FPPicker.bundle`.
+
+  To learn more, please check our [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation).
 
 ## Usage Instructions
 
