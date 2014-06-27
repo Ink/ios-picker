@@ -31,4 +31,4 @@ The easiest way to import content into your application.
 
 ## License
 
-See [license.txt](https://github.com/Ink/ios-picker/raw/cleanup-for-ios6/license.txt).
+See [LICENSE.md](LICENSE.md)
