@@ -4,7 +4,7 @@
 The easiest way to import content into your application.
 [http://filepicker.io](http://filepicker.io)
 
-<img src="https://github.com/Ink/ios-picker/raw/cleanup-for-ios6/Docs/filepicker_ios.png" class="center">
+<img src="https://github.com/Ink/ios-picker/raw/master/Docs/filepicker_ios.png" class="center">
 
 ## Requirements
 
@@ -31,4 +31,4 @@ The easiest way to import content into your application.
 
 ## License
 
-See [LICENSE.md](https://github.com/Ink/ios-picker/blob/cleanup-for-ios6/LICENSE.md)
+See [LICENSE.md](https://github.com/Ink/ios-picker/blob/master/LICENSE.md)
