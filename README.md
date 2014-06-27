@@ -16,20 +16,9 @@ The easiest way to import content into your application.
     - AFNetworking 2.x (https://github.com/AFNetworking/AFNetworking/)
     - MBProgressHUD (https://github.com/jdg/MBProgressHUD)
 
-## How to integrate FPPicker into your app
+## Installation
 
-  - [Including FPPicker.framework + FPPicker.bundle](https://github.com/Ink/ios-picker/wiki/Framework-and-bundle-integration)
-
-    - Extra Framework Requirements
-      - `AssetsLibrary.framework`
-      - `CoreGraphics.framework`
-      - `Foundation.framework`
-      - `MobileCoreServices.framework`
-      - `QuartzCore.framework`
-      - `UIKit.framework`
-      - `SystemConfiguration.framework`
-
-  - [As a Cocoapods dependency](https://github.com/Ink/ios-picker/wiki/Cocoapods-dependency-integration)
+  - [Installation](https://github.com/Ink/ios-picker/wiki/Installation)
 
 ## Usage Instructions
 
@@ -41,4 +30,4 @@ The easiest way to import content into your application.
 
 ## License
 
-See license.txt.
+See [license.txt](https://github.com/Ink/ios-picker/raw/cleanup-for-ios6/license.txt).
