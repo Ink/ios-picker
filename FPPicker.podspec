@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   DESC
 
   s.homepage     = 'https://github.com/Ink/ios-picker/'
-  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/master/Docs/filepicker_ios.png'
+  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker_ios.png'
   s.license      = { :type => 'MIT', :file => 'license.txt' }
 
   s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
