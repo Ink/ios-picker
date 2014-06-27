@@ -10,7 +10,7 @@ The easiest way to import content into your application.
 
   - iOS 6.0 or later
   - Xcode 5
-  - [Cocoapods](http://cocoapods.org) (optional)
+  - [CocoaPods](http://cocoapods.org) (optional)
 
   - Other Linked Libraries (you don't need to download these. Already installed.)
     - [AFNetworking 2.x](https://github.com/AFNetworking/AFNetworking/)
@@ -18,7 +18,7 @@ The easiest way to import content into your application.
 
 ## Installation
 
-  Filepicker can be integrated into your iOS app by using [Cocoapods](http://cocoapods.org/) or, alternatively, including our prebuilt `FPPicker.framework` + `FPPicker.bundle`.
+  Filepicker can be integrated into your iOS app by using [CocoaPods](http://cocoapods.org/) or, alternatively, including our prebuilt `FPPicker.framework` + `FPPicker.bundle`.
 
   To learn more, please check our [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation).
 
