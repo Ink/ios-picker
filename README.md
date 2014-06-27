@@ -18,15 +18,15 @@ The easiest way to import content into your application.
 
 ## Installation
 
-  - [Installation](https://github.com/Ink/ios-picker/wiki/Installation)
+  - [Installation](https://github.com/Ink/ios-picker/wiki/1.-Installation)
 
 ## Usage Instructions
 
-  - [Usage Instructions](https://github.com/Ink/ios-picker/wiki/Usage-instructions)
+  - [Usage Instructions](https://github.com/Ink/ios-picker/wiki/2.-Usage-instructions)
 
 ## Common Tips
 
-  - [Common tips](https://github.com/Ink/ios-picker/wiki/Common-Tips)
+  - [Common tips](https://github.com/Ink/ios-picker/wiki/3.-Common-Tips)
 
 ## License
 
