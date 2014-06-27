@@ -1,0 +1,17 @@
+#!/bin/bash
+
+FRAMEWORK_NAME=FPPicker.framework
+SRC_DIR=${BUILD_DIR}/${FRAMEWORK_NAME}
+DEST_DIR=$SRCROOT/dist/${FRAMEWORK_NAME}
+
+if [ -d $DEST_DIR ] && [ -d $SRC_DIR ];
+then
+  echo "Framework $DEST_DIR exists, deleting."
+  rm -Rf $DEST_DIR
+fi
+
+if [ -d $SRC_DIR ];
+then
+  echo "Copying into ${DEST_DIR}"
+  cp -pR ${SRC_DIR} ${DEST_DIR}
+fi

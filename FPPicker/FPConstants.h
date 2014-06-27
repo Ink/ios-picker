@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-
 FOUNDATION_EXPORT NSString * const FPSourceBox;
 FOUNDATION_EXPORT NSString * const FPSourceCameraRoll;
 FOUNDATION_EXPORT NSString * const FPSourceDropbox;

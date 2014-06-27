@@ -12,7 +12,7 @@
 
 @interface FPSaveController : UINavigationController <FPSourcePickerDelegate, UINavigationControllerDelegate, UIPopoverControllerDelegate>
 
-@property (nonatomic, assign) id <FPSaveDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSaveDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 
 @property (nonatomic, strong) NSData *data;
@@ -23,11 +23,10 @@
 
 @property (nonatomic, strong) NSString *proposedFilename;
 
-- (void) saveFileName:(NSString *)filename To:(NSString *)path;
-- (void) saveFileLocally;
+- (void)saveFileName:(NSString *)filename To:(NSString *)path;
+- (void)saveFileLocally;
 
-- (NSString *) getExtensionString;
-
+- (NSString *)getExtensionString;
 
 
 @end
