@@ -8,26 +8,29 @@ The easiest way to import content into your application.
 
 ## Requirements
 
-- iOS 6.0 or later
-- Xcode 5
-- [Cocoapods](http://cocoapods.org) (optional)
+  - iOS 6.0 or later
+  - Xcode 5
+  - [Cocoapods](http://cocoapods.org) (optional)
 
-- Other Linked Libraries (You don't need to download these. Already installed.)
-  - AFNetworking 2.x (https://github.com/AFNetworking/AFNetworking/)
-  - MBProgressHUD (https://github.com/jdg/MBProgressHUD)
+  - Other Linked Libraries (You don't need to download these. Already installed.)
+    - AFNetworking 2.x (https://github.com/AFNetworking/AFNetworking/)
+    - MBProgressHUD (https://github.com/jdg/MBProgressHUD)
 
 ## How to integrate FPPicker into your app
 
-  - [Including FPPicker.framework + FPPicker.bundle](Framework+and+bundle+integration)
+  - [[Including FPPicker.framework + FPPicker.bundle|Framework+and+bundle+integration]]
 
-    - Extra Framework Requirements
-      - AssetsLibrary.framework
-      - CoreGraphics.framework
-      - Foundation.framework
-      - MobileCoreServices.framework
-      - QuartzCore.framework
-      - UIKit.framework
-      - SystemConfiguration.framework
+    - Extra Framework Requirements`
+      - `AssetsLibrary.framework`
+      - `CoreGraphics.framework`
+      - `Foundation.framework`
+      - `MobileCoreServices.framework`
+      - `QuartzCore.framework`
+      - `UIKit.framework`
+      - `SystemConfiguration.framework`
 
-  - [As a Cocoapods dependency](Cocoapods+dependency+integration)
+  - [[As a Cocoapods dependency|Cocoapods+dependency+integration]]
 
+## License
+
+See license.txt.
