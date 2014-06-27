@@ -18,7 +18,7 @@ The easiest way to import content into your application.
 
 ## How to integrate FPPicker into your app
 
-  - [Including FPPicker.framework + FPPicker.bundle](wiki/Framework-and-bundle-integration)
+  - [Including FPPicker.framework + FPPicker.bundle](Framework-and-bundle-integration)
 
     - Extra Framework Requirements
       - `AssetsLibrary.framework`
@@ -29,7 +29,11 @@ The easiest way to import content into your application.
       - `UIKit.framework`
       - `SystemConfiguration.framework`
 
-  - [As a Cocoapods dependency](wiki/Cocoapods-dependency-integration)
+  - [As a Cocoapods dependency](Cocoapods-dependency-integration)
+
+## Usage Instructions
+
+  - [Usage Instructions](Usage-instructions)
 
 ## License
 
