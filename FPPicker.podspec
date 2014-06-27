@@ -1,8 +1,3 @@
-# TODO before release:
-#
-# - Update screenshot URL to point to the master branch
-# - Point source to tag 'v3.0.0'
-
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
   s.version      = '3.0.0'
@@ -14,15 +9,14 @@ Pod::Spec.new do |s|
   DESC
 
   s.homepage     = 'https://github.com/Ink/ios-picker/'
-  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/cleanup-for-ios6/Docs/filepicker_ios.png'
+  s.screenshots  = 'https://github.com/Ink/ios-picker/raw/master/Docs/filepicker_ios.png'
   s.license      = { :type => 'MIT', :file => 'license.txt' }
 
   s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
-    :branch => 'cleanup-for-ios6'
-    # :tag => 'v3.0.0'
+    :tag => 'v3.0.0'
   }
 
   s.platforms    = { :ios => '6.0' }
