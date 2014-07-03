@@ -1,0 +1,17 @@
+#!/bin/bash
+
+BUNDLE_NAME=FPPicker.bundle
+SRC_DIR=${TARGET_BUILD_DIR}/${BUNDLE_NAME}
+DEST_DIR=${SRCROOT}/dist/${BUNDLE_NAME}
+
+if [ -d $DEST_DIR ] && [ -d $SRC_DIR ];
+then
+  echo "Bundle $DEST_DIR exists, deleting."
+  rm -Rf $DEST_DIR
+fi
+
+if [ -d $SRC_DIR ];
+then
+  echo "Copying into ${DEST_DIR}"
+  cp -pR ${SRC_DIR} ${DEST_DIR}
+fi

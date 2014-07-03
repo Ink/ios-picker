@@ -11,7 +11,7 @@
 #import "FPPicker.h"
 #import "FPInternalHeaders.h"
 
-@interface FPSourceController : FP_PullRefreshTableViewController
+@interface FPSourceController : FPTableWithUploadButtonViewController
 
 @property (nonatomic, strong) NSMutableArray *contents;
 @property (nonatomic, strong) NSString *path;
@@ -20,11 +20,11 @@
 @property (nonatomic, strong) NSString *nextPage;
 @property (nonatomic, strong) UIActivityIndicatorView *nextPageSpinner;
 
-@property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSMutableDictionary *precacheOperations;
 
-- (void) fpLoadContents:(NSString *)loadpath;
-- (void) objectSelectedAtIndex:(NSInteger) index;
-- (void) afterReload;
+- (void)fpLoadContents:(NSString *)loadpath;
+- (void)objectSelectedAtIndex:(NSInteger)index;
+- (void)afterReload;
 
 @end

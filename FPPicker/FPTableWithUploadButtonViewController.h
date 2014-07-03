@@ -14,7 +14,7 @@
 @property (nonatomic) BOOL selectMultiple;
 @property (nonatomic) NSInteger maxFiles;
 
-- (void) updateUploadButton:(NSInteger) count;
-- (void) uploadButtonTapped:(id)sender;
+- (void)updateUploadButton:(NSInteger)count;
+- (IBAction)uploadButtonTapped:(id)sender;
 
 @end

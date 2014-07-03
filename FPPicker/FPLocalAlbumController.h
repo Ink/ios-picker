@@ -15,7 +15,7 @@
 @interface FPLocalAlbumController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *albums;
-@property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, strong) FPSource *sourceType;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) BOOL selectMultiple;

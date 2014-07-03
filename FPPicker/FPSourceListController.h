@@ -1,5 +1,5 @@
 //
-//  TableViewController.h
+//  FPSourceListController.h
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
@@ -15,8 +15,8 @@
 @property (nonatomic, strong) NSArray *sourceNames;
 
 @property (nonatomic, strong) NSMutableDictionary *sources;
-@property (nonatomic, strong) id <FPSourcePickerDelegate> fpdelegate;
-@property (nonatomic, assign) id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> imgdelagate;
+@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> imageDelegate;
 
 @property (nonatomic, strong) NSArray *dataTypes;
 @property (nonatomic) BOOL selectMultiple;

@@ -12,7 +12,7 @@
 
 @interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate, FPSourcePickerDelegate, UINavigationControllerDelegate>
 
-@property (nonatomic, assign) id <FPPickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPPickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 
