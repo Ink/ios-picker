@@ -164,7 +164,7 @@
         {
             sourceObj.name = @"Google Drive";
             sourceObj.icon = @"GoogleDrive";
-            sourceObj.rootUrl = @"/GDrive";
+            sourceObj.rootUrl = @"/GoogleDrive";
             sourceObj.open_mimetypes = @[@"*/*"];
             sourceObj.save_mimetypes = @[@"*/*"];
             sourceObj.overwritePossible = NO;
