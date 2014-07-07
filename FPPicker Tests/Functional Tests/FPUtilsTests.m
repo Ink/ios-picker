@@ -165,14 +165,14 @@
                                                                  andMimetypes:@"image/png"];
 
     XCTAssertEqualObjects(JSONWithAPIKeyAndMimetype,
-                          @"{\"app\":{\"mimetypes\":\"image\\/png\",\"apikey\":\"MY-API-KEY\"}}",
+                          @"{\"app\":{\"apikey\":\"MY-API-KEY\"},\"mimetypes\":\"image\\/png\"}",
                           @"Should contain both an 'apikey' and a 'mimetypes' entry");
 
     NSString *JSONWithAPIKeyAndMimetypes = [FPUtils JSONSessionStringForAPIKey:@"MY-API-KEY"
                                                                   andMimetypes:@[@"image/png", @"image/jpeg"]];
 
     XCTAssertEqualObjects(JSONWithAPIKeyAndMimetypes,
-                          @"{\"app\":{\"mimetypes\":[\"image\\/png\",\"image\\/jpeg\"],\"apikey\":\"MY-API-KEY\"}}",
+                          @"{\"app\":{\"apikey\":\"MY-API-KEY\"},\"mimetypes\":[\"image\\/png\",\"image\\/jpeg\"]}",
                           @"Should contain both an 'apikey' and a 'mimetypes' entry");
 }
 
