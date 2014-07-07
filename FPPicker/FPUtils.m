@@ -142,7 +142,7 @@
 
     if (mimetypes)
     {
-        sessionObject[@"app"][@"mimetypes"] = mimetypes;
+        sessionObject[@"mimetypes"] = mimetypes;
     }
 
     return [FPUtils JSONEncodeObject:sessionObject
