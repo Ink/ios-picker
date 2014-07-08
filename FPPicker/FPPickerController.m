@@ -211,7 +211,8 @@
                     @"FPPickerControllerMediaType":info[@"UIImagePickerControllerMediaType"],
                     @"FPPickerControllerOriginalImage":imageToSave,
                     @"FPPickerControllerMediaURL":localurl,
-                    @"FPPickerControllerRemoteURL":data[@"url"]
+                    @"FPPickerControllerRemoteURL":data[@"url"],
+                    @"FPPickerControllerKey" : data[@"data"][@"key"]
                 };
 
                 if (data[@"data"][@"key"])
