@@ -214,6 +214,15 @@
                     @"FPPickerControllerRemoteURL":data[@"url"]
                 };
 
+                if (data[@"data"][@"key"])
+                {
+                    NSMutableDictionary *mutableOutput = [output mutableCopy];
+
+                    mutableOutput[@"FPPickerControllerKey"] = data[@"data"][@"key"];
+                    output = [mutableOutput copy];
+                    mutableOutput = nil;
+                }
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [FPMBProgressHUD hideHUDForView:picker.view
                                            animated:YES];
