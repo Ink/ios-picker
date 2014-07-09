@@ -5,7 +5,7 @@ target :'FPPicker' do
 end
 
 target :'FPPicker Functional Tests' do
-  pod 'OCMock', :podspec => 'OCMock.podspec.json'
+  pod 'OCMock', '~> 3.0.2'
   pod 'OHHTTPStubs', '~> 3.1.2'
 end
 
