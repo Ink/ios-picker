@@ -198,11 +198,6 @@
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
 
-    NSData *validSlice;
-    NSData *dataSlice = [NSData dataWithBytesNoCopy:chunkBuffer
-                                             length:fpMaxChunkSize
-                                       freeWhenDone:YES];
-
     [self.inputStream open];
 
     /* send the chunks */
@@ -223,14 +218,13 @@
 
         if (actualBytesRead > 0)
         {
-            if (actualBytesRead < fpMaxChunkSize)
-            {
-                validSlice = [dataSlice subdataWithRange:NSMakeRange(0, actualBytesRead)];
-            }
-            else
-            {
-                validSlice = dataSlice;
-            }
+            NSData *dataSlice = [NSData dataWithBytes:chunkBuffer
+                                               length:actualBytesRead];
+
+            [self uploadChunkWithDataSlice:dataSlice
+                                uploadPath:uploadPath
+                                     index:i
+                                     retry:fpNumRetries];
         }
         else
         {
@@ -245,12 +239,9 @@
 
             [self finishWithError:error];
         }
-
-        [self uploadChunkWithDataSlice:validSlice
-                            uploadPath:uploadPath
-                                 index:i
-                                 retry:fpNumRetries];
     }
+
+    free(chunkBuffer);
 }
 
 - (void)uploadChunkWithDataSlice:(NSData *)dataSlice
