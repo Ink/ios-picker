@@ -1,3 +1,9 @@
+v 3.0.2 - 09/04/2014
+- Fixed broken mimetype filtering
+- Fixed that FPPicker.framework was not using the release build configuration
+- Return FPPickerControllerKey when Amazon S3 Storage is used
+- Updated FPSourceGoogleDrive to 'googledrive'
+
 v 3.0.1 - 07/04/2014
 - Switched from legacy GDrive client url to GoogleDrive
 
