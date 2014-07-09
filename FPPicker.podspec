@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '3.0.1'
+  s.version      = '3.0.2'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
-    :tag => 'v3.0.1'
+    :tag => 'v3.0.2'
   }
 
   s.platforms    = { :ios => '6.0' }
