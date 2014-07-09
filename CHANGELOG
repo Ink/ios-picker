@@ -1,3 +1,6 @@
+v 3.0.3 - 07/09/2014
+- Fixed multipart upload data corruption
+
 v 3.0.2 - 07/09/2014
 - Fixed broken mimetype filtering
 - Fixed that FPPicker.framework was not using the release build configuration
