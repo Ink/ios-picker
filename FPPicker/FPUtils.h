@@ -97,6 +97,24 @@
 + (size_t)fileSizeForLocalURL:(NSURL *)url;
 
 /**
+   Generates a policy given a handle (optional), expiry interval (required),
+   and call options (optional).
+
+   @returns A NSString with the policy
+ */
++ (NSString *)policyForHandle:(NSString *)handle
+               expiryInterval:(NSTimeInterval)expiryInterval
+                  callOptions:(NSArray *)callOptions;
+
+/**
+   Returns a signature given a policy and a secret key.
+
+   @returns A NSString with the policy signature
+ */
++ (NSString *)signPolicy:(NSString *)policy
+                usingKey:(NSString *)key;
+
+/**
    Returns an image with corrected rotation.
 
    @returns An UIImage

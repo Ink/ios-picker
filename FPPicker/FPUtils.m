@@ -11,6 +11,8 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <CommonCrypto/CommonHMAC.h>
+#import "NSData+FPHexString.h"
 
 @implementation FPUtils
 
@@ -222,6 +224,67 @@
     }
 
     return fileSizeValue.unsignedLongValue;
+}
+
++ (NSString *)policyForHandle:(NSString *)handle
+               expiryInterval:(NSTimeInterval)expiryInterval
+                  callOptions:(NSArray *)callOptions
+{
+    NSAssert(expiryInterval, @"expiryInterval is a required argument");
+
+    NSMutableDictionary *policyDictionary = [NSMutableDictionary dictionary];
+    NSDate *expiryDate = [NSDate dateWithTimeIntervalSinceNow:expiryInterval];
+
+    policyDictionary[@"expiry"] = @((time_t)[expiryDate timeIntervalSince1970]);
+
+    if (callOptions)
+    {
+        policyDictionary[@"call"] = callOptions;
+    }
+
+    if (handle)
+    {
+        policyDictionary[@"handle"] = handle;
+    }
+
+    NSError *error;
+    NSString *JSONString = [self JSONEncodeObject:policyDictionary
+                                            error:&error];
+
+    if (error)
+    {
+        NSLog(@"Error JSON encoding object (%@): %@",
+              policyDictionary,
+              error);
+
+        return nil;
+    }
+
+    NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
+    NSString *base64EncodedPolicy = [JSONData base64Encoding];
+
+    return base64EncodedPolicy;
+}
+
++ (NSString *)signPolicy:(NSString *)policy
+                usingKey:(NSString *)key
+{
+    const char *cKey  = [key cStringUsingEncoding:NSASCIIStringEncoding];
+    const char *cData = [policy cStringUsingEncoding:NSASCIIStringEncoding];
+
+    unsigned char cHMAC[CC_SHA256_DIGEST_LENGTH];
+
+    CCHmac(kCCHmacAlgSHA256,
+           cKey,
+           strlen(cKey),
+           cData,
+           strlen(cData),
+           cHMAC);
+
+    NSData *HMAC = [[NSData alloc] initWithBytes:cHMAC
+                                          length:sizeof(cHMAC)];
+
+    return [HMAC FPHexString];
 }
 
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
