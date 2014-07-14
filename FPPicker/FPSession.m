@@ -49,12 +49,12 @@
 
     if (self.securityPolicy)
     {
-        sessionObject[@"securityPolicy"] = self.securityPolicy;
+        sessionObject[@"policy"] = self.securityPolicy;
     }
 
     if (self.securitySignature)
     {
-        sessionObject[@"securitySignature"] = self.securitySignature;
+        sessionObject[@"signature"] = self.securitySignature;
     }
 
     return [FPUtils JSONEncodeObject:sessionObject
