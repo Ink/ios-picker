@@ -124,6 +124,8 @@
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
 		45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; };
 		45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
+		45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 45A2C34A197438B4009D436D /* NSData+FPHexString.h */; };
+		45A2C34D197438B4009D436D /* NSData+FPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A2C34B197438B4009D436D /* NSData+FPHexString.m */; };
 		45ADBF2D1951A3C600EB2215 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF061951A3C600EB2215 /* AFHTTPRequestOperationManager.m */; };
 		45ADBF311951A3C600EB2215 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF081951A3C600EB2215 /* AFHTTPSessionManager.m */; };
 		45ADBF361951A3C600EB2215 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF0B1951A3C600EB2215 /* AFNetworkReachabilityManager.m */; };
@@ -352,6 +354,8 @@
 		45920DDD194A0D2E007003C1 /* FPMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPMacros.h; sourceTree = "<group>"; };
 		45920DDE194A0D8A007003C1 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConfig.h; sourceTree = "<group>"; };
 		45920DDF194A0D8A007003C1 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfig.m; sourceTree = "<group>"; };
+		45A2C34A197438B4009D436D /* NSData+FPHexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FPHexString.h"; sourceTree = "<group>"; };
+		45A2C34B197438B4009D436D /* NSData+FPHexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FPHexString.m"; sourceTree = "<group>"; };
 		45ADBF031951A3C600EB2215 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		45ADBF041951A3C600EB2215 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		45ADBF051951A3C600EB2215 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -658,6 +662,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		45A2C3491974389A009D436D /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				45A2C34A197438B4009D436D /* NSData+FPHexString.h */,
+				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		45ADBF011951A39C00EB2215 /* AFNetworking 2.x */ = {
 			isa = PBXGroup;
 			children = (
@@ -814,6 +827,7 @@
 		83A030E715A89C9D0085E186 /* FPPicker */ = {
 			isa = PBXGroup;
 			children = (
+				45A2C3491974389A009D436D /* Categories */,
 				45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */,
 				45ADBF6E1951A44000EB2215 /* FPAPIClient.h */,
 				45ADBF6F1951A44000EB2215 /* FPAPIClient.m */,
@@ -921,6 +935,7 @@
 				83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */,
 				83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */,
 				831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */,
+				45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */,
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
 				836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */,
 				832739F3171F384F000A4A23 /* FPLocalAlbumController.h in Headers */,
@@ -1289,6 +1304,7 @@
 				45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */,
 				455E5C9B1973CD3500CED98E /* FPSession.m in Sources */,
 				45ADBF561951A3C600EB2215 /* UIAlertView+AFNetworking.m in Sources */,
+				45A2C34D197438B4009D436D /* NSData+FPHexString.m in Sources */,
 				45ADBF461951A3C600EB2215 /* AFURLResponseSerialization.m in Sources */,
 				45ADBF311951A3C600EB2215 /* AFHTTPSessionManager.m in Sources */,
 				45ADBF361951A3C600EB2215 /* AFNetworkReachabilityManager.m in Sources */,
