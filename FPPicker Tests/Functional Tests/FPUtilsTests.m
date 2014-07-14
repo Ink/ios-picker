@@ -145,35 +145,4 @@
                  @"Should represent a nil object");
 }
 
-- (void)testJSONSessionStringForAPIKeyAndMimetypes
-{
-    NSString *emptyJSON = [FPUtils JSONSessionStringForAPIKey:nil
-                                                 andMimetypes:nil];
-
-    XCTAssertEqualObjects(emptyJSON,
-                          @"{\"app\":{}}",
-                          @"Should represent an empty session");
-
-    NSString *JSONWithAPIKey = [FPUtils JSONSessionStringForAPIKey:@"MY-API-KEY"
-                                                      andMimetypes:nil];
-
-    XCTAssertEqualObjects(JSONWithAPIKey,
-                          @"{\"app\":{\"apikey\":\"MY-API-KEY\"}}",
-                          @"Should contain an 'apikey' entry");
-
-    NSString *JSONWithAPIKeyAndMimetype = [FPUtils JSONSessionStringForAPIKey:@"MY-API-KEY"
-                                                                 andMimetypes:@"image/png"];
-
-    XCTAssertEqualObjects(JSONWithAPIKeyAndMimetype,
-                          @"{\"app\":{\"apikey\":\"MY-API-KEY\"},\"mimetypes\":\"image\\/png\"}",
-                          @"Should contain both an 'apikey' and a 'mimetypes' entry");
-
-    NSString *JSONWithAPIKeyAndMimetypes = [FPUtils JSONSessionStringForAPIKey:@"MY-API-KEY"
-                                                                  andMimetypes:@[@"image/png", @"image/jpeg"]];
-
-    XCTAssertEqualObjects(JSONWithAPIKeyAndMimetypes,
-                          @"{\"app\":{\"apikey\":\"MY-API-KEY\"},\"mimetypes\":[\"image\\/png\",\"image\\/jpeg\"]}",
-                          @"Should contain both an 'apikey' and a 'mimetypes' entry");
-}
-
 @end

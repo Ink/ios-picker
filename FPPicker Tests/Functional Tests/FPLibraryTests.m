@@ -9,10 +9,12 @@
 #import <XCTest/XCTest.h>
 
 // Collaborators
+
 #import "FPConfig.h"
 #import "FPLibrary.h"
 #import "FPAPIClient.h"
 #import "FPUtils.h"
+#import "FPSession.h"
 
 @interface FPLibraryTests : XCTestCase
 
@@ -297,10 +299,11 @@
                                statusCode:200
                                andHeaders:@{@"Content-Type":@"text/json"}];
 
-    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                                        andMimetypes:nil];
+    FPSession *session = [FPSession new];
 
-    NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
+    session.APIKey = @"MY-API-KEY";
+
+    NSString *escapedSessionString = [FPUtils urlEncodeString:[session JSONSessionString]];
 
 
     NSString *firstChunkPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=BQOwM2NHSFOsNKM3STwG&index=0&js_session=%@",

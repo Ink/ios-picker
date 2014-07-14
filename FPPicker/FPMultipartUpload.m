@@ -9,6 +9,7 @@
 #import "FPMultipartUpload.h"
 #import "FPProgressTracker.h"
 #import "FPUtils.h"
+#import "FPSession.h"
 
 @interface FPMultipartUpload ()
 
@@ -187,8 +188,11 @@
 
     self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks * 3];
 
-    self.js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                                   andMimetypes:nil];
+    FPSession *fpSession = [FPSession new];
+
+    fpSession.APIKey = fpAPIKEY;
+
+    self.js_sessionString = [fpSession JSONSessionString];
 }
 
 - (void)uploadChunks

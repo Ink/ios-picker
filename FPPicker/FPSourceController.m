@@ -11,6 +11,7 @@
 #import "FPAuthController.h"
 #import "FPInternalHeaders.h"
 #import "FPUtils.h"
+#import "FPSession.h"
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"
 #import "UIImageView+AFNetworking.h"
@@ -1362,10 +1363,12 @@ static const NSInteger ROW_HEIGHT = 44;
                          byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                                        andMimetypes:self.sourceType.mimetypes];
+    FPSession *fpSession = [FPSession new];
 
-    NSString *escapedSessionString = [FPUtils urlEncodeString:js_sessionString];
+    fpSession.APIKey = fpAPIKEY;
+    fpSession.mimetypes = self.sourceType.mimetypes;
+
+    NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
 
     NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
 

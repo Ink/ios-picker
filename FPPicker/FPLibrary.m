@@ -9,6 +9,7 @@
 #import "FPLibrary.h"
 #import "FPInternalHeaders.h"
 #import "FPUtils.h"
+#import "FPSession.h"
 #import "FPMultipartUpload.h"
 
 @implementation FPLibrary
@@ -255,11 +256,13 @@
                         success:(FPUploadAssetSuccessBlock)success
                         failure:(FPUploadAssetFailureBlock)failure
 {
-    NSString *js_sessionString = [FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                                        andMimetypes:mimetype];
+    FPSession *fpSession = [FPSession new];
+
+    fpSession.APIKey = fpAPIKEY;
+    fpSession.mimetypes = mimetype;
 
     NSDictionary *params = @{
-        @"js_session":js_sessionString,
+        @"js_session":[fpSession JSONSessionString],
         @"url":fileLocation
     };
 
@@ -346,9 +349,12 @@
                              failure:(FPUploadAssetFailureBlock)failure
                             progress:(FPUploadAssetProgressBlock)progress
 {
+    FPSession *fpSession = [FPSession new];
+
+    fpSession.APIKey = fpAPIKEY;
+
     NSDictionary *params = @{
-        @"js_session":[FPUtils JSONSessionStringForAPIKey:fpAPIKEY
-                                             andMimetypes:nil]
+        @"js_session":[fpSession JSONSessionString]
     };
 
     AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {

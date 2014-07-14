@@ -129,26 +129,6 @@
     return nil;
 }
 
-+ (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes
-{
-    NSError *error;
-
-    NSMutableDictionary *sessionObject = [@{@"app":[@{} mutableCopy]} mutableCopy];
-
-    if (APIKey)
-    {
-        sessionObject[@"app"][@"apikey"] = APIKey;
-    }
-
-    if (mimetypes)
-    {
-        sessionObject[@"mimetypes"] = mimetypes;
-    }
-
-    return [FPUtils JSONEncodeObject:sessionObject
-                               error:&error];
-}
-
 + (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
                    intoLocalURL:(NSURL *)localURL
 {

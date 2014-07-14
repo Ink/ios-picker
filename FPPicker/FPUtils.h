@@ -77,14 +77,6 @@
 + (NSString *)JSONEncodeObject:(id)object error:(NSError **)error;
 
 /**
-   Returns a JSON string representing a session with an API key and,
-   optionally, a mimetype or array of mimetypes.
-
-   @returns A NSString
- */
-+ (NSString *)JSONSessionStringForAPIKey:(NSString *)APIKey andMimetypes:(id)mimetypes;
-
-/**
     Performs a copy in chunks from a given ALAssetRepresentation into a local URL.
 
     @notes
