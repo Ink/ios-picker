@@ -55,6 +55,9 @@
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453096E7194738A6001D970C /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
 		455C6646194B82DE005711DE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 455C6645194B82DE005711DE /* UIKit.framework */; };
+		455E5C9A1973CD3500CED98E /* FPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 455E5C981973CD3500CED98E /* FPSession.h */; };
+		455E5C9B1973CD3500CED98E /* FPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C991973CD3500CED98E /* FPSession.m */; };
+		455E5C9D1973DB8400CED98E /* FPSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C9C1973DB8400CED98E /* FPSessionTests.m */; };
 		456D9477194F00D600D0A34E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E215A89C9D0085E186 /* libFPPicker.a */; };
 		456D9479194F010400D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		456D94B3194F068F00D0A34E /* allowedUrlPrefix.plist in Resources */ = {isa = PBXBuildFile; fileRef = 456D947E194F068F00D0A34E /* allowedUrlPrefix.plist */; };
@@ -280,6 +283,9 @@
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		455C6645194B82DE005711DE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		455E5C981973CD3500CED98E /* FPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSession.h; sourceTree = "<group>"; };
+		455E5C991973CD3500CED98E /* FPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSession.m; sourceTree = "<group>"; };
+		455E5C9C1973DB8400CED98E /* FPSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSessionTests.m; sourceTree = "<group>"; };
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D947E194F068F00D0A34E /* allowedUrlPrefix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = allowedUrlPrefix.plist; sourceTree = "<group>"; };
 		456D947F194F068F00D0A34E /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -623,6 +629,7 @@
 				45B7D0A6194F4C1A009C4AB6 /* FPSourceTests.m */,
 				45C14A07194F3388008C633A /* FPUtilsTests.m */,
 				458B20111949D7D5008360E9 /* Supporting Files */,
+				455E5C9C1973DB8400CED98E /* FPSessionTests.m */,
 			);
 			name = "Functional Tests";
 			path = "FPPicker Tests/Functional Tests";
@@ -822,6 +829,8 @@
 				451051DF195B300E00F877B3 /* FPMultipartUpload.h */,
 				451051E0195B300E00F877B3 /* FPMultipartUpload.m */,
 				83A0314C15A89E040085E186 /* FPPicker.h */,
+				455E5C981973CD3500CED98E /* FPSession.h */,
+				455E5C991973CD3500CED98E /* FPSession.m */,
 				83A031A415A8A4AC0085E186 /* FPSource.h */,
 				83A031A515A8A4AC0085E186 /* FPSource.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
@@ -902,6 +911,7 @@
 				45920DE0194A0D8A007003C1 /* FPConfig.h in Headers */,
 				83A0315E15A89E050085E186 /* FPPicker.h in Headers */,
 				83A0315F15A89E050085E186 /* FPPickerController.h in Headers */,
+				455E5C9A1973CD3500CED98E /* FPSession.h in Headers */,
 				02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */,
 				83A0316115A89E050085E186 /* FPSearchController.h in Headers */,
 				83A0316315A89E050085E186 /* FPSourceController.h in Headers */,
@@ -1233,6 +1243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				455E5C9D1973DB8400CED98E /* FPSessionTests.m in Sources */,
 				45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */,
 				458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */,
 				45DB53E3195064AA0062061F /* FPProgressTrackerTests.m in Sources */,
@@ -1276,6 +1287,7 @@
 				45ADBF2D1951A3C600EB2215 /* AFHTTPRequestOperationManager.m in Sources */,
 				45ADBF5E1951A3C600EB2215 /* UIImageView+AFNetworking.m in Sources */,
 				45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */,
+				455E5C9B1973CD3500CED98E /* FPSession.m in Sources */,
 				45ADBF561951A3C600EB2215 /* UIAlertView+AFNetworking.m in Sources */,
 				45ADBF461951A3C600EB2215 /* AFURLResponseSerialization.m in Sources */,
 				45ADBF311951A3C600EB2215 /* AFHTTPSessionManager.m in Sources */,
