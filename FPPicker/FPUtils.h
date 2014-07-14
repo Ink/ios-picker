@@ -104,7 +104,7 @@
  */
 + (NSString *)policyForHandle:(NSString *)handle
                expiryInterval:(NSTimeInterval)expiryInterval
-                  callOptions:(NSArray *)callOptions;
+               andCallOptions:(NSArray *)callOptions;
 
 /**
    Returns a signature given a policy and a secret key.

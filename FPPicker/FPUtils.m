@@ -228,7 +228,7 @@
 
 + (NSString *)policyForHandle:(NSString *)handle
                expiryInterval:(NSTimeInterval)expiryInterval
-                  callOptions:(NSArray *)callOptions
+               andCallOptions:(NSArray *)callOptions
 {
     NSAssert(expiryInterval, @"expiryInterval is a required argument");
 
