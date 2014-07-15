@@ -10,6 +10,10 @@
 
 @interface FPSession (ConvenienceMethods)
 
+/**
+   Returns a session object suited for file uploads
+   with API key and security options already initialized.
+ */
 + (instancetype)sessionForFileUploads;
 
 @end
