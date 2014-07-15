@@ -77,7 +77,8 @@
     return interfaceOrientation == UIInterfaceOrientationPortrait;
 }
 
-- (void)saveFileName:(NSString *)filename To:(NSString *)path
+- (void)saveFileName:(NSString *)filename
+                  To:(NSString *)path
 {
     FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
                                                   animated:YES];
@@ -85,40 +86,40 @@
     hud.mode = FPMBProgressHUDModeDeterminate;
     hud.labelText = @"Uploading...";
 
-    NSLog(@"saving %@ %@ to %@", filename, [self getExtensionString], path);
+    DLog(@"Saving %@%@ to %@", filename, [self getExtensionString], path);
+
     filename = [filename stringByAppendingString:[self getExtensionString]];
+
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        [FPMBProgressHUD hideAllHUDsForView:self.view
+                                   animated:YES];
+
+        [self.fpdelegate FPSaveController:self
+            didFinishPickingMediaWithInfo:nil];
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
+                                               id JSON) {
+        [FPMBProgressHUD hideAllHUDsForView:self.view
+                                   animated:YES];
+
+        if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
+        {
+            [self.fpdelegate FPSaveController:self
+                                     didError:JSON];
+        }
+        else
+        {
+            [self.fpdelegate FPSaveControllerDidCancel:self];
+        }
+    };
+
+    FPUploadAssetProgressBlock progressBlock = ^(float progress) {
+        hud.progress = progress;
+    };
 
     if (self.dataurl)
     {
-        FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-            NSLog(@"YEAH %@", JSON);
-
-            [FPMBProgressHUD hideAllHUDsForView:self.view
-                                       animated:YES];
-
-            [self.fpdelegate FPSaveController:self
-                didFinishPickingMediaWithInfo:nil];
-        };
-
-        FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-            NSLog(@"FAIL.... %@ %@", error, JSON);
-            [FPMBProgressHUD hideAllHUDsForView:self.view animated:YES];
-
-            if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
-            {
-                [self.fpdelegate FPSaveController:self
-                                         didError:JSON];
-            }
-            else
-            {
-                [self.fpdelegate FPSaveControllerDidCancel:self];
-            }
-        };
-
-        FPUploadAssetProgressBlock progressBlock = ^(float progress) {
-            hud.progress = progress;
-        };
-
         [FPLibrary uploadDataURL:self.dataurl
                            named:filename
                           toPath:path
@@ -130,37 +131,6 @@
     }
     else
     {
-        FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-            NSLog(@"YEAH %@", JSON);
-
-            [FPMBProgressHUD hideAllHUDsForView:self.view
-                                       animated:YES];
-
-            [self.fpdelegate FPSaveController:self
-                didFinishPickingMediaWithInfo:nil];
-        };
-
-        FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-            NSLog(@"FAIL.... %@ %@", error, JSON);
-
-            [FPMBProgressHUD hideAllHUDsForView:self.view
-                                       animated:YES];
-
-            if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
-            {
-                [self.fpdelegate FPSaveController:self
-                                         didError:JSON];
-            }
-            else
-            {
-                [self.fpdelegate FPSaveControllerDidCancel:self];
-            }
-        };
-
-        FPUploadAssetProgressBlock progressBlock = ^(float progress) {
-            hud.progress = progress;
-        };
-
         [FPLibrary uploadData:self.data
                         named:filename
                        toPath:path
