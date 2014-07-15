@@ -10,6 +10,7 @@
 #import "FPProgressTracker.h"
 #import "FPUtils.h"
 #import "FPSession.h"
+#import "FPSession+ConvenienceMethods.h"
 
 @interface FPMultipartUpload ()
 
@@ -188,22 +189,7 @@
 
     self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks * 3];
 
-    FPSession *fpSession = [FPSession new];
-
-    fpSession.APIKey = fpAPIKEY;
-
-    if (fpAPPSECRETKEY)
-    {
-        NSString *securityPolicy = [FPUtils policyForHandle:nil
-                                             expiryInterval:3600.0
-                                             andCallOptions:nil];
-
-        NSString *securitySignature = [FPUtils signPolicy:securityPolicy
-                                                 usingKey:fpAPPSECRETKEY];
-
-        fpSession.securityPolicy = securityPolicy;
-        fpSession.securitySignature = securitySignature;
-    }
+    FPSession *fpSession = [FPSession sessionForFileUploads];
 
     self.js_sessionString = [fpSession JSONSessionString];
 }

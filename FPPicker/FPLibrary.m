@@ -10,6 +10,7 @@
 #import "FPInternalHeaders.h"
 #import "FPUtils.h"
 #import "FPSession.h"
+#import "FPSession+ConvenienceMethods.h"
 #import "FPMultipartUpload.h"
 
 @implementation FPLibrary
@@ -353,22 +354,7 @@
                              failure:(FPUploadAssetFailureBlock)failure
                             progress:(FPUploadAssetProgressBlock)progress
 {
-    FPSession *fpSession = [FPSession new];
-
-    fpSession.APIKey = fpAPIKEY;
-
-    if (fpAPPSECRETKEY)
-    {
-        NSString *securityPolicy = [FPUtils policyForHandle:nil
-                                             expiryInterval:3600.0
-                                             andCallOptions:nil];
-
-        NSString *securitySignature = [FPUtils signPolicy:securityPolicy
-                                                 usingKey:fpAPPSECRETKEY];
-
-        fpSession.securityPolicy = securityPolicy;
-        fpSession.securitySignature = securitySignature;
-    }
+    FPSession *fpSession = [FPSession sessionForFileUploads];
 
     NSDictionary *params = @{
         @"js_session":[fpSession JSONSessionString]
