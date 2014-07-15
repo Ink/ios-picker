@@ -7,7 +7,6 @@
 //
 
 #import "FPConfig.h"
-#import "FPUtils.h"
 
 @implementation FPConfig
 
@@ -29,6 +28,8 @@ static FPConfig *FPSharedInstance = nil;
     return [self sharedInstance];
 }
 
+#pragma mark - Public Methods
+
 - (NSString *)APIKeyContentsFromFile
 {
     NSString *envAPIKey = [[NSProcessInfo processInfo] environment][@"API_KEY_FILE"];
@@ -44,13 +45,22 @@ static FPConfig *FPSharedInstance = nil;
     return theAPIKey;
 }
 
+- (NSArray *)cookies
+{
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    return [cookieStorage cookiesForURL:self.baseURL];
+}
+
+#pragma mark - Accessors
+
 - (NSString *)APIKey
 {
     if (!_APIKey)
     {
         if ((_APIKey = [self APIKeyContentsFromFile]))
         {
-            NSLog(@"(DEBUG) Loaded API KEY from contents of %@ (Info.plist API KEY will be ignored!)", _APIKey);
+            NSLog(@"(DEBUG) Reading API KEY from API_KEY file (Info.plist entry will be ignored)");
         }
 
         if (!_APIKey)
@@ -64,6 +74,18 @@ static FPConfig *FPSharedInstance = nil;
     return _APIKey;
 }
 
+- (NSString *)appSecretKey
+{
+    if (!_appSecretKey)
+    {
+        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
+
+        _appSecretKey = infoDict[@"Filepicker App Secret Key"];
+    }
+
+    return _appSecretKey;
+}
+
 - (NSURL *)baseURL
 {
     if (!_baseURL)
@@ -72,13 +94,6 @@ static FPConfig *FPSharedInstance = nil;
     }
 
     return _baseURL;
-}
-
-- (NSArray *)cookies
-{
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-    return [cookieStorage cookiesForURL:self.baseURL];
 }
 
 #pragma mark - Only to be used in tests

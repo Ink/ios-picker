@@ -97,6 +97,36 @@
     OCMVerifyAll(configMock);
 }
 
+- (void)testAppSecretKeyFromPList
+{
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+    id mainBundleMock = OCMPartialMock([NSBundle mainBundle]);
+
+    NSDictionary *infoDictionary = [NSDictionary mergeDictionary:[[NSBundle mainBundle] infoDictionary]
+                                                            into:@{@"Filepicker App Secret Key":@"MY_SECRET_APP_KEY"}];
+
+    OCMStub([mainBundleMock infoDictionary]).andReturn(infoDictionary);
+
+    XCTAssertEqualObjects([FPConfig sharedInstance].appSecretKey,
+                          @"MY_SECRET_APP_KEY",
+                          @"API key does not match");
+
+    OCMVerifyAll(configMock);
+}
+
+- (void)testAppSecretKeyUsingMacro
+{
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+
+    OCMStub([configMock appSecretKey]).andReturn(@"MY_OTHER_SECRET_APP_KEY");
+
+    XCTAssertEqualObjects([FPConfig sharedInstance].appSecretKey,
+                          fpAPPSECRETKEY,
+                          @"fpAPPSECRETKEY macro should return the same as config.appSecretKey");
+
+    OCMVerifyAll(configMock);
+}
+
 - (void)testBaseURL
 {
     XCTAssertEqualObjects([FPConfig sharedInstance].baseURL.absoluteString,
