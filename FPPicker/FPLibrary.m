@@ -256,22 +256,43 @@
                         success:(FPUploadAssetSuccessBlock)success
                         failure:(FPUploadAssetFailureBlock)failure
 {
+    NSString *actualFileLocation = fileLocation;
     FPSession *fpSession = [FPSession new];
 
     fpSession.APIKey = fpAPIKEY;
     fpSession.mimetypes = mimetype;
 
+    if (fpAPPSECRETKEY)
+    {
+        NSString *handle = [[NSURL URLWithString:fileLocation] lastPathComponent];
+
+        NSString *policy = [FPUtils policyForHandle:handle
+                                     expiryInterval:3600.0
+                                     andCallOptions:@[@"read"]];
+
+        NSString *signature = [FPUtils signPolicy:policy
+                                         usingKey:fpAPPSECRETKEY];
+
+        NSString *queryString = [NSString stringWithFormat:@"?policy=%@&signature=%@",
+                                 policy,
+                                 signature];
+
+        actualFileLocation = [fileLocation stringByAppendingString:queryString];
+    }
+
     NSDictionary *params = @{
         @"js_session":[fpSession JSONSessionString],
-        @"url":fileLocation
+        @"url":actualFileLocation
     };
 
     NSString *savePath = [NSString stringWithFormat:@"/api/path%@", [FPUtils urlEncodeString:saveLocation]];
 
-    NSLog(@"Saving %@", savePath);
+    DLog(@"Saving %@ (params: %@)", savePath, params);
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
+        DLog(@"Success with response %@", responseObject);
+
         if (responseObject[@"url"])
         {
             success(responseObject);
@@ -287,6 +308,8 @@
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
+        DLog(@"File upload failed with %@", error);
+
         failure(error, nil);
     };
 
