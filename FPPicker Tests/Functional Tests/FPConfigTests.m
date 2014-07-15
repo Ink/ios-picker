@@ -109,7 +109,7 @@
 
     XCTAssertEqualObjects([FPConfig sharedInstance].appSecretKey,
                           @"MY_SECRET_APP_KEY",
-                          @"API key does not match");
+                          @"App secret key does not match");
 
     OCMVerifyAll(configMock);
 }
