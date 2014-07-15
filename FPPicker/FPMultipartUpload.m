@@ -192,6 +192,19 @@
 
     fpSession.APIKey = fpAPIKEY;
 
+    if (fpAPPSECRETKEY)
+    {
+        NSString *securityPolicy = [FPUtils policyForHandle:nil
+                                             expiryInterval:3600.0
+                                             andCallOptions:nil];
+
+        NSString *securitySignature = [FPUtils signPolicy:securityPolicy
+                                                 usingKey:fpAPPSECRETKEY];
+
+        fpSession.securityPolicy = securityPolicy;
+        fpSession.securitySignature = securitySignature;
+    }
+
     self.js_sessionString = [fpSession JSONSessionString];
 }
 
@@ -235,7 +248,7 @@
             NSString *localizedErrorDescription = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
                                                    (unsigned long)actualBytesRead];
 
-            NSDictionary *userInfo = @{NSLocalizedDescriptionKey:localizedErrorDescription};
+            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:localizedErrorDescription };
 
             NSError *error = [NSError errorWithDomain:@"io.filepicker"
                                                  code:200

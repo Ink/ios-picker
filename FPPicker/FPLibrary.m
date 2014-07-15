@@ -106,8 +106,8 @@
 
     CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
 
-    NSString *mimetype = (__bridge_transfer NSString*)UTTypeCopyPreferredTagWithClass(utiToConvert,
-                                                                                      kUTTagClassMIMEType);
+    NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(utiToConvert,
+                                                                                       kUTTagClassMIMEType);
 
     NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
 
@@ -353,11 +353,24 @@
 
     fpSession.APIKey = fpAPIKEY;
 
+    if (fpAPPSECRETKEY)
+    {
+        NSString *securityPolicy = [FPUtils policyForHandle:nil
+                                             expiryInterval:3600.0
+                                             andCallOptions:nil];
+
+        NSString *securitySignature = [FPUtils signPolicy:securityPolicy
+                                                 usingKey:fpAPPSECRETKEY];
+
+        fpSession.securityPolicy = securityPolicy;
+        fpSession.securitySignature = securitySignature;
+    }
+
     NSDictionary *params = @{
         @"js_session":[fpSession JSONSessionString]
     };
 
-    AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData>formData) {
+    AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData> formData) {
         NSData *filedata = [NSData dataWithContentsOfURL:localURL];
 
         [formData appendPartWithFileData:filedata
