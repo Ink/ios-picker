@@ -220,8 +220,6 @@
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress
 {
-    NSLog(@"Mimetype: %@", mimetype);
-
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         NSString *filepickerURL = JSON[@"data"][0][@"url"];
 
@@ -233,8 +231,10 @@
                                    failure:failure];
     };
 
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        NSLog(@"FAILURE %@ %@", error, JSON);
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
+                                               id JSON) {
+        DLog(@"File upload failed with %@, response was: %@", error, JSON);
+
         failure(error, JSON);
     };
 
@@ -329,7 +329,7 @@
 {
     if (!shouldUpload)
     {
-        NSLog(@"Not Uploading");
+        DLog(@"Not uploading");
 
         NSError *error = [NSError errorWithDomain:@"io.filepicker"
                                              code:200
@@ -343,7 +343,7 @@
 
     if (fileSize <= fpMaxChunkSize)
     {
-        NSLog(@"Uploading singlepart");
+        DLog(@"Uploading singlepart");
 
         [FPLibrary singlepartUploadWithLocalURL:localURL
                                           named:filename
@@ -354,7 +354,7 @@
     }
     else
     {
-        NSLog(@"Uploading Multipart");
+        DLog(@"Uploading multipart");
 
         [FPLibrary multipartUploadWithLocalURL:localURL
                                          named:filename
