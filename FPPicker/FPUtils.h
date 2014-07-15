@@ -115,6 +115,14 @@
                 usingKey:(NSString *)key;
 
 /**
+   Provided that security is enabled, appends policy and signature parameters to the input
+   NSString representing the FilePicker resource; otherwise it simply returns the input given.
+
+    @returns A NSString representing a FilePicker resource (optionally with security parameters)
+ */
++ (NSString *)filePickerLocationWithOptionalSecurityFor:(NSString *)filePickerLocation;
+
+/**
    Returns an image with corrected rotation.
 
    @returns An UIImage

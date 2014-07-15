@@ -287,6 +287,35 @@
     return [HMAC FPHexString];
 }
 
++ (NSString *)filePickerLocationWithOptionalSecurityFor:(NSString *)filePickerLocation
+{
+    if (fpAPPSECRETKEY)
+    {
+        NSString *handle = [[NSURL URLWithString:filePickerLocation] lastPathComponent];
+
+        NSAssert(handle,
+                 @"Failed to extract handle from %@",
+                 filePickerLocation);
+
+        NSString *policy = [FPUtils policyForHandle:handle
+                                     expiryInterval:3600.0
+                                     andCallOptions:@[@"read"]];
+
+        NSString *signature = [FPUtils signPolicy:policy
+                                         usingKey:fpAPPSECRETKEY];
+
+        NSString *queryString = [NSString stringWithFormat:@"?policy=%@&signature=%@",
+                                 policy,
+                                 signature];
+
+        return [filePickerLocation stringByAppendingString:queryString];
+    }
+    else
+    {
+        return filePickerLocation;
+    }
+}
+
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
     /*

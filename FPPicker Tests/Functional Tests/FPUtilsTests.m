@@ -145,4 +145,41 @@
                  @"Should represent a nil object");
 }
 
+- (void)testFilePickerLocationWithOptionalSecurityForWithEnabledSecurity
+{
+    NSString *inputFileLocation = @"http://www.local-fp.com/api/file/0tb5XFvXQSzxWaTdCgIA";
+
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+
+    OCMStub([configMock appSecretKey]).andReturn(@"MY_OTHER_SECRET_APP_KEY");
+
+    NSString *outputFileLocation = [FPUtils filePickerLocationWithOptionalSecurityFor:inputFileLocation];
+
+    XCTAssert([outputFileLocation hasPrefix:inputFileLocation],
+              @"input should be contained in output");
+
+    XCTAssertNotEqual([outputFileLocation rangeOfString:@"policy="].location,
+                      NSNotFound,
+                      @"policy should be a parameter");
+
+    XCTAssertNotEqual([outputFileLocation rangeOfString:@"signature="].location,
+                      NSNotFound,
+                      @"signature should be a parameter");
+}
+
+- (void)testFilePickerLocationWithOptionalSecurityForWithDisabledSecurity
+{
+    NSString *inputFileLocation = @"http://www.local-fp.com/api/file/0tb5XFvXQSzxWaTdCgIA";
+
+    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+
+    OCMStub([configMock appSecretKey]).andReturn(nil);
+
+    NSString *outputFileLocation = [FPUtils filePickerLocationWithOptionalSecurityFor:inputFileLocation];
+
+    XCTAssertEqualObjects(outputFileLocation,
+                          inputFileLocation,
+                          @"output should exactly match input");
+}
+
 @end
