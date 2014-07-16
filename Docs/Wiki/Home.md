@@ -27,7 +27,8 @@ The easiest way to import content into your application.
   1. [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation)
   2. [Usage Instructions](https://github.com/Ink/ios-picker/wiki/2.-Usage-instructions)
   3. [Demo](https://github.com/Ink/ios-picker/wiki/3.-Demo)
-  4. [Common Tips](https://github.com/Ink/ios-picker/wiki/4.-Common-Tips)
+  4. [Advanced Configuration](https://github.com/Ink/ios-picker/wiki/4.-Advanced-Configuration)
+  5. [Common Tips](https://github.com/Ink/ios-picker/wiki/5.-Common-Tips)
 
 ## License
 
