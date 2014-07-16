@@ -18,6 +18,14 @@
 
     fpSession.APIKey = fpAPIKEY;
 
+    [fpSession populateSecurityPropertiesFromConfig];
+    [fpSession populateStorePropertiesFromConfig];
+
+    return fpSession;
+}
+
+- (void)populateSecurityPropertiesFromConfig
+{
     if (fpAPPSECRETKEY)
     {
         NSString *securityPolicy = [FPUtils policyForHandle:nil
@@ -27,13 +35,9 @@
         NSString *securitySignature = [FPUtils signPolicy:securityPolicy
                                                  usingKey:fpAPPSECRETKEY];
 
-        fpSession.securityPolicy = securityPolicy;
-        fpSession.securitySignature = securitySignature;
+        self.securityPolicy = securityPolicy;
+        self.securitySignature = securitySignature;
     }
-
-    [fpSession populateStorePropertiesFromConfig];
-
-    return fpSession;
 }
 
 - (void)populateStorePropertiesFromConfig
