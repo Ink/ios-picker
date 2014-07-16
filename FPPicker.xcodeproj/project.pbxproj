@@ -145,6 +145,8 @@
 		45ADBF711951A44000EB2215 /* FPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF6F1951A44000EB2215 /* FPAPIClient.m */; };
 		45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF041951A3C600EB2215 /* AFHTTPRequestOperation.m */; };
 		45ADBF7D1951BBA100EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF7C1951BBA100EB2215 /* SystemConfiguration.framework */; };
+		45B7606E19758251007C9284 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */; };
+		45B7606F19758251007C9284 /* FPSession+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */; };
 		45B7D0A7194F4C1A009C4AB6 /* FPSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7D0A6194F4C1A009C4AB6 /* FPSourceTests.m */; };
 		45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
 		45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A07194F3388008C633A /* FPUtilsTests.m */; };
@@ -396,6 +398,8 @@
 		45ADBF6F1951A44000EB2215 /* FPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAPIClient.m; sourceTree = "<group>"; };
 		45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkingHeaders.h; sourceTree = "<group>"; };
 		45ADBF7C1951BBA100EB2215 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPSession+ConvenienceMethods.h"; sourceTree = "<group>"; };
+		45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPSession+ConvenienceMethods.m"; sourceTree = "<group>"; };
 		45B7D0A6194F4C1A009C4AB6 /* FPSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceTests.m; sourceTree = "<group>"; };
 		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
 		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
@@ -667,6 +671,8 @@
 			children = (
 				45A2C34A197438B4009D436D /* NSData+FPHexString.h */,
 				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
+				45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */,
+				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -928,6 +934,7 @@
 				455E5C9A1973CD3500CED98E /* FPSession.h in Headers */,
 				02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */,
 				83A0316115A89E050085E186 /* FPSearchController.h in Headers */,
+				45B7606E19758251007C9284 /* FPSession+ConvenienceMethods.h in Headers */,
 				83A0316315A89E050085E186 /* FPSourceController.h in Headers */,
 				83A0316515A89E050085E186 /* FPSourceListController.h in Headers */,
 				83A031A615A8A4AD0085E186 /* FPSource.h in Headers */,
@@ -1303,6 +1310,7 @@
 				45ADBF5E1951A3C600EB2215 /* UIImageView+AFNetworking.m in Sources */,
 				45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */,
 				455E5C9B1973CD3500CED98E /* FPSession.m in Sources */,
+				45B7606F19758251007C9284 /* FPSession+ConvenienceMethods.m in Sources */,
 				45ADBF561951A3C600EB2215 /* UIAlertView+AFNetworking.m in Sources */,
 				45A2C34D197438B4009D436D /* NSData+FPHexString.m in Sources */,
 				45ADBF461951A3C600EB2215 /* AFURLResponseSerialization.m in Sources */,
