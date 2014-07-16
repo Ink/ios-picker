@@ -1,27 +1,23 @@
 //
-//  FPMultipartUpload.m
+//  FPMultipartUploader.m
 //  FPPicker
 //
 //  Created by Ruben Nine on 25/06/14.
 //  Copyright (c) 2014 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
-#import "FPMultipartUpload.h"
+#define FPUploader_protected
+
+#import "FPMultipartUploader.h"
 #import "FPProgressTracker.h"
 #import "FPUtils.h"
-#import "FPSession.h"
 #import "FPSession+ConvenienceMethods.h"
 
-@interface FPMultipartUpload ()
+@interface FPMultipartUploader ()
 
-@property (nonatomic, assign) BOOL hasFinished;
-@property (nonatomic, strong) NSURL *localURL;
-@property (nonatomic, strong) NSString *filename;
-@property (nonatomic, strong) NSString *mimetype;
 @property (nonatomic, strong) FPProgressTracker *progressTracker;
 @property (nonatomic, strong) NSInputStream *inputStream;
 @property (nonatomic, strong) NSString *uploadID;
-@property (nonatomic, strong) NSString *js_sessionString;
 @property (nonatomic, assign) int totalChunks;
 @property (nonatomic, assign) int sentChunks;
 @property (nonatomic, assign) size_t fileSize;
@@ -29,7 +25,7 @@
 
 @end
 
-@implementation FPMultipartUpload
+@implementation FPMultipartUploader
 
 /**
    This semaphore will allow us to perform multiple file uploads in a synchronized fashion.
@@ -50,72 +46,16 @@
     return _lock_semaphore;
 }
 
-- (instancetype)initWithLocalURL:(NSURL *)localURL
-                        filename:(NSString *)filename
-                     andMimetype:(NSString *)mimetype
-{
-    self = [self init];
-
-    if (self)
-    {
-        NSAssert(localURL, @"LocalURL must be provided");
-        NSAssert(mimetype, @"Mimetype must be provided");
-
-        self.localURL = localURL;
-        self.filename = filename;
-        self.mimetype = mimetype;
-
-        if (!self.filename)
-        {
-            self.filename = @"filename";
-        }
-
-        [self setup];
-    }
-
-    return self;
-}
-
-- (FPUploadAssetSuccessBlock)successBlock
-{
-    if (!_successBlock)
-    {
-        _successBlock = ^(id JSON) {
-            NSLog(@"Upload succeeded with response: %@", JSON);
-        };
-    }
-
-    return _successBlock;
-}
-
-- (FPUploadAssetFailureBlock)failureBlock
-{
-    if (!_failureBlock)
-    {
-        _failureBlock = ^(NSError *error, id JSON) {
-            NSLog(@"FAILURE %@ %@", error, JSON);
-            assert(false);
-        };
-    }
-
-    return _failureBlock;
-}
-
-- (void)upload
+- (void)doUpload
 {
     [self uploadWithRetries:fpNumRetries];
 }
 
+#pragma mark - Private Methods
+
 - (void)uploadWithRetries:(int)retries
 {
     dispatch_semaphore_wait([self.class lock_semaphore], DISPATCH_TIME_FOREVER);
-
-    if (self.hasFinished)
-    {
-        NSLog(@"%@ already finished uploading.", self.filename);
-
-        return;
-    }
 
     NSDictionary *params = @{
         @"name":self.filename,
@@ -125,7 +65,7 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSLog(@"Response: %@", responseObject);
+        DLog(@"Response: %@", responseObject);
 
         // Set progress to 1/3 of the total
 
@@ -160,10 +100,10 @@
                              failure:failureOperationBlock];
 }
 
-#pragma mark - Private Methods
-
 - (void)setup
 {
+    [super setup];
+
     self.fileSize = [FPUtils fileSizeForLocalURL:self.localURL];
 
     NSAssert(self.fileSize > 0, @"File %@ is empty", self.localURL);
@@ -172,7 +112,6 @@
     self.totalChunks = (int)ceilf(1.0f * self.fileSize / fpMaxChunkSize);
     self.sentChunks = 0;
     self.progressIndex = 0;
-    self.hasFinished = NO;
 
     /*
        Our progress tracker will measure progress of the sum of:
@@ -188,15 +127,11 @@
      */
 
     self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.totalChunks * 3];
-
-    FPSession *fpSession = [FPSession sessionForFileUploads];
-
-    self.js_sessionString = [fpSession JSONSessionString];
 }
 
 - (void)uploadChunks
 {
-    NSLog(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
+    DLog(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
@@ -207,7 +142,7 @@
 
     for (int i = 0; i < self.totalChunks; i++)
     {
-        NSLog(@"Sending slice #%d", i);
+        DLog(@"Sending slice #%d", i);
 
         NSString *uploadPath;
 
@@ -271,7 +206,7 @@
 
         self.sentChunks++;
 
-        NSLog(@"Send %d: %@ (sent: %d)", index, responseObject, self.sentChunks);
+        DLog(@"Send %d: %@ (sent: %d)", index, responseObject, self.sentChunks);
 
         if (self.sentChunks == self.totalChunks)
         {
