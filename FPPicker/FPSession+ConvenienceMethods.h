@@ -16,4 +16,10 @@
  */
 + (instancetype)sessionForFileUploads;
 
+/**
+   Populates the FPSession object store properties with values
+   obtained from FPConfig.
+ */
+- (void)populateStorePropertiesFromConfig;
+
 @end

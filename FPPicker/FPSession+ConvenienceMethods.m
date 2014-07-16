@@ -34,4 +34,12 @@
     return fpSession;
 }
 
+- (void)populateStorePropertiesFromConfig
+{
+    self.storeAccess = [FPConfig sharedInstance].storeAccess;
+    self.storeContainer = [FPConfig sharedInstance].storeContainer;
+    self.storeLocation = [FPConfig sharedInstance].storeLocation;
+    self.storePath = [FPConfig sharedInstance].storePath;
+}
+
 @end
