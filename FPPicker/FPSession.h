@@ -19,12 +19,12 @@
 /**
    Filepicker.io API key.
  */
-@property (nonatomic, retain) NSString *APIKey;
+@property (nonatomic, strong) NSString *APIKey;
 
 /**
    Supported mimetype or array of mimetypes.
  */
-@property (nonatomic, retain) id mimetypes;
+@property (nonatomic, strong) id mimetypes;
 
 /**
    Indicates that the file should be stored in a way that allows public access
@@ -32,7 +32,7 @@
 
    Defaults to 'private'.
  */
-@property (nonatomic, retain) NSString *storeAccess;
+@property (nonatomic, strong) NSString *storeAccess;
 
 /**
    Where to store the file.
@@ -41,29 +41,29 @@
 
    Other options are 'azure', 'dropbox' and 'rackspace'.
  */
-@property (nonatomic, retain) NSString *storeLocation;
+@property (nonatomic, strong) NSString *storeLocation;
 
 /**
    The path to store the file at within the specified file store.
    For S3, this is the key where the file will be stored at.
  */
-@property (nonatomic, retain) NSString *storePath;
+@property (nonatomic, strong) NSString *storePath;
 
 /**
    The bucket or container in the specified file store where the file should end up.
  */
-@property (nonatomic, retain) NSString *storeContainer;
+@property (nonatomic, strong) NSString *storeContainer;
 
 /**
    Filepicker.io security policy.
    @note Required when security is enabled.
  */
-@property (nonatomic, retain) NSString *securityPolicy;
+@property (nonatomic, strong) NSString *securityPolicy;
 
 /**
    Filepicker.io security signature.
    @note Required when security is enabled.
  */
-@property (nonatomic, retain) NSString *securitySignature;
+@property (nonatomic, strong) NSString *securitySignature;
 
 @end
