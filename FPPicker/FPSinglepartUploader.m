@@ -15,10 +15,6 @@
 
 - (void)doUpload
 {
-    NSDictionary *params = @{
-        @"js_session":self.js_sessionString
-    };
-
     AFConstructingBodyBlock constructingBodyBlock = ^(id <AFMultipartFormData> formData) {
         NSData *filedata = [NSData dataWithContentsOfURL:self.localURL];
 
@@ -30,7 +26,7 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        if ([@"ok" isEqual : responseObject[@"result"]])
+        if ([@"ok" isEqualToString : responseObject[@"result"]])
         {
             self.successBlock(responseObject);
             self.hasFinished = YES;
@@ -48,6 +44,10 @@
         self.failureBlock(error, nil);
     };
 
+    NSDictionary *params = @{
+        @"js_session":self.js_sessionString
+    };
+
     AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/"
                                                               parameters:params
                                                constructingBodyWithBlock:constructingBodyBlock
@@ -57,7 +57,8 @@
     [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
                                          long long totalBytesWritten,
                                          long long totalBytesExpectedToWrite) {
-        if (self.progressBlock && totalBytesExpectedToWrite > 0)
+        if (self.progressBlock &&
+            totalBytesExpectedToWrite > 0)
         {
             self.progressBlock(1.0f * totalBytesWritten / totalBytesExpectedToWrite);
         }

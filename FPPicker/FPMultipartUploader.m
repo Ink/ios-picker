@@ -57,12 +57,6 @@
 {
     dispatch_semaphore_wait([self.class lock_semaphore], DISPATCH_TIME_FOREVER);
 
-    NSDictionary *params = @{
-        @"name":self.filename,
-        @"filesize":@(self.fileSize),
-        @"js_session":self.js_sessionString
-    };
-
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
         DLog(@"Response: %@", responseObject);
@@ -92,6 +86,12 @@
 
             [self uploadWithRetries:retries - 1];
         }
+    };
+
+    NSDictionary *params = @{
+        @"name":self.filename,
+        @"filesize":@(self.fileSize),
+        @"js_session":self.js_sessionString
     };
 
     [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
