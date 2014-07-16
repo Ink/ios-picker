@@ -26,4 +26,9 @@
     return _sharedClient;
 }
 
++ (id)allocWithZone:(NSZone *)zone
+{
+    return [self sharedClient];
+}
+
 @end
