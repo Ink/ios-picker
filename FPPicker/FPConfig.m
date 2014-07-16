@@ -65,9 +65,7 @@ static FPConfig *FPSharedInstance = nil;
 
         if (!_APIKey)
         {
-            NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
-
-            _APIKey = infoDict[@"Filepicker API Key"];
+            _APIKey = self.infoDict[@"Filepicker API Key"];
         }
     }
 
@@ -78,9 +76,7 @@ static FPConfig *FPSharedInstance = nil;
 {
     if (!_appSecretKey)
     {
-        NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
-
-        _appSecretKey = infoDict[@"Filepicker App Secret Key"];
+        _appSecretKey = self.infoDict[@"Filepicker App Secret Key"];
     }
 
     return _appSecretKey;
@@ -94,6 +90,53 @@ static FPConfig *FPSharedInstance = nil;
     }
 
     return _baseURL;
+}
+
+- (NSString *)storeAccess
+{
+    if (!_storeAccess)
+    {
+        _storeAccess = self.infoDict[@"Filepicker Store Access"];
+    }
+
+    return _storeAccess;
+}
+
+- (NSString *)storeLocation
+{
+    if (!_storeLocation)
+    {
+        _storeLocation = self.infoDict[@"Filepicker Store Location"];
+    }
+
+    return _storeLocation;
+}
+
+- (NSString *)storePath
+{
+    if (!_storePath)
+    {
+        _storePath = self.infoDict[@"Filepicker Store Path"];
+    }
+
+    return _storePath;
+}
+
+- (NSString *)storeContainer
+{
+    if (!_storeContainer)
+    {
+        _storeContainer = self.infoDict[@"Filepicker Store Container"];
+    }
+
+    return _storeContainer;
+}
+
+#pragma mark - Private
+
+- (NSDictionary *)infoDict
+{
+    return [NSBundle mainBundle].infoDictionary;
 }
 
 #pragma mark - Only to be used in tests

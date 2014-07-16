@@ -41,6 +41,10 @@
 @property (nonatomic, strong) NSString *APIKey;
 @property (nonatomic, strong) NSString *appSecretKey;
 @property (nonatomic, strong) NSURL *baseURL;
+@property (nonatomic, strong) NSString *storeAccess;
+@property (nonatomic, strong) NSString *storeLocation;
+@property (nonatomic, strong) NSString *storePath;
+@property (nonatomic, strong) NSString *storeContainer;
 
 + (instancetype)sharedInstance;
 - (NSArray *)cookies;
