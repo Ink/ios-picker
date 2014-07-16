@@ -11,7 +11,12 @@
 @interface FPUploader : NSObject
 
 /**
-   Designated initializer
+   Please use the designated initializer instead.
+ */
+- (id)init __unavailable;
+
+/**
+   Designated initializer.
 
    Expects a local URL representing the file to upload, a filename and a mimetype.
  */

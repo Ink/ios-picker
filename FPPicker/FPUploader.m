@@ -17,7 +17,7 @@
                         filename:(NSString *)filename
                      andMimetype:(NSString *)mimetype
 {
-    self = [self init];
+    self = [super init];
 
     if (self)
     {
