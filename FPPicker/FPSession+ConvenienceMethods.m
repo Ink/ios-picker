@@ -31,6 +31,8 @@
         fpSession.securitySignature = securitySignature;
     }
 
+    [fpSession populateStorePropertiesFromConfig];
+
     return fpSession;
 }
 
