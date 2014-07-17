@@ -1,3 +1,7 @@
+v 3.1 - 07/17/2014
+- Adding security support
+- Adding store options support
+
 v 3.0.3 - 07/09/2014
 - Fixed multipart upload data corruption
 
