@@ -20,4 +20,19 @@
     return [NSString stringWithFormat:@"[\"%@\"]", [self.mimetypes componentsJoinedByString:@"\",\""]];
 }
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ {name: %@, identifier: %@, icon: %@, rootUrl: %@, open_mimetypes: %@, save_mimetypes: %@, mimetypes: %@, externalDomains: %@, overwritePossible: %d}",
+            super.description,
+            self.name,
+            self.identifier,
+            self.icon,
+            self.rootUrl,
+            self.open_mimetypes,
+            self.save_mimetypes,
+            self.mimetypes,
+            self.externalDomains,
+            self.overwritePossible];
+}
+
 @end
