@@ -138,7 +138,8 @@
 
         for (id object in disallowedUrlPrefix)
         {
-            if ([normalizedString hasPrefix:[object stringByStandardizingPath]])
+            if ([FPUtils validateURL:normalizedString
+                   againstURLPattern:object])
             {
                 return NO;
             }
@@ -146,7 +147,8 @@
 
         for (id object in allowedUrlPrefix)
         {
-            if ([normalizedString hasPrefix:[object stringByStandardizingPath]])
+            if ([FPUtils validateURL:normalizedString
+                   againstURLPattern:object])
             {
                 [FPMBProgressHUD showHUDAddedTo:localWebView
                                        animated:YES];
