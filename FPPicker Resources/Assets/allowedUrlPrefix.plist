@@ -44,6 +44,7 @@
 	<string>https://www.box.com/index.php?rm=box_api_auth</string>
 	<string>https://www.box.com/sso/</string>
 	<string>https://app.box.com/api/</string>
+	<string>https://*.app.box.com/api/</string>
 	<string>https://github.com/login</string>
 	<string>https://github.com/session</string>
 	<string>http://api.instagram.com/oauth/authorize</string>
