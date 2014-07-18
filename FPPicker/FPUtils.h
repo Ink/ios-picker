@@ -122,6 +122,15 @@
  */
 + (NSString *)filePickerLocationWithOptionalSecurityFor:(NSString *)filePickerLocation;
 
+/*!
+   Validates a given URL against an URL pattern.
+   Includes wildcard (*) matching support (i.e. https://fp-*.app.some-provider.com)
+
+   @returns YES when valid; NO otherwise
+ */
++ (BOOL)  validateURL:(NSString *)URL
+    againstURLPattern:(NSString *)URLPattern;
+
 /**
    Returns an image with corrected rotation.
 

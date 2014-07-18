@@ -182,4 +182,111 @@
                           @"output should exactly match input");
 }
 
+- (void)testValidateURLAgainstURLPattern
+{
+    NSString *URLPattern = @"https://app.box.com/api/";
+    NSString *givenURL;
+    BOOL result;
+
+    givenURL = @"https://app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    givenURL = @"https://not-app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertFalse(result, @"Should be invalid");
+
+    givenURL = @"NOTGOODhttps://app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertFalse(result, @"Should be invalid");
+}
+
+- (void)testValidateURLAgainstURLPatternWithMismatchingSlashes
+{
+    NSString *URLPattern;
+    NSString *givenURL;
+    BOOL result;
+
+    URLPattern  = @"https://app.box.com/api";
+    givenURL = @"https://app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    URLPattern  = @"https://app.box.com/api/";
+    givenURL = @"https://app.box.com/api";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+}
+
+- (void)testValidateURLAgainstURLPatternWithWildcards
+{
+    NSString *URLPattern = @"https://*.app.box.com/api/";
+    NSString *givenURL;
+    BOOL result;
+
+    givenURL = @"https://CUSTOMER_A_APP_NAME.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    givenURL = @"https://CUSTOMER_B_APP_NAME.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    givenURL = @"https://CUSTOMER-C-APP-NAME.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    givenURL = @"https://CUSTOMER-D-APP-NAME_MIX_AND-MATCH-101.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
+    givenURL = @"https://app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertFalse(result, @"Should be invalid");
+
+    givenURL = @"https://SOME.INVALID.URL.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertFalse(result, @"Should be invalid");
+
+    givenURL = @"http://INVALID-PROTOCOL.app.box.com/api/";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertFalse(result, @"Should be invalid");
+}
+
 @end
