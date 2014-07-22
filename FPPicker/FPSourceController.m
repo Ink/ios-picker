@@ -32,6 +32,13 @@ typedef void (^FPFetchObjectProgressBlock)(float progress);
 @property (nonatomic, strong) UIImage *placeholderImage;
 @property (nonatomic, strong) UIImage *selectionOverlayImage;
 
+/*!
+   Operation queue for source HTTP requests.
+   This operation queue (unlike FPAPIClient -operationQueue)
+   supports unlimited simultaneous operations.
+ */
+@property (nonatomic, strong) NSOperationQueue *httpRequestOperationQueue;
+
 @end
 
 @implementation FPSourceController
@@ -86,7 +93,6 @@ static const NSInteger ROW_HEIGHT = 44;
     [self setTitle:self.sourceType.name];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.precacheOperations = [NSMutableDictionary dictionary];
 
     if (self.selectMultiple && ![self.viewType isEqualToString:@"thumbnails"])
     {
@@ -108,8 +114,6 @@ static const NSInteger ROW_HEIGHT = 44;
     self.path = nil;
     self.sourceType = nil;
     self.fpdelegate = nil;
-    //TODO: get rid of precaching ops
-    self.precacheOperations = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -154,6 +158,18 @@ static const NSInteger ROW_HEIGHT = 44;
     {
         [v removeFromSuperview];
     }
+}
+
+#pragma mark - Accessors
+
+- (NSOperationQueue *)httpRequestOperationQueue
+{
+    if (!_httpRequestOperationQueue)
+    {
+        _httpRequestOperationQueue = [NSOperationQueue new];
+    }
+
+    return _httpRequestOperationQueue;
 }
 
 - (UIImage *)placeholderImage
@@ -259,17 +275,6 @@ static const NSInteger ROW_HEIGHT = 44;
     }
     else
     {
-        // You need to cancel the old precache request.
-
-        NSString *precacheKey = [NSString stringWithFormat:@"precache_%ld", (long)indexPath.row];
-
-        if (self.precacheOperations[precacheKey])
-        {
-            AFHTTPRequestOperation *operation = self.precacheOperations[precacheKey];
-
-            [operation cancel];
-        }
-
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor blackColor];
         cell.imageView.alpha = 1.0;
@@ -729,7 +734,8 @@ static const NSInteger ROW_HEIGHT = 44;
              cachePolicy:NSURLRequestReturnCacheDataElseLoad];
 }
 
-- (void)fpLoadContents:(NSString *)loadpath cachePolicy:(NSURLRequestCachePolicy)policy
+- (void)fpLoadContents:(NSString *)loadpath
+           cachePolicy:(NSURLRequestCachePolicy)policy
 {
     [self clearSelection];
 
@@ -762,16 +768,7 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    if ([self.sourceType.identifier isEqualToString:FPSourceImagesearch])
-    {
-        AFHTTPRequestOperation *oldOperation = self.precacheOperations[@"imagesearch_"];
-
-        [oldOperation cancel];
-
-        self.precacheOperations[@"imagesearch_"] = operation;
-    }
-
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath withResult:(id)JSON
@@ -910,43 +907,17 @@ static const NSInteger ROW_HEIGHT = 44;
                   forCell:(NSInteger)cellIndex
               cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    NSInteger nilInteger = -1;
-
     NSURLRequest *request = [self requestForLoadPath:loadpath
                                           withFormat:@"info"
                                          cachePolicy:policy];
 
-    NSString *precacheKey = [NSString stringWithFormat:@"precache_%ld", (long)cellIndex];
-
-    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             id responseObject) {
-        //NSLog(@"JSON: %@", JSON);
-        if (cellIndex != nilInteger)
-        {
-            [self.precacheOperations removeObjectForKey:precacheKey];
-        }
-    };
-
-    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             NSError *error) {
-        if (cellIndex != nilInteger)
-        {
-            [self.precacheOperations removeObjectForKey:precacheKey];
-        }
-    };
-
     AFHTTPRequestOperation *operation;
 
     operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
+                                                                    success:nil
+                                                                    failure:nil];
 
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
-
-    if (cellIndex != nilInteger)
-    {
-        self.precacheOperations[precacheKey] = operation;
-    }
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadNextPage
@@ -1002,7 +973,7 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (void)clearSelection
@@ -1266,7 +1237,7 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }];
 
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (void)getObjectInfoAndData:(NSDictionary *)obj
@@ -1345,7 +1316,7 @@ static const NSInteger ROW_HEIGHT = 44;
         }
     }];
 
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
@@ -1480,7 +1451,7 @@ static const NSInteger ROW_HEIGHT = 44;
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [[FPAPIClient sharedClient].operationQueue addOperation:operation];
+    [self.httpRequestOperationQueue addOperation:operation];
 }
 
 - (CGRect)getViewBounds
