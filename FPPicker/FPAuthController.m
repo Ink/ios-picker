@@ -138,6 +138,13 @@
 
         for (id object in disallowedUrlPrefix)
         {
+            if ([object isEqualToString:@""])
+            {
+                // Ignore empty strings
+
+                continue;
+            }
+
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern:object])
             {
@@ -147,6 +154,13 @@
 
         for (id object in allowedUrlPrefix)
         {
+            if ([object isEqualToString:@""])
+            {
+                // Ignore empty strings
+
+                continue;
+            }
+
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern:object])
             {

@@ -267,6 +267,13 @@
 
     XCTAssertTrue(result, @"Should be valid");
 
+    givenURL = @"https:/CUSTOMER-E-APP-NAME.app.box.com/api/client/auth/open?m=*/*&key=SOME_KEY_HERE&id=0&modal=false";
+
+    result = [FPUtils validateURL:givenURL
+                againstURLPattern:URLPattern];
+
+    XCTAssertTrue(result, @"Should be valid");
+
     givenURL = @"https://app.box.com/api/";
 
     result = [FPUtils validateURL:givenURL
