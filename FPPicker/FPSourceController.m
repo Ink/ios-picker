@@ -781,7 +781,7 @@ static const NSInteger ROW_HEIGHT = 44;
     self.contents = JSON[@"contents"];
     self.viewType = JSON[@"view"];
 
-    NSString *next = JSON[@"next"];
+    NSString *next = [JSON[@"next"] stringValue];
 
     if (next && next != (NSString *)[NSNull null])
     {
@@ -971,7 +971,7 @@ static const NSInteger ROW_HEIGHT = 44;
         [tempArray addObjectsFromArray:responseObject[@"contents"]];
         self.contents = tempArray;
 
-        NSString *next = responseObject[@"next"];
+        NSString *next = [responseObject[@"next"] stringValue];
 
         if (next && next != (NSString *)[NSNull null])
         {
