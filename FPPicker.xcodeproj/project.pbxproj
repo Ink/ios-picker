@@ -203,6 +203,7 @@
 		83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DD15AA14820085E186 /* FPInternalHeaders.h */; settings = {ATTRIBUTES = (); }; };
 		83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */; };
 		BF9B225B4EF04726B4764DEB /* libPods-FPPicker Functional Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */; };
+		EAB195BF19804E5800DF0730 /* FPPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = EAB195BE19804E5800DF0730 /* FPPicker.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -462,6 +463,7 @@
 		83A031BA15A8F2570085E186 /* FPSaveController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSaveController.m; sourceTree = "<group>"; };
 		83A031DD15AA14820085E186 /* FPInternalHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPInternalHeaders.h; sourceTree = "<group>"; };
 		83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPExternalHeaders.h; sourceTree = "<group>"; };
+		EAB195BE19804E5800DF0730 /* FPPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPicker.m; sourceTree = "<group>"; };
 		EE82CD48E25A45FDB861E49A /* Pods-FPPicker Functional Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPicker Functional Tests.xcconfig"; path = "Pods/Pods-FPPicker Functional Tests.xcconfig"; sourceTree = "<group>"; };
 		FE9E6B54507649188D0A8F90 /* Pods-FPPicker Integration Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPicker Integration Tests.xcconfig"; path = "Pods/Pods-FPPicker Integration Tests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -857,6 +859,7 @@
 				451051DF195B300E00F877B3 /* FPMultipartUploader.h */,
 				451051E0195B300E00F877B3 /* FPMultipartUploader.m */,
 				83A0314C15A89E040085E186 /* FPPicker.h */,
+				EAB195BE19804E5800DF0730 /* FPPicker.m */,
 				455E5C981973CD3500CED98E /* FPSession.h */,
 				455E5C991973CD3500CED98E /* FPSession.m */,
 				45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */,
@@ -1299,6 +1302,7 @@
 				83A0315915A89E050085E186 /* FPConstants.m in Sources */,
 				451051E2195B300E00F877B3 /* FPMultipartUploader.m in Sources */,
 				45ADBF6B1951A3C600EB2215 /* UIWebView+AFNetworking.m in Sources */,
+				EAB195BF19804E5800DF0730 /* FPPicker.m in Sources */,
 				453096E7194738A6001D970C /* FPUtils.m in Sources */,
 				45ADBF631951A3C600EB2215 /* UIProgressView+AFNetworking.m in Sources */,
 				45ADBF711951A44000EB2215 /* FPAPIClient.m in Sources */,

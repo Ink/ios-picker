@@ -12,3 +12,9 @@
 #import "FPExternalHeaders.h"
 #import "FPPickerController.h"
 #import "FPSaveController.h"
+
+@interface FPPicker : NSObject
+
++ (void)configureWithAPIKey:(NSString *)apiKey;
+
+@end
