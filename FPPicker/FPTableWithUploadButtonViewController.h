@@ -8,9 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FPTableWithUploadButtonViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface FPTableWithUploadButtonViewController : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
-@property (nonatomic, retain) UITableView* tableView;
 @property (nonatomic) BOOL selectMultiple;
 @property (nonatomic) NSInteger maxFiles;
 

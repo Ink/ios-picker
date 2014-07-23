@@ -7,11 +7,12 @@
 //
 
 #import "FPTableWithUploadButtonViewController.h"
+#import "UIApplication+FPAppDimensions.h"
 
 @interface FPTableWithUploadButtonViewController ()
 
-@property UIButton *uploadButton;
-@property UIView *uploadButtonContainer;
+@property (nonatomic, strong) UIButton *uploadButton;
+@property (nonatomic, strong) UIView *uploadButtonContainer;
 
 @end
 
@@ -38,6 +39,14 @@ static UIColor *ANGRY_COLOR;
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
 
+    if (self)
+    {
+        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
+        {
+            self.edgesForExtendedLayout = UIRectEdgeNone;
+        }
+    }
+
     return self;
 }
 
@@ -45,14 +54,12 @@ static UIColor *ANGRY_COLOR;
 {
     [super viewDidLoad];
 
-    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds
+    self.tableView = [[UITableView alloc] initWithFrame:self.tableView.bounds
                                                   style:UITableViewStylePlain];
 
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-    [self.view addSubview:self.tableView];
 
     // Do any additional setup after loading the view.
 
@@ -70,6 +77,17 @@ static UIColor *ANGRY_COLOR;
                                                                               UPLOAD_BUTTON_CONTAINER_HEIGHT)];
         self.uploadButtonContainer.hidden = YES;
 
+        //#F7F7F7
+        UIColor *uploadButtonBackgroundColor = [UIColor colorWithHue:0
+                                                          saturation:0
+                                                          brightness:.97f
+                                                               alpha:0.98f];
+
+        self.uploadButtonContainer.backgroundColor = uploadButtonBackgroundColor;
+        self.uploadButtonContainer.opaque = NO;
+        self.uploadButtonContainer.autoresizingMask = UIViewAutoresizingFlexibleTopMargin |
+                                                      UIViewAutoresizingFlexibleWidth;
+
         self.uploadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
 
         self.uploadButton.frame = CGRectMake(0,
@@ -77,46 +95,23 @@ static UIColor *ANGRY_COLOR;
                                              bounds.size.width,
                                              UPLOAD_BUTTON_CONTAINER_HEIGHT);
 
-        //[self.uploadButton setTintColor:[UIColor greenColor]];
-        [self.uploadButtonContainer addSubview:self.uploadButton];
-        [self.view addSubview:self.uploadButtonContainer];
+        self.uploadButton.autoresizingMask = UIViewAutoresizingFlexibleWidth |
+                                             UIViewAutoresizingFlexibleHeight;
 
         [self.uploadButton addTarget:self
                               action:@selector(uploadButtonTapped:)
                     forControlEvents:UIControlEventTouchUpInside];
 
-
         [self.uploadButton setTintColor:HAPPY_COLOR];
 
-        //#F7F7F7
-        UIColor *uploadButtonBackgroundColor = [UIColor colorWithHue:0
-                                                          saturation:0
-                                                          brightness:.97f
-                                                               alpha:0.98f];
-
-        [self.uploadButtonContainer setBackgroundColor:uploadButtonBackgroundColor];
-        self.uploadButtonContainer.opaque = NO;
+        [self.uploadButtonContainer addSubview:self.uploadButton];
+        [self.navigationController.view addSubview:self.uploadButtonContainer];
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)viewWillDisappear:(BOOL)animated
 {
-    //Pinned to the bottom
-    CGRect bounds = self.view.bounds;
-
-    self.uploadButtonContainer.frame = CGRectMake(0,
-                                                  bounds.size.height - UPLOAD_BUTTON_CONTAINER_HEIGHT,
-                                                  bounds.size.width,
-                                                  UPLOAD_BUTTON_CONTAINER_HEIGHT);
-
-    self.uploadButton.frame = CGRectMake(0,
-                                         0,
-                                         bounds.size.width,
-                                         UPLOAD_BUTTON_CONTAINER_HEIGHT);
-
-    self.tableView.frame = bounds;
-
-    [super viewWillAppear:animated];
+    [self.uploadButtonContainer removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -137,19 +132,9 @@ static UIColor *ANGRY_COLOR;
         {
             // Hide the upload button - slide out from bottom
 
-            CGRect bounds = self.view.bounds;
-
-            [UIView animateWithDuration:0.2f animations: ^{
-                self.uploadButtonContainer.frame = CGRectMake(0,
-                                                              CGRectGetHeight(bounds),
-                                                              CGRectGetWidth(bounds),
-                                                              UPLOAD_BUTTON_CONTAINER_HEIGHT);
-                // Put the tableView back
-
-                CGRect newFrame = self.tableView.frame;
-                newFrame.size.height += UPLOAD_BUTTON_CONTAINER_HEIGHT;
-
-                self.tableView.frame = newFrame;
+            [UIView animateWithDuration:0.2f
+                             animations: ^{
+                [self moveUploadButtonContainerOffscreen:YES];
             } completion: ^(BOOL finished) {
                 if (finished)
                 {
@@ -165,35 +150,20 @@ static UIColor *ANGRY_COLOR;
             // Show thyself - slide up from bottom
             // Ensure we're on top of all our various children
 
-            [self.view addSubview:self.uploadButtonContainer];
-
-            CGRect bounds = self.view.bounds;
-
-            self.uploadButtonContainer.frame = CGRectMake(0,
-                                                          CGRectGetHeight(bounds),
-                                                          CGRectGetWidth(bounds),
-                                                          UPLOAD_BUTTON_CONTAINER_HEIGHT);
+            [self.navigationController.view addSubview:self.uploadButtonContainer];
+            [self moveUploadButtonContainerOffscreen:YES];
 
             self.uploadButtonContainer.hidden = NO;
 
-            [UIView animateWithDuration:0.2f animations: ^{
-                // Shrink the tableView so we don't have overlap
-
-                CGRect newFrame = self.tableView.frame;
-                newFrame.size.height -= UPLOAD_BUTTON_CONTAINER_HEIGHT;
-
-                self.tableView.frame = newFrame;
-
-                self.uploadButtonContainer.frame = CGRectMake(0,
-                                                              CGRectGetHeight(bounds) - UPLOAD_BUTTON_CONTAINER_HEIGHT,
-                                                              CGRectGetWidth(bounds),
-                                                              UPLOAD_BUTTON_CONTAINER_HEIGHT);
+            [UIView animateWithDuration:0.2f
+                             animations: ^{
+                [self moveUploadButtonContainerOffscreen:NO];
             }];
         }
 
         if (count > self.maxFiles && self.maxFiles != 0)
         {
-            NSString* title;
+            NSString *title;
 
             [self.uploadButton setEnabled:NO];
 
@@ -214,7 +184,7 @@ static UIColor *ANGRY_COLOR;
         }
         else
         {
-            NSString* title;
+            NSString *title;
 
             [self.uploadButton setEnabled:YES];
 
@@ -258,6 +228,25 @@ static UIColor *ANGRY_COLOR;
     NSAssert(NO, @"This method must be implemented by subclasses.");
 
     return nil;
+}
+
+#pragma mark - Private Methods
+
+- (void)moveUploadButtonContainerOffscreen:(BOOL)shouldHide
+{
+    CGSize screenSize = [UIApplication FPCurrentSize];
+
+    CGRect frame = CGRectMake(0,
+                              screenSize.height,
+                              screenSize.width,
+                              UPLOAD_BUTTON_CONTAINER_HEIGHT);
+
+    if (!shouldHide)
+    {
+        frame.origin.y -= UPLOAD_BUTTON_CONTAINER_HEIGHT;
+    }
+
+    self.uploadButtonContainer.frame = frame;
 }
 
 @end
