@@ -58,6 +58,8 @@
 		455E5C9A1973CD3500CED98E /* FPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 455E5C981973CD3500CED98E /* FPSession.h */; };
 		455E5C9B1973CD3500CED98E /* FPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C991973CD3500CED98E /* FPSession.m */; };
 		455E5C9D1973DB8400CED98E /* FPSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C9C1973DB8400CED98E /* FPSessionTests.m */; };
+		4565C326197FE9F900E77D51 /* UIApplication+FPAppDimensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */; };
+		4565C327197FE9F900E77D51 /* UIApplication+FPAppDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */; };
 		456D9477194F00D600D0A34E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E215A89C9D0085E186 /* libFPPicker.a */; };
 		456D9479194F010400D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		456D94B3194F068F00D0A34E /* allowedUrlPrefix.plist in Resources */ = {isa = PBXBuildFile; fileRef = 456D947E194F068F00D0A34E /* allowedUrlPrefix.plist */; };
@@ -294,6 +296,8 @@
 		455E5C981973CD3500CED98E /* FPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSession.h; sourceTree = "<group>"; };
 		455E5C991973CD3500CED98E /* FPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSession.m; sourceTree = "<group>"; };
 		455E5C9C1973DB8400CED98E /* FPSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSessionTests.m; sourceTree = "<group>"; };
+		4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+FPAppDimensions.h"; sourceTree = "<group>"; };
+		4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+FPAppDimensions.m"; sourceTree = "<group>"; };
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D947E194F068F00D0A34E /* allowedUrlPrefix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = allowedUrlPrefix.plist; sourceTree = "<group>"; };
 		456D947F194F068F00D0A34E /* arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrow.png; sourceTree = "<group>"; };
@@ -681,6 +685,8 @@
 				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
 				45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */,
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
+				4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */,
+				4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -935,6 +941,7 @@
 				83A0313715A89D6E0085E186 /* FPMBProgressHUD.h in Headers */,
 				83A0315515A89E050085E186 /* FPAuthController.h in Headers */,
 				83A0315815A89E050085E186 /* FPConstants.h in Headers */,
+				4565C326197FE9F900E77D51 /* UIApplication+FPAppDimensions.h in Headers */,
 				451051E1195B300E00F877B3 /* FPMultipartUploader.h in Headers */,
 				45B71DDD19768B33006B5DAF /* FPSinglepartUploader.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
@@ -1321,6 +1328,7 @@
 				83C5790415AF13D900A601DB /* FPMBProgressHUD.m in Sources */,
 				45ADBF3A1951A3C600EB2215 /* AFSecurityPolicy.m in Sources */,
 				45ADBF4A1951A3C600EB2215 /* AFURLSessionManager.m in Sources */,
+				4565C327197FE9F900E77D51 /* UIApplication+FPAppDimensions.m in Sources */,
 				45ADBF2D1951A3C600EB2215 /* AFHTTPRequestOperationManager.m in Sources */,
 				45ADBF5E1951A3C600EB2215 /* UIImageView+AFNetworking.m in Sources */,
 				45ADBF7B1951BAFC00EB2215 /* AFHTTPRequestOperation.m in Sources */,
