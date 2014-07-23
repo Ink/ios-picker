@@ -8,25 +8,26 @@
 
 //To turn off logging for prod versions
 #ifdef DEBUG
-#   define NSForceLog(...) NSLog(__VA_ARGS__);
-#   define NSLog(...) NSLog(__VA_ARGS__);
+    #define NSForceLog(...) \
+    NSLog(__VA_ARGS__);
+    #define NSLog(...) \
+    NSLog(__VA_ARGS__);
 #else
-#   define NSForceLog(FORMAT, ...) fprintf(stderr, "[Ink Mobile Framework] %s\n", [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
-#   define NSLog(...)
+    #define NSForceLog(FORMAT, ...) \
+    fprintf(stderr, "[Ink Mobile Framework] %s\n", [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
+    #define NSLog(...)
 #endif
 
 // Custom logger
 
 #ifdef DEBUG
-#   define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
+    #define DLog(fmt, ...) \
+    NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
+    #define DTrace(fmt, ...) \
+    NSLog((@"TRACE %s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
 #else
-#   define DLog(...)
-#endif
-
-#ifdef DEBUG
-#   define QLog(fmt, ...) NSLog((fmt), ## __VA_ARGS__);
-#else
-#   define QLog(...)
+    #define DLog(...)
+    #define DTrace(...)
 #endif
 
 /// Stick this in code you want to assert if run on the main UI thread.
