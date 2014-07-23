@@ -72,6 +72,14 @@ static const NSInteger ROW_HEIGHT = 44;
 {
     [super viewDidLoad];
 
+    // Add "Pull to Refresh" control
+
+    self.refreshControl = [UIRefreshControl new];
+
+    [self.refreshControl addTarget:self
+                            action:@selector(refresh)
+                  forControlEvents:UIControlEventValueChanged];
+
     // Make sure that we have a service
 
     if (!self.sourceType)
@@ -86,8 +94,10 @@ static const NSInteger ROW_HEIGHT = 44;
 
     if (![self.sourceType.identifier isEqualToString:FPSourceImagesearch])
     {
-        //For Image Search, loading root is useless
-        [self fpLoadContents:self.path];
+        // For Image Search, loading root is useless
+
+        [self fpLoadContents:self.path
+                 cachePolicy:NSURLRequestReloadRevalidatingCacheData];
     }
 
     [self setTitle:self.sourceType.name];
@@ -754,12 +764,16 @@ static const NSInteger ROW_HEIGHT = 44;
                                                              id responseObject) {
         [self fpLoadResponseSuccessAtPath:loadpath
                                withResult:responseObject];
+
+        [self.refreshControl endRefreshing];
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
         [self fpLoadResponseFailureAtPath:loadpath
                                 withError:error];
+
+        [self.refreshControl endRefreshing];
     };
 
     AFHTTPRequestOperation *operation;
