@@ -65,6 +65,7 @@ static const NSInteger ROW_HEIGHT = 44;
 
 - (void)backButtonAction
 {
+    [[self httpRequestOperationQueue] cancelAllOperations];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
