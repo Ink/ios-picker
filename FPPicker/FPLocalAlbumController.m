@@ -36,7 +36,11 @@
 
     [self.view addSubview:self.tableView];
     self.title = _sourceType.name;
-    self.contentSizeForViewInPopover = fpWindowSize;
+
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        self.contentSizeForViewInPopover = fpWindowSize;
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,7 +67,10 @@
     NSLog(showImages ? @"Images: Yes" : @"Images: No");
     NSLog(showVideos ? @"Videos: Yes" : @"Videos: No");
 
-    self.contentSizeForViewInPopover = fpWindowSize;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        self.contentSizeForViewInPopover = fpWindowSize;
+    }
 
     CGRect bounds = self.view.bounds;
 

@@ -71,7 +71,11 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.contentSizeForViewInPopover = fpWindowSize;
+    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
+    {
+        self.contentSizeForViewInPopover = fpWindowSize;
+    }
+
     self.webView.frame = self.view.bounds;
 
     [super viewWillAppear:animated];
