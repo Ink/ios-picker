@@ -54,13 +54,6 @@ static UIColor *ANGRY_COLOR;
 {
     [super viewDidLoad];
 
-    self.tableView = [[UITableView alloc] initWithFrame:self.tableView.bounds
-                                                  style:UITableViewStylePlain];
-
-    self.tableView.dataSource = self;
-    self.tableView.delegate = self;
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
     // Do any additional setup after loading the view.
 
     if (self.selectMultiple)
