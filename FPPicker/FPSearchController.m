@@ -11,15 +11,11 @@
 
 @interface FPSearchController ()
 
-@property (nonatomic, strong) UITableView *backgroundTableView;
-@property (nonatomic, strong) UISearchBar *searchBar;
-@property (nonatomic, strong) UISearchDisplayController *searchDisplayController;
+@property (nonatomic, strong) UISearchDisplayController *FPSearchDisplayController;
 
 @end
 
 @implementation FPSearchController
-
-@synthesize searchDisplayController = _ourSearchDisplayController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -34,40 +30,40 @@
 {
     [super viewDidLoad];
 
-    self.searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-
     // iOS7 fix
 
     if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
     {
-        self.edgesForExtendedLayout = UIRectEdgeLeft | UIRectEdgeBottom | UIRectEdgeRight;
+        self.edgesForExtendedLayout = UIRectEdgeAll;
     }
 
-    self.searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:self.searchBar
-                                                                     contentsController:self];
-    self.searchDisplayController.delegate = self;
-    self.searchDisplayController.searchResultsDataSource = self;
-    self.searchDisplayController.searchResultsDelegate = self;
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,
+                                                                           [UIApplication sharedApplication].statusBarFrame.size.height,
+                                                                           320,
+                                                                           44)];
 
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
-    {
-        [self.view addSubview:self.searchBar];
-    }
-    else
-    {
-        self.tableView.tableHeaderView = self.searchBar;
-    }
+    UISearchDisplayController *searchDisplayController;
+
+    searchDisplayController = [[UISearchDisplayController alloc] initWithSearchBar:searchBar
+                                                                contentsController:self];
+
+    searchDisplayController.delegate = self;
+    searchDisplayController.searchResultsDataSource = self;
+    searchDisplayController.searchResultsDelegate = self;
+
+    self.FPSearchDisplayController = searchDisplayController;
+    self.tableView.tableHeaderView = self.FPSearchDisplayController.searchBar;
 }
 
 - (void)viewDidUnload
 {
-    [super viewDidUnload];
+    self.tableView.tableHeaderView = nil;
+    self.FPSearchDisplayController.delegate = nil;
+    self.FPSearchDisplayController.searchResultsDataSource = nil;
+    self.FPSearchDisplayController.searchResultsDelegate = nil;
+    self.FPSearchDisplayController = nil;
 
-    self.searchBar = nil;
-    self.searchDisplayController.delegate = nil;
-    self.searchDisplayController.searchResultsDataSource = nil;
-    self.searchDisplayController.searchResultsDelegate = nil;
-    self.searchDisplayController = nil;
+    [super viewDidUnload];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,22 +78,32 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [self.searchDisplayController setActive:YES
-                                   animated:YES];
+    [self.FPSearchDisplayController setActive:YES
+                                     animated:YES];
 }
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self.FPSearchDisplayController.searchResultsTableView reloadData];
+}
+
+- (void)afterReload
+{
+    [self.FPSearchDisplayController.searchResultsTableView reloadData];
+}
+
+#pragma mark - UISearchDisplayDelegate Methods
 
 - (BOOL)     searchDisplayController:(UISearchDisplayController *)controller
     shouldReloadTableForSearchString:(NSString *)searchString
 {
-    //NSLog(@"Search String %@", searchString);
-    NSString *path = [NSString stringWithFormat:@"%@/%@",
-                      self.sourceType.rootUrl,
-                      [FPUtils urlEncodeString:searchString]];
+    self.path = [NSString stringWithFormat:@"%@/%@",
+                 self.sourceType.rootUrl,
+                 [FPUtils urlEncodeString:searchString]];
 
-    self.path = path;
-
-    [self fpLoadContents:path];
-    [self.searchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    [self fpLoadContents:self.path];
+    [self.FPSearchDisplayController.searchResultsTableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
 
     // will reload when I have the results
 
@@ -112,22 +118,10 @@
     return NO;
 }
 
-#pragma mark - UISearchDisplayDelegate Methods
-
-- (void)   searchDisplayController:(UISearchDisplayController *)controller
-    willShowSearchResultsTableView:(UITableView *)tableView
-{
-    self.backgroundTableView = self.tableView;
-    self.backgroundTableView.hidden = YES;
-    self.tableView = tableView;
-}
-
 - (void)   searchDisplayController:(UISearchDisplayController *)controller
     willHideSearchResultsTableView:(UITableView *)tableView
 {
-    self.tableView = self.backgroundTableView;
-    self.tableView.hidden = NO;
-    self.backgroundTableView = nil;
+    [self.tableView reloadData];
 }
 
 @end

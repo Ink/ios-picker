@@ -22,7 +22,6 @@
 @property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 
 - (void)fpLoadContents:(NSString *)loadpath;
-- (void)objectSelectedAtIndex:(NSInteger)index;
 - (void)afterReload;
 
 @end

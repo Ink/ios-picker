@@ -21,7 +21,6 @@
 @property UILabel *emptyLabel;
 @property NSCache *imageViews;
 @property NSMutableSet *selectedAssets;
-@property UITableView *tableView;
 
 @end
 
