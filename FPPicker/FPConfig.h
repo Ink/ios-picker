@@ -8,14 +8,52 @@
 
 @interface FPConfig : NSObject
 
+/*!
+   Filepicker.io base URL (read-only.)
+ */
 @property (nonatomic, readonly, strong) NSURL *baseURL;
+
+/*!
+   Filepicker.io API key (required.)
+ */
 @property (nonatomic, strong) NSString *APIKey;
+
+/*!
+   Filepicker.io App secret key (required if security is enabled in Developer Portal)
+ */
 @property (nonatomic, strong) NSString *appSecretKey;
+
+/*!
+   Indicates that the file should be stored in a way that allows public access
+   going directly to the underlying file store.
+
+   Defaults to 'private'.
+ */
 @property (nonatomic, strong) NSString *storeAccess;
+
+/*!
+   Where to store the file.
+
+   Defaults to 'S3'.
+
+   Other options are 'azure', 'dropbox' and 'rackspace'.
+ */
 @property (nonatomic, strong) NSString *storeLocation;
+
+/*!
+   The path to store the file at within the specified file store.
+   For S3, this is the key where the file will be stored at.
+ */
 @property (nonatomic, strong) NSString *storePath;
+
+/*!
+   The bucket or container in the specified file store where the file should end up.
+ */
 @property (nonatomic, strong) NSString *storeContainer;
 
+/*!
+   Returns a singleton FPConfig instance.
+ */
 + (instancetype)sharedInstance;
 
 @end
