@@ -35,15 +35,6 @@ static FPConfig *FPSharedInstance = nil;
     return [self sharedInstance];
 }
 
-#pragma mark - Public Methods
-
-- (NSArray *)cookies
-{
-    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-    return [cookieStorage cookiesForURL:self.baseURL];
-}
-
 #pragma mark - Accessors
 
 - (NSURL *)baseURL
@@ -117,6 +108,13 @@ static FPConfig *FPSharedInstance = nil;
 }
 
 #pragma mark - Private
+
+- (NSArray *)cookies
+{
+    NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+    return [cookieStorage cookiesForURL:self.baseURL];
+}
 
 - (NSDictionary *)infoDict
 {
