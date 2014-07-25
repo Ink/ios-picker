@@ -46,6 +46,16 @@ static FPConfig *FPSharedInstance = nil;
 
 #pragma mark - Accessors
 
+- (NSURL *)baseURL
+{
+    if (!_baseURL)
+    {
+        _baseURL = [NSURL URLWithString:fpBASE_URL];
+    }
+
+    return _baseURL;
+}
+
 - (NSString *)APIKey
 {
     if (!_APIKey)
@@ -64,16 +74,6 @@ static FPConfig *FPSharedInstance = nil;
     }
 
     return _appSecretKey;
-}
-
-- (NSURL *)baseURL
-{
-    if (!_baseURL)
-    {
-        _baseURL = [NSURL URLWithString:fpBASE_URL];
-    }
-
-    return _baseURL;
 }
 
 - (NSString *)storeAccess
