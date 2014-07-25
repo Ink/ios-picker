@@ -37,21 +37,6 @@ static FPConfig *FPSharedInstance = nil;
 
 #pragma mark - Public Methods
 
-- (NSString *)APIKeyContentsFromFile
-{
-    NSString *envAPIKey = [[NSProcessInfo processInfo] environment][@"API_KEY_FILE"];
-
-    NSString *theAPIKey = [NSString stringWithContentsOfFile:envAPIKey
-                                                    encoding:NSUTF8StringEncoding
-                                                       error:nil];
-
-    // Trim whitespace and new lines
-
-    theAPIKey = [theAPIKey stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-
-    return theAPIKey;
-}
-
 - (NSArray *)cookies
 {
     NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -65,15 +50,7 @@ static FPConfig *FPSharedInstance = nil;
 {
     if (!_APIKey)
     {
-        if ((_APIKey = [self APIKeyContentsFromFile]))
-        {
-            NSLog(@"(DEBUG) Reading API KEY from API_KEY file (Info.plist entry will be ignored)");
-        }
-
-        if (!_APIKey)
-        {
-            _APIKey = self.infoDict[@"Filepicker API Key"];
-        }
+        _APIKey = self.infoDict[@"Filepicker API Key"];
     }
 
     return _APIKey;

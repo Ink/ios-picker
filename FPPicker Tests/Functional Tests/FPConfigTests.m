@@ -52,19 +52,6 @@
                           @"new should return a shared instance");
 }
 
-- (void)testAPIKeyFromFile
-{
-    id configMock = OCMPartialMock([FPConfig sharedInstance]);
-
-    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_API_KEY");
-
-    XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
-                          @"MY_API_KEY",
-                          @"API key does not match");
-
-    OCMVerifyAll(configMock);
-}
-
 - (void)testAPIKeyFromPList
 {
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
