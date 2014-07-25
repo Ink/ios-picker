@@ -17,6 +17,5 @@
 @property (nonatomic, strong) NSString *storeContainer;
 
 + (instancetype)sharedInstance;
-- (NSArray *)cookies;
 
 @end

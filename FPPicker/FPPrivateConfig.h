@@ -37,3 +37,12 @@
 #define fpNumRetries                10
 
 #define fpMaxLocalChunkCopySize     2097152 //2.0mb
+
+@interface FPConfig (PrivateMethods)
+
+/*!
+   Returns all the cookies associated to baseURL.
+ */
+- (NSArray *)cookies;
+
+@end
