@@ -10,11 +10,12 @@
 
 // Collaborators
 
-#import "FPConfig.h"
+#import "FPPrivateConfig.h"
 #import "FPLibrary.h"
 #import "FPAPIClient.h"
 #import "FPUtils.h"
 #import "FPSession.h"
+
 
 @interface FPLibraryTests : XCTestCase
 

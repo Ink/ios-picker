@@ -10,7 +10,7 @@
 #import "FPMBProgressHUD.h"
 #import "FPTableWithUploadButtonViewController.h"
 
-#import "FPConfig.h"
+#import "FPPrivateConfig.h"
 #import "FPLibrary.h"
 #import "FPSource.h"
 #import "FPAPIClient.h"

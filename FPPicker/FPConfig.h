@@ -6,41 +6,11 @@
 //  Copyright (c) 2014 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
-#ifdef DEBUG
-    #define fpBASE_URL                  @"https://dialog.filepicker.io"
-#else
-//Make sure release builds are always on prod.
-    #define fpBASE_URL                  @"https://dialog.filepicker.io"
-#endif
-
-#define fpDEVICE_NAME               [[UIDevice currentDevice] name]
-#define fpDEVICE_OS                 [[UIDevice currentDevice] systemName]
-#define fpDEVICE_VERSION            [[UIDevice currentDevice] systemVersion]
-
-#define fpDEVICE_TYPE               UI_USER_INTERFACE_IDIOM()
-#define fpDEVICE_TYPE_IPAD          UIUserInterfaceIdiomPad
-#define fpDEVICE_TYPE_IPHONE        UIUserInterfaceIdiomPhone
-
-#define fpCOOKIES                   [[FPConfig sharedInstance] cookies]
-#define fpAPIKEY                    [[FPConfig sharedInstance] APIKey]
-#define fpAPPSECRETKEY              [[FPConfig sharedInstance] appSecretKey]
-
-#define fpWindowSize                CGSizeMake(320, 480)
-#define fpCellIdentifier            @"Filepicker_Cell"
-
-#define fpLocalThumbSize            75
-#define fpRemoteThumbSize           100
-
-#define fpMaxChunkSize              262144 //.25mb
-#define fpNumRetries                10
-
-#define fpMaxLocalChunkCopySize     2097152 //2.0mb
-
 @interface FPConfig : NSObject
 
+@property (nonatomic, readonly, strong) NSURL *baseURL;
 @property (nonatomic, strong) NSString *APIKey;
 @property (nonatomic, strong) NSString *appSecretKey;
-@property (nonatomic, strong) NSURL *baseURL;
 @property (nonatomic, strong) NSString *storeAccess;
 @property (nonatomic, strong) NSString *storeLocation;
 @property (nonatomic, strong) NSString *storePath;

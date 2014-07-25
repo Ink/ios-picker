@@ -8,7 +8,7 @@
 
 #import "FPSession+ConvenienceMethods.h"
 #import "FPUtils.h"
-#import "FPConfig.h"
+#import "FPPrivateConfig.h"
 
 @implementation FPSession (ConvenienceMethods)
 

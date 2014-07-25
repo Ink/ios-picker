@@ -7,6 +7,13 @@
 //
 
 #import "FPConfig.h"
+#import "FPPrivateConfig.h"
+
+@interface FPConfig ()
+
+@property (nonatomic, readwrite, strong) NSURL *baseURL;
+
+@end
 
 @implementation FPConfig
 

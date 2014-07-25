@@ -7,7 +7,7 @@
 //
 
 #import "FPUtils.h"
-#import "FPConfig.h"
+#import "FPPrivateConfig.h"
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>

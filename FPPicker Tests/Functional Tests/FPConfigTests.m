@@ -9,7 +9,8 @@
 #import <XCTest/XCTest.h>
 
 // Collaborators
-#import "FPConfig.h"
+
+#import "FPPrivateConfig.h"
 
 @interface FPConfigTests : XCTestCase
 
