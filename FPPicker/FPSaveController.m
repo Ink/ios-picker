@@ -38,23 +38,24 @@
         [apikeyException raise];
     }
 
-    if (!self.data && !self.dataurl)
+    if (!self.data &&
+        !self.dataurl)
     {
         NSLog(@"WARNING: No data specified. Continuing but saving blank file.");
         self.data = [@"" dataUsingEncoding : NSUTF8StringEncoding];
     }
 
-    if (!self.dataType && !self.dataExtension)
+    if (!self.dataType &&
+        !self.dataExtension)
     {
         NSLog(@"WARNING: No data type or data extension specified");
     }
 
-    FPSourceListController *fpSourceListController = [FPSourceListController alloc];
+    FPSourceListController *fpSourceListController = [FPSourceListController new];
+
     fpSourceListController.fpdelegate = self;
     fpSourceListController.sourceNames = self.sourceNames;
     fpSourceListController.dataTypes = @[self.dataType];
-
-    fpSourceListController = [fpSourceListController init];
 
     [self pushViewController:fpSourceListController
                     animated:YES];

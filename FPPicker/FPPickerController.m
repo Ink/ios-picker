@@ -164,10 +164,10 @@
         imageToSave = originalImage;
     }
 
-    const float ThumbnailSize = 115.0f;
-    float scaleFactor = ThumbnailSize / fminf(imageToSave.size.height, imageToSave.size.width);
-    float newHeight = imageToSave.size.height * scaleFactor;
-    float newWidth = imageToSave.size.width * scaleFactor;
+    const CGFloat ThumbnailSize = 115.0f;
+    CGFloat scaleFactor = ThumbnailSize / fminf(imageToSave.size.height, imageToSave.size.width);
+    CGFloat newHeight = imageToSave.size.height * scaleFactor;
+    CGFloat newWidth = imageToSave.size.width * scaleFactor;
 
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
     [imageToSave drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
