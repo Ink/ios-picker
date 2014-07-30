@@ -190,7 +190,6 @@
     }
 
     // Get count
-    NSLog(@"group #%ld", (long)indexPath.row);
     ALAssetsGroup *g = (ALAssetsGroup*)self.albums[indexPath.row];
 
     UIImage *albumImage = [UIImage imageWithCGImage:((ALAssetsGroup *)self.albums[indexPath.row]).posterImage];

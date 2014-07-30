@@ -211,8 +211,6 @@
     {
         NSInteger index = self.numPerRow * indexPath.row + i;
 
-        NSLog(@"Index %ld", (long)index);
-
         if (self.photos.count <= index)
         {
             break;
