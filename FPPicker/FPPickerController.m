@@ -108,7 +108,7 @@
         [apikeyException raise];
     }
 
-    FPSourceListController *fpSourceListController = [FPSourceListController alloc];
+    FPSourceListController *fpSourceListController = [FPSourceListController new];
 
     fpSourceListController.fpdelegate = self;
     fpSourceListController.imageDelegate = self;
@@ -117,8 +117,6 @@
     fpSourceListController.selectMultiple = _selectMultiple;
     fpSourceListController.maxFiles = _maxFiles;
     fpSourceListController.title = self.title;
-
-    fpSourceListController = [fpSourceListController init];
 
     [self pushViewController:fpSourceListController
                     animated:YES];
@@ -188,7 +186,9 @@
         });
     }
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:picker.view animated:YES];
+    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:picker.view
+                                                  animated:YES];
+
     hud.labelText = @"Uploading...";
     hud.mode = FPMBProgressHUDModeDeterminate;
 
@@ -255,9 +255,9 @@
                 };
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    NSLog(@"dispatched main thread: %@", [NSThread isMainThread] ? @"YES" : @"NO");
+                    [FPMBProgressHUD hideHUDForView:self.view
+                                           animated:YES];
 
-                    [FPMBProgressHUD hideHUDForView:self.view animated:YES];
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
                         [_fpdelegate FPPickerController:self
