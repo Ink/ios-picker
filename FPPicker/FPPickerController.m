@@ -199,15 +199,7 @@
 
         if ([info[@"UIImagePickerControllerMediaType"] isEqual:(NSString *)kUTTypeImage])
         {
-            NSString *dataType = @"image/*";
-
-            for (NSString *type in self.dataTypes)
-            {
-                if ([type isEqualToString:@"image/png"] || [type isEqualToString:@"image/jpeg"])
-                {
-                    dataType = type;
-                }
-            }
+            NSString *dataType = @"image/jpeg";
 
             NSLog(@"should upload: %@", _shouldUpload ? @"YES" : @"NO");
 
