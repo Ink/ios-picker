@@ -10,27 +10,30 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import "FPExternalHeaders.h"
 
-@interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate, FPSourcePickerDelegate, UINavigationControllerDelegate>
+@interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate,
+                                                        FPSourcePickerDelegate,
+                                                        UINavigationControllerDelegate>
 
 @property (nonatomic, weak) id <FPPickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 
-//imagepicker properties
-@property (nonatomic) BOOL allowsEditing;
-@property (nonatomic) BOOL selectMultiple;
-@property (nonatomic) NSInteger maxFiles;
+// imagepicker properties
 
-@property (nonatomic) UIImagePickerControllerQualityType videoQuality;
-@property (nonatomic) NSTimeInterval videoMaximumDuration;
-@property (nonatomic) BOOL showsCameraControls;
+@property (nonatomic, assign) BOOL allowsEditing;
+@property (nonatomic, assign) BOOL selectMultiple;
+@property (nonatomic, assign) NSInteger maxFiles;
+
+@property (nonatomic, assign) UIImagePickerControllerQualityType videoQuality;
+@property (nonatomic, assign) NSTimeInterval videoMaximumDuration;
+@property (nonatomic, assign) BOOL showsCameraControls;
 @property (nonatomic, strong) UIView *cameraOverlayView;
-@property (nonatomic) CGAffineTransform cameraViewTransform;
+@property (nonatomic, assign) CGAffineTransform cameraViewTransform;
 
-@property (nonatomic) UIImagePickerControllerCameraDevice cameraDevice;
-@property (nonatomic) UIImagePickerControllerCameraFlashMode cameraFlashMode;
+@property (nonatomic, assign) UIImagePickerControllerCameraDevice cameraDevice;
+@property (nonatomic, assign) UIImagePickerControllerCameraFlashMode cameraFlashMode;
 
-@property (nonatomic) BOOL shouldUpload;
-@property (nonatomic) BOOL shouldDownload;
+@property (nonatomic, assign) BOOL shouldUpload;
+@property (nonatomic, assign) BOOL shouldDownload;
 
 @end

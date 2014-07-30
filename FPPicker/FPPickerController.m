@@ -13,7 +13,7 @@
 
 @interface FPPickerController ()
 
-@property BOOL hasStatusBar;
+@property (nonatomic, assign) BOOL hasStatusBar;
 
 @end
 
@@ -78,9 +78,11 @@
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super initWithNibName:nibNameOrNil
+                           bundle:nibBundleOrNil];
 
     [self initializeProperties];
 
@@ -90,10 +92,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view.
+
     self.delegate = self;
 
-    if (fpAPIKEY == NULL || [fpAPIKEY isEqualToString:@""] || [fpAPIKEY isEqualToString:@"SET_FILEPICKER.IO_APIKEY_HERE"])
+    if (!fpAPIKEY ||
+        [fpAPIKEY isEqualToString:@""] ||
+        [fpAPIKEY isEqualToString:@"SET_FILEPICKER.IO_APIKEY_HERE"])
     {
         NSException *apikeyException = [NSException
                                         exceptionWithName:@"Filepicker Configuration Error"
@@ -103,6 +109,7 @@
     }
 
     FPSourceListController *fpSourceListController = [FPSourceListController alloc];
+
     fpSourceListController.fpdelegate = self;
     fpSourceListController.imageDelegate = self;
     fpSourceListController.sourceNames = _sourceNames;
@@ -113,7 +120,8 @@
 
     fpSourceListController = [fpSourceListController init];
 
-    [self pushViewController:fpSourceListController animated:YES];
+    [self pushViewController:fpSourceListController
+                    animated:YES];
 }
 
 - (void)viewDidUnload
@@ -131,7 +139,8 @@
 
 #pragma mark UIImagePickerControllerDelegate Methods
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)    imagePickerController:(UIImagePickerController *)picker
+    didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     if (self.hasStatusBar)
     {
@@ -363,7 +372,8 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *)info
+- (void)FPSourceController:(FPSourceController *)picker
+      didPickMediaWithInfo:(NSDictionary *)info
 {
     if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
@@ -372,7 +382,8 @@
     }
 }
 
-- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)       FPSourceController:(FPSourceController *)picker
+    didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked something from a source: %@", info);
@@ -383,7 +394,8 @@
     _fpdelegate = nil;
 }
 
-- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
+- (void)                  FPSourceController:(FPSourceController *)picker
+    didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked multiple files from a source: %@", results);
@@ -414,12 +426,16 @@
 
 #pragma mark UINavigationControllerDelegate Methods
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController
+       didShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
 {
     return;
 }
 
-- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
 {
     return;
 }
