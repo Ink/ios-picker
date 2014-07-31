@@ -1,5 +1,5 @@
-v 3.2.0 - unreleased
-- FPConfig is now publicly accessible and the new preferred way to set API key, security settings, etc.
+v 3.2.0 - 07/31/2014
+- FPConfig is now the preferred way to set API key, security settings, etc. (Info plist configuration is still supported but deprecated.)
 - Added "pull to refresh" gesture to remote source table views.
 - Changed caching policy to prevent remote source table results from becoming stale.
 - Fixed ambiguous mimetype on camera picture uploads (defaulting to image/jpeg now.)
