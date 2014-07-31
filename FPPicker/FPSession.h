@@ -46,6 +46,7 @@
 /**
    The path to store the file at within the specified file store.
    For S3, this is the key where the file will be stored at.
+   For S3, please remember adding a trailing slash (i.e. my-custom-path/)
  */
 @property (nonatomic, strong) NSString *storePath;
 

@@ -6,8 +6,8 @@ v 3.2.0 - unreleased
 - Added https://*.app.box.com/api/ to allowedUrlPrefix.plist
 
 v 3.1.0 - 07/17/2014
-- Adding security support
-- Adding store options support
+- Added security support
+- Added store options support
 
 v 3.0.3 - 07/09/2014
 - Fixed multipart upload data corruption
