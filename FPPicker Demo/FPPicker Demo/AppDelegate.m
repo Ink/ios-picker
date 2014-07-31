@@ -8,12 +8,27 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
+#import <FPPicker/FPConfig.h>
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    /*
+       Filepicker.io configuration (required)
+     */
+
+    [FPConfig sharedInstance].APIKey = @"SET_FILEPICKER.IO_APIKEY_HERE";
+
+    /*
+       Filepicker.io configuration (optional)
+     */
+
+    // [FPConfig sharedInstance].appSecretKey = @"SET_FILEPICKER.IO_APPSECRETKEY_HERE";
+    // [FPConfig sharedInstance].storeAccess = @"private";
+    // [FPConfig sharedInstance].storeContainer = @"some-alt-container";
+    // [FPConfig sharedInstance].storeLocation = @"S3";
+    // [FPConfig sharedInstance].storePath = @"some-path-within-bucket/";
 
     return YES;
 }
