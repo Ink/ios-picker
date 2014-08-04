@@ -973,9 +973,16 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         id next = responseObject[@"next"];
 
-        if (next && next != (NSString *)[NSNull null])
+        if (next && next != [NSNull null])
         {
-            self.nextPage = [next stringValue];
+            if ([next respondsToSelector:@selector(stringValue)])
+            {
+                self.nextPage = [next stringValue];
+            }
+            else
+            {
+                self.nextPage = next;
+            }
         }
         else
         {
