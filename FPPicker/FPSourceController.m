@@ -305,9 +305,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
     {
         cell.accessoryType = UITableViewCellAccessoryNone;
         cell.textLabel.textColor = [UIColor blackColor];
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        cell.textLabel.text = @"";
         cell.imageView.alpha = 1.0;
         cell.imageView.image = nil;
-        cell.textLabel.text = @"";
         cell.userInteractionEnabled = YES;
 
         for (UIView *view in cell.contentView.subviews)
