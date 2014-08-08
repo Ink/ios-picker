@@ -615,37 +615,29 @@
                 progress:(void (^)(float progress))progress
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
+    NSString *filename = representation.filename;
 
     UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
                                          scale:representation.scale
                                    orientation:(UIImageOrientation)representation.orientation];
 
-    NSLog(@"uti: %@", representation.UTI);
-
-    NSString *filename = representation.filename;
-
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
-                                                           NSURL *localurl) {
-        NSDictionary *data = JSON[@"data"][0];
-
-        NSDictionary *output = @{
-            @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
-            @"FPPickerControllerOriginalImage":image,
-            @"FPPickerControllerMediaURL":localurl,
-            @"FPPickerControllerRemoteURL":data[@"url"],
-            @"FPPickerControllerFilename":data[@"data"][@"filename"],
-        };
+                                                           NSURL *localURL) {
+        NSDictionary *output = [FPUtils mediaInfoForMediaType:(NSString *)kUTTypeImage
+                                                     mediaURL:localURL
+                                                originalImage:image
+                                              andJSONResponse:JSON];
 
         success(output);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
-                                                           NSURL *localurl) {
+                                                           NSURL *localURL) {
         NSDictionary *output = @{
             @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
             @"FPPickerControllerOriginalImage":image,
-            @"FPPickerControllerMediaURL":localurl,
+            @"FPPickerControllerMediaURL":localURL,
             @"FPPickerControllerRemoteURL":@"",
             @"FPPickerControllerFilename":filename
         };
@@ -670,25 +662,21 @@
     NSString *filename = representation.filename;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
-                                                           NSURL *localurl) {
-        NSDictionary *data = JSON[@"data"][0];
-
-        NSDictionary *output = @{
-            @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
-            @"FPPickerControllerMediaURL":localurl,
-            @"FPPickerControllerRemoteURL":data[@"url"],
-            @"FPPickerControllerFilename":data[@"data"][@"filename"],
-        };
+                                                           NSURL *localURL) {
+        NSDictionary *output = [FPUtils mediaInfoForMediaType:(NSString *)kUTTypeVideo
+                                                     mediaURL:localURL
+                                                originalImage:nil
+                                              andJSONResponse:JSON];
 
         success(output);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
-                                                           NSURL *localurl) {
+                                                           NSURL *localURL) {
         NSDictionary *output = @{
             @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
-            @"FPPickerControllerMediaURL":localurl,
+            @"FPPickerControllerMediaURL":localURL,
             @"FPPickerControllerRemoteURL":@"",
             @"FPPickerControllerFilename":filename
         };

@@ -9,7 +9,7 @@
 #import "FPInternalHeaders.h"
 #import "FPPickerController.h"
 #import "FPSourceListController.h"
-
+#import "FPUtils.h"
 
 @interface FPPickerController ()
 
@@ -145,7 +145,6 @@
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
     }
 
-
     /* resizing the thumbnail */
 
     UIImage *originalImage, *editedImage, *imageToSave;
@@ -168,10 +167,13 @@
     CGFloat scaleFactor = ThumbnailSize / fminf(imageToSave.size.height, imageToSave.size.width);
     CGFloat newHeight = imageToSave.size.height * scaleFactor;
     CGFloat newWidth = imageToSave.size.width * scaleFactor;
+    UIImage *thumbImage;
 
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
-    [imageToSave drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
-    UIImage *thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+    {
+        [imageToSave drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+        thumbImage = UIGraphicsGetImageFromCurrentImageContext();
+    }
     UIGraphicsEndImageContext();
 
     if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
@@ -204,25 +206,15 @@
             NSLog(@"should upload: %@", _shouldUpload ? @"YES" : @"NO");
 
             FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
-                                                                   NSURL *localurl) {
+                                                                   NSURL *localURL) {
                 NSLog(@"JSON: %@", JSON);
 
-                NSDictionary *data = JSON[@"data"][0];
-                NSDictionary *output = @{
-                    @"FPPickerControllerMediaType":info[@"UIImagePickerControllerMediaType"],
-                    @"FPPickerControllerOriginalImage":imageToSave,
-                    @"FPPickerControllerMediaURL":localurl,
-                    @"FPPickerControllerRemoteURL":data[@"url"]
-                };
+                NSString *mediaType = info[@"UIImagePickerControllerMediaType"];
 
-                if (data[@"data"][@"key"])
-                {
-                    NSMutableDictionary *mutableOutput = [output mutableCopy];
-
-                    mutableOutput[@"FPPickerControllerKey"] = data[@"data"][@"key"];
-                    output = [mutableOutput copy];
-                    mutableOutput = nil;
-                }
+                NSDictionary *output = [FPUtils mediaInfoForMediaType:mediaType
+                                                             mediaURL:localURL
+                                                        originalImage:imageToSave
+                                                      andJSONResponse:JSON];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [FPMBProgressHUD hideHUDForView:picker.view
@@ -238,11 +230,11 @@
 
             FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                                    id JSON,
-                                                                   NSURL *localurl) {
+                                                                   NSURL *localURL) {
                 NSDictionary *output = @{
                     @"FPPickerControllerMediaType":info[@"UIImagePickerControllerMediaType"],
                     @"FPPickerControllerOriginalImage":imageToSave,
-                    @"FPPickerControllerMediaURL":localurl,
+                    @"FPPickerControllerMediaURL":localURL,
                     @"FPPickerControllerRemoteURL":@""
                 };
 

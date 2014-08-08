@@ -353,6 +353,48 @@
     return numberOfMatches > 0;
 }
 
++ (NSDictionary *)mediaInfoForMediaType:(NSString *)mediaType
+                               mediaURL:(NSURL *)mediaURL
+                          originalImage:(UIImage *)originalImage
+                        andJSONResponse:(id)JSONResponse
+{
+    NSDictionary *data = JSONResponse[@"data"][0];
+    NSDictionary *mediaInfo = @{
+        @"FPPickerControllerMediaType":mediaType,
+        @"FPPickerControllerMediaURL":mediaURL,
+        @"FPPickerControllerRemoteURL":data[@"url"]
+    };
+
+    if (data[@"data"][@"filename"])
+    {
+        NSMutableDictionary *mutableMediaInfo = [mediaInfo mutableCopy];
+
+        mutableMediaInfo[@"FPPickerControllerFilename"] = data[@"data"][@"filename"];
+        mediaInfo = [mutableMediaInfo copy];
+        mutableMediaInfo = nil;
+    }
+
+    if (data[@"data"][@"key"])
+    {
+        NSMutableDictionary *mutableMediaInfo = [mediaInfo mutableCopy];
+
+        mutableMediaInfo[@"FPPickerControllerKey"] = data[@"data"][@"key"];
+        mediaInfo = [mutableMediaInfo copy];
+        mutableMediaInfo = nil;
+    }
+
+    if (originalImage)
+    {
+        NSMutableDictionary *mutableMediaInfo = [mediaInfo mutableCopy];
+
+        mutableMediaInfo[@"FPPickerControllerOriginalImage"] = originalImage;
+        mediaInfo = [mutableMediaInfo copy];
+        mutableMediaInfo = nil;
+    }
+
+    return mediaInfo;
+}
+
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
     /*
