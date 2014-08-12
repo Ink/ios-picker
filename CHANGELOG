@@ -1,5 +1,5 @@
 v 3.2.2 - 08/12/2014
-- Adding https://login.yahoo.com/ylc to allowedUrlPrefix.plist
+- Added https://login.yahoo.com/ylc to allowedUrlPrefix.plist
 - Ensure FPPickerControllerKey is returned when key (i.e. S3 filename) is available
 - Misc minor bugfixes
 
