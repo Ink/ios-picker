@@ -1,3 +1,8 @@
+v 3.2.2 - 08/12/2014
+- Adding https://login.yahoo.com/ylc to allowedUrlPrefix.plist
+- Ensure FPPickerControllerKey is returned when key (i.e. S3 filename) is available
+- Misc minor bugfixes
+
 v 3.2.1 - 08/01/2014
 - Fixed a crash when handling next page loading on Google Drive, and other sources.
 
