@@ -1,0 +1,345 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DD1BB3199B860E00937A5F /* Cocoa.framework */; };
+		45DD1BBE199B860E00937A5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DD1BBC199B860E00937A5F /* InfoPlist.strings */; };
+		45E72504199B870B0010E7BD /* FPPicker_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "FPPicker Mac.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45DD1BB3199B860E00937A5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		45DD1BB6199B860E00937A5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		45DD1BB7199B860E00937A5F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		45DD1BB8199B860E00937A5F /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		45DD1BBB199B860E00937A5F /* FPPicker Mac-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker Mac-Info.plist"; sourceTree = "<group>"; };
+		45DD1BBD199B860E00937A5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45DD1BBF199B860E00937A5F /* FPPicker Mac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPPicker Mac-Prefix.pch"; sourceTree = "<group>"; };
+		45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker_Mac.h; sourceTree = "<group>"; };
+		45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Mac.m; sourceTree = "<group>"; };
+		45DD1BC8199B860E00937A5F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45DD1BD0199B860E00937A5F /* FPPicker MacTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker MacTests-Info.plist"; sourceTree = "<group>"; };
+		45DD1BD2199B860E00937A5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		45DD1BD4199B860E00937A5F /* FPPicker_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_MacTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45DD1BAC199B860E00937A5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45DD1BA6199B860E00937A5F = {
+			isa = PBXGroup;
+			children = (
+				45DD1BB9199B860E00937A5F /* FPPicker Mac */,
+				45DD1BCE199B860E00937A5F /* FPPicker MacTests */,
+				45DD1BB2199B860E00937A5F /* Frameworks */,
+				45DD1BB1199B860E00937A5F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		45DD1BB1199B860E00937A5F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45DD1BB2199B860E00937A5F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BB3199B860E00937A5F /* Cocoa.framework */,
+				45DD1BC8199B860E00937A5F /* XCTest.framework */,
+				45DD1BB5199B860E00937A5F /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		45DD1BB5199B860E00937A5F /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BB6199B860E00937A5F /* Foundation.framework */,
+				45DD1BB7199B860E00937A5F /* CoreData.framework */,
+				45DD1BB8199B860E00937A5F /* AppKit.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		45DD1BB9199B860E00937A5F /* FPPicker Mac */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */,
+				45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */,
+				45DD1BBA199B860E00937A5F /* Supporting Files */,
+			);
+			name = "FPPicker Mac";
+			path = FPPicker/Platforms/Mac;
+			sourceTree = "<group>";
+		};
+		45DD1BBA199B860E00937A5F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BBB199B860E00937A5F /* FPPicker Mac-Info.plist */,
+				45DD1BBC199B860E00937A5F /* InfoPlist.strings */,
+				45DD1BBF199B860E00937A5F /* FPPicker Mac-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = "../../../Resources-Mac";
+			sourceTree = "<group>";
+		};
+		45DD1BCE199B860E00937A5F /* FPPicker MacTests */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BD4199B860E00937A5F /* FPPicker_MacTests.m */,
+				45DD1BCF199B860E00937A5F /* Supporting Files */,
+			);
+			path = "FPPicker MacTests";
+			sourceTree = "<group>";
+		};
+		45DD1BCF199B860E00937A5F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45DD1BD0199B860E00937A5F /* FPPicker MacTests-Info.plist */,
+				45DD1BD1199B860E00937A5F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		45DD1BAD199B860E00937A5F /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		45DD1BAF199B860E00937A5F /* FPPicker Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker Mac" */;
+			buildPhases = (
+				45DD1BAB199B860E00937A5F /* Sources */,
+				45DD1BAC199B860E00937A5F /* Frameworks */,
+				45DD1BAD199B860E00937A5F /* Headers */,
+				45DD1BAE199B860E00937A5F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "FPPicker Mac";
+			productName = "FPPicker Mac";
+			productReference = 45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45DD1BA7199B860E00937A5F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Filepicker.io;
+			};
+			buildConfigurationList = 45DD1BAA199B860E00937A5F /* Build configuration list for PBXProject "FPPicker Mac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 45DD1BA6199B860E00937A5F;
+			productRefGroup = 45DD1BB1199B860E00937A5F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				45DD1BAF199B860E00937A5F /* FPPicker Mac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		45DD1BAE199B860E00937A5F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45DD1BBE199B860E00937A5F /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		45DD1BAB199B860E00937A5F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45E72504199B870B0010E7BD /* FPPicker_Mac.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		45DD1BBC199B860E00937A5F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45DD1BBD199B860E00937A5F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		45DD1BD1199B860E00937A5F /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45DD1BD2199B860E00937A5F /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		45DD1BD6199B860E00937A5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		45DD1BD7199B860E00937A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		45DD1BD9199B860E00937A5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker Mac-Prefix.pch";
+				INFOPLIST_FILE = "Resources-Mac/FPPicker Mac-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		45DD1BDA199B860E00937A5F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker Mac-Prefix.pch";
+				INFOPLIST_FILE = "Resources-Mac/FPPicker Mac-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45DD1BAA199B860E00937A5F /* Build configuration list for PBXProject "FPPicker Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45DD1BD6199B860E00937A5F /* Debug */,
+				45DD1BD7199B860E00937A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45DD1BD9199B860E00937A5F /* Debug */,
+				45DD1BDA199B860E00937A5F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45DD1BA7199B860E00937A5F /* Project object */;
+}

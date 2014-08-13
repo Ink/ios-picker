@@ -442,7 +442,7 @@
 		836A9D39169B5CF0006AC920 /* FPInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPInfoViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A030E215A89C9D0085E186 /* libFPPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFPPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A030E515A89C9D0085E186 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FPPicker-Prefix.pch"; path = "Platforms/iOS/FPPicker-Prefix.pch"; sourceTree = "<group>"; };
+		83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FPPicker-Prefix.pch"; path = "../../../Resources-iOS/FPPicker-Prefix.pch"; sourceTree = "<group>"; };
 		83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPMBProgressHUD.h; path = Platforms/iOS/FPMBProgressHUD.h; sourceTree = "<group>"; };
 		83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPMBProgressHUD.m; path = Platforms/iOS/FPMBProgressHUD.m; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
@@ -934,6 +934,7 @@
 				83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = Platforms/iOS;
 			sourceTree = "<group>";
 		};
 		83A030F215A89CC40085E186 /* Vendor */ = {
@@ -1708,7 +1709,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker/Platforms/iOS/FPPicker-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources-iOS/FPPicker-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -1782,7 +1783,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker/Platforms/iOS/FPPicker-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources-iOS/FPPicker-Prefix.pch";
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
