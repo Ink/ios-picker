@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "FPPicker Mac.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45DD1BB0199B860E00937A5F /* FPPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DD1BB3199B860E00937A5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45DD1BB6199B860E00937A5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45DD1BB7199B860E00937A5F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -24,9 +24,6 @@
 		45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker_Mac.h; sourceTree = "<group>"; };
 		45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Mac.m; sourceTree = "<group>"; };
 		45DD1BC8199B860E00937A5F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		45DD1BD0199B860E00937A5F /* FPPicker MacTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker MacTests-Info.plist"; sourceTree = "<group>"; };
-		45DD1BD2199B860E00937A5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45DD1BD4199B860E00937A5F /* FPPicker_MacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_MacTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +42,6 @@
 			isa = PBXGroup;
 			children = (
 				45DD1BB9199B860E00937A5F /* FPPicker Mac */,
-				45DD1BCE199B860E00937A5F /* FPPicker MacTests */,
 				45DD1BB2199B860E00937A5F /* Frameworks */,
 				45DD1BB1199B860E00937A5F /* Products */,
 			);
@@ -54,7 +50,7 @@
 		45DD1BB1199B860E00937A5F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */,
+				45DD1BB0199B860E00937A5F /* FPPicker.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,24 +97,6 @@
 			path = "../../../Resources-Mac";
 			sourceTree = "<group>";
 		};
-		45DD1BCE199B860E00937A5F /* FPPicker MacTests */ = {
-			isa = PBXGroup;
-			children = (
-				45DD1BD4199B860E00937A5F /* FPPicker_MacTests.m */,
-				45DD1BCF199B860E00937A5F /* Supporting Files */,
-			);
-			path = "FPPicker MacTests";
-			sourceTree = "<group>";
-		};
-		45DD1BCF199B860E00937A5F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45DD1BD0199B860E00937A5F /* FPPicker MacTests-Info.plist */,
-				45DD1BD1199B860E00937A5F /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -132,9 +110,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		45DD1BAF199B860E00937A5F /* FPPicker Mac */ = {
+		45DD1BAF199B860E00937A5F /* FPPicker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker Mac" */;
+			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker" */;
 			buildPhases = (
 				45DD1BAB199B860E00937A5F /* Sources */,
 				45DD1BAC199B860E00937A5F /* Frameworks */,
@@ -145,9 +123,9 @@
 			);
 			dependencies = (
 			);
-			name = "FPPicker Mac";
+			name = FPPicker;
 			productName = "FPPicker Mac";
-			productReference = 45DD1BB0199B860E00937A5F /* FPPicker Mac.framework */;
+			productReference = 45DD1BB0199B860E00937A5F /* FPPicker.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -171,7 +149,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				45DD1BAF199B860E00937A5F /* FPPicker Mac */,
+				45DD1BAF199B860E00937A5F /* FPPicker */,
 			);
 		};
 /* End PBXProject section */
@@ -203,14 +181,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				45DD1BBD199B860E00937A5F /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		45DD1BD1199B860E00937A5F /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				45DD1BD2199B860E00937A5F /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -330,7 +300,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker Mac" */ = {
+		45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45DD1BD9199B860E00937A5F /* Debug */,
