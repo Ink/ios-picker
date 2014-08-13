@@ -141,11 +141,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
-    {
-        self.contentSizeForViewInPopover = fpWindowSize;
-    }
-
     [self setupLayoutConstants];
     [super viewWillAppear:animated];
 }
@@ -612,10 +607,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [super uploadButtonTapped:sender];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.navigationController.view
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                                   animated:YES];
 
-    hud.mode = FPMBProgressHUDModeDeterminate;
+    hud.mode = MBProgressHUDModeDeterminate;
 
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
 
@@ -673,7 +668,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
                 NSLog(@"FAIL %@", error);
 
-                [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+                [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                            animated:YES];
 
                 if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
@@ -772,7 +767,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [self clearSelection];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.navigationController.view
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                                   animated:YES];
 
     hud.labelText = @"Loading contents";
@@ -868,7 +863,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
     }
 
-    [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                animated:YES];
 
     [self.tableView reloadData];
@@ -881,7 +876,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     if (self.contentLoadOperationQueue.isSuspended &&
         self.contentPreloadOperationQueue.isSuspended)
     {
-        [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                    animated:YES];
     }
 
@@ -1100,19 +1095,19 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
     else
     {
-        __block FPMBProgressHUD *hud;
+        __block MBProgressHUD *hud;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            hud = [FPMBProgressHUD showHUDAddedTo:self.navigationController.view
+            hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                          animated:YES];
 
-            hud.mode = FPMBProgressHUDModeDeterminate;
+            hud.mode = MBProgressHUDModeDeterminate;
             hud.labelText = @"Downloading file";
         });
 
         FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+                [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                            animated:YES];
 
                 [self.fpdelegate FPSourceController:self
@@ -1140,7 +1135,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             }
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+                [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                            animated:YES];
 
                 [self.fpdelegate FPSourceControllerDidCancel:self];
@@ -1171,7 +1166,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 - (void)finishMultipleUpload:(NSArray *)results
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                    animated:YES];
 
         [self.fpdelegate FPSourceController:nil
@@ -1406,7 +1401,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
 - (void)refresh
 {
-    [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                animated:YES];
 
     [self fpLoadContents:self.path
@@ -1423,7 +1418,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
                                          timeoutInterval:240];
 
-    [FPMBProgressHUD showHUDAddedTo:self.navigationController.view
+    [MBProgressHUD showHUDAddedTo:self.navigationController.view
                            animated:YES];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1458,7 +1453,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
 
 
-        [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                    animated:YES];
 
         [self.navigationController popViewControllerAnimated:YES];
@@ -1466,7 +1461,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                    animated:YES];
 
         NSLog(@"error: %@", error);

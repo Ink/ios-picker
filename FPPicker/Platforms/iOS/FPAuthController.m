@@ -71,11 +71,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
-    {
-        self.contentSizeForViewInPopover = fpWindowSize;
-    }
-
     self.webView.frame = self.view.bounds;
 
     [super viewWillAppear:animated];
@@ -106,7 +101,9 @@
 - (BOOL)webView:(UIWebView *)localWebView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSLog(@"Loading Path: %@ (relpath: %@)", [[request URL] absoluteString], [[request URL] path]);
-    [FPMBProgressHUD hideHUDForView:localWebView animated:YES];
+
+    [MBProgressHUD hideHUDForView:localWebView
+                         animated:YES];
 
     if ([request.URL.path isEqualToString:@"/dialog/open"])
     {
@@ -168,8 +165,8 @@
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern:object])
             {
-                [FPMBProgressHUD showHUDAddedTo:localWebView
-                                       animated:YES];
+                [MBProgressHUD showHUDAddedTo:localWebView
+                                     animated:YES];
 
                 return YES;
             }
@@ -179,8 +176,8 @@
 
         if ([request.URL.absoluteString hasPrefix:fpBASE_URL])
         {
-            [FPMBProgressHUD showHUDAddedTo:localWebView
-                                   animated:YES];
+            [MBProgressHUD showHUDAddedTo:localWebView
+                                 animated:YES];
 
             return YES;
         }
@@ -199,7 +196,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webview
 {
-    [FPMBProgressHUD hideAllHUDsForView:webview animated:YES];
+    [MBProgressHUD hideAllHUDsForView:webview animated:YES];
 
     int width = CGRectGetWidth(CGRectApplyAffineTransform(self.view.bounds, self.view.transform));
 

@@ -13,7 +13,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		45DD1BB0199B860E00937A5F /* FPPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		45DD1BB0199B860E00937A5F /* FPPickerMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPickerMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DD1BB3199B860E00937A5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45DD1BB6199B860E00937A5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		45DD1BB7199B860E00937A5F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
@@ -24,6 +24,7 @@
 		45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker_Mac.h; sourceTree = "<group>"; };
 		45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Mac.m; sourceTree = "<group>"; };
 		45DD1BC8199B860E00937A5F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPickerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +51,7 @@
 		45DD1BB1199B860E00937A5F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45DD1BB0199B860E00937A5F /* FPPicker.framework */,
+				45DD1BB0199B860E00937A5F /* FPPickerMac.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,6 +62,7 @@
 				45DD1BB3199B860E00937A5F /* Cocoa.framework */,
 				45DD1BC8199B860E00937A5F /* XCTest.framework */,
 				45DD1BB5199B860E00937A5F /* Other Frameworks */,
+				F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -110,9 +112,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		45DD1BAF199B860E00937A5F /* FPPicker */ = {
+		45DD1BAF199B860E00937A5F /* FPPickerMac */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker" */;
+			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPickerMac" */;
 			buildPhases = (
 				45DD1BAB199B860E00937A5F /* Sources */,
 				45DD1BAC199B860E00937A5F /* Frameworks */,
@@ -123,9 +125,9 @@
 			);
 			dependencies = (
 			);
-			name = FPPicker;
+			name = FPPickerMac;
 			productName = "FPPicker Mac";
-			productReference = 45DD1BB0199B860E00937A5F /* FPPicker.framework */;
+			productReference = 45DD1BB0199B860E00937A5F /* FPPickerMac.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -149,7 +151,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				45DD1BAF199B860E00937A5F /* FPPicker */,
+				45DD1BAF199B860E00937A5F /* FPPickerMac */,
 			);
 		};
 /* End PBXProject section */
@@ -300,7 +302,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPicker" */ = {
+		45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPickerMac" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				45DD1BD9199B860E00937A5F /* Debug */,

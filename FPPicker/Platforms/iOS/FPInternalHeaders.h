@@ -7,7 +7,7 @@
 //
 
 #import "AFNetworkingHeaders.h"
-#import "FPMBProgressHUD.h"
+#import "MBProgressHUD.h"
 #import "FPTableWithUploadButtonViewController.h"
 
 #import "FPPrivateConfig.h"

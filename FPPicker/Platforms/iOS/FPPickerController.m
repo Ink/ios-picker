@@ -192,11 +192,11 @@
         });
     }
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:picker.view
-                                                  animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:picker.view
+                                              animated:YES];
 
     hud.labelText = @"Uploading...";
-    hud.mode = FPMBProgressHUDModeDeterminate;
+    hud.mode = MBProgressHUDModeDeterminate;
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         // Picked Something From the Local Camera
@@ -219,8 +219,8 @@
                                                       andJSONResponse:JSON];
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [FPMBProgressHUD hideHUDForView:picker.view
-                                           animated:YES];
+                    [MBProgressHUD hideHUDForView:picker.view
+                                         animated:YES];
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
@@ -241,8 +241,8 @@
                 };
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [FPMBProgressHUD hideHUDForView:self.view
-                                           animated:YES];
+                    [MBProgressHUD hideHUDForView:self.view
+                                         animated:YES];
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
@@ -279,8 +279,8 @@
                 };
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [FPMBProgressHUD hideHUDForView:picker.view
-                                           animated:YES];
+                    [MBProgressHUD hideHUDForView:picker.view
+                                         animated:YES];
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
@@ -302,8 +302,8 @@
                 };
 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [FPMBProgressHUD hideHUDForView:self.view
-                                           animated:YES];
+                    [MBProgressHUD hideHUDForView:self.view
+                                         animated:YES];
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
@@ -330,8 +330,8 @@
                 NSLog(@"Error. We couldn't handle this file %@", info);
                 NSLog(@"Type: %@", info[@"UIImagePickerControllerMediaType"]);
 
-                [FPMBProgressHUD hideHUDForView:self.view
-                                       animated:YES];
+                [MBProgressHUD hideHUDForView:self.view
+                                     animated:YES];
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{

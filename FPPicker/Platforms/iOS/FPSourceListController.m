@@ -528,11 +528,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
-    {
-        self.contentSizeForViewInPopover = fpWindowSize;
-    }
-
     [super viewWillAppear:animated];
 }
 

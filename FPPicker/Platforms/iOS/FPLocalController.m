@@ -87,12 +87,8 @@
 
 - (void)loadPhotoData
 {
-    if (SYSTEM_VERSION_LESS_THAN(@"7.0"))
-    {
-        self.contentSizeForViewInPopover = fpWindowSize;
-    }
-
     CGRect bounds = [self getViewBounds];
+
     self.thumbSize = fpLocalThumbSize;
     self.numPerRow = (int)CGRectGetWidth(bounds) / self.thumbSize;
     self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
@@ -344,19 +340,19 @@
     }
     else
     {
-        __block FPMBProgressHUD *hud;
+        __block MBProgressHUD *hud;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            hud = [FPMBProgressHUD showHUDAddedTo:self.view
+            hud = [MBProgressHUD showHUDAddedTo:self.view
                                          animated:YES];
 
             hud.labelText = @"Uploading file";
-            hud.mode = FPMBProgressHUDModeDeterminate;
+            hud.mode = MBProgressHUDModeDeterminate;
         });
 
         FPLocalUploadAssetSuccessBlock successBlock = ^(NSDictionary *data) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.view
+                [MBProgressHUD hideAllHUDsForView:self.view
                                            animated:YES];
 
                 [self.fpdelegate FPSourceController:nil
@@ -369,7 +365,7 @@
             NSLog(@"Error %@:", error);
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [FPMBProgressHUD hideAllHUDsForView:self.view
+                [MBProgressHUD hideAllHUDsForView:self.view
                                            animated:YES];
 
                 if (!data)
@@ -423,10 +419,10 @@
 {
     [super uploadButtonTapped:sender];
 
-    FPMBProgressHUD *hud = [FPMBProgressHUD showHUDAddedTo:self.view
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
                                                   animated:YES];
 
-    hud.mode = FPMBProgressHUDModeDeterminate;
+    hud.mode = MBProgressHUDModeDeterminate;
 
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, 0.01 * NSEC_PER_SEC);
 
@@ -542,7 +538,7 @@
 - (void)finishMultipleUpload:(NSArray *)results
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [FPMBProgressHUD hideAllHUDsForView:self.view
+        [MBProgressHUD hideAllHUDsForView:self.view
                                    animated:YES];
 
         [self.fpdelegate FPSourceController:nil

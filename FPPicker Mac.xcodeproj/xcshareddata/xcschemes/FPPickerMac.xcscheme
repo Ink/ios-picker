@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "45DD1BAF199B860E00937A5F"
-               BuildableName = "FPPicker.framework"
-               BlueprintName = "FPPicker"
+               BuildableName = "FPPickerMac.framework"
+               BlueprintName = "FPPickerMac"
                ReferencedContainer = "container:FPPicker Mac.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
