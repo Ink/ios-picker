@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import "FPConfig.h"
-#import "FPConstants.h"
+#import "../../Shared/FPConfig.h"
+#import "../../Shared/FPConstants.h"
 #import "FPExternalHeaders.h"
 #import "FPPickerController.h"
 #import "FPSaveController.h"

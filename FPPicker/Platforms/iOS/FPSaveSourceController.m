@@ -172,7 +172,7 @@
 
 - (void)keyboardWillShow:(NSNotification *)notification
 {
-    if (fpDEVICE_TYPE == fpDEVICE_TYPE_IPHONE)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [UIView beginAnimations:nil
                         context:NULL];
@@ -191,7 +191,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)notification
 {
-    if (fpDEVICE_TYPE == fpDEVICE_TYPE_IPHONE)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
     {
         [UIView beginAnimations:nil
                         context:NULL];
@@ -281,11 +281,7 @@
             if ([obj[@"filename"] isEqualToString:proposedName])
             {
                 self.saveButton.title = @"Overwrite";
-
-                if ([fpDEVICE_VERSION doubleValue] >= 5.0)
-                {
-                    self.saveButton.tintColor = [UIColor redColor];
-                }
+                self.saveButton.tintColor = [UIColor redColor];
 
                 CGRect frameRect = self.textField.frame;
 
@@ -300,13 +296,7 @@
         // Reset to default
 
         self.saveButton.title = @"Save";
-
-        if ([fpDEVICE_VERSION doubleValue] >= 5.0)
-        {
-            NSLog(@">=version5");
-
-            self.saveButton.tintColor = nil;
-        }
+        self.saveButton.tintColor = nil;
 
         CGRect frameRect = self.textField.frame;
 

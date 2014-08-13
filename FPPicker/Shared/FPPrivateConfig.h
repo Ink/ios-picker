@@ -15,14 +15,6 @@
 #define fpBASE_URL                  @"https://dialog.filepicker.io"
 #endif
 
-#define fpDEVICE_NAME               [[UIDevice currentDevice] name]
-#define fpDEVICE_OS                 [[UIDevice currentDevice] systemName]
-#define fpDEVICE_VERSION            [[UIDevice currentDevice] systemVersion]
-
-#define fpDEVICE_TYPE               UI_USER_INTERFACE_IDIOM()
-#define fpDEVICE_TYPE_IPAD          UIUserInterfaceIdiomPad
-#define fpDEVICE_TYPE_IPHONE        UIUserInterfaceIdiomPhone
-
 #define fpCOOKIES                   [[FPConfig sharedInstance] cookies]
 #define fpAPIKEY                    [[FPConfig sharedInstance] APIKey]
 #define fpAPPSECRETKEY              [[FPConfig sharedInstance] appSecretKey]

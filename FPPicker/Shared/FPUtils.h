@@ -7,7 +7,6 @@
 //
 
 @class UIImage;
-@class ALAssetRepresentation;
 
 @interface FPUtils : NSObject
 
@@ -18,13 +17,6 @@
    @returns An NSBundle instance
  */
 + (NSBundle *)frameworkBundle;
-
-/*!
-   Returns the UTI (Universal Type Identifier) corresponding to a given mimetype.
-
-   @returns A NSString with the UTI
- */
-+ (NSString *)utiForMimetype:(NSString *)mimetype;
 
 /*!
    Converts input string into a string safe to be embedded into a query string
@@ -77,19 +69,6 @@
 + (NSString *)JSONEncodeObject:(id)object error:(NSError **)error;
 
 /*!
-    Performs a copy in chunks from a given ALAssetRepresentation into a local URL.
-
-    @notes
-
-    - Chunk size equals to fpMaxLocalChunkCopySize (~2mb)
-    - By ALAssetRepresentation we mean the "best" or original size representation of an asset.
-
-    @returns YES on success; NO otherwise
- */
-+ (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
-                   intoLocalURL:(NSURL *)localURL;
-
-/*!
    Returns the file size of a file represented by a given local URL
 
    @returns The file size
@@ -130,20 +109,5 @@
  */
 + (BOOL)  validateURL:(NSString *)URL
     againstURLPattern:(NSString *)URLPattern;
-
-/*!
-
- */
-+ (NSDictionary *)mediaInfoForMediaType:(NSString *)mediaType
-                               mediaURL:(NSURL *)mediaURL
-                          originalImage:(UIImage *)originalImage
-                        andJSONResponse:(id)JSONResponse;
-
-/*!
-   Returns an image with corrected rotation.
-
-   @returns An UIImage
- */
-+ (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
 
 @end

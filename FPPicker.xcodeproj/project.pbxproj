@@ -167,6 +167,8 @@
 		45DF54A01958306500B694CD /* successfulMultipartStartResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */; };
 		45DF54A21958342F00B694CD /* successfulMultipartUploadResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */; };
 		45DF54A41958354200B694CD /* successfulMultipartEndResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */; };
+		45FCE705199B665800D86B40 /* FPUtils+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FCE703199B665800D86B40 /* FPUtils+iOS.h */; };
+		45FCE706199B665800D86B40 /* FPUtils+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCE704199B665800D86B40 /* FPUtils+iOS.m */; };
 		467239AAF4FA43F49DD98D80 /* libPods-FPPicker Integration Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */; };
 		831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 831E0ABC15AA6E460081004F /* FPSaveSourceController.h */; };
 		831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
@@ -426,6 +428,9 @@
 		45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartStartResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartStartResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartUploadResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartUploadResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartEndResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartEndResponse.json"; sourceTree = SOURCE_ROOT; };
+		45FCE703199B665800D86B40 /* FPUtils+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+iOS.h"; sourceTree = "<group>"; };
+		45FCE704199B665800D86B40 /* FPUtils+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+iOS.m"; sourceTree = "<group>"; };
+		45FCE70C199B74B600D86B40 /* FPiOSMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPiOSMacros.h; sourceTree = "<group>"; };
 		5F40FA7558754E27884EDD60 /* libPods-FPPicker Functional Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Functional Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		831E0ABC15AA6E460081004F /* FPSaveSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSaveSourceController.h; sourceTree = "<group>"; };
 		831E0ABD15AA6E460081004F /* FPSaveSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSaveSourceController.m; sourceTree = "<group>"; };
@@ -437,9 +442,9 @@
 		836A9D39169B5CF0006AC920 /* FPInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPInfoViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A030E215A89C9D0085E186 /* libFPPicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFPPicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		83A030E515A89C9D0085E186 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPPicker-Prefix.pch"; sourceTree = "<group>"; };
-		83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPMBProgressHUD.h; sourceTree = "<group>"; };
-		83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPMBProgressHUD.m; sourceTree = "<group>"; };
+		83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "FPPicker-Prefix.pch"; path = "Platforms/iOS/FPPicker-Prefix.pch"; sourceTree = "<group>"; };
+		83A0313315A89D6E0085E186 /* FPMBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPMBProgressHUD.h; path = Platforms/iOS/FPMBProgressHUD.h; sourceTree = "<group>"; };
+		83A0313415A89D6E0085E186 /* FPMBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPMBProgressHUD.m; path = Platforms/iOS/FPMBProgressHUD.m; sourceTree = "<group>"; };
 		83A0314315A89E040085E186 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
 		83A0314415A89E040085E186 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAuthController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0314615A89E040085E186 /* FPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConstants.h; sourceTree = "<group>"; };
@@ -686,8 +691,6 @@
 				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
 				45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */,
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
-				4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */,
-				4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -804,6 +807,75 @@
 			name = "Table View Controllers";
 			sourceTree = "<group>";
 		};
+		45FCE708199B689C00D86B40 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				45FCE70B199B71F400D86B40 /* Categories */,
+				83A0316715A89E0C0085E186 /* Misc Classes */,
+				45D7356719476F08001EF626 /* Nav Controllers */,
+				45D7356619476DA8001EF626 /* View Controllers */,
+				45D7356819476F87001EF626 /* Table View Controllers */,
+				83A0314815A89E040085E186 /* FPLibrary.h */,
+				83A0314915A89E040085E186 /* FPLibrary.m */,
+				45FCE70C199B74B600D86B40 /* FPiOSMacros.h */,
+				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
+				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
+				83A0314C15A89E040085E186 /* FPPicker.h */,
+			);
+			name = iOS;
+			path = Platforms/iOS;
+			sourceTree = "<group>";
+		};
+		45FCE709199B68C900D86B40 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				45A2C3491974389A009D436D /* Categories */,
+				45FCE70A199B68D200D86B40 /* Misc Classes */,
+				45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */,
+				45ADBF6E1951A44000EB2215 /* FPAPIClient.h */,
+				45ADBF6F1951A44000EB2215 /* FPAPIClient.m */,
+				45920DDE194A0D8A007003C1 /* FPConfig.h */,
+				45920DDF194A0D8A007003C1 /* FPConfig.m */,
+				83A0314615A89E040085E186 /* FPConstants.h */,
+				83A0314715A89E040085E186 /* FPConstants.m */,
+				45920DDD194A0D2E007003C1 /* FPMacros.h */,
+				451051DF195B300E00F877B3 /* FPMultipartUploader.h */,
+				451051E0195B300E00F877B3 /* FPMultipartUploader.m */,
+				4546386F19825A0500102885 /* FPPrivateConfig.h */,
+				455E5C981973CD3500CED98E /* FPSession.h */,
+				455E5C991973CD3500CED98E /* FPSession.m */,
+				45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */,
+				45B71DDC19768B33006B5DAF /* FPSinglepartUploader.m */,
+				83A031A415A8A4AC0085E186 /* FPSource.h */,
+				83A031A515A8A4AC0085E186 /* FPSource.m */,
+				45B71DDF19768B68006B5DAF /* FPUploader.h */,
+				45B71DE019768B68006B5DAF /* FPUploader.m */,
+				453096E4194738A6001D970C /* FPUtils.h */,
+				453096E5194738A6001D970C /* FPUtils.m */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		45FCE70A199B68D200D86B40 /* Misc Classes */ = {
+			isa = PBXGroup;
+			children = (
+				02C136A81856794000D6940E /* FPProgressTracker.h */,
+				02C136A91856794000D6940E /* FPProgressTracker.m */,
+			);
+			name = "Misc Classes";
+			sourceTree = "<group>";
+		};
+		45FCE70B199B71F400D86B40 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				45FCE703199B665800D86B40 /* FPUtils+iOS.h */,
+				45FCE704199B665800D86B40 /* FPUtils+iOS.m */,
+				4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */,
+				4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
 		83A030D715A89C9D0085E186 = {
 			isa = PBXGroup;
 			children = (
@@ -848,37 +920,8 @@
 		83A030E715A89C9D0085E186 /* FPPicker */ = {
 			isa = PBXGroup;
 			children = (
-				45A2C3491974389A009D436D /* Categories */,
-				45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */,
-				45ADBF6E1951A44000EB2215 /* FPAPIClient.h */,
-				45ADBF6F1951A44000EB2215 /* FPAPIClient.m */,
-				45920DDE194A0D8A007003C1 /* FPConfig.h */,
-				45920DDF194A0D8A007003C1 /* FPConfig.m */,
-				83A0314615A89E040085E186 /* FPConstants.h */,
-				83A0314715A89E040085E186 /* FPConstants.m */,
-				83A031DE15AA26CE0085E186 /* FPExternalHeaders.h */,
-				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
-				83A0314815A89E040085E186 /* FPLibrary.h */,
-				83A0314915A89E040085E186 /* FPLibrary.m */,
-				45920DDD194A0D2E007003C1 /* FPMacros.h */,
-				451051DF195B300E00F877B3 /* FPMultipartUploader.h */,
-				451051E0195B300E00F877B3 /* FPMultipartUploader.m */,
-				83A0314C15A89E040085E186 /* FPPicker.h */,
-				4546386F19825A0500102885 /* FPPrivateConfig.h */,
-				455E5C981973CD3500CED98E /* FPSession.h */,
-				455E5C991973CD3500CED98E /* FPSession.m */,
-				45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */,
-				45B71DDC19768B33006B5DAF /* FPSinglepartUploader.m */,
-				83A031A415A8A4AC0085E186 /* FPSource.h */,
-				83A031A515A8A4AC0085E186 /* FPSource.m */,
-				45B71DDF19768B68006B5DAF /* FPUploader.h */,
-				45B71DE019768B68006B5DAF /* FPUploader.m */,
-				453096E4194738A6001D970C /* FPUtils.h */,
-				453096E5194738A6001D970C /* FPUtils.m */,
-				83A0316715A89E0C0085E186 /* Misc Classes */,
-				45D7356719476F08001EF626 /* Nav Controllers */,
-				45D7356619476DA8001EF626 /* View Controllers */,
-				45D7356819476F87001EF626 /* Table View Controllers */,
+				45FCE709199B68C900D86B40 /* Shared */,
+				45FCE708199B689C00D86B40 /* iOS */,
 				83A030F215A89CC40085E186 /* Vendor */,
 				83A030E815A89C9D0085E186 /* Supporting Files */,
 			);
@@ -908,8 +951,6 @@
 			children = (
 				831E0B4515AAC3F30081004F /* FPThumbCell.h */,
 				831E0B4615AAC3F30081004F /* FPThumbCell.m */,
-				02C136A81856794000D6940E /* FPProgressTracker.h */,
-				02C136A91856794000D6940E /* FPProgressTracker.m */,
 			);
 			name = "Misc Classes";
 			sourceTree = "<group>";
@@ -964,6 +1005,7 @@
 				83A031BB15A8F2570085E186 /* FPSaveController.h in Headers */,
 				83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */,
 				83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */,
+				45FCE705199B665800D86B40 /* FPUtils+iOS.h in Headers */,
 				831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */,
 				45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */,
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
@@ -1312,6 +1354,7 @@
 				45ADBF631951A3C600EB2215 /* UIProgressView+AFNetworking.m in Sources */,
 				45ADBF711951A44000EB2215 /* FPAPIClient.m in Sources */,
 				45ADBF4E1951A3C600EB2215 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				45FCE706199B665800D86B40 /* FPUtils+iOS.m in Sources */,
 				45ADBF3E1951A3C600EB2215 /* AFURLConnectionOperation.m in Sources */,
 				83A0315B15A89E050085E186 /* FPLibrary.m in Sources */,
 				83A0315D15A89E050085E186 /* FPLocalController.m in Sources */,
@@ -1662,9 +1705,14 @@
 		83A030F015A89C9D0085E186 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker/FPPicker-Prefix.pch";
+				GCC_PREFIX_HEADER = "FPPicker/Platforms/iOS/FPPicker-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DAFCompoundResponseSerializer=FPAFCompoundResponseSerializer",
@@ -1731,9 +1779,14 @@
 		83A030F115A89C9D0085E186 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/FPPicker.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker/FPPicker-Prefix.pch";
+				GCC_PREFIX_HEADER = "FPPicker/Platforms/iOS/FPPicker-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+				);
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"-DAFCompoundResponseSerializer=FPAFCompoundResponseSerializer",

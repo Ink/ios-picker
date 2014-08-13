@@ -8,7 +8,7 @@
 
 #import "FPLocalController.h"
 #import "FPProgressTracker.h"
-#import "FPUtils.h"
+#import "FPUtils+iOS.h"
 
 @interface FPLocalController ()
 {

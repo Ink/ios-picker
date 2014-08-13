@@ -9,7 +9,7 @@
 #import "FPInternalHeaders.h"
 #import "FPPickerController.h"
 #import "FPSourceListController.h"
-#import "FPUtils.h"
+#import "FPUtils+iOS.h"
 
 @interface FPPickerController ()
 
@@ -131,7 +131,6 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    //return (interfaceOrientation == UIInterfaceOrientationPortrait);
     return YES;
 }
 
@@ -140,6 +139,8 @@
 - (void)    imagePickerController:(UIImagePickerController *)picker
     didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    __block id <FPPickerDelegate>fpdelegate = _fpdelegate;
+
     if (self.hasStatusBar)
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -155,16 +156,18 @@
     if (editedImage)
     {
         NSLog(@"USING EDITED IMAGE");
+
         imageToSave = editedImage;
     }
     else
     {
         NSLog(@"USING ORIGINAL IMAGE");
+
         imageToSave = originalImage;
     }
 
     const CGFloat ThumbnailSize = 115.0f;
-    CGFloat scaleFactor = ThumbnailSize / fminf(imageToSave.size.height, imageToSave.size.width);
+    CGFloat scaleFactor = ThumbnailSize / MIN(imageToSave.size.height, imageToSave.size.width);
     CGFloat newHeight = imageToSave.size.height * scaleFactor;
     CGFloat newWidth = imageToSave.size.width * scaleFactor;
     UIImage *thumbImage;
@@ -172,19 +175,20 @@
     UIGraphicsBeginImageContext(CGSizeMake(newWidth, newHeight));
     {
         [imageToSave drawInRect:CGRectMake(0, 0, newWidth, newHeight)];
+
         thumbImage = UIGraphicsGetImageFromCurrentImageContext();
     }
     UIGraphicsEndImageContext();
 
-    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if ([fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *mediaInfo = @{
                 @"FPPickerControllerThumbnailImage":thumbImage
             };
 
-            [_fpdelegate FPPickerController:self
-                       didPickMediaWithInfo:mediaInfo];
+            [fpdelegate FPPickerController:self
+                      didPickMediaWithInfo:mediaInfo];
         });
     }
 
@@ -203,8 +207,6 @@
         {
             NSString *dataType = @"image/jpeg";
 
-            NSLog(@"should upload: %@", _shouldUpload ? @"YES" : @"NO");
-
             FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                                    NSURL *localURL) {
                 NSLog(@"JSON: %@", JSON);
@@ -222,8 +224,8 @@
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
-                        [_fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:output];
+                        [fpdelegate FPPickerController:self
+                         didFinishPickingMediaWithInfo:output];
                     }];
                 });
             };
@@ -244,8 +246,8 @@
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
-                        [_fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:output];
+                        [fpdelegate FPPickerController:self
+                         didFinishPickingMediaWithInfo:output];
                     }];
                 });
             };
@@ -282,8 +284,8 @@
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
-                        [_fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:output];
+                        [fpdelegate FPPickerController:self
+                         didFinishPickingMediaWithInfo:output];
                     }];
                 });
             };
@@ -305,8 +307,8 @@
 
                     [picker dismissViewControllerAnimated:NO
                                                completion: ^{
-                        [_fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:output];
+                        [fpdelegate FPPickerController:self
+                         didFinishPickingMediaWithInfo:output];
                     }];
                 });
             };
@@ -333,7 +335,7 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [_fpdelegate FPPickerControllerDidCancel:self];
+                    [fpdelegate FPPickerControllerDidCancel:self];
                 }];
             });
         }

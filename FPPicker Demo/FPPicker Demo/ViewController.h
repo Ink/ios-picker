@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <FPPicker/FPPicker.h>
+#import <FPPicker/Platforms/iOS/FPPicker.h>
 
 @interface ViewController : UIViewController <FPPickerDelegate, UIPopoverControllerDelegate, FPSaveDelegate>
 

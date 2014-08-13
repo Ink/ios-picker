@@ -10,7 +10,7 @@
 #import "FPSaveController.h"
 #import "FPAuthController.h"
 #import "FPInternalHeaders.h"
-#import "FPUtils.h"
+#import "FPUtils+iOS.h"
 #import "FPSession.h"
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"

@@ -8,7 +8,7 @@
 
 #import "FPLibrary.h"
 #import "FPInternalHeaders.h"
-#import "FPUtils.h"
+#import "FPUtils+iOS.h"
 #import "FPSession+ConvenienceMethods.h"
 #import "FPSinglepartUploader.h"
 #import "FPMultipartUploader.h"
