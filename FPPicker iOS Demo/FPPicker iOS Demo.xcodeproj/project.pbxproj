@@ -442,7 +442,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					$SRCROOT/..,
 					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
 				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
@@ -463,7 +462,6 @@
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					$SRCROOT/..,
 					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
 				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
