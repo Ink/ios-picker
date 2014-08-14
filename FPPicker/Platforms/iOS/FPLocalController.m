@@ -8,7 +8,8 @@
 
 #import "FPLocalController.h"
 #import "FPProgressTracker.h"
-#import "FPUtils+iOS.h"
+#import "FPMediaInfo.h"
+#import "FPUtils.h"
 
 @interface FPLocalController ()
 {
@@ -344,7 +345,7 @@
 
         dispatch_async(dispatch_get_main_queue(), ^{
             hud = [MBProgressHUD showHUDAddedTo:self.view
-                                         animated:YES];
+                                       animated:YES];
 
             hud.labelText = @"Uploading file";
             hud.mode = MBProgressHUDModeDeterminate;
@@ -353,7 +354,7 @@
         FPLocalUploadAssetSuccessBlock successBlock = ^(NSDictionary *data) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.view
-                                           animated:YES];
+                                         animated:YES];
 
                 [self.fpdelegate FPSourceController:nil
                       didFinishPickingMediaWithInfo:data];
@@ -366,7 +367,7 @@
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.view
-                                           animated:YES];
+                                         animated:YES];
 
                 if (!data)
                 {
@@ -420,7 +421,7 @@
     [super uploadButtonTapped:sender];
 
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
-                                                  animated:YES];
+                                              animated:YES];
 
     hud.mode = MBProgressHUDModeDeterminate;
 
@@ -539,7 +540,7 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [MBProgressHUD hideAllHUDsForView:self.view
-                                   animated:YES];
+                                 animated:YES];
 
         [self.fpdelegate FPSourceController:nil
          didFinishPickingMultipleMediaWithResults:results];
@@ -611,34 +612,35 @@
                 progress:(void (^)(float progress))progress
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
-    NSString *filename = representation.filename;
 
     UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
                                          scale:representation.scale
                                    orientation:(UIImageOrientation)representation.orientation];
 
+    FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+    mediaInfo.mediaType = (NSString *)kUTTypeImage;
+    mediaInfo.originalImage = image;
+
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {
-        NSDictionary *output = [FPUtils mediaInfoForMediaType:(NSString *)kUTTypeImage
-                                                     mediaURL:localURL
-                                                originalImage:image
-                                              andJSONResponse:JSON];
+        NSDictionary *data = JSON[@"data"][0][@"data"];
 
-        success(output);
+        mediaInfo.mediaURL = localURL;
+        mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
+        mediaInfo.filename = data[@"filename"];
+        mediaInfo.key = data[@"key"];
+
+        success([mediaInfo dictionary]);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
                                                            NSURL *localURL) {
-        NSDictionary *output = @{
-            @"FPPickerControllerMediaType":(NSString *)kUTTypeImage,
-            @"FPPickerControllerOriginalImage":image,
-            @"FPPickerControllerMediaURL":localURL,
-            @"FPPickerControllerRemoteURL":@"",
-            @"FPPickerControllerFilename":filename
-        };
+        mediaInfo.mediaURL = localURL;
+        mediaInfo.filename = representation.filename;
 
-        failure(error, output);
+        failure(error, [mediaInfo dictionary]);
     };
 
     [FPLibrary uploadAsset:asset
@@ -654,30 +656,30 @@
                  failure:(void (^)(NSError *error, NSDictionary *data))failure
                 progress:(void (^)(float progress))progress
 {
-    ALAssetRepresentation *representation = [asset defaultRepresentation];
-    NSString *filename = representation.filename;
+    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+    mediaInfo.mediaType = (NSString *)kUTTypeVideo;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {
-        NSDictionary *output = [FPUtils mediaInfoForMediaType:(NSString *)kUTTypeVideo
-                                                     mediaURL:localURL
-                                                originalImage:nil
-                                              andJSONResponse:JSON];
+        NSDictionary *data = JSON[@"data"][0][@"data"];
 
-        success(output);
+        mediaInfo.mediaURL = localURL;
+        mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
+        mediaInfo.filename = data[@"filename"];
+        mediaInfo.key = data[@"key"];
+
+        success([mediaInfo dictionary]);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
                                                            NSURL *localURL) {
-        NSDictionary *output = @{
-            @"FPPickerControllerMediaType":(NSString *)kUTTypeVideo,
-            @"FPPickerControllerMediaURL":localURL,
-            @"FPPickerControllerRemoteURL":@"",
-            @"FPPickerControllerFilename":filename
-        };
+        mediaInfo.mediaURL = localURL;
+        mediaInfo.filename = representation.filename;
 
-        failure(error, output);
+        failure(error, [mediaInfo dictionary]);
     };
 
     [FPLibrary uploadAsset:asset

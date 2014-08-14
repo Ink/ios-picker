@@ -39,12 +39,4 @@
  */
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
 
-/*!
-
- */
-+ (NSDictionary *)mediaInfoForMediaType:(NSString *)mediaType
-                               mediaURL:(NSURL *)mediaURL
-                          originalImage:(UIImage *)originalImage
-                        andJSONResponse:(id)JSONResponse;
-
 @end
