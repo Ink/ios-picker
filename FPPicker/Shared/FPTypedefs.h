@@ -7,10 +7,18 @@
 //
 
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
-typedef void (^FPUploadAssetFailureBlock)(NSError *error, id JSON);
+
+typedef void (^FPUploadAssetFailureBlock)(NSError *error,
+                                          id JSON);
+
 typedef void (^FPUploadAssetProgressBlock)(float progress);
-typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON, NSURL *localurl);
-typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, NSURL *localurl);
+
+typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON,
+                                                      NSURL *localurl);
+
+typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error,
+                                                      id JSON,
+                                                      NSURL *localurl);
 
 // AFNetworking block typedefs.
 
