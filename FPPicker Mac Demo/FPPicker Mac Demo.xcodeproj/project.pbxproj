@@ -47,13 +47,6 @@
 			remoteGlobalIDString = 458B1FEA1949D726008360E9;
 			remoteInfo = "FPPicker Functional Tests";
 		};
-		45718BF8199CFEDD00C27324 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 450B5A4B1949EFC0007AF44A;
-			remoteInfo = "FPPicker Integration Tests";
-		};
 		45718BFA199CFEDD00C27324 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
@@ -184,9 +177,8 @@
 				45718BF1199CFEDD00C27324 /* libFPPicker.a */,
 				45718BF3199CFEDD00C27324 /* FPPickerMac.framework */,
 				45718BF5199CFEDD00C27324 /* FPPicker.bundle */,
-				45718BF7199CFEDD00C27324 /* FPPicker Functional Tests.xctest */,
-				45718BF9199CFEDD00C27324 /* FPPicker Integration Tests.app */,
 				45718BFB199CFEDD00C27324 /* FPPicker.bundle */,
+				45718BF7199CFEDD00C27324 /* FPPicker Functional Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -273,13 +265,6 @@
 			fileType = wrapper.cfbundle;
 			path = "FPPicker Functional Tests.xctest";
 			remoteRef = 45718BF6199CFEDD00C27324 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		45718BF9199CFEDD00C27324 /* FPPicker Integration Tests.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "FPPicker Integration Tests.app";
-			remoteRef = 45718BF8199CFEDD00C27324 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		45718BFB199CFEDD00C27324 /* FPPicker.bundle */ = {
@@ -468,6 +453,7 @@
 				45718BE3199CFEC200C27324 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
