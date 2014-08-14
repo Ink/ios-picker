@@ -28,7 +28,7 @@
 
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
     {
-        //! Optional (makes the login screens look much nicer on iPad)
+        // Optional (makes the login screens look much nicer on iPad)
 
         [self iPadLoginScreenFix];
     }
@@ -69,7 +69,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-#pragma mark - Private
+#pragma mark - Private (FPPicker)
 
 + (void)iPadLoginScreenFix
 {
