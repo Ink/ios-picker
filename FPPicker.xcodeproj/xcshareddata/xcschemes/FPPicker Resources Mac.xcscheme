@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83A030E115A89C9D0085E186"
-               BuildableName = "libFPPicker.a"
-               BlueprintName = "FPPicker"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458B1FE91949D726008360E9"
-               BuildableName = "FPPicker Functional Tests.xctest"
-               BlueprintName = "FPPicker Functional Tests"
+               BlueprintIdentifier = "45FB62B1199CEF1700D0535A"
+               BuildableName = "FPPicker.bundle"
+               BlueprintName = "FPPicker Resources Mac"
                ReferencedContainer = "container:FPPicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458B1FE91949D726008360E9"
-               BuildableName = "FPPicker Functional Tests.xctest"
-               BlueprintName = "FPPicker Functional Tests"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45C13B37199CEA4A002DE7D3"
-               BuildableName = "FPPicker MacTests.xctest"
-               BlueprintName = "FPPicker MacTests"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

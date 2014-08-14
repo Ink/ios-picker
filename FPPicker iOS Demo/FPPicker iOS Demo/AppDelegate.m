@@ -7,8 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "ViewController.h"
-#import <FPPicker/Platforms/iOS/FPPicker.h>
+#import "FPConfig.h"
 
 @implementation AppDelegate
 

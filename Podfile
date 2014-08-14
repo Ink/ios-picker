@@ -1,5 +1,4 @@
 workspace 'FPPicker.xcworkspace'
-
 xcodeproj 'FPPicker.xcodeproj'
 platform :ios, '7.1'
 
@@ -24,8 +23,5 @@ end
 
 target :'FPPickerMac' do
   platform :osx, '10.9'
-  link_with 'FPPickerMac'
-  xcodeproj 'FPPicker Mac.xcodeproj'
-
   pod 'AFNetworking', '~> 2.3.1'
 end

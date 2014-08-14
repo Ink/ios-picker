@@ -2,13 +2,13 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:FPPicker Mac.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "group:FPPicker.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:FPPicker iOS Demo/FPPicker iOS Demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FPPicker Mac Demo/FPPicker Mac Demo.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

@@ -28,7 +28,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "45C13B37199CEA4A002DE7D3"
+               BuildableName = "FPPicker MacTests.xctest"
+               BlueprintName = "FPPicker MacTests"
+               ReferencedContainer = "container:FPPicker.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "450B5A4A1949EFC0007AF44A"
+            BuildableName = "FPPicker Integration Tests.app"
+            BlueprintName = "FPPicker Integration Tests"
+            ReferencedContainer = "container:FPPicker.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"

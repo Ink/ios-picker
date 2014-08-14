@@ -24,6 +24,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		45718C05199D036D00C27324 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45C13B23199CEA4A002DE7D3;
+			remoteInfo = FPPickerMac;
+		};
+		45718C07199D036D00C27324 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45FB62EE199CEF1700D0535A;
+			remoteInfo = "FPPicker Resources Mac";
+		};
 		45F38DE5194B0AC400568BC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
@@ -168,9 +182,11 @@
 			isa = PBXGroup;
 			children = (
 				45F38DE6194B0AC400568BC7 /* libFPPicker.a */,
+				45718C06199D036D00C27324 /* FPPickerMac.framework */,
 				45F38DE8194B0AC400568BC7 /* FPPicker.bundle */,
 				45F38DEA194B0AC400568BC7 /* FPPicker Functional Tests.xctest */,
 				45F38DEC194B0AC400568BC7 /* FPPicker Integration Tests.app */,
+				45718C08199D036D00C27324 /* FPPicker.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -231,6 +247,20 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		45718C06199D036D00C27324 /* FPPickerMac.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FPPickerMac.framework;
+			remoteRef = 45718C05199D036D00C27324 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45718C08199D036D00C27324 /* FPPicker.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FPPicker.bundle;
+			remoteRef = 45718C07199D036D00C27324 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		45F38DE6194B0AC400568BC7 /* libFPPicker.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -418,6 +448,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/../FPPicker/Platforms/iOS $SRCROOT/../FPPicker/Shared";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -438,6 +469,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
+				USER_HEADER_SEARCH_PATHS = "$SRCROOT/../FPPicker/Platforms/iOS $SRCROOT/../FPPicker/Shared";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
