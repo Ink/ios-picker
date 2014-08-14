@@ -51,7 +51,6 @@
 		4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A2C34B197438B4009D436D /* NSData+FPHexString.m */; };
 		4579CF5C199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */; };
 		4579CF5D199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */; };
-		4579CF5E199CEB0100E0BCB4 /* AFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */; };
 		4579CF5F199CEB0100E0BCB4 /* FPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 45ADBF6E1951A44000EB2215 /* FPAPIClient.h */; };
 		4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45ADBF6F1951A44000EB2215 /* FPAPIClient.m */; };
 		4579CF62199CEB0100E0BCB4 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45920DDF194A0D8A007003C1 /* FPConfig.m */; };
@@ -345,7 +344,6 @@
 		45A2C34B197438B4009D436D /* NSData+FPHexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FPHexString.m"; sourceTree = "<group>"; };
 		45ADBF6E1951A44000EB2215 /* FPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPAPIClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		45ADBF6F1951A44000EB2215 /* FPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAPIClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AFNetworkingHeaders.h; sourceTree = "<group>"; };
 		45ADBF7C1951BBA100EB2215 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSinglepartUploader.h; sourceTree = "<group>"; };
 		45B71DDC19768B33006B5DAF /* FPSinglepartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSinglepartUploader.m; sourceTree = "<group>"; };
@@ -809,7 +807,6 @@
 				45CD26D5199CB6330048B483 /* Models */,
 				45A2C3491974389A009D436D /* Categories */,
 				45FCE70A199B68D200D86B40 /* Misc Classes */,
-				45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */,
 				45ADBF6E1951A44000EB2215 /* FPAPIClient.h */,
 				45ADBF6F1951A44000EB2215 /* FPAPIClient.m */,
 				45920DDE194A0D8A007003C1 /* FPConfig.h */,
@@ -985,7 +982,6 @@
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
 				4579CF6D199CEB0100E0BCB4 /* FPUtils.h in Headers */,
 				4579CF69199CEB0100E0BCB4 /* FPSinglepartUploader.h in Headers */,
-				4579CF5E199CEB0100E0BCB4 /* AFNetworkingHeaders.h in Headers */,
 				4579CF65199CEB0100E0BCB4 /* FPMacros.h in Headers */,
 				4579CF6F199CEB0100E0BCB4 /* FPTypedefs.h in Headers */,
 				4579CF68199CEB0100E0BCB4 /* FPPrivateConfig.h in Headers */,

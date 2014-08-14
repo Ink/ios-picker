@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#import "AFNetworkingHeaders.h"
 #import "FPAPIClient.h"
 #import "FPConstants.h"
 #import "FPMediaInfo.h"
