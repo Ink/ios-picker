@@ -142,6 +142,8 @@
 		45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		45C14A10194F3840008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
 		45C14A11194F3843008C633A /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
+		45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26D6199CB64C0048B483 /* FPMediaInfo.h */; };
+		45CD26D9199CB64C0048B483 /* FPMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26D7199CB64C0048B483 /* FPMediaInfo.m */; };
 		45DB53DA19503E0B0062061F /* FPLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB53D919503E0B0062061F /* FPLibraryTests.m */; };
 		45DB53DC195047580062061F /* outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DB195047580062061F /* outline.png */; };
 		45DB53DE195050EE0062061F /* successfulResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DD195050EE0062061F /* successfulResponse.json */; };
@@ -365,6 +367,8 @@
 		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
 		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
 		45C14A07194F3388008C633A /* FPUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtilsTests.m; sourceTree = "<group>"; };
+		45CD26D6199CB64C0048B483 /* FPMediaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPMediaInfo.h; sourceTree = "<group>"; };
+		45CD26D7199CB64C0048B483 /* FPMediaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPMediaInfo.m; sourceTree = "<group>"; };
 		45DB53D919503E0B0062061F /* FPLibraryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLibraryTests.m; sourceTree = "<group>"; };
 		45DB53DB195047580062061F /* outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = outline.png; path = "FPPicker Tests/Functional Tests/Fixtures/outline.png"; sourceTree = SOURCE_ROOT; };
 		45DB53DD195050EE0062061F /* successfulResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulResponse.json"; sourceTree = SOURCE_ROOT; };
@@ -650,6 +654,19 @@
 			name = Helpers;
 			sourceTree = "<group>";
 		};
+		45CD26D5199CB6330048B483 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				83A031A415A8A4AC0085E186 /* FPSource.h */,
+				83A031A515A8A4AC0085E186 /* FPSource.m */,
+				455E5C981973CD3500CED98E /* FPSession.h */,
+				455E5C991973CD3500CED98E /* FPSession.m */,
+				45CD26D6199CB64C0048B483 /* FPMediaInfo.h */,
+				45CD26D7199CB64C0048B483 /* FPMediaInfo.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		45D7356619476DA8001EF626 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -715,6 +732,7 @@
 		45FCE709199B68C900D86B40 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				45CD26D5199CB6330048B483 /* Models */,
 				45A2C3491974389A009D436D /* Categories */,
 				45FCE70A199B68D200D86B40 /* Misc Classes */,
 				45ADBF741951AB4600EB2215 /* AFNetworkingHeaders.h */,
@@ -728,12 +746,8 @@
 				451051DF195B300E00F877B3 /* FPMultipartUploader.h */,
 				451051E0195B300E00F877B3 /* FPMultipartUploader.m */,
 				4546386F19825A0500102885 /* FPPrivateConfig.h */,
-				455E5C981973CD3500CED98E /* FPSession.h */,
-				455E5C991973CD3500CED98E /* FPSession.m */,
 				45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */,
 				45B71DDC19768B33006B5DAF /* FPSinglepartUploader.m */,
-				83A031A415A8A4AC0085E186 /* FPSource.h */,
-				83A031A515A8A4AC0085E186 /* FPSource.m */,
 				45B71DDF19768B68006B5DAF /* FPUploader.h */,
 				45B71DE019768B68006B5DAF /* FPUploader.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
@@ -888,6 +902,7 @@
 				831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */,
 				45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */,
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
+				45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */,
 				836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */,
 				832739F3171F384F000A4A23 /* FPLocalAlbumController.h in Headers */,
 			);
@@ -1278,6 +1293,7 @@
 				455E5C9B1973CD3500CED98E /* FPSession.m in Sources */,
 				45B71DE219768B68006B5DAF /* FPUploader.m in Sources */,
 				45B7606F19758251007C9284 /* FPSession+ConvenienceMethods.m in Sources */,
+				45CD26D9199CB64C0048B483 /* FPMediaInfo.m in Sources */,
 				45A2C34D197438B4009D436D /* NSData+FPHexString.m in Sources */,
 				836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */,
 				45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */,
