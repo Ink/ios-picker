@@ -443,12 +443,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					$SRCROOT/..,
+					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
 				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
-				USER_HEADER_SEARCH_PATHS = "$SRCROOT/../FPPicker/Platforms/iOS $SRCROOT/../FPPicker/Shared";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -464,12 +464,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					$SRCROOT/..,
+					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
 				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
-				USER_HEADER_SEARCH_PATHS = "$SRCROOT/../FPPicker/Platforms/iOS $SRCROOT/../FPPicker/Shared";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
