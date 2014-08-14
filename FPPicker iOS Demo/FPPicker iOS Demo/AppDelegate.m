@@ -30,8 +30,6 @@
     {
         //! Optional (makes the login screens look much nicer on iPad)
 
-        NSLog(@"This is an iPad");
-
         [self iPadLoginScreenFix];
     }
 }
