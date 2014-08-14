@@ -14,22 +14,11 @@
 		45718BC7199CFEC100C27324 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45718BC6199CFEC100C27324 /* AppDelegate.m */; };
 		45718BCA199CFEC100C27324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45718BC8199CFEC100C27324 /* MainMenu.xib */; };
 		45718BCC199CFEC100C27324 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45718BCB199CFEC100C27324 /* Images.xcassets */; };
-		45718BD3199CFEC200C27324 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BD2199CFEC200C27324 /* XCTest.framework */; };
-		45718BD4199CFEC200C27324 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BB3199CFEC100C27324 /* Cocoa.framework */; };
-		45718BDC199CFEC200C27324 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45718BDA199CFEC200C27324 /* InfoPlist.strings */; };
-		45718BDE199CFEC200C27324 /* FPPicker_Mac_DemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45718BDD199CFEC200C27324 /* FPPicker_Mac_DemoTests.m */; };
 		45718BFE199CFF0700C27324 /* FPPickerMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
 		45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		45718BD5199CFEC200C27324 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45718BA8199CFEC100C27324 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 45718BAF199CFEC100C27324;
-			remoteInfo = "FPPicker Mac Demo";
-		};
 		45718BF0199CFEDD00C27324 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
@@ -110,11 +99,7 @@
 		45718BC6199CFEC100C27324 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		45718BC9199CFEC100C27324 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		45718BCB199CFEC100C27324 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		45718BD1199CFEC200C27324 /* FPPicker Mac DemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Mac DemoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		45718BD2199CFEC200C27324 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		45718BD9199CFEC200C27324 /* FPPicker Mac DemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "FPPicker Mac DemoTests-Info.plist"; sourceTree = "<group>"; };
-		45718BDB199CFEC200C27324 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45718BDD199CFEC200C27324 /* FPPicker_Mac_DemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Mac_DemoTests.m; sourceTree = "<group>"; };
 		45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,15 +113,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45718BCE199CFEC200C27324 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45718BD4199CFEC200C27324 /* Cocoa.framework in Frameworks */,
-				45718BD3199CFEC200C27324 /* XCTest.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -145,7 +121,6 @@
 			children = (
 				45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */,
 				45718BB9199CFEC100C27324 /* FPPicker Mac Demo */,
-				45718BD7199CFEC200C27324 /* FPPicker Mac DemoTests */,
 				45718BB2199CFEC100C27324 /* Frameworks */,
 				45718BB1199CFEC100C27324 /* Products */,
 			);
@@ -155,7 +130,6 @@
 			isa = PBXGroup;
 			children = (
 				45718BB0199CFEC100C27324 /* FPPicker Mac Demo.app */,
-				45718BD1199CFEC200C27324 /* FPPicker Mac DemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -204,24 +178,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		45718BD7199CFEC200C27324 /* FPPicker Mac DemoTests */ = {
-			isa = PBXGroup;
-			children = (
-				45718BDD199CFEC200C27324 /* FPPicker_Mac_DemoTests.m */,
-				45718BD8199CFEC200C27324 /* Supporting Files */,
-			);
-			path = "FPPicker Mac DemoTests";
-			sourceTree = "<group>";
-		};
-		45718BD8199CFEC200C27324 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				45718BD9199CFEC200C27324 /* FPPicker Mac DemoTests-Info.plist */,
-				45718BDA199CFEC200C27324 /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		45718BE8199CFEDC00C27324 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,24 +213,6 @@
 			productReference = 45718BB0199CFEC100C27324 /* FPPicker Mac Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
-		45718BD0199CFEC200C27324 /* FPPicker Mac DemoTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 45718BE4199CFEC200C27324 /* Build configuration list for PBXNativeTarget "FPPicker Mac DemoTests" */;
-			buildPhases = (
-				45718BCD199CFEC200C27324 /* Sources */,
-				45718BCE199CFEC200C27324 /* Frameworks */,
-				45718BCF199CFEC200C27324 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				45718BD6199CFEC200C27324 /* PBXTargetDependency */,
-			);
-			name = "FPPicker Mac DemoTests";
-			productName = "FPPicker Mac DemoTests";
-			productReference = 45718BD1199CFEC200C27324 /* FPPicker Mac DemoTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -283,11 +221,6 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Filepicker.io;
-				TargetAttributes = {
-					45718BD0199CFEC200C27324 = {
-						TestTargetID = 45718BAF199CFEC100C27324;
-					};
-				};
 			};
 			buildConfigurationList = 45718BAB199CFEC100C27324 /* Build configuration list for PBXProject "FPPicker Mac Demo" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -309,7 +242,6 @@
 			projectRoot = "";
 			targets = (
 				45718BAF199CFEC100C27324 /* FPPicker Mac Demo */,
-				45718BD0199CFEC200C27324 /* FPPicker Mac DemoTests */,
 			);
 		};
 /* End PBXProject section */
@@ -371,14 +303,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45718BCF199CFEC200C27324 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45718BDC199CFEC200C27324 /* InfoPlist.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -391,22 +315,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		45718BCD199CFEC200C27324 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				45718BDE199CFEC200C27324 /* FPPicker_Mac_DemoTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45718BD6199CFEC200C27324 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 45718BAF199CFEC100C27324 /* FPPicker Mac Demo */;
-			targetProxy = 45718BD5199CFEC200C27324 /* PBXContainerItemProxy */;
-		};
 		45718BFD199CFEE200C27324 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FPPickerMac;
@@ -437,14 +348,6 @@
 				45718BC9199CFEC100C27324 /* Base */,
 			);
 			name = MainMenu.xib;
-			sourceTree = "<group>";
-		};
-		45718BDA199CFEC200C27324 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				45718BDB199CFEC200C27324 /* en */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -546,46 +449,6 @@
 			};
 			name = Release;
 		};
-		45718BE5199CFEC200C27324 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FPPicker Mac Demo.app/Contents/MacOS/FPPicker Mac Demo";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker Mac Demo/FPPicker Mac Demo-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "FPPicker Mac DemoTests/FPPicker Mac DemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		45718BE6199CFEC200C27324 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/FPPicker Mac Demo.app/Contents/MacOS/FPPicker Mac Demo";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FPPicker Mac Demo/FPPicker Mac Demo-Prefix.pch";
-				INFOPLIST_FILE = "FPPicker Mac DemoTests/FPPicker Mac DemoTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -603,14 +466,6 @@
 			buildConfigurations = (
 				45718BE2199CFEC200C27324 /* Debug */,
 				45718BE3199CFEC200C27324 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
-		45718BE4199CFEC200C27324 /* Build configuration list for PBXNativeTarget "FPPicker Mac DemoTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45718BE5199CFEC200C27324 /* Debug */,
-				45718BE6199CFEC200C27324 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
