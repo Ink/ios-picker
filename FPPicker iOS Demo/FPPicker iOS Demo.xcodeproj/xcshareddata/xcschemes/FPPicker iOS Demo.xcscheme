@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "456B27D6194B0EF300FBC09E"
-               BuildableName = "FPPicker Text Demo.app"
-               BlueprintName = "FPPicker Text Demo"
-               ReferencedContainer = "container:FPPicker Text Demo.xcodeproj">
+               BlueprintIdentifier = "45F38D9F194B0AA900568BC7"
+               BuildableName = "FPPicker iOS Demo.app"
+               BlueprintName = "FPPicker iOS Demo"
+               ReferencedContainer = "container:FPPicker iOS Demo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,10 +32,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "456B27D6194B0EF300FBC09E"
-            BuildableName = "FPPicker Text Demo.app"
-            BlueprintName = "FPPicker Text Demo"
-            ReferencedContainer = "container:FPPicker Text Demo.xcodeproj">
+            BlueprintIdentifier = "45F38D9F194B0AA900568BC7"
+            BuildableName = "FPPicker iOS Demo.app"
+            BlueprintName = "FPPicker iOS Demo"
+            ReferencedContainer = "container:FPPicker iOS Demo.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -51,19 +51,12 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "456B27D6194B0EF300FBC09E"
-            BuildableName = "FPPicker Text Demo.app"
-            BlueprintName = "FPPicker Text Demo"
-            ReferencedContainer = "container:FPPicker Text Demo.xcodeproj">
+            BlueprintIdentifier = "45F38D9F194B0AA900568BC7"
+            BuildableName = "FPPicker iOS Demo.app"
+            BlueprintName = "FPPicker iOS Demo"
+            ReferencedContainer = "container:FPPicker iOS Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "API_KEY_FILE"
-            value = "$(SRCROOT)/../API_KEY"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -76,10 +69,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "456B27D6194B0EF300FBC09E"
-            BuildableName = "FPPicker Text Demo.app"
-            BlueprintName = "FPPicker Text Demo"
-            ReferencedContainer = "container:FPPicker Text Demo.xcodeproj">
+            BlueprintIdentifier = "45F38D9F194B0AA900568BC7"
+            BuildableName = "FPPicker iOS Demo.app"
+            BlueprintName = "FPPicker iOS Demo"
+            ReferencedContainer = "container:FPPicker iOS Demo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,6 +1,6 @@
 //
 //  AppDelegate.m
-//  FPPicker Text Demo
+//  FPPicker iOS Demo
 //
 //  Created by Ruben Nine on 13/06/14.
 //  Copyright (c) 2014 Ruben Nine. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import <FPPicker/FPConfig.h>
+#import <FPPicker/Platforms/iOS/FPPicker.h>
 
 @implementation AppDelegate
 
@@ -29,15 +29,6 @@
     // [FPConfig sharedInstance].storeContainer = @"some-alt-container";
     // [FPConfig sharedInstance].storeLocation = @"S3";
     // [FPConfig sharedInstance].storePath = @"some-path-within-bucket/";
-
-    self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-
-    self.viewController = [[ViewController alloc] initWithNibName:@"ViewController"
-                                                           bundle:nil];
-
-    self.window.rootViewController = self.viewController;
-
-    [self.window makeKeyAndVisible];
 
     return YES;
 }
@@ -67,6 +58,17 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+/*
+ * This makese the login screens look much nicer on iPad
+ */
++ (void)initialize
+{
+    // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
+    NSDictionary *dictionary = @{@"UserAgent":@"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"};
+
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
 }
 
 @end

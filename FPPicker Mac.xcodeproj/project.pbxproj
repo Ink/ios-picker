@@ -7,12 +7,72 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45402005199CD47A00A21322 /* FPPicker_Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45CD26FB199CC9A70048B483 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26DA199CC9A70048B483 /* FPSource.h */; };
+		45CD26FC199CC9A70048B483 /* FPSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26DB199CC9A70048B483 /* FPSource.m */; };
+		45CD26FD199CC9A70048B483 /* FPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26DC199CC9A70048B483 /* FPSession.h */; };
+		45CD26FE199CC9A70048B483 /* FPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26DD199CC9A70048B483 /* FPSession.m */; };
+		45CD26FF199CC9A70048B483 /* FPMediaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26DE199CC9A70048B483 /* FPMediaInfo.h */; };
+		45CD2700199CC9A70048B483 /* FPMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26DF199CC9A70048B483 /* FPMediaInfo.m */; };
+		45CD2701199CC9A70048B483 /* NSData+FPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26E1199CC9A70048B483 /* NSData+FPHexString.h */; };
+		45CD2702199CC9A70048B483 /* NSData+FPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26E2199CC9A70048B483 /* NSData+FPHexString.m */; };
+		45CD2703199CC9A70048B483 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26E3199CC9A70048B483 /* FPSession+ConvenienceMethods.h */; };
+		45CD2704199CC9A70048B483 /* FPSession+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26E4199CC9A70048B483 /* FPSession+ConvenienceMethods.m */; };
+		45CD2705199CC9A70048B483 /* FPProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26E6199CC9A70048B483 /* FPProgressTracker.h */; };
+		45CD2706199CC9A70048B483 /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26E7199CC9A70048B483 /* FPProgressTracker.m */; };
+		45CD2707199CC9A70048B483 /* AFNetworkingHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26E9199CC9A70048B483 /* AFNetworkingHeaders.h */; };
+		45CD2708199CC9A70048B483 /* FPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26EA199CC9A70048B483 /* FPAPIClient.h */; };
+		45CD2709199CC9A70048B483 /* FPAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26EB199CC9A70048B483 /* FPAPIClient.m */; };
+		45CD270A199CC9A70048B483 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26EC199CC9A70048B483 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45CD270B199CC9A70048B483 /* FPConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26ED199CC9A70048B483 /* FPConfig.m */; };
+		45CD270C199CC9A70048B483 /* FPConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26EE199CC9A70048B483 /* FPConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45CD270D199CC9A70048B483 /* FPConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26EF199CC9A70048B483 /* FPConstants.m */; };
+		45CD270E199CC9A70048B483 /* FPMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F0199CC9A70048B483 /* FPMacros.h */; };
+		45CD270F199CC9A70048B483 /* FPMultipartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F1199CC9A70048B483 /* FPMultipartUploader.h */; };
+		45CD2710199CC9A70048B483 /* FPMultipartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26F2199CC9A70048B483 /* FPMultipartUploader.m */; };
+		45CD2711199CC9A70048B483 /* FPPrivateConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F3199CC9A70048B483 /* FPPrivateConfig.h */; };
+		45CD2712199CC9A70048B483 /* FPSinglepartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F4199CC9A70048B483 /* FPSinglepartUploader.h */; };
+		45CD2713199CC9A70048B483 /* FPSinglepartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26F5199CC9A70048B483 /* FPSinglepartUploader.m */; };
+		45CD2714199CC9A70048B483 /* FPUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F6199CC9A70048B483 /* FPUploader.h */; };
+		45CD2715199CC9A70048B483 /* FPUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26F7199CC9A70048B483 /* FPUploader.m */; };
+		45CD2716199CC9A70048B483 /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26F8199CC9A70048B483 /* FPUtils.h */; };
+		45CD2717199CC9A70048B483 /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26F9199CC9A70048B483 /* FPUtils.m */; };
 		45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45DD1BB3199B860E00937A5F /* Cocoa.framework */; };
 		45DD1BBE199B860E00937A5F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45DD1BBC199B860E00937A5F /* InfoPlist.strings */; };
-		45E72504199B870B0010E7BD /* FPPicker_Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */; };
+		45F3BD9C199CD0A200E2BD91 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45F3BD9B199CD0A200E2BD91 /* FPTypedefs.h */; };
+		DF128064E9C54EF983266A81 /* libPods-FPPickerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		45CD26DA199CC9A70048B483 /* FPSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSource.h; sourceTree = "<group>"; };
+		45CD26DB199CC9A70048B483 /* FPSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSource.m; sourceTree = "<group>"; };
+		45CD26DC199CC9A70048B483 /* FPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSession.h; sourceTree = "<group>"; };
+		45CD26DD199CC9A70048B483 /* FPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSession.m; sourceTree = "<group>"; };
+		45CD26DE199CC9A70048B483 /* FPMediaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMediaInfo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26DF199CC9A70048B483 /* FPMediaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMediaInfo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		45CD26E1199CC9A70048B483 /* NSData+FPHexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FPHexString.h"; sourceTree = "<group>"; };
+		45CD26E2199CC9A70048B483 /* NSData+FPHexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FPHexString.m"; sourceTree = "<group>"; };
+		45CD26E3199CC9A70048B483 /* FPSession+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPSession+ConvenienceMethods.h"; sourceTree = "<group>"; };
+		45CD26E4199CC9A70048B483 /* FPSession+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPSession+ConvenienceMethods.m"; sourceTree = "<group>"; };
+		45CD26E6199CC9A70048B483 /* FPProgressTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPProgressTracker.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26E7199CC9A70048B483 /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
+		45CD26E9199CC9A70048B483 /* AFNetworkingHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkingHeaders.h; sourceTree = "<group>"; };
+		45CD26EA199CC9A70048B483 /* FPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPAPIClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26EB199CC9A70048B483 /* FPAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPAPIClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		45CD26EC199CC9A70048B483 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26ED199CC9A70048B483 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		45CD26EE199CC9A70048B483 /* FPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPConstants.h; sourceTree = "<group>"; };
+		45CD26EF199CC9A70048B483 /* FPConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConstants.m; sourceTree = "<group>"; };
+		45CD26F0199CC9A70048B483 /* FPMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMacros.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26F1199CC9A70048B483 /* FPMultipartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMultipartUploader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26F2199CC9A70048B483 /* FPMultipartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMultipartUploader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		45CD26F3199CC9A70048B483 /* FPPrivateConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPPrivateConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		45CD26F4199CC9A70048B483 /* FPSinglepartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSinglepartUploader.h; sourceTree = "<group>"; };
+		45CD26F5199CC9A70048B483 /* FPSinglepartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSinglepartUploader.m; sourceTree = "<group>"; };
+		45CD26F6199CC9A70048B483 /* FPUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUploader.h; sourceTree = "<group>"; };
+		45CD26F7199CC9A70048B483 /* FPUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUploader.m; sourceTree = "<group>"; };
+		45CD26F8199CC9A70048B483 /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
+		45CD26F9199CC9A70048B483 /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		45DD1BB0199B860E00937A5F /* FPPickerMac.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPickerMac.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		45DD1BB3199B860E00937A5F /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		45DD1BB6199B860E00937A5F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -22,8 +82,9 @@
 		45DD1BBD199B860E00937A5F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		45DD1BBF199B860E00937A5F /* FPPicker Mac-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FPPicker Mac-Prefix.pch"; sourceTree = "<group>"; };
 		45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker_Mac.h; sourceTree = "<group>"; };
-		45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FPPicker_Mac.m; sourceTree = "<group>"; };
-		45DD1BC8199B860E00937A5F /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		45F3BD9A199CCF7900E2BD91 /* FPInternalHeaders.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPInternalHeaders.h; sourceTree = "<group>"; };
+		45F3BD9B199CD0A200E2BD91 /* FPTypedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTypedefs.h; sourceTree = "<group>"; };
+		ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPickerMac.xcconfig"; path = "Pods/Pods-FPPickerMac.xcconfig"; sourceTree = "<group>"; };
 		F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPickerMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -33,18 +94,82 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DD1BB4199B860E00937A5F /* Cocoa.framework in Frameworks */,
+				DF128064E9C54EF983266A81 /* libPods-FPPickerMac.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		45CD26E0199CC9A70048B483 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				45CD26DA199CC9A70048B483 /* FPSource.h */,
+				45CD26DB199CC9A70048B483 /* FPSource.m */,
+				45CD26DC199CC9A70048B483 /* FPSession.h */,
+				45CD26DD199CC9A70048B483 /* FPSession.m */,
+				45CD26DE199CC9A70048B483 /* FPMediaInfo.h */,
+				45CD26DF199CC9A70048B483 /* FPMediaInfo.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		45CD26E5199CC9A70048B483 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				45CD26E1199CC9A70048B483 /* NSData+FPHexString.h */,
+				45CD26E2199CC9A70048B483 /* NSData+FPHexString.m */,
+				45CD26E3199CC9A70048B483 /* FPSession+ConvenienceMethods.h */,
+				45CD26E4199CC9A70048B483 /* FPSession+ConvenienceMethods.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		45CD26E8199CC9A70048B483 /* Misc Classes */ = {
+			isa = PBXGroup;
+			children = (
+				45CD26E6199CC9A70048B483 /* FPProgressTracker.h */,
+				45CD26E7199CC9A70048B483 /* FPProgressTracker.m */,
+			);
+			name = "Misc Classes";
+			sourceTree = "<group>";
+		};
+		45CD26FA199CC9A70048B483 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				45CD26E0199CC9A70048B483 /* Models */,
+				45CD26E5199CC9A70048B483 /* Categories */,
+				45CD26E8199CC9A70048B483 /* Misc Classes */,
+				45CD26E9199CC9A70048B483 /* AFNetworkingHeaders.h */,
+				45CD26EA199CC9A70048B483 /* FPAPIClient.h */,
+				45CD26EB199CC9A70048B483 /* FPAPIClient.m */,
+				45CD26EC199CC9A70048B483 /* FPConfig.h */,
+				45CD26ED199CC9A70048B483 /* FPConfig.m */,
+				45CD26EE199CC9A70048B483 /* FPConstants.h */,
+				45CD26EF199CC9A70048B483 /* FPConstants.m */,
+				45CD26F0199CC9A70048B483 /* FPMacros.h */,
+				45CD26F1199CC9A70048B483 /* FPMultipartUploader.h */,
+				45CD26F2199CC9A70048B483 /* FPMultipartUploader.m */,
+				45CD26F3199CC9A70048B483 /* FPPrivateConfig.h */,
+				45CD26F4199CC9A70048B483 /* FPSinglepartUploader.h */,
+				45CD26F5199CC9A70048B483 /* FPSinglepartUploader.m */,
+				45F3BD9B199CD0A200E2BD91 /* FPTypedefs.h */,
+				45CD26F6199CC9A70048B483 /* FPUploader.h */,
+				45CD26F7199CC9A70048B483 /* FPUploader.m */,
+				45CD26F8199CC9A70048B483 /* FPUtils.h */,
+				45CD26F9199CC9A70048B483 /* FPUtils.m */,
+			);
+			name = Shared;
+			path = ../../Shared;
+			sourceTree = "<group>";
+		};
 		45DD1BA6199B860E00937A5F = {
 			isa = PBXGroup;
 			children = (
 				45DD1BB9199B860E00937A5F /* FPPicker Mac */,
 				45DD1BB2199B860E00937A5F /* Frameworks */,
 				45DD1BB1199B860E00937A5F /* Products */,
+				ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,7 +185,6 @@
 			isa = PBXGroup;
 			children = (
 				45DD1BB3199B860E00937A5F /* Cocoa.framework */,
-				45DD1BC8199B860E00937A5F /* XCTest.framework */,
 				45DD1BB5199B860E00937A5F /* Other Frameworks */,
 				F7DED468B484484F9B53BE59 /* libPods-FPPickerMac.a */,
 			);
@@ -80,9 +204,10 @@
 		45DD1BB9199B860E00937A5F /* FPPicker Mac */ = {
 			isa = PBXGroup;
 			children = (
+				45CD26FA199CC9A70048B483 /* Shared */,
 				45DD1BC0199B860E00937A5F /* FPPicker_Mac.h */,
-				45DD1BC1199B860E00937A5F /* FPPicker_Mac.m */,
 				45DD1BBA199B860E00937A5F /* Supporting Files */,
+				45F3BD9A199CCF7900E2BD91 /* FPInternalHeaders.h */,
 			);
 			name = "FPPicker Mac";
 			path = FPPicker/Platforms/Mac;
@@ -106,6 +231,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45402005199CD47A00A21322 /* FPPicker_Mac.h in Headers */,
+				45CD270A199CC9A70048B483 /* FPConfig.h in Headers */,
+				45CD270C199CC9A70048B483 /* FPConstants.h in Headers */,
+				45CD26FF199CC9A70048B483 /* FPMediaInfo.h in Headers */,
+				45CD2703199CC9A70048B483 /* FPSession+ConvenienceMethods.h in Headers */,
+				45F3BD9C199CD0A200E2BD91 /* FPTypedefs.h in Headers */,
+				45CD2714199CC9A70048B483 /* FPUploader.h in Headers */,
+				45CD2708199CC9A70048B483 /* FPAPIClient.h in Headers */,
+				45CD2705199CC9A70048B483 /* FPProgressTracker.h in Headers */,
+				45CD2716199CC9A70048B483 /* FPUtils.h in Headers */,
+				45CD26FB199CC9A70048B483 /* FPSource.h in Headers */,
+				45CD270F199CC9A70048B483 /* FPMultipartUploader.h in Headers */,
+				45CD2701199CC9A70048B483 /* NSData+FPHexString.h in Headers */,
+				45CD26FD199CC9A70048B483 /* FPSession.h in Headers */,
+				45CD270E199CC9A70048B483 /* FPMacros.h in Headers */,
+				45CD2712199CC9A70048B483 /* FPSinglepartUploader.h in Headers */,
+				45CD2711199CC9A70048B483 /* FPPrivateConfig.h in Headers */,
+				45CD2707199CC9A70048B483 /* AFNetworkingHeaders.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,10 +259,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 45DD1BD8199B860E00937A5F /* Build configuration list for PBXNativeTarget "FPPickerMac" */;
 			buildPhases = (
+				E258428433A049A183C7723C /* Check Pods Manifest.lock */,
 				45DD1BAB199B860E00937A5F /* Sources */,
 				45DD1BAC199B860E00937A5F /* Frameworks */,
 				45DD1BAD199B860E00937A5F /* Headers */,
 				45DD1BAE199B860E00937A5F /* Resources */,
+				5827FF3B0F2C4E01869EFA7E /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,12 +312,57 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5827FF3B0F2C4E01869EFA7E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-FPPickerMac-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E258428433A049A183C7723C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		45DD1BAB199B860E00937A5F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45E72504199B870B0010E7BD /* FPPicker_Mac.m in Sources */,
+				45CD2713199CC9A70048B483 /* FPSinglepartUploader.m in Sources */,
+				45CD26FC199CC9A70048B483 /* FPSource.m in Sources */,
+				45CD270D199CC9A70048B483 /* FPConstants.m in Sources */,
+				45CD2704199CC9A70048B483 /* FPSession+ConvenienceMethods.m in Sources */,
+				45CD2702199CC9A70048B483 /* NSData+FPHexString.m in Sources */,
+				45CD2715199CC9A70048B483 /* FPUploader.m in Sources */,
+				45CD2706199CC9A70048B483 /* FPProgressTracker.m in Sources */,
+				45CD2700199CC9A70048B483 /* FPMediaInfo.m in Sources */,
+				45CD270B199CC9A70048B483 /* FPConfig.m in Sources */,
+				45CD2710199CC9A70048B483 /* FPMultipartUploader.m in Sources */,
+				45CD26FE199CC9A70048B483 /* FPSession.m in Sources */,
+				45CD2709199CC9A70048B483 /* FPAPIClient.m in Sources */,
+				45CD2717199CC9A70048B483 /* FPUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,6 +452,7 @@
 		};
 		45DD1BD9199B860E00937A5F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -277,6 +468,7 @@
 		};
 		45DD1BDA199B860E00937A5F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABD151E2C7184D0797898B8B /* Pods-FPPickerMac.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

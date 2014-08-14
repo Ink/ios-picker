@@ -1,1 +1,16 @@
-<?xml version='1.0' encoding='UTF-8'?><Workspace version='1.0'><FileRef location='group:FPPicker Mac.xcodeproj'/><FileRef location='group:FPPicker.xcodeproj'/><FileRef location='group:FPPicker Demo/FPPicker Demo.xcodeproj'/><FileRef location='group:FPPicker Text Demo/FPPicker Text Demo.xcodeproj'/><FileRef location='group:Pods/Pods.xcodeproj'/></Workspace>
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:FPPicker Mac.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FPPicker.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FPPicker iOS Demo/FPPicker iOS Demo.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+</Workspace>

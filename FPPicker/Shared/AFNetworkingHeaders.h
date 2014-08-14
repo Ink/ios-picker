@@ -3,7 +3,7 @@
 //  FPPicker
 //
 //  Created by Ruben Nine on 18/06/14.
-//  Copyright (c) 2014 Filepicker.io (Cloudtop Inc.). All rights reserved.
+//  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
 // This headers' main purpose is simply to be able to import AFNetworking

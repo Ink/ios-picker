@@ -3,22 +3,18 @@
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
-//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
+//  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-
-typedef void (^FPUploadAssetSuccessBlock)(id JSON);
-typedef void (^FPUploadAssetFailureBlock)(NSError *error, id JSON);
-typedef void (^FPUploadAssetProgressBlock)(float progress);
-typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON, NSURL *localurl);
-typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, NSURL *localurl);
+#import "FPInternalHeaders.h"
 
 @interface FPLibrary : NSObject
 
-//For the camera
+// For the camera
+
 + (void)uploadImage:(UIImage*)image
          ofMimetype:(NSString*)mimetype
         withOptions:(NSDictionary*)options
@@ -34,7 +30,8 @@ typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, N
                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
               progress:(FPUploadAssetProgressBlock)progress;
 
-//For uploading local images on open (Camera roll)
+// For uploading local images on open (Camera roll)
+
 + (void)uploadAsset:(ALAsset*)asset
         withOptions:(NSDictionary*)options
        shouldUpload:(BOOL)shouldUpload
@@ -42,7 +39,8 @@ typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error, id JSON, N
             failure:(FPUploadAssetFailureWithLocalURLBlock)failure
            progress:(FPUploadAssetProgressBlock)progress;
 
-//For saveas
+// For saveas
+
 + (void)uploadData:(NSData*)filedata
              named:(NSString *)filename
             toPath:(NSString*)path

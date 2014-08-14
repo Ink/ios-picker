@@ -3,11 +3,10 @@
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
-//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
+//  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
 #import "FPLibrary.h"
-#import "FPInternalHeaders.h"
 #import "FPUtils+iOS.h"
 #import "FPSession+ConvenienceMethods.h"
 #import "FPSinglepartUploader.h"

@@ -3,7 +3,7 @@
 //  FPPicker
 //
 //  Created by Brett van Zuiden on 12/3/13.
-//  Copyright (c) 2013 Filepicker.io (Couldtop Inc.). All rights reserved.
+//  Copyright (c) 2013 Filepicker.io. All rights reserved.
 //
 
 #import "FPTableWithUploadButtonViewController.h"

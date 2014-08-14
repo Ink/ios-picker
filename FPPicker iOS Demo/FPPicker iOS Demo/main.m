@@ -1,6 +1,6 @@
 //
 //  main.m
-//  FPPicker Demo
+//  FPPicker iOS Demo
 //
 //  Created by Ruben Nine on 13/06/14.
 //  Copyright (c) 2014 Ruben Nine. All rights reserved.

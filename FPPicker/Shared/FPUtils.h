@@ -3,7 +3,7 @@
 //  FPPicker
 //
 //  Created by Ruben Nine on 10/06/14.
-//  Copyright (c) 2014 Filepicker.io (Couldtop Inc.). All rights reserved.
+//  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
 @class UIImage;

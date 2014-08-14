@@ -1,6 +1,6 @@
 //
 //  ViewController.m
-//  FPPicker Demo
+//  FPPicker iOS Demo
 //
 //  Created by Ruben Nine on 13/06/14.
 //  Copyright (c) 2014 Ruben Nine. All rights reserved.
@@ -13,8 +13,6 @@
 @end
 
 @implementation ViewController
-
-#warning Be sure to register for a filepicker apikey at http: //filepicker.io and add it to the Supporting Files/FPPicker Demo-Info.plist
 
 - (void)viewDidLoad
 {

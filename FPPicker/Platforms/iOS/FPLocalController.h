@@ -3,7 +3,7 @@
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
-//  Copyright (c) 2012 Filepicker.io (Cloudtop Inc), All rights reserved.
+//  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -11,7 +11,6 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "FPPicker.h"
 #import "FPInternalHeaders.h"
-#import "FPTableWithUploadButtonViewController.h"
 
 typedef void (^FPLocalUploadAssetSuccessBlock)(NSDictionary *data);
 typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, NSDictionary *data);
