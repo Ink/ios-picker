@@ -14,11 +14,11 @@ typedef void (^FPUploadAssetFailureBlock)(NSError *error,
 typedef void (^FPUploadAssetProgressBlock)(float progress);
 
 typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON,
-                                                      NSURL *localurl);
+                                                      NSURL *localURL);
 
 typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error,
                                                       id JSON,
-                                                      NSURL *localurl);
+                                                      NSURL *localURL);
 
 // AFNetworking block typedefs.
 
