@@ -12,23 +12,34 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
++ (void)initialize
 {
-    /*
-       Filepicker.io configuration (required)
-     */
+    //! Filepicker.io configuration (required)
 
     [FPConfig sharedInstance].APIKey = @"SET_FILEPICKER.IO_APIKEY_HERE";
 
-    /*
-       Filepicker.io configuration (optional)
-     */
+    //! Filepicker.io configuration (optional)
 
-    // [FPConfig sharedInstance].appSecretKey = @"SET_FILEPICKER.IO_APPSECRETKEY_HERE";
-    // [FPConfig sharedInstance].storeAccess = @"private";
-    // [FPConfig sharedInstance].storeContainer = @"some-alt-container";
-    // [FPConfig sharedInstance].storeLocation = @"S3";
-    // [FPConfig sharedInstance].storePath = @"some-path-within-bucket/";
+    //! [FPConfig sharedInstance].appSecretKey = @"SET_FILEPICKER.IO_APPSECRETKEY_HERE";
+    //! [FPConfig sharedInstance].storeAccess = @"private";
+    //! [FPConfig sharedInstance].storeContainer = @"some-alt-container";
+    //! [FPConfig sharedInstance].storeLocation = @"S3";
+    //! [FPConfig sharedInstance].storePath = @"some-path-within-bucket/";
+
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    {
+        //! Optional (makes the login screens look much nicer on iPad)
+
+        NSLog(@"This is an iPad");
+
+        [self iPadLoginScreenFix];
+    }
+}
+
+- (BOOL)              application:(UIApplication *)application
+    didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Override point for customization after application launch.
 
     return YES;
 }
@@ -60,15 +71,15 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-/*
- * This makese the login screens look much nicer on iPad
- */
-+ (void)initialize
-{
-    // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
-    NSDictionary *dictionary = @{@"UserAgent":@"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"};
+#pragma mark - Private
 
-    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
++ (void)iPadLoginScreenFix
+{
+    NSDictionary *userDefaults = @{
+        @"UserAgent":@"Mozilla/5.0 (iPhone; CPU iPhone OS 5_0 like Mac OS X) AppleWebKit/534.46 (KHTML, like Gecko) Version/5.1 Mobile/9A334 Safari/7534.48.3"
+    };
+
+    [[NSUserDefaults standardUserDefaults] registerDefaults:userDefaults];
 }
 
 @end
