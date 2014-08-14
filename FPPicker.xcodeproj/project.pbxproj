@@ -6,35 +6,6 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		023D832D1843CB1100D74A82 /* MultiArch Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 023D83301843CB1100D74A82 /* Build configuration list for PBXAggregateTarget "MultiArch Framework" */;
-			buildPhases = (
-				023D83351843CB2C00D74A82 /* Build Framework Script */,
-			);
-			dependencies = (
-				023D83341843CB1700D74A82 /* PBXTargetDependency */,
-				023D83321843CB1700D74A82 /* PBXTargetDependency */,
-			);
-			name = "MultiArch Framework";
-			productName = "MultiArch Framework";
-		};
-		45DAC343194EE56300B26E4F /* Update Framework & Resources Bundle */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resources Bundle" */;
-			buildPhases = (
-				456D947C194F028700D0A34E /* Copy Framework & Resources Bundle in /dist */,
-			);
-			dependencies = (
-				45DAC348194EE56B00B26E4F /* PBXTargetDependency */,
-				45DAC34A194EE56B00B26E4F /* PBXTargetDependency */,
-			);
-			name = "Update Framework & Resources Bundle";
-			productName = "Update dist";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
 		0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 0266B3A1184EB1A800A91862 /* FPTableWithUploadButtonViewController.h */; };
 		0266B3A4184EB1A800A91862 /* FPTableWithUploadButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266B3A2184EB1A800A91862 /* FPTableWithUploadButtonViewController.m */; };
@@ -192,20 +163,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		023D83311843CB1700D74A82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
-		};
-		023D83331843CB1700D74A82 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A0317315A8A2A40085E186;
-			remoteInfo = FilepickerResources;
-		};
 		456D9475194F00D200D0A34E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
@@ -233,20 +190,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 83A0317315A8A2A40085E186;
 			remoteInfo = "FPPicker Resources";
-		};
-		45DAC347194EE56B00B26E4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A0317315A8A2A40085E186;
-			remoteInfo = "FPPicker Resources";
-		};
-		45DAC349194EE56B00B26E4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 83A030D915A89C9D0085E186 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 023D832D1843CB1100D74A82;
-			remoteInfo = "MultiArch Framework";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -1012,10 +955,8 @@
 			targets = (
 				83A030E115A89C9D0085E186 /* FPPicker */,
 				83A0317315A8A2A40085E186 /* FPPicker Resources */,
-				023D832D1843CB1100D74A82 /* MultiArch Framework */,
 				458B1FE91949D726008360E9 /* FPPicker Functional Tests */,
 				450B5A4A1949EFC0007AF44A /* FPPicker Integration Tests */,
-				45DAC343194EE56300B26E4F /* Update Framework & Resources Bundle */,
 			);
 		};
 /* End PBXProject section */
@@ -1112,20 +1053,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		023D83351843CB2C00D74A82 /* Build Framework Script */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 12;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Build Framework Script";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/framework-builder";
-		};
 		0C513348FA7441569EFE6EE6 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1140,20 +1067,6 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
-		};
-		456D947C194F028700D0A34E /* Copy Framework & Resources Bundle in /dist */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Framework & Resources Bundle in /dist";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "set -e\n\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-resources-bundle\n${PROJECT_DIR}/${PROJECT_NAME}/Scripts/copy-framework\n";
 		};
 		5780F175052644B9B3B88019 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1306,16 +1219,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		023D83321843CB1700D74A82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A030E115A89C9D0085E186 /* FPPicker */;
-			targetProxy = 023D83311843CB1700D74A82 /* PBXContainerItemProxy */;
-		};
-		023D83341843CB1700D74A82 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
-			targetProxy = 023D83331843CB1700D74A82 /* PBXContainerItemProxy */;
-		};
 		456D9476194F00D200D0A34E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 83A030E115A89C9D0085E186 /* FPPicker */;
@@ -1335,16 +1238,6 @@
 			isa = PBXTargetDependency;
 			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
 			targetProxy = 45C14A0A194F35C5008C633A /* PBXContainerItemProxy */;
-		};
-		45DAC348194EE56B00B26E4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 83A0317315A8A2A40085E186 /* FPPicker Resources */;
-			targetProxy = 45DAC347194EE56B00B26E4F /* PBXContainerItemProxy */;
-		};
-		45DAC34A194EE56B00B26E4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 023D832D1843CB1100D74A82 /* MultiArch Framework */;
-			targetProxy = 45DAC349194EE56B00B26E4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1392,22 +1285,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		023D832E1843CB1100D74A82 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		023D832F1843CB1100D74A82 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		450B5A7A1949EFC1007AF44A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4243EFFBEDC14DD1B0CE388F /* Pods-FPPicker Integration Tests.xcconfig */;
@@ -1519,20 +1396,6 @@
 				INFOPLIST_FILE = "FPPicker Tests/Functional Tests/FPPicker Functional Tests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = xctest;
-			};
-			name = Release;
-		};
-		45DAC344194EE56300B26E4F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		45DAC345194EE56300B26E4F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1675,15 +1538,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		023D83301843CB1100D74A82 /* Build configuration list for PBXAggregateTarget "MultiArch Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				023D832E1843CB1100D74A82 /* Debug */,
-				023D832F1843CB1100D74A82 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		450B5A791949EFC1007AF44A /* Build configuration list for PBXNativeTarget "FPPicker Integration Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1698,15 +1552,6 @@
 			buildConfigurations = (
 				458B1FFC1949D726008360E9 /* Debug */,
 				458B1FFD1949D726008360E9 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		45DAC346194EE56300B26E4F /* Build configuration list for PBXAggregateTarget "Update Framework & Resources Bundle" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				45DAC344194EE56300B26E4F /* Debug */,
-				45DAC345194EE56300B26E4F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
