@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FPInternalHeaders.h"
 #import "FPSourceController.h"
+#import "FPInternalHeaders.h"
 
 @interface FPSearchController : FPSourceController <UISearchDisplayDelegate>
 

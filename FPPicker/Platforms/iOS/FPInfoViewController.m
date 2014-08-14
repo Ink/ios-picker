@@ -7,9 +7,6 @@
 //
 
 #import "FPInfoViewController.h"
-#import "FPPrivateConfig.h"
-#import "FPLibrary.h"
-#import "FPUtils.h"
 
 @implementation FPInfoViewController
 

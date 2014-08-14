@@ -7,6 +7,7 @@
 //
 
 #import "FPSaveSourceController.h"
+#import "FPInternalHeaders.h"
 
 @interface FPSaveSourceController ()
 

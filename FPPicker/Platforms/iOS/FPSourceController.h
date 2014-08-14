@@ -7,8 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import "FPPicker.h"
 #import "FPInternalHeaders.h"
 
 @interface FPSourceController : FPTableWithUploadButtonViewController

@@ -37,6 +37,8 @@
 		456D94E9194F0B3F00D0A34E /* FPConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D94E8194F0B3F00D0A34E /* FPConfigTests.m */; };
 		456D94EB194F0BD500D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		456D94EC194F0C0000D0A34E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031B615A8EEC40085E186 /* MobileCoreServices.framework */; };
+		45718C0D199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
+		45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		4571E1F7199CF1030093E841 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; };
@@ -327,6 +329,7 @@
 		4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+FPAppDimensions.m"; sourceTree = "<group>"; };
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
+		45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSharedInternalHeaders.h; sourceTree = "<group>"; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -817,6 +820,7 @@
 				451051DF195B300E00F877B3 /* FPMultipartUploader.h */,
 				451051E0195B300E00F877B3 /* FPMultipartUploader.m */,
 				4546386F19825A0500102885 /* FPPrivateConfig.h */,
+				45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */,
 				45B71DDB19768B33006B5DAF /* FPSinglepartUploader.h */,
 				45B71DDC19768B33006B5DAF /* FPSinglepartUploader.m */,
 				45B71DDF19768B68006B5DAF /* FPUploader.h */,
@@ -975,6 +979,7 @@
 				45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */,
 				4579CF5F199CEB0100E0BCB4 /* FPAPIClient.h in Headers */,
 				4579CF70199CEB0600E0BCB4 /* FPProgressTracker.h in Headers */,
+				45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */,
 				4579CF5C199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.h in Headers */,
 				4579CF58199CEAF200E0BCB4 /* FPMediaInfo.h in Headers */,
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
@@ -1023,6 +1028,7 @@
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
 				45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */,
 				836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */,
+				45718C0D199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */,
 				832739F3171F384F000A4A23 /* FPLocalAlbumController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -7,7 +7,6 @@
 //
 
 #import "FPSearchController.h"
-#import "FPUtils.h"
 
 @interface FPSearchController ()
 

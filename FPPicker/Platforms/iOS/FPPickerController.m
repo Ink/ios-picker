@@ -6,11 +6,8 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
-#import "FPInternalHeaders.h"
 #import "FPPickerController.h"
-#import "FPSourceListController.h"
-#import "FPMediaInfo.h"
-#import "FPUtils.h"
+#import "FPInternalHeaders.h"
 
 @interface FPPickerController ()
 

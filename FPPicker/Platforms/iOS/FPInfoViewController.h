@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "FPInternalHeaders.h"
 
 @interface FPInfoViewController : UIViewController
 

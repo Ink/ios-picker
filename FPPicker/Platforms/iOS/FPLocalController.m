@@ -7,9 +7,10 @@
 //
 
 #import "FPLocalController.h"
-#import "FPProgressTracker.h"
-#import "FPMediaInfo.h"
-#import "FPUtils.h"
+
+typedef void (^FPLocalUploadAssetSuccessBlock)(NSDictionary *data);
+typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, NSDictionary *data);
+typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 @interface FPLocalController ()
 {

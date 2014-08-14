@@ -7,6 +7,7 @@
 //
 
 #import "FPSourceListController.h"
+#import "FPInternalHeaders.h"
 #import "FPUtils.h"
 #import "FPLocalAlbumController.h"
 #import "FPSourceController.h"

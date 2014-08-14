@@ -7,7 +7,6 @@
 //
 
 #import "FPAuthController.h"
-#import "FPUtils.h"
 
 @implementation FPAuthController
 

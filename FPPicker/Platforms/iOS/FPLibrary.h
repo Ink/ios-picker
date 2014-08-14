@@ -6,8 +6,6 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "FPInternalHeaders.h"
 

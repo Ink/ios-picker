@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FPPicker.h"
-#import "FPInternalHeaders.h"
+#import "FPExternalHeaders.h"
 
 @interface FPSourceListController : UITableViewController <UINavigationBarDelegate>
 

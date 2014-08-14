@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <AssetsLibrary/AssetsLibrary.h>
-#import "FPPicker.h"
 #import "FPInternalHeaders.h"
 
 @interface FPLocalAlbumController : UIViewController <UITableViewDataSource, UITableViewDelegate>

@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MobileCoreServices/MobileCoreServices.h>
 #import "FPExternalHeaders.h"
 
 @interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate,

@@ -7,14 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import "FPPicker.h"
 #import "FPInternalHeaders.h"
-
-typedef void (^FPLocalUploadAssetSuccessBlock)(NSDictionary *data);
-typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, NSDictionary *data);
-typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 @interface FPLocalController : FPTableWithUploadButtonViewController
 

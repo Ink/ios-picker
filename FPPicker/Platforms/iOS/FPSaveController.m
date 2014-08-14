@@ -6,9 +6,8 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
-#import "FPInternalHeaders.h"
 #import "FPSaveController.h"
-#import "FPSourceListController.h"
+#import "FPInternalHeaders.h"
 
 @implementation FPSaveController
 
@@ -82,7 +81,7 @@
                   To:(NSString *)path
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
-                                                  animated:YES];
+                                              animated:YES];
 
     hud.mode = MBProgressHUDModeDeterminate;
     hud.labelText = @"Uploading...";
@@ -93,7 +92,7 @@
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         [MBProgressHUD hideAllHUDsForView:self.view
-                                   animated:YES];
+                                 animated:YES];
 
         [self.fpdelegate FPSaveController:self
             didFinishPickingMediaWithInfo:nil];
@@ -102,7 +101,7 @@
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
                                                id JSON) {
         [MBProgressHUD hideAllHUDsForView:self.view
-                                   animated:YES];
+                                 animated:YES];
 
         if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
         {
@@ -151,7 +150,7 @@
     }
 
     [MBProgressHUD showHUDAddedTo:self.view
-                           animated:YES];
+                         animated:YES];
 
     if (self.dataurl)
     {
