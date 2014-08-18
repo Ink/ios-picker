@@ -26,7 +26,7 @@
     return [NSArray arrayWithContentsOfURL:path];
 }
 
-+ (NSDictionary *)settings;
++ (NSDictionary *)settings
 {
     NSURL *FPSettingsFilePath = [[FPUtils frameworkBundle] URLForResource:@"FilepickerSettings"
                                                             withExtension:@"plist"];
@@ -47,7 +47,9 @@
 
     if (error)
     {
-        DLog(@"error: %@", error);
+        NSForceLog(@"Error loading XUI javascript contents: %@", error);
+
+        return nil;
     }
 
     return xui;
