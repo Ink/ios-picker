@@ -11,6 +11,12 @@
 		0266B3A4184EB1A800A91862 /* FPTableWithUploadButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0266B3A2184EB1A800A91862 /* FPTableWithUploadButtonViewController.m */; };
 		02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C136A81856794000D6940E /* FPProgressTracker.h */; };
 		02C136AB1856794000D6940E /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
+		45066A9D19A1F6CB0069B062 /* xui-2.3.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */; };
+		45066A9E19A1F6D10069B062 /* xui-2.3.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */; };
+		45066AA119A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
+		45066AA219A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
+		45066AA319A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
+		45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
 		451051E1195B300E00F877B3 /* FPMultipartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 451051DF195B300E00F877B3 /* FPMultipartUploader.h */; };
 		451051E2195B300E00F877B3 /* FPMultipartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 451051E0195B300E00F877B3 /* FPMultipartUploader.m */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
@@ -269,6 +275,9 @@
 		02C136A91856794000D6940E /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
 		1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Integration Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		28988FEF029C4C0EAF8D1A56 /* Pods-FPPickerMac.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPickerMac.xcconfig"; path = "Pods/Pods-FPPickerMac.xcconfig"; sourceTree = "<group>"; };
+		45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "xui-2.3.2.min.js"; sourceTree = "<group>"; };
+		45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+ResourceHelpers.h"; sourceTree = "<group>"; };
+		45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+ResourceHelpers.m"; sourceTree = "<group>"; };
 		450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		451051DF195B300E00F877B3 /* FPMultipartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMultipartUploader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		451051E0195B300E00F877B3 /* FPMultipartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMultipartUploader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -553,6 +562,8 @@
 				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
 				45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */,
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
+				45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */,
+				45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -613,6 +624,7 @@
 				45C13AE4199CDF74002DE7D3 /* SelectOverlay@2x.png */,
 				45C13AE5199CDF74002DE7D3 /* SelectOverlayiOS7.png */,
 				45C13AE6199CDF74002DE7D3 /* SelectOverlayiOS7@2x.png */,
+				45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */,
 			);
 			name = Resources;
 			path = "Resources-Shared";
@@ -882,6 +894,7 @@
 				4579CF70199CEB0600E0BCB4 /* FPProgressTracker.h in Headers */,
 				45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */,
 				4579CF5C199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.h in Headers */,
+				45066AA219A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */,
 				4579CF58199CEAF200E0BCB4 /* FPMediaInfo.h in Headers */,
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
 				4579CF6D199CEB0100E0BCB4 /* FPUtils.h in Headers */,
@@ -927,6 +940,7 @@
 				45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */,
 				831E0B4715AAC3F30081004F /* FPThumbCell.h in Headers */,
 				45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */,
+				45066AA119A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */,
 				836A9D3A169B5CF1006AC920 /* FPInfoViewController.h in Headers */,
 				45718C0D199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */,
 				832739F3171F384F000A4A23 /* FPLocalAlbumController.h in Headers */,
@@ -1150,6 +1164,7 @@
 				45FB62E8199CEF1700D0535A /* glyphicons_371_evernote@2x.png in Resources */,
 				45FB62E9199CEF1700D0535A /* glyphicons_144_folder_open@2x.png in Resources */,
 				45FB62EA199CEF1700D0535A /* SelectOverlay.png in Resources */,
+				45066A9D19A1F6CB0069B062 /* xui-2.3.2.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1211,6 +1226,7 @@
 				45C13B00199CDF74002DE7D3 /* glyphicons_371_evernote@2x.png in Resources */,
 				45C13AF4199CDF74002DE7D3 /* glyphicons_144_folder_open@2x.png in Resources */,
 				45C13B18199CDF74002DE7D3 /* SelectOverlay.png in Resources */,
+				45066A9E19A1F6D10069B062 /* xui-2.3.2.min.js in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1340,6 +1356,7 @@
 				4579CF6C199CEB0100E0BCB4 /* FPUploader.m in Sources */,
 				4579CF57199CEAF200E0BCB4 /* FPSession.m in Sources */,
 				4579CF55199CEAF200E0BCB4 /* FPSource.m in Sources */,
+				45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
 				4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */,
 				4579CF6E199CEB0100E0BCB4 /* FPUtils.m in Sources */,
 			);
@@ -1373,6 +1390,7 @@
 				83A031BC15A8F2570085E186 /* FPSaveController.m in Sources */,
 				831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */,
 				831E0B4815AAC3F30081004F /* FPThumbCell.m in Sources */,
+				45066AA319A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
 				45B71DDE19768B33006B5DAF /* FPSinglepartUploader.m in Sources */,
 				4565C327197FE9F900E77D51 /* UIApplication+FPAppDimensions.m in Sources */,
 				455E5C9B1973CD3500CED98E /* FPSession.m in Sources */,
