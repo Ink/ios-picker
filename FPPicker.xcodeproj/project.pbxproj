@@ -17,6 +17,11 @@
 		45066AA219A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
 		45066AA319A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
 		45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
+		45066AA619A203190069B062 /* FPPickerController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45066AA519A203190069B062 /* FPPickerController.xib */; };
+		45066AAB19A204040069B062 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066AA719A204040069B062 /* FPAuthController.h */; };
+		45066AAC19A204040069B062 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA819A204040069B062 /* FPAuthController.m */; };
+		45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066AA919A204040069B062 /* FPRemoteSourceController.h */; };
+		45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AAA19A204040069B062 /* FPRemoteSourceController.m */; };
 		451051E1195B300E00F877B3 /* FPMultipartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 451051DF195B300E00F877B3 /* FPMultipartUploader.h */; };
 		451051E2195B300E00F877B3 /* FPMultipartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 451051E0195B300E00F877B3 /* FPMultipartUploader.m */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
@@ -139,6 +144,13 @@
 		45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26D6199CB64C0048B483 /* FPMediaInfo.h */; };
 		45CD26D9199CB64C0048B483 /* FPMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26D7199CB64C0048B483 /* FPMediaInfo.m */; };
+		45D0396919A20A7700983134 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D0396819A20A7700983134 /* WebKit.framework */; };
+		45D0396C19A20CC300983134 /* FPPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0396A19A20CC300983134 /* FPPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45D0396D19A20CC300983134 /* FPPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0396B19A20CC300983134 /* FPPickerController.m */; };
+		45D0397D19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */; };
+		45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */; };
+		45D0397F19A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */; };
+		45D0398019A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */; };
 		45DB53DA19503E0B0062061F /* FPLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB53D919503E0B0062061F /* FPLibraryTests.m */; };
 		45DB53DC195047580062061F /* outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DB195047580062061F /* outline.png */; };
 		45DB53DE195050EE0062061F /* successfulResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DD195050EE0062061F /* successfulResponse.json */; };
@@ -278,6 +290,11 @@
 		45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "xui-2.3.2.min.js"; sourceTree = "<group>"; };
 		45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+ResourceHelpers.h"; sourceTree = "<group>"; };
 		45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+ResourceHelpers.m"; sourceTree = "<group>"; };
+		45066AA519A203190069B062 /* FPPickerController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPPickerController.xib; sourceTree = "<group>"; };
+		45066AA719A204040069B062 /* FPAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPAuthController.h; sourceTree = "<group>"; };
+		45066AA819A204040069B062 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAuthController.m; sourceTree = "<group>"; };
+		45066AA919A204040069B062 /* FPRemoteSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPRemoteSourceController.h; sourceTree = "<group>"; };
+		45066AAA19A204040069B062 /* FPRemoteSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPRemoteSourceController.m; sourceTree = "<group>"; };
 		450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		451051DF195B300E00F877B3 /* FPMultipartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMultipartUploader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		451051E0195B300E00F877B3 /* FPMultipartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMultipartUploader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -382,6 +399,11 @@
 		45CD26D6199CB64C0048B483 /* FPMediaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMediaInfo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		45CD26D7199CB64C0048B483 /* FPMediaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMediaInfo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45CD2718199CCB9A0048B483 /* FPTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPTypedefs.h; sourceTree = "<group>"; };
+		45D0396819A20A7700983134 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
+		45D0396A19A20CC300983134 /* FPPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPickerController.h; sourceTree = "<group>"; };
+		45D0396B19A20CC300983134 /* FPPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPickerController.m; sourceTree = "<group>"; };
+		45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+RequestHelpers.h"; sourceTree = "<group>"; };
+		45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+RequestHelpers.m"; sourceTree = "<group>"; };
 		45DB53D919503E0B0062061F /* FPLibraryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLibraryTests.m; sourceTree = "<group>"; };
 		45DB53DB195047580062061F /* outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = outline.png; path = "FPPicker Tests/Functional Tests/Fixtures/outline.png"; sourceTree = SOURCE_ROOT; };
 		45DB53DD195050EE0062061F /* successfulResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulResponse.json"; sourceTree = SOURCE_ROOT; };
@@ -460,6 +482,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D0396919A20A7700983134 /* WebKit.framework in Frameworks */,
 				45FB62A9199CECE600D0535A /* Cocoa.framework in Frameworks */,
 				C47635322F4E4FA9AD1D1E92 /* libPods-FPPickerMac.a in Frameworks */,
 			);
@@ -564,6 +587,8 @@
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
 				45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */,
 				45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */,
+				45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */,
+				45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -636,6 +661,7 @@
 				45C13B6F199CEA93002DE7D3 /* FPPicker Mac-Info.plist */,
 				45C13B71199CEA93002DE7D3 /* InfoPlist.strings */,
 				45C13B72199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch */,
+				45066AA519A203190069B062 /* FPPickerController.xib */,
 			);
 			name = "Supporting Files";
 			path = "../../../Resources-Mac";
@@ -644,9 +670,15 @@
 		45C13B75199CEA93002DE7D3 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
-				45C13B6E199CEA93002DE7D3 /* FPPicker.h */,
-				45C13B73199CEA93002DE7D3 /* Supporting Files */,
+				45066AA719A204040069B062 /* FPAuthController.h */,
+				45066AA819A204040069B062 /* FPAuthController.m */,
 				45C13B74199CEA93002DE7D3 /* FPInternalHeaders.h */,
+				45C13B6E199CEA93002DE7D3 /* FPPicker.h */,
+				45D0396A19A20CC300983134 /* FPPickerController.h */,
+				45D0396B19A20CC300983134 /* FPPickerController.m */,
+				45066AA919A204040069B062 /* FPRemoteSourceController.h */,
+				45066AAA19A204040069B062 /* FPRemoteSourceController.m */,
+				45C13B73199CEA93002DE7D3 /* Supporting Files */,
 			);
 			name = Mac;
 			path = FPPicker/Platforms/Mac;
@@ -800,6 +832,7 @@
 		83A030E415A89C9D0085E186 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45D0396819A20A7700983134 /* WebKit.framework */,
 				45FB62A8199CECE600D0535A /* Cocoa.framework */,
 				45ADBF7C1951BBA100EB2215 /* SystemConfiguration.framework */,
 				456D9478194F010400D0A34E /* AssetsLibrary.framework */,
@@ -886,7 +919,11 @@
 			files = (
 				4571E1F7199CF1030093E841 /* FPConfig.h in Headers */,
 				4579CF63199CEB0100E0BCB4 /* FPConstants.h in Headers */,
+				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
 				45C13B94199CEA93002DE7D3 /* FPPicker.h in Headers */,
+				45D0396C19A20CC300983134 /* FPPickerController.h in Headers */,
+				45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */,
+				45066AAB19A204040069B062 /* FPAuthController.h in Headers */,
 				4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */,
 				4579CF66199CEB0100E0BCB4 /* FPMultipartUploader.h in Headers */,
 				45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */,
@@ -935,6 +972,7 @@
 				83A031BB15A8F2570085E186 /* FPSaveController.h in Headers */,
 				83A031DF15AA288C0085E186 /* FPExternalHeaders.h in Headers */,
 				83A031E015AA288C0085E186 /* FPInternalHeaders.h in Headers */,
+				45D0397D19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
 				45FCE705199B665800D86B40 /* FPUtils+iOS.h in Headers */,
 				831E0ABE15AA6E460081004F /* FPSaveSourceController.h in Headers */,
 				45A2C34C197438B4009D436D /* NSData+FPHexString.h in Headers */,
@@ -1051,7 +1089,7 @@
 		83A030D915A89C9D0085E186 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Filepicker.io;
 				TargetAttributes = {
 					458B1FE91949D726008360E9 = {
@@ -1102,6 +1140,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45FB62F4199CEFCE00D0535A /* FPPicker.bundle in Resources */,
+				45066AA619A203190069B062 /* FPPickerController.xib in Resources */,
 				45C13B96199CEA93002DE7D3 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1346,7 +1385,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4579CF59199CEAF200E0BCB4 /* FPMediaInfo.m in Sources */,
+				45D0396D19A20CC300983134 /* FPPickerController.m in Sources */,
 				4579CF62199CEB0100E0BCB4 /* FPConfig.m in Sources */,
+				45D0398019A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */,
+				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
 				4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */,
 				4579CF64199CEB0100E0BCB4 /* FPConstants.m in Sources */,
@@ -1356,6 +1398,7 @@
 				4579CF6C199CEB0100E0BCB4 /* FPUploader.m in Sources */,
 				4579CF57199CEAF200E0BCB4 /* FPSession.m in Sources */,
 				4579CF55199CEAF200E0BCB4 /* FPSource.m in Sources */,
+				45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */,
 				45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
 				4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */,
 				4579CF6E199CEB0100E0BCB4 /* FPUtils.m in Sources */,
@@ -1400,6 +1443,7 @@
 				45A2C34D197438B4009D436D /* NSData+FPHexString.m in Sources */,
 				836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */,
 				45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */,
+				45D0397F19A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */,
 				832739F4171F384F000A4A23 /* FPLocalAlbumController.m in Sources */,
 				02C136AB1856794000D6940E /* FPProgressTracker.m in Sources */,
 			);
@@ -1595,6 +1639,7 @@
 		45FB62EC199CEF1700D0535A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -1612,6 +1657,7 @@
 		45FB62ED199CEF1700D0535A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -1639,9 +1685,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1675,9 +1723,11 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

@@ -9,5 +9,5 @@
 #import "FPConfig.h"
 #import "FPConstants.h"
 //#import "FPExternalHeaders.h"
-//#import "FPPickerController.h"
+#import "FPPickerController.h"
 //#import "FPSaveController.h"

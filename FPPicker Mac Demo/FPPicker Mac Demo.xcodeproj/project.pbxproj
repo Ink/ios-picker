@@ -15,7 +15,8 @@
 		45718BCA199CFEC100C27324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45718BC8199CFEC100C27324 /* MainMenu.xib */; };
 		45718BCC199CFEC100C27324 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45718BCB199CFEC100C27324 /* Images.xcassets */; };
 		45718BFE199CFF0700C27324 /* FPPickerMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
-		45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
+		45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		45D0397A19A21DB800983134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397919A21DB800983134 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,7 @@
 			remoteGlobalIDString = 45FB62EE199CEF1700D0535A;
 			remoteInfo = "FPPicker Resources Mac";
 		};
-		45718BFC199CFEE200C27324 /* PBXContainerItemProxy */ = {
+		45D0397219A20F2C00983134 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
 			proxyType = 1;
@@ -68,7 +69,7 @@
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
-			dstSubfolderSpec = 7;
+			dstSubfolderSpec = 10;
 			files = (
 				45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */,
 			);
@@ -94,6 +95,8 @@
 		45718BCB199CFEC100C27324 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45718BD2199CFEC200C27324 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
+		45D0397819A21DB800983134 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45D0397919A21DB800983134 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +158,8 @@
 				45718BC8199CFEC100C27324 /* MainMenu.xib */,
 				45718BCB199CFEC100C27324 /* Images.xcassets */,
 				45718BBA199CFEC100C27324 /* Supporting Files */,
+				45D0397819A21DB800983134 /* ViewController.h */,
+				45D0397919A21DB800983134 /* ViewController.m */,
 			);
 			path = "FPPicker Mac Demo";
 			sourceTree = "<group>";
@@ -198,7 +203,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				45718BFD199CFEE200C27324 /* PBXTargetDependency */,
+				45D0397319A20F2C00983134 /* PBXTargetDependency */,
 			);
 			name = "FPPicker Mac Demo";
 			productName = "FPPicker Mac Demo";
@@ -211,7 +216,7 @@
 		45718BA8199CFEC100C27324 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = Filepicker.io;
 			};
 			buildConfigurationList = 45718BAB199CFEC100C27324 /* Build configuration list for PBXProject "FPPicker Mac Demo" */;
@@ -295,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45D0397A19A21DB800983134 /* ViewController.m in Sources */,
 				45718BC7199CFEC100C27324 /* AppDelegate.m in Sources */,
 				45718BC0199CFEC100C27324 /* main.m in Sources */,
 			);
@@ -303,10 +309,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45718BFD199CFEE200C27324 /* PBXTargetDependency */ = {
+		45D0397319A20F2C00983134 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FPPickerMac;
-			targetProxy = 45718BFC199CFEE200C27324 /* PBXContainerItemProxy */;
+			targetProxy = 45D0397219A20F2C00983134 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
