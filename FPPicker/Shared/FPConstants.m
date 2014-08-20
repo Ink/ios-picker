@@ -8,6 +8,7 @@
 
 #import "FPConstants.h"
 
+NSString *const FPSourceFilesystem = @"filesystem";
 NSString *const FPSourceBox = @"box";
 NSString *const FPSourceCameraRoll = @"cameraroll";
 NSString *const FPSourceDropbox = @"dropbox";

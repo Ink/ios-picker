@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
+FOUNDATION_EXPORT NSString * const FPSourceFilesystem;
 FOUNDATION_EXPORT NSString * const FPSourceBox;
 FOUNDATION_EXPORT NSString * const FPSourceCameraRoll;
 FOUNDATION_EXPORT NSString * const FPSourceDropbox;

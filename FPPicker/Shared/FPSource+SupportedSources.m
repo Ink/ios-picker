@@ -64,7 +64,27 @@
 
 + (NSArray *)localDesktopSources
 {
-    return nil;
+    NSMutableArray *sources = [NSMutableArray array];
+
+    FPSource *source;
+
+    // Local File(s)
+    {
+        source = [FPSource new];
+
+        source.identifier = FPSourceFilesystem;
+        source.name = @"Local File(s)";
+        source.icon = @"glyphicons_020_home";
+        source.rootUrl = @"/Filesystem";
+        source.openMimetypes = @[@"*/*"];
+        source.saveMimetypes = @[@"*/*"];
+        source.overwritePossible = YES;
+        source.externalDomains = @[];
+
+        [sources addObject:source];
+    }
+
+    return [sources copy];
 }
 
 + (NSArray *)remoteSources
