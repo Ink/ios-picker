@@ -75,7 +75,7 @@
         source.identifier = FPSourceFilesystem;
         source.name = @"Local File(s)";
         source.icon = @"glyphicons_020_home";
-        source.rootUrl = @"/Filesystem";
+        source.rootUrl = @"/computer";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
