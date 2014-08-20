@@ -11,7 +11,7 @@
 @class FPRemoteSourceController;
 @class FPSourceListController;
 
-@interface FPPickerController : NSViewController
+@interface FPPickerController : NSViewController <NSWindowDelegate>
 
 @property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;

@@ -92,6 +92,8 @@
 		45B7606E19758251007C9284 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */; };
 		45B7606F19758251007C9284 /* FPSession+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */; };
 		45B7D0A7194F4C1A009C4AB6 /* FPSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7D0A6194F4C1A009C4AB6 /* FPSourceTests.m */; };
+		45B9888819A4F12300CE7DFC /* FPBorderView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B9888619A4F12300CE7DFC /* FPBorderView.h */; };
+		45B9888919A4F12300CE7DFC /* FPBorderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B9888719A4F12300CE7DFC /* FPBorderView.m */; };
 		45C13AE7199CDF74002DE7D3 /* allowedUrlPrefix.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AB2199CDF74002DE7D3 /* allowedUrlPrefix.plist */; };
 		45C13AE9199CDF74002DE7D3 /* disallowedUrlPrefix.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AB4199CDF74002DE7D3 /* disallowedUrlPrefix.plist */; };
 		45C13AEA199CDF74002DE7D3 /* FilepickerSettings.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AB5199CDF74002DE7D3 /* FilepickerSettings.plist */; };
@@ -344,6 +346,8 @@
 		45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPSession+ConvenienceMethods.h"; sourceTree = "<group>"; };
 		45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPSession+ConvenienceMethods.m"; sourceTree = "<group>"; };
 		45B7D0A6194F4C1A009C4AB6 /* FPSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceTests.m; sourceTree = "<group>"; };
+		45B9888619A4F12300CE7DFC /* FPBorderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPBorderView.h; sourceTree = "<group>"; };
+		45B9888719A4F12300CE7DFC /* FPBorderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPBorderView.m; sourceTree = "<group>"; };
 		45C13AB2199CDF74002DE7D3 /* allowedUrlPrefix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = allowedUrlPrefix.plist; sourceTree = "<group>"; };
 		45C13AB4199CDF74002DE7D3 /* disallowedUrlPrefix.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = disallowedUrlPrefix.plist; sourceTree = "<group>"; };
 		45C13AB5199CDF74002DE7D3 /* FilepickerSettings.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = FilepickerSettings.plist; sourceTree = "<group>"; };
@@ -602,6 +606,15 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
+		45B9888519A4F10D00CE7DFC /* Custom Controls */ = {
+			isa = PBXGroup;
+			children = (
+				45B9888619A4F12300CE7DFC /* FPBorderView.h */,
+				45B9888719A4F12300CE7DFC /* FPBorderView.m */,
+			);
+			name = "Custom Controls";
+			sourceTree = "<group>";
+		};
 		45C13AB1199CDF74002DE7D3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -678,6 +691,7 @@
 		45C13B75199CEA93002DE7D3 /* Mac */ = {
 			isa = PBXGroup;
 			children = (
+				45B9888519A4F10D00CE7DFC /* Custom Controls */,
 				45066AA719A204040069B062 /* FPAuthController.h */,
 				45066AA819A204040069B062 /* FPAuthController.m */,
 				45C13B74199CEA93002DE7D3 /* FPInternalHeaders.h */,
@@ -947,6 +961,7 @@
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
 				4579CF6D199CEB0100E0BCB4 /* FPUtils.h in Headers */,
 				4579CF69199CEB0100E0BCB4 /* FPSinglepartUploader.h in Headers */,
+				45B9888819A4F12300CE7DFC /* FPBorderView.h in Headers */,
 				45765FD019A4A0C50018E2EC /* FPSourceListController.h in Headers */,
 				4579CF65199CEB0100E0BCB4 /* FPMacros.h in Headers */,
 				4579CF6F199CEB0100E0BCB4 /* FPTypedefs.h in Headers */,
@@ -1402,6 +1417,7 @@
 				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
 				4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */,
+				45B9888919A4F12300CE7DFC /* FPBorderView.m in Sources */,
 				45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */,
 				4579CF64199CEB0100E0BCB4 /* FPConstants.m in Sources */,
 				4579CF71199CEB0600E0BCB4 /* FPProgressTracker.m in Sources */,

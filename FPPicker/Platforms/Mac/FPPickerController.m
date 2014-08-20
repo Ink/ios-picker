@@ -50,7 +50,21 @@
 
 - (void)open
 {
-    [self.window makeKeyAndOrderFront:self];
+    [NSApp runModalForWindow:self.window];
+}
+
+#pragma mark - Actions
+
+- (IBAction)openFiles:(id)sender
+{
+    // TODO: Open the files
+
+    [self.window close];
+}
+
+- (IBAction)close:(id)sender
+{
+    [self.window close];
 }
 
 #pragma mark - FPSourceListControllerDelegate Methods
@@ -61,6 +75,13 @@
     self.remoteSourceController.source = source;
 
     [self.remoteSourceController fpLoadContentAtPath];
+}
+
+#pragma mark - NSWindowDelegate Methods
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    [NSApp stopModal];
 }
 
 #pragma mark - NSSplitViewDelegate Methods
