@@ -206,18 +206,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     if (!_selectionOverlayImage)
     {
-        NSString *selectOverlayFilePath;
-
-        if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-        {
-            selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
-                                                                        ofType:@"png"];
-        }
-        else
-        {
-            selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
-                                                                        ofType:@"png"];
-        }
+        NSString *selectOverlayFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                                              ofType:@"png"];
 
         _selectionOverlayImage = [UIImage imageWithContentsOfFile:selectOverlayFilePath];
     }

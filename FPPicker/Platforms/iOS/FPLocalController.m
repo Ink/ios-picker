@@ -50,18 +50,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 {
     [super viewDidLoad];
 
-    NSString *imageFilePath;
-
-    if (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))
-    {
-        imageFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
-                                                            ofType:@"png"];
-    }
-    else
-    {
-        imageFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlay"
-                                                            ofType:@"png"];
-    }
+    NSString *imageFilePath = [[FPUtils frameworkBundle] pathForResource:@"SelectOverlayiOS7"
+                                                                  ofType:@"png"];
 
     _selectOverlay = [UIImage imageWithContentsOfFile:imageFilePath];
 
