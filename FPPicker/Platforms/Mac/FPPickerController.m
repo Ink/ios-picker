@@ -15,6 +15,8 @@
 @interface FPPickerController () <FPSourceListControllerDelegate,
                                   NSSplitViewDelegate>
 
+@property (nonatomic, assign) NSModalSession modalSession;
+
 @end
 
 @implementation FPPickerController
@@ -50,7 +52,7 @@
 
 - (void)open
 {
-    [NSApp runModalForWindow:self.window];
+    self.modalSession = [NSApp beginModalSessionForWindow:self.window];
 }
 
 #pragma mark - Actions
@@ -81,7 +83,7 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [NSApp stopModal];
+    [NSApp endModalSession:self.modalSession];
 }
 
 #pragma mark - NSSplitViewDelegate Methods
