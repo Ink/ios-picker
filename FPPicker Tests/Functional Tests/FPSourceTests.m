@@ -29,32 +29,4 @@
     [super tearDown];
 }
 
-- (void)testMimetypeString
-{
-    FPSource *source = [FPSource new];
-
-    XCTAssertEqual(source.mimetypes.count,
-                   0,
-                   @"Should be zero");
-
-    XCTAssertEqualObjects([source mimetypeString],
-                          @"[]",
-                          @"Should be empty");
-
-    source.mimetypes = @[
-        @"image/png",
-        @"image/jpeg",
-        @"video/mp4",
-        @"video/quicktime"
-                       ];
-
-    XCTAssertEqual(source.mimetypes.count,
-                   4,
-                   @"Should be 4");
-
-    XCTAssertEqualObjects([source mimetypeString],
-                          @"[\"image/png\",\"image/jpeg\",\"video/mp4\",\"video/quicktime\"]",
-                          @"Should contain mimetypes");
-}
-
 @end

@@ -10,16 +10,6 @@
 
 @implementation FPSource
 
-- (NSString *)mimetypeString
-{
-    if (self.mimetypes.count == 0)
-    {
-        return @"[]";
-    }
-
-    return [NSString stringWithFormat:@"[\"%@\"]", [self.mimetypes componentsJoinedByString:@"\",\""]];
-}
-
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@ {name: %@, identifier: %@, icon: %@, rootUrl: %@, open_mimetypes: %@, save_mimetypes: %@, mimetypes: %@, externalDomains: %@, overwritePossible: %d}",
@@ -28,8 +18,8 @@
             self.identifier,
             self.icon,
             self.rootUrl,
-            self.open_mimetypes,
-            self.save_mimetypes,
+            self.openMimetypes,
+            self.saveMimetypes,
             self.mimetypes,
             self.externalDomains,
             self.overwritePossible];

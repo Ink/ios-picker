@@ -38,6 +38,8 @@
 		45718C0D199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		4571E1F7199CF1030093E841 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45765FD019A4A0C50018E2EC /* FPSourceListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45765FCE19A4A0C50018E2EC /* FPSourceListController.h */; };
+		45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765FCF19A4A0C50018E2EC /* FPSourceListController.m */; };
 		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; };
 		4579CF55199CEAF200E0BCB4 /* FPSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A031A515A8A4AC0085E186 /* FPSource.m */; };
 		4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 455E5C981973CD3500CED98E /* FPSession.h */; };
@@ -66,6 +68,10 @@
 		4579CF6F199CEB0100E0BCB4 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD2718199CCB9A0048B483 /* FPTypedefs.h */; };
 		4579CF70199CEB0600E0BCB4 /* FPProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C136A81856794000D6940E /* FPProgressTracker.h */; };
 		4579CF71199CEB0600E0BCB4 /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
+		4587CB2619A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; };
+		4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; };
+		4587CB2819A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */; };
+		4587CB2919A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 458B20021949D7C1008360E9 /* InfoPlist.strings */; };
@@ -311,6 +317,10 @@
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
 		45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSharedInternalHeaders.h; sourceTree = "<group>"; };
+		45765FCE19A4A0C50018E2EC /* FPSourceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceListController.h; sourceTree = "<group>"; };
+		45765FCF19A4A0C50018E2EC /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceListController.m; sourceTree = "<group>"; };
+		4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPSource+SupportedSources.h"; sourceTree = "<group>"; };
+		4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPSource+SupportedSources.m"; sourceTree = "<group>"; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -585,6 +595,8 @@
 				45A2C34B197438B4009D436D /* NSData+FPHexString.m */,
 				45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */,
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
+				4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */,
+				4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */,
 				45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */,
 				45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */,
 				45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */,
@@ -678,6 +690,8 @@
 				45D0396B19A20CC300983134 /* FPPickerController.m */,
 				45066AA919A204040069B062 /* FPRemoteSourceController.h */,
 				45066AAA19A204040069B062 /* FPRemoteSourceController.m */,
+				45765FCE19A4A0C50018E2EC /* FPSourceListController.h */,
+				45765FCF19A4A0C50018E2EC /* FPSourceListController.m */,
 				45C13B73199CEA93002DE7D3 /* Supporting Files */,
 			);
 			name = Mac;
@@ -918,6 +932,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4571E1F7199CF1030093E841 /* FPConfig.h in Headers */,
+				4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */,
 				4579CF63199CEB0100E0BCB4 /* FPConstants.h in Headers */,
 				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
 				45C13B94199CEA93002DE7D3 /* FPPicker.h in Headers */,
@@ -936,6 +951,7 @@
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
 				4579CF6D199CEB0100E0BCB4 /* FPUtils.h in Headers */,
 				4579CF69199CEB0100E0BCB4 /* FPSinglepartUploader.h in Headers */,
+				45765FD019A4A0C50018E2EC /* FPSourceListController.h in Headers */,
 				4579CF65199CEB0100E0BCB4 /* FPMacros.h in Headers */,
 				4579CF6F199CEB0100E0BCB4 /* FPTypedefs.h in Headers */,
 				4579CF68199CEB0100E0BCB4 /* FPPrivateConfig.h in Headers */,
@@ -958,6 +974,7 @@
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
 				453096E6194738A6001D970C /* FPUtils.h in Headers */,
 				0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */,
+				4587CB2619A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */,
 				83A0315C15A89E050085E186 /* FPLocalController.h in Headers */,
 				83A0315E15A89E050085E186 /* FPPicker.h in Headers */,
 				83A0315F15A89E050085E186 /* FPPickerController.h in Headers */,
@@ -1391,12 +1408,14 @@
 				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
 				4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */,
+				45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */,
 				4579CF64199CEB0100E0BCB4 /* FPConstants.m in Sources */,
 				4579CF71199CEB0600E0BCB4 /* FPProgressTracker.m in Sources */,
 				4579CF67199CEB0100E0BCB4 /* FPMultipartUploader.m in Sources */,
 				4579CF5D199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.m in Sources */,
 				4579CF6C199CEB0100E0BCB4 /* FPUploader.m in Sources */,
 				4579CF57199CEAF200E0BCB4 /* FPSession.m in Sources */,
+				4587CB2919A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */,
 				4579CF55199CEAF200E0BCB4 /* FPSource.m in Sources */,
 				45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */,
 				45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
@@ -1430,6 +1449,7 @@
 				0266B3A4184EB1A800A91862 /* FPTableWithUploadButtonViewController.m in Sources */,
 				83A0316615A89E050085E186 /* FPSourceListController.m in Sources */,
 				83A031A715A8A4AD0085E186 /* FPSource.m in Sources */,
+				4587CB2819A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */,
 				83A031BC15A8F2570085E186 /* FPSaveController.m in Sources */,
 				831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */,
 				831E0B4815AAC3F30081004F /* FPThumbCell.m in Sources */,

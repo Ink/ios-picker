@@ -15,6 +15,7 @@
 #import "FPSaveController.h"
 #import "FPSearchController.h"
 #import "FPInfoViewController.h"
+#import "FPSource+SupportedSources.h"
 
 @implementation FPSourceListController
 
@@ -29,271 +30,8 @@
 {
     [super viewDidLoad];
 
-    // Set the text of back button to be "back", regardless of title.
-    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:nil
-                                                                            action:nil];
-
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeInfoLight];
-
-    [btn addTarget:self
-               action:@selector(infoButtonRequest)
-     forControlEvents:UIControlEventTouchUpInside];
-
-    btn.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
-
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:btn];
-
-    //NSLog(@"sources: %@", sourceNames);
-
-    if (!self.sourceNames)
-    {
-        self.sourceNames = @[
-            FPSourceCamera,
-            FPSourceCameraRoll,
-            FPSourceDropbox,
-            FPSourceFacebook,
-            FPSourceGmail,
-            FPSourceBox,
-            FPSourceGithub,
-            FPSourceGoogleDrive,
-            FPSourceInstagram,
-            FPSourceFlickr,
-            FPSourceEvernote,
-            FPSourcePicasa,
-            FPSourceSkydrive,
-            FPSourceImagesearch
-                           ];
-    }
-
-    if (!self.dataTypes)
-    {
-        self.dataTypes = @[@"*/*"];
-    }
-
-    NSMutableArray *local = [NSMutableArray array];
-    NSMutableArray *cloud = [NSMutableArray array];
-
-    for (NSString *source in self.sourceNames)
-    {
-        FPSource *sourceObj = [FPSource new];
-
-        sourceObj.identifier = source;
-
-        if (source == FPSourceCamera)
-        {
-            sourceObj.name = @"Camera";
-            sourceObj.icon = @"glyphicons_011_camera";
-            sourceObj.rootUrl = @"/Camera";
-            sourceObj.open_mimetypes = @[@"video/quicktime", @"image/jpeg", @"image/png"];
-            sourceObj.save_mimetypes = @[]; // TODO: Really needed?
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[]; // TODO: Really needed?
-        }
-        else if (source == FPSourceCameraRoll)
-        {
-            sourceObj.name = @"Albums";
-            sourceObj.icon = @"glyphicons_008_film";
-            sourceObj.rootUrl = @"/Albums";
-            sourceObj.open_mimetypes = @[@"image/jpeg", @"image/png", @"video/quicktime"];
-            sourceObj.save_mimetypes = @[@"image/jpeg", @"image/png"];
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[]; // TODO: Really needed?
-        }
-        else if (source == FPSourceBox)
-        {
-            sourceObj.name = @"Box";
-            sourceObj.icon = @"glyphicons_sb2_box";
-            sourceObj.rootUrl = @"/Box";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[@"*/*"];
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://www.box.com"];
-        }
-        else if (source == FPSourceDropbox)
-        {
-            sourceObj.name = @"Dropbox";
-            sourceObj.icon = @"glyphicons_361_dropbox";
-            sourceObj.rootUrl = @"/Dropbox";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[@"*/*"];
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://www.dropbox.com"];
-        }
-        else if (source == FPSourceFacebook)
-        {
-            sourceObj.name = @"Facebook";
-            sourceObj.icon = @"glyphicons_390_facebook";
-            sourceObj.rootUrl = @"/Facebook";
-            sourceObj.open_mimetypes = @[@"image/jpeg"];
-            sourceObj.save_mimetypes = @[@"image/*"];
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[@"https://www.facebook.com"];
-        }
-        else if (source == FPSourceGithub)
-        {
-            sourceObj.name = @"Github";
-            sourceObj.icon = @"glyphicons_381_github";
-            sourceObj.rootUrl = @"/Github";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[]; // TODO: Really needed?
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[@"https://www.github.com"];
-        }
-        else if (source == FPSourceGmail)
-        {
-            sourceObj.name = @"Gmail";
-            sourceObj.icon = @"glyphicons_sb1_gmail";
-            sourceObj.rootUrl = @"/Gmail";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[]; // TODO: Really needed?
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
-        }
-        else if (source == FPSourceImagesearch)
-        {
-            sourceObj.name = @"Web Images";
-            sourceObj.icon = @"glyphicons_027_search";
-            sourceObj.rootUrl = @"/Imagesearch";
-            sourceObj.open_mimetypes = @[@"image/jpeg"];
-            sourceObj.save_mimetypes = @[]; // TODO: Really needed?
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[]; // TODO: Really needed?
-        }
-        else if (source == FPSourceGoogleDrive)
-        {
-            sourceObj.name = @"Google Drive";
-            sourceObj.icon = @"GoogleDrive";
-            sourceObj.rootUrl = @"/GoogleDrive";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[@"*/*"];
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
-        }
-        else if (source == FPSourceFlickr)
-        {
-            sourceObj.name = @"Flickr";
-            sourceObj.icon = @"glyphicons_395_flickr";
-            sourceObj.rootUrl = @"/Flickr";
-            sourceObj.open_mimetypes = @[@"image/*"];
-            sourceObj.save_mimetypes = @[@"image/*"];
-            sourceObj.overwritePossible = NO;
-            sourceObj.externalDomains = @[@"https://*.flickr.com", @"http://*.flickr.com"];
-        }
-        else if (source == FPSourcePicasa)
-        {
-            sourceObj.name = @"Picasa";
-            sourceObj.icon = @"glyphicons_366_picasa";
-            sourceObj.rootUrl = @"/Picasa";
-            sourceObj.open_mimetypes = @[@"image/*"];
-            sourceObj.save_mimetypes = @[@"image/*"];
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
-        }
-        else if (source == FPSourceInstagram)
-        {
-            sourceObj.name = @"Instagram";
-            sourceObj.icon = @"Instagram";
-            sourceObj.rootUrl = @"/Instagram";
-            sourceObj.open_mimetypes = @[@"image/jpeg"];
-            sourceObj.save_mimetypes = @[]; // TODO: Really needed?
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://www.instagram.com",  @"https://instagram.com"];
-        }
-        else if (source == FPSourceSkydrive)
-        {
-            sourceObj.name = @"OneDrive";
-            sourceObj.icon = @"glyphicons_sb3_skydrive";
-            sourceObj.rootUrl = @"/OneDrive";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[@"*/*"];
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://login.live.com",  @"https://skydrive.live.com"];
-        }
-        else if (source == FPSourceEvernote)
-        {
-            sourceObj.name = @"Evernote";
-            sourceObj.icon = @"glyphicons_371_evernote";
-            sourceObj.rootUrl = @"/Evernote";
-            sourceObj.open_mimetypes = @[@"*/*"];
-            sourceObj.save_mimetypes = @[@"*/*"];
-            sourceObj.overwritePossible = YES;
-            sourceObj.externalDomains = @[@"https://www.evernote.com",  @"https://evernote.com"];
-        }
-
-        NSArray *source_mimetypes;
-
-        if ([self.fpdelegate class] == [FPSaveController class])
-        {
-            source_mimetypes = sourceObj.save_mimetypes;
-        }
-        else
-        {
-            source_mimetypes = sourceObj.open_mimetypes;
-        }
-
-        if ([self mimetypeCheck:source_mimetypes
-                        against:self.dataTypes])
-        {
-            sourceObj.mimetypes = self.dataTypes;
-
-            if (source == FPSourceCamera ||
-                source == FPSourceCameraRoll)
-            {
-                [local addObject:sourceObj];
-            }
-            else
-            {
-                [cloud addObject:sourceObj];
-            }
-        }
-    }
-
-    NSString *cloudTitle = @"Cloud";
-
-    if (!self.title)
-    {
-        [self setTitle:@"Filepicker.io"];
-    }
-    else
-    {
-        cloudTitle = @"Cloud via Filepicker.io";
-    }
-
-
-    self.sources = [NSMutableDictionary dictionary];
-
-    if (local.count > 0)
-    {
-        self.sources[@"local"] = local;
-    }
-
-    if (cloud.count > 0)
-    {
-        self.sources[cloudTitle] = cloud;
-    }
-
-    if (local.count + cloud.count == 0)
-    {
-        //No services
-        UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 200, 200, 20)];
-
-        [emptyLabel setTextColor:[UIColor grayColor]];
-        emptyLabel.text = @"No Services Available";
-
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-        [self.view addSubview:emptyLabel];
-    }
-
-
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
-                                                                      style:UIBarButtonItemStylePlain
-                                                                     target:self
-                                                                     action:@selector(cancelButtonRequest:)];
-
-    self.navigationItem.leftBarButtonItem = anotherButton;
+    [self setupNavigationButtons];
+    [self setupSourceList];
 }
 
 - (void)viewDidUnload
@@ -313,7 +51,7 @@
     return YES;
 }
 
-#pragma mark - Table view data source
+#pragma mark - UITableViewDataSource Methods
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -383,7 +121,7 @@
     return NO;
 }
 
-#pragma mark - Table view delegate
+#pragma mark - UITableViewDelegate Methods
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -532,9 +270,28 @@
     [super viewWillAppear:animated];
 }
 
-- (BOOL)mimetypeCheck:(NSArray *)mimes1 against:(NSArray *)mimes2
+#pragma mark - Actions
+
+- (IBAction)cancel:(id)sender
 {
-    if (mimes1.count == 0 || mimes2.count == 0)
+    [self.fpdelegate FPSourceControllerDidCancel:nil];
+}
+
+- (IBAction)displayInfo:(id)sender
+{
+    FPInfoViewController *info = [FPInfoViewController new];
+
+    [self.navigationController pushViewController:info
+                                         animated:YES];
+}
+
+#pragma mark - Private Methods
+
+- (BOOL)mimetypeCheck:(NSArray *)mimes1
+              against:(NSArray *)mimes2
+{
+    if (mimes1.count == 0 ||
+        mimes2.count == 0)
     {
         return NO;
     }
@@ -567,21 +324,126 @@
     return NO;
 }
 
-- (void)cancelButtonRequest:(id)sender
+- (void)setupNavigationButtons
 {
-    NSLog(@"Cancel Button Pressed on Source List");
+    // Set the text of back button to be "back", regardless of title.
 
-    [self.fpdelegate FPSourceControllerDidCancel:nil];
+    self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
+                                                                             style:UIBarButtonItemStylePlain
+                                                                            target:nil
+                                                                            action:nil];
+
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                     style:UIBarButtonItemStylePlain
+                                                                    target:self
+                                                                    action:@selector(cancel:)];
+
+    self.navigationItem.leftBarButtonItem = cancelButton;
+
+    UIButton *infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+
+    [infoButton addTarget:self
+                   action:@selector(displayInfo:)
+         forControlEvents:UIControlEventTouchUpInside];
+
+    infoButton.contentEdgeInsets = UIEdgeInsetsMake(0, -10, 0, 10);
+
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 }
 
-- (void)infoButtonRequest
+- (void)setupSourceList
 {
-    NSLog(@"Info Button Pressed on Source List");
+    NSMutableArray *localSources = [NSMutableArray array];
+    NSMutableArray *remoteSources = [NSMutableArray array];
 
-    FPInfoViewController *info = [FPInfoViewController new];
+    NSArray *allSources = [FPSource allMobileSources];
 
-    [self.navigationController pushViewController:info
-                                         animated:YES];
+    for (FPSource *source in allSources)
+    {
+        NSArray *sourceMimetypes;
+
+        if ([self.fpdelegate isKindOfClass:[FPSaveController class]])
+        {
+            sourceMimetypes = source.saveMimetypes;
+        }
+        else
+        {
+            sourceMimetypes = source.openMimetypes;
+        }
+
+        if ([self mimetypeCheck:sourceMimetypes
+                        against:self.dataTypes])
+        {
+            source.mimetypes = self.dataTypes;
+
+            if (source.identifier == FPSourceCamera ||
+                source.identifier == FPSourceCameraRoll)
+            {
+                [localSources addObject:source];
+            }
+            else
+            {
+                [remoteSources addObject:source];
+            }
+        }
+    }
+
+    if (!self.sourceNames)
+    {
+        NSMutableArray *mSourceNames = [NSMutableArray arrayWithCapacity:allSources.count];
+
+        [allSources enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
+            FPSource *source = obj;
+
+            [mSourceNames addObject:source.identifier];
+        }];
+
+        self.sourceNames = [mSourceNames copy];
+    }
+
+    if (!self.dataTypes)
+    {
+        self.dataTypes = @[@"*/*"];
+    }
+
+    NSString *remoteTitle = @"Cloud";
+
+    if (!self.title)
+    {
+        [self setTitle:@"Filepicker.io"];
+    }
+    else
+    {
+        remoteTitle = @"Cloud via Filepicker.io";
+    }
+
+    NSMutableDictionary *mSources = [NSMutableDictionary dictionary];
+
+    if (localSources.count > 0)
+    {
+        mSources[@"Local"] = [localSources copy];
+    }
+
+    if (remoteSources.count > 0)
+    {
+        mSources[remoteTitle] = [remoteSources copy];
+    }
+
+    self.sources = [mSources copy];
+
+    if (localSources.count + localSources.count == 0)
+    {
+        //No services
+
+        UILabel *emptyLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 200, 200, 20)];
+
+        emptyLabel.textColor = [UIColor grayColor];
+        emptyLabel.text = @"No Services Available";
+
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+        [self.view addSubview:emptyLabel];
+    }
 }
 
 @end

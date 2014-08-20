@@ -12,12 +12,10 @@
 @property (nonatomic, strong) NSString *identifier;
 @property (nonatomic, strong) NSString *icon;
 @property (nonatomic, strong) NSString *rootUrl;
-@property (nonatomic, strong) NSArray *open_mimetypes;
-@property (nonatomic, strong) NSArray *save_mimetypes;
+@property (nonatomic, strong) NSArray *openMimetypes;
+@property (nonatomic, strong) NSArray *saveMimetypes;
 @property (nonatomic, strong) NSArray *mimetypes;
 @property (nonatomic, strong) NSArray *externalDomains;
-@property (nonatomic) BOOL overwritePossible;
-
-- (NSString *)mimetypeString;
+@property (nonatomic, assign) BOOL overwritePossible;
 
 @end

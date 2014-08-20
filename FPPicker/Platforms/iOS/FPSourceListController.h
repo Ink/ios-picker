@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "FPExternalHeaders.h"
 
-@interface FPSourceListController : UITableViewController <UINavigationBarDelegate>
+@interface FPSourceListController : UITableViewController <UINavigationBarDelegate,
+                                                           UITableViewDataSource,
+                                                           UITableViewDelegate>
 
 @property (nonatomic, strong) NSArray *sourceNames;
+@property (nonatomic, strong) NSDictionary *sources;
 
-@property (nonatomic, strong) NSMutableDictionary *sources;
 @property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
 @property (nonatomic, weak) id <UINavigationControllerDelegate, UIImagePickerControllerDelegate> imageDelegate;
 
