@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
             <connections>
                 <outlet property="remoteSourceController" destination="x1c-Ek-q6A" id="8o8-Xj-zGb"/>
+                <outlet property="sourceListController" destination="hgi-NG-CYI" id="pJU-n6-tNg"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="eQ3-uc-MTa"/>
             </connections>
         </customObject>
@@ -28,19 +29,19 @@
                                 <rect key="frame" x="0.0" y="0.0" width="223" height="520"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <scrollView misplaced="YES" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJC-8v-64s">
+                                    <scrollView misplaced="YES" borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BJC-8v-64s">
                                         <rect key="frame" x="0.0" y="0.0" width="223" height="520"/>
                                         <clipView key="contentView" misplaced="YES" drawsBackground="NO" id="xBe-NC-7f7">
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="fuc-SQ-UOQ" id="WrB-h3-GUR">
+                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="fuc-SQ-UOQ" id="WrB-h3-GUR">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="0.0"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn width="218" minWidth="16" maxWidth="1000" id="fuc-SQ-UOQ">
+                                                        <tableColumn width="220" minWidth="16" maxWidth="1000" id="fuc-SQ-UOQ">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -54,7 +55,7 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="HeaderCell" id="kUC-8m-hHC">
-                                                                    <rect key="frame" x="1" y="0.0" width="218" height="17"/>
+                                                                    <rect key="frame" x="1" y="0.0" width="220" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BMg-Cb-Yiy">
@@ -71,7 +72,7 @@
                                                                     </connections>
                                                                 </tableCellView>
                                                                 <tableCellView identifier="DataCell" id="0zI-fu-yOZ">
-                                                                    <rect key="frame" x="1" y="17" width="218" height="17"/>
+                                                                    <rect key="frame" x="1" y="17" width="220" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R6f-gW-LzK">
@@ -95,6 +96,10 @@
                                                             </prototypeCellViews>
                                                         </tableColumn>
                                                     </tableColumns>
+                                                    <connections>
+                                                        <outlet property="dataSource" destination="hgi-NG-CYI" id="AlX-Sm-n6R"/>
+                                                        <outlet property="delegate" destination="hgi-NG-CYI" id="4Zd-Xi-nLg"/>
+                                                    </connections>
                                                 </outlineView>
                                             </subviews>
                                             <nil key="backgroundColor"/>
@@ -253,6 +258,9 @@
                             <real value="250"/>
                             <real value="250"/>
                         </holdingPriorities>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="Rzx-K8-xwa"/>
+                        </connections>
                     </splitView>
                 </subviews>
             </view>
@@ -307,6 +315,12 @@ Gw
                 </constraints>
             </view>
         </window>
+        <customObject id="hgi-NG-CYI" customClass="FPSourceListController">
+            <connections>
+                <outlet property="delegate" destination="-2" id="UQv-Gc-wNZ"/>
+                <outlet property="outlineView" destination="WrB-h3-GUR" id="LIb-7w-2pq"/>
+            </connections>
+        </customObject>
         <viewController nibName="" id="n1b-SP-myf" customClass="FPAuthController">
             <connections>
                 <outlet property="progressIndicator" destination="I32-59-yaP" id="NLJ-VW-nMm"/>

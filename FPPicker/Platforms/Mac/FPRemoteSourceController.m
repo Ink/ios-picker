@@ -61,17 +61,14 @@ typedef enum : NSUInteger
     return _serialOperationQueue;
 }
 
-- (NSString *)path
+- (void)setSource:(FPSource *)source
 {
-    if (!_path)
-    {
-        if (self.source.rootUrl)
-        {
-            _path = [NSString stringWithFormat:@"%@/", self.source.rootUrl];
-        }
-    }
+    _source = source;
 
-    return _path;
+    self.path = [NSString stringWithFormat:@"%@/", self.source.rootUrl];
+
+    [self.serialOperationQueue cancelAllOperations];
+    [self.parallelOperationQueue cancelAllOperations];
 }
 
 #pragma mark - Public Methods
@@ -170,6 +167,10 @@ typedef enum : NSUInteger
     {
         [self fpLoadContents:loadPath
                  cachePolicy:NSURLRequestReloadIgnoringCacheData];
+    }
+    else if (error.code == kCFURLErrorCancelled)
+    {
+        // NO-OP
     }
     else
     {

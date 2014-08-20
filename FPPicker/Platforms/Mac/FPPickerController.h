@@ -9,12 +9,14 @@
 #import <Cocoa/Cocoa.h>
 
 @class FPRemoteSourceController;
+@class FPSourceListController;
 
 @interface FPPickerController : NSViewController
 
 @property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
+@property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
 @property (nonatomic, weak) NSWindow *window;
 
-- (IBAction)displayDropboxSource:(id)sender; // This is temporary
+- (void)open;
 
 @end

@@ -29,7 +29,7 @@
 
 - (IBAction)selectImageAction:(id)sender
 {
-    [self.pickerController displayDropboxSource:self];
+    [self.pickerController open];
 }
 
 - (IBAction)saveImageAction:(id)sender

@@ -9,13 +9,17 @@
 #import "FPPickerController.h"
 #import "FPPrivateConfig.h"
 #import "FPRemoteSourceController.h"
+#import "FPSourceListController.h"
 #import "FPSource.h"
 
-@interface FPPickerController ()
+@interface FPPickerController () <FPSourceListControllerDelegate,
+                                  NSSplitViewDelegate>
 
 @end
 
 @implementation FPPickerController
+
+#pragma mark - Accessors
 
 - (NSWindow *)window
 {
@@ -26,6 +30,8 @@
 
     return _window;
 }
+
+#pragma mark - Other Methods
 
 - (instancetype)init
 {
@@ -42,26 +48,57 @@
     return self;
 }
 
-- (IBAction)displayDropboxSource:(id)sender
+- (void)open
 {
-    // This is temporary
-
     [self.window makeKeyAndOrderFront:self];
+}
 
-    FPSource *source = [FPSource new];
+#pragma mark - FPSourceListControllerDelegate Methods
 
-    source.identifier = @"dropbox";
-    source.name = @"Dropbox";
-    source.icon = @"glyphicons_361_dropbox";
-    source.rootUrl = @"/Dropbox";
-    source.open_mimetypes = @[@"*/*"];
-    source.save_mimetypes = @[@"*/*"];
-    source.overwritePossible = YES;
-    source.externalDomains = @[@"https://www.dropbox.com"];
-
+- (void)sourceListController:(FPSourceListController *)sourceListController
+             didSelectSource:(FPSource *)source
+{
     self.remoteSourceController.source = source;
 
     [self.remoteSourceController fpLoadContentAtPath];
+}
+
+#pragma mark - NSSplitViewDelegate Methods
+
+- (BOOL)           splitView:(NSSplitView *)splitView
+    shouldHideDividerAtIndex:(NSInteger)dividerIndex
+{
+    return YES;
+}
+
+- (BOOL)     splitView:(NSSplitView *)splitView
+    canCollapseSubview:(NSView *)subview
+{
+    return NO;
+}
+
+- (CGFloat)      splitView:(NSSplitView *)splitView
+    constrainMinCoordinate:(CGFloat)proposedMinimumPosition
+               ofSubviewAt:(NSInteger)dividerIndex
+{
+    if (proposedMinimumPosition < 150)
+    {
+        proposedMinimumPosition = 150;
+    }
+
+    return proposedMinimumPosition;
+}
+
+- (CGFloat)      splitView:(NSSplitView *)splitView
+    constrainMaxCoordinate:(CGFloat)proposedMinimumPosition
+               ofSubviewAt:(NSInteger)dividerIndex
+{
+    if (proposedMinimumPosition > 225)
+    {
+        proposedMinimumPosition = 225;
+    }
+
+    return proposedMinimumPosition;
 }
 
 @end
