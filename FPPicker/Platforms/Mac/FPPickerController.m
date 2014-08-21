@@ -11,6 +11,7 @@
 #import "FPRemoteSourceController.h"
 #import "FPSourceListController.h"
 #import "FPSource.h"
+#import "FPUtils.h"
 
 @interface FPPickerController () <FPSourceListControllerDelegate,
                                   NSSplitViewDelegate>
@@ -34,6 +35,11 @@
 }
 
 #pragma mark - Other Methods
+
+- (void)awakeFromNib
+{
+    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
+}
 
 - (instancetype)init
 {

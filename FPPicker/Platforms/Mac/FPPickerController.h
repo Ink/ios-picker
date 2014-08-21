@@ -15,6 +15,7 @@
 
 @property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
+@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
 @property (nonatomic, weak) NSWindow *window;
 
 - (void)open;
