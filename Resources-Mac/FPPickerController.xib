@@ -126,7 +126,7 @@
                                 <rect key="frame" x="224" y="0.0" width="556" height="472"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="TY8-oi-GLc">
+                                    <tabView misplaced="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="TY8-oi-GLc">
                                         <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
@@ -182,7 +182,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
+                                                        <scrollView misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
                                                             <rect key="frame" x="20" y="2" width="516" height="420"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CRL-Me-gqp">
                                                                 <rect key="frame" x="1" y="1" width="238" height="133"/>
@@ -210,7 +210,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-ps-kcL">
+                                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-ps-kcL">
                                                             <rect key="frame" x="458" y="424" width="84" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Logout" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9YE-fI-fR3">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -220,7 +220,7 @@
                                                                 <action selector="logout:" target="x1c-Ek-q6A" id="EG9-5d-Yrg"/>
                                                             </connections>
                                                         </button>
-                                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
+                                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
                                                             <rect key="frame" x="262" y="196" width="32" height="32"/>
                                                         </progressIndicator>
                                                     </subviews>
@@ -355,9 +355,9 @@ Gw
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="vkJ-gy-dEj"/>
                             </imageView>
                             <popUpButton verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="CfZ-G8-wbc">
-                                <rect key="frame" x="201" y="12" width="243" height="26"/>
+                                <rect key="frame" x="266" y="11" width="250" height="26"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="238" id="X4M-DD-KJg"/>
+                                    <constraint firstAttribute="width" constant="245" id="X4M-DD-KJg"/>
                                 </constraints>
                                 <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="VEw-fl-zKV">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -373,9 +373,9 @@ Gw
                             </popUpButton>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="CfZ-G8-wbc" firstAttribute="leading" secondItem="dWJ-7C-jk6" secondAttribute="trailing" constant="76" id="17e-it-Zfc"/>
+                            <constraint firstItem="CfZ-G8-wbc" firstAttribute="leading" secondItem="dWJ-7C-jk6" secondAttribute="trailing" constant="141" id="17e-it-Zfc"/>
                             <constraint firstItem="dWJ-7C-jk6" firstAttribute="top" secondItem="ZFQ-Ut-9s9" secondAttribute="top" constant="11" id="5ZZ-Lh-8XW"/>
-                            <constraint firstItem="CfZ-G8-wbc" firstAttribute="bottom" secondItem="dWJ-7C-jk6" secondAttribute="bottom" id="ASx-Zr-wzx"/>
+                            <constraint firstItem="CfZ-G8-wbc" firstAttribute="bottom" secondItem="dWJ-7C-jk6" secondAttribute="bottom" constant="1" id="ASx-Zr-wzx"/>
                             <constraint firstAttribute="trailing" secondItem="hPF-gT-PIz" secondAttribute="trailing" constant="10" id="DaS-b8-KMu"/>
                             <constraint firstItem="hPF-gT-PIz" firstAttribute="top" secondItem="ZFQ-Ut-9s9" secondAttribute="top" id="G4r-XT-tlY"/>
                             <constraint firstItem="dWJ-7C-jk6" firstAttribute="leading" secondItem="cN8-SS-PUP" secondAttribute="trailing" constant="8" id="IQ3-ND-gph"/>
