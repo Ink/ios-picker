@@ -126,7 +126,7 @@
                                 <rect key="frame" x="224" y="0.0" width="556" height="472"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <tabView misplaced="YES" drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="TY8-oi-GLc">
+                                    <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="TY8-oi-GLc">
                                         <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
@@ -182,7 +182,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <scrollView misplaced="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
+                                                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
                                                             <rect key="frame" x="20" y="2" width="516" height="420"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CRL-Me-gqp">
                                                                 <rect key="frame" x="1" y="1" width="238" height="133"/>
@@ -210,7 +210,7 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
-                                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-ps-kcL">
+                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Maz-ps-kcL">
                                                             <rect key="frame" x="458" y="424" width="84" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Logout" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="9YE-fI-fR3">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -220,14 +220,14 @@
                                                                 <action selector="logout:" target="x1c-Ek-q6A" id="EG9-5d-Yrg"/>
                                                             </connections>
                                                         </button>
-                                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
-                                                            <rect key="frame" x="262" y="196" width="32" height="32"/>
+                                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
+                                                            <rect key="frame" x="262" y="220" width="32" height="32"/>
                                                         </progressIndicator>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="xYF-Qo-vkY" firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" id="2Vk-bs-bf5"/>
                                                         <constraint firstItem="Maz-ps-kcL" firstAttribute="top" secondItem="e42-Ic-Ais" secondAttribute="top" constant="20" symbolic="YES" id="E74-IA-Kp4"/>
-                                                        <constraint firstAttribute="bottom" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="479" id="JpM-o8-Kf8"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="431" id="JpM-o8-Kf8"/>
                                                         <constraint firstItem="Maz-ps-kcL" firstAttribute="trailing" secondItem="xYF-Qo-vkY" secondAttribute="trailing" id="MMs-n1-mwu"/>
                                                         <constraint firstAttribute="trailing" secondItem="xYF-Qo-vkY" secondAttribute="trailing" constant="20" id="WaS-aj-aCP"/>
                                                         <constraint firstItem="xYF-Qo-vkY" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="9" id="dTg-r6-BeQ"/>
@@ -235,7 +235,7 @@
                                                         <constraint firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" constant="20" symbolic="YES" id="oPK-sB-aIO"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerX" secondItem="e42-Ic-Ais" secondAttribute="centerX" id="qbQ-u0-m8r"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerY" secondItem="e42-Ic-Ais" secondAttribute="centerY" id="w7E-Jz-hzp"/>
-                                                        <constraint firstAttribute="bottom" secondItem="xYF-Qo-vkY" secondAttribute="bottom" constant="50" id="ymJ-31-3Vf"/>
+                                                        <constraint firstAttribute="bottom" secondItem="xYF-Qo-vkY" secondAttribute="bottom" constant="2" id="ymJ-31-3Vf"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
