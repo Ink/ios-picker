@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface FPPickerController : NSViewController
+@interface FPPickerController : NSWindowController
 
 - (void)open;
 

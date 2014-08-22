@@ -10,7 +10,7 @@
                 <outlet property="navigationController" destination="MaS-US-3o9" id="k0z-vC-mmM"/>
                 <outlet property="remoteSourceController" destination="x1c-Ek-q6A" id="8o8-Xj-zGb"/>
                 <outlet property="sourceListController" destination="hgi-NG-CYI" id="pJU-n6-tNg"/>
-                <outlet property="view" destination="EiT-Mj-1SZ" id="eQ3-uc-MTa"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="uy0-BV-pMy"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
@@ -131,10 +131,10 @@
                                         <font key="font" metaFont="system"/>
                                         <tabViewItems>
                                             <tabViewItem label="Authentication" identifier="1" id="IJU-SS-EaY">
-                                                <view key="view" ambiguous="YES" id="XNc-se-Hwl" customClass="FPView">
+                                                <view key="view" id="XNc-se-Hwl" customClass="FPView">
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V51-Fd-1Yv">
+                                                        <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V51-Fd-1Yv">
                                                             <rect key="frame" x="215" y="-277" width="126" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="114" id="uzo-Pk-4xN"/>
@@ -147,7 +147,7 @@
                                                                 <action selector="login:" target="x1c-Ek-q6A" id="Yhr-De-Co4"/>
                                                             </connections>
                                                         </button>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="el5-a2-xHQ">
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="el5-a2-xHQ">
                                                             <rect key="frame" x="163" y="-210" width="230" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This source requires authentication." id="Ahr-UW-Q5B">
                                                                 <font key="font" metaFont="system"/>
@@ -155,7 +155,7 @@
                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                                             </textFieldCell>
                                                         </textField>
-                                                        <imageView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUn-wN-P5j">
+                                                        <imageView misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUn-wN-P5j">
                                                             <rect key="frame" x="262" y="-185" width="32" height="32"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSCaution" id="Xs4-sx-B2I"/>
                                                         </imageView>
@@ -180,7 +180,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="556" height="520"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
+                                                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
                                                             <rect key="frame" x="17" y="20" width="519" height="450"/>
                                                             <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CRL-Me-gqp">
                                                                 <rect key="frame" x="1" y="1" width="238" height="133"/>
@@ -190,10 +190,10 @@
                                                                         <rect key="frame" x="0.0" y="0.0" width="242" height="448"/>
                                                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="517" height="448"/>
+                                                                        <size key="minSize" width="519" height="450"/>
                                                                         <size key="maxSize" width="558" height="10000000"/>
                                                                         <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <size key="minSize" width="517" height="448"/>
+                                                                        <size key="minSize" width="519" height="450"/>
                                                                         <size key="maxSize" width="558" height="10000000"/>
                                                                     </textView>
                                                                 </subviews>
@@ -218,31 +218,22 @@
                                                                 <action selector="logout:" target="x1c-Ek-q6A" id="EG9-5d-Yrg"/>
                                                             </connections>
                                                         </button>
-                                                        <pathControl verticalHuggingPriority="750" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faY-RQ-3Ut">
-                                                            <rect key="frame" x="17" y="478" width="439" height="22"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="439" id="PtN-vR-gDz"/>
-                                                            </constraints>
-                                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="MYg-H9-meW">
-                                                                <font key="font" metaFont="system"/>
-                                                                <url key="url" string="file://localhost/Applications/"/>
-                                                            </pathCell>
-                                                        </pathControl>
                                                         <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
                                                             <rect key="frame" x="262" y="244" width="32" height="32"/>
                                                         </progressIndicator>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="xYF-Qo-vkY" firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" id="2Vk-bs-bf5"/>
-                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="leading" secondItem="faY-RQ-3Ut" secondAttribute="leading" id="7dU-vY-0eH"/>
                                                         <constraint firstItem="Maz-ps-kcL" firstAttribute="top" secondItem="e42-Ic-Ais" secondAttribute="top" constant="20" symbolic="YES" id="E74-IA-Kp4"/>
-                                                        <constraint firstItem="Maz-ps-kcL" firstAttribute="leading" secondItem="faY-RQ-3Ut" secondAttribute="trailing" constant="8" symbolic="YES" id="T1R-YJ-p7H"/>
-                                                        <constraint firstItem="faY-RQ-3Ut" firstAttribute="baseline" secondItem="Maz-ps-kcL" secondAttribute="baseline" id="mot-W5-y6I"/>
+                                                        <constraint firstAttribute="bottom" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="479" id="JpM-o8-Kf8"/>
+                                                        <constraint firstItem="Maz-ps-kcL" firstAttribute="trailing" secondItem="xYF-Qo-vkY" secondAttribute="trailing" id="MMs-n1-mwu"/>
+                                                        <constraint firstItem="Maz-ps-kcL" firstAttribute="leading" secondItem="e42-Ic-Ais" secondAttribute="leading" constant="464" id="TNC-az-vEB"/>
+                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="9" id="dTg-r6-BeQ"/>
+                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="leading" secondItem="e42-Ic-Ais" secondAttribute="leading" constant="17" id="iqd-Id-h45"/>
                                                         <constraint firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" constant="20" symbolic="YES" id="oPK-sB-aIO"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerX" secondItem="e42-Ic-Ais" secondAttribute="centerX" id="qbQ-u0-m8r"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerY" secondItem="e42-Ic-Ais" secondAttribute="centerY" id="w7E-Jz-hzp"/>
                                                         <constraint firstAttribute="bottom" secondItem="xYF-Qo-vkY" secondAttribute="bottom" constant="20" id="ymJ-31-3Vf"/>
-                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="top" secondItem="faY-RQ-3Ut" secondAttribute="bottom" constant="8" symbolic="YES" id="zwo-Ai-8cz"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">

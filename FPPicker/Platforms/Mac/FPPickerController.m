@@ -20,24 +20,11 @@
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
 @property (nonatomic, weak) IBOutlet FPNavigationController *navigationController;
 
-@property (nonatomic, weak) NSWindow *window;
 @property (nonatomic, assign) NSModalSession modalSession;
 
 @end
 
 @implementation FPPickerController
-
-#pragma mark - Accessors
-
-- (NSWindow *)window
-{
-    if (!_window)
-    {
-        _window = self.view.window;
-    }
-
-    return _window;
-}
 
 #pragma mark - Other Methods
 
@@ -47,10 +34,7 @@
 
     if (self)
     {
-        NSBundle *frameworkBundle = [NSBundle bundleForClass:self.class];
-
-        self = [[self.class alloc] initWithNibName:@"FPPickerController"
-                                            bundle:frameworkBundle];
+        self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
     }
 
     return self;
