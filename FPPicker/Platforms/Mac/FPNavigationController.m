@@ -91,6 +91,8 @@
 
     [self.currentDirectoryPopupButton.menu addItem:menuItem4];
     [self.currentDirectoryPopupButton.menu addItem:menuItem5];
+
+    [self.currentDirectoryPopupButton selectItem:menuItem4];
 }
 
 @end
