@@ -42,6 +42,8 @@
 
 - (void)open
 {
+    [self.window orderOut:self];
+
     self.modalSession = [NSApp beginModalSessionForWindow:self.window];
 }
 
@@ -70,6 +72,11 @@
 }
 
 #pragma mark - NSWindowDelegate Methods
+
+- (void)windowDidBecomeMain:(NSNotification *)notification
+{
+    [self.sourceListController loadAndExpandSourceListIfRequired];
+}
 
 - (void)windowWillClose:(NSNotification *)notification
 {

@@ -17,45 +17,84 @@ const NSString *FPSourceGroupRemote = @"Remote";
 
 @property (nonatomic, strong) NSArray *topLevelItems;
 @property (nonatomic, strong) NSMutableDictionary *childrenItems;
+@property (nonatomic, assign) BOOL isSourceListLoaded;
 
 @end
 
 @implementation FPSourceListController
 
-- (void)awakeFromNib
+#pragma mark - Initializer Methods
+
+- (instancetype)init
 {
-    [super awakeFromNib];
+    self = [super init];
 
-    self.topLevelItems = @[FPSourceGroupLocal, FPSourceGroupRemote];
-
-    self.childrenItems = [NSMutableDictionary new];
-    self.childrenItems[FPSourceGroupLocal] = [FPSource localDesktopSources];
-    self.childrenItems[FPSourceGroupRemote] = [FPSource remoteSources];
-
-    [self.outlineView sizeLastColumnToFit];
-    [self.outlineView reloadData];
-    [self.outlineView setFloatsGroupRows:NO];
-    [self.outlineView setRowSizeStyle:NSTableViewRowSizeStyleDefault];
-
-    // Expand all the root items; disable the expansion animation that normally happens
-
-    [NSAnimationContext beginGrouping];
+    if (self)
     {
-        [[NSAnimationContext currentContext] setDuration:0];
-
-        [self.outlineView expandItem:nil
-                      expandChildren:YES];
+        self.isSourceListLoaded = NO;
     }
-    [NSAnimationContext endGrouping];
 
-    // Set initial selection
+    return self;
+}
 
-    FPSource *firstRemoteSource = self.childrenItems[FPSourceGroupRemote][0];
-    NSInteger row = [self.outlineView rowForItem:firstRemoteSource];
-    NSIndexSet *rowIndex = [NSIndexSet indexSetWithIndex:row];
+#pragma mark - Accessors
 
-    [self.outlineView selectRowIndexes:rowIndex
-                  byExtendingSelection:NO];
+- (NSArray *)topLevelItems
+{
+    if (!_topLevelItems)
+    {
+        _topLevelItems = @[
+            FPSourceGroupLocal,
+            FPSourceGroupRemote
+                         ];
+    }
+
+    return _topLevelItems;
+}
+
+- (NSMutableDictionary *)childrenItems
+{
+    if (!_childrenItems)
+    {
+        _childrenItems = [NSMutableDictionary new];
+
+        _childrenItems[FPSourceGroupLocal] = [FPSource localDesktopSources];
+        _childrenItems[FPSourceGroupRemote] = [FPSource remoteSources];
+    }
+
+    return _childrenItems;
+}
+
+#pragma mark - Public Methods
+
+- (void)loadAndExpandSourceListIfRequired
+{
+    // NOTE: We could inherit from NSViewController and use -viewDidAppear
+    // rather than calling this method manually, but, unfortunately,
+    // all the -view(Did|Will)* methods were introduced in 10.10 APIs.
+
+    @synchronized(self)
+    {
+        // We only load them once.
+
+        if (self.isSourceListLoaded)
+        {
+            return;
+        }
+
+        [self initializeOutlineView];
+
+        // Set initial selection
+
+        FPSource *firstRemoteSource = self.childrenItems[FPSourceGroupRemote][0];
+        NSInteger row = [self.outlineView rowForItem:firstRemoteSource];
+        NSIndexSet *rowIndex = [NSIndexSet indexSetWithIndex:row];
+
+        [self.outlineView selectRowIndexes:rowIndex
+                      byExtendingSelection:NO];
+
+        self.isSourceListLoaded = YES;
+    }
 }
 
 #pragma mark - NSOutlineViewDelegate Methods
@@ -69,7 +108,7 @@ const NSString *FPSourceGroupRemote = @"Remote";
     if ([self.topLevelItems containsObject:item])
     {
         NSTableCellView *result = [outlineView makeViewWithIdentifier:@"HeaderCell"
-                                                                owner:self];
+                                                                owner:nil];
 
         result.textField.stringValue = [item uppercaseString];
 
@@ -78,7 +117,7 @@ const NSString *FPSourceGroupRemote = @"Remote";
     else
     {
         NSTableCellView *result = [outlineView makeViewWithIdentifier:@"DataCell"
-                                                                owner:self];
+                                                                owner:nil];
 
         FPSource *source = item;
 
@@ -177,6 +216,25 @@ const NSString *FPSourceGroupRemote = @"Remote";
     }
 
     return children;
+}
+
+- (void)initializeOutlineView
+{
+    [self.outlineView sizeLastColumnToFit];
+    [self.outlineView reloadData];
+    [self.outlineView setFloatsGroupRows:NO];
+    [self.outlineView setRowSizeStyle:NSTableViewRowSizeStyleDefault];
+
+    // Expand all the root items; disable the expansion animation that normally happens
+
+    [NSAnimationContext beginGrouping];
+    {
+        [[NSAnimationContext currentContext] setDuration:0];
+
+        [self.outlineView expandItem:nil
+                      expandChildren:YES];
+    }
+    [NSAnimationContext endGrouping];
 }
 
 @end

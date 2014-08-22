@@ -24,4 +24,6 @@
 @property (nonatomic, weak) IBOutlet NSOutlineView *outlineView;
 @property (nonatomic, weak) IBOutlet id<FPSourceListControllerDelegate>delegate;
 
+- (void)loadAndExpandSourceListIfRequired;
+
 @end
