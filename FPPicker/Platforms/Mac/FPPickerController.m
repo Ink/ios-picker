@@ -42,8 +42,6 @@
 
 - (void)open
 {
-    [self.window orderOut:self];
-
     self.modalSession = [NSApp beginModalSessionForWindow:self.window];
 }
 
@@ -80,7 +78,10 @@
 
 - (void)windowWillClose:(NSNotification *)notification
 {
-    [NSApp endModalSession:self.modalSession];
+    if (self.modalSession)
+    {
+        [NSApp endModalSession:self.modalSession];
+    }
 }
 
 #pragma mark - NSSplitViewDelegate Methods
