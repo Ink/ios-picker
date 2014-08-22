@@ -8,15 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FPRemoteSourceController;
-@class FPSourceListController;
-
-@interface FPPickerController : NSViewController <NSWindowDelegate>
-
-@property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
-@property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
-@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
-@property (nonatomic, weak) NSWindow *window;
+@interface FPPickerController : NSViewController
 
 - (void)open;
 

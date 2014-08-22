@@ -22,6 +22,8 @@
 		45066AAC19A204040069B062 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA819A204040069B062 /* FPAuthController.m */; };
 		45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066AA919A204040069B062 /* FPRemoteSourceController.h */; };
 		45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AAA19A204040069B062 /* FPRemoteSourceController.m */; };
+		4508FCBC19A74D150009CDF0 /* FPNavigationController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4508FCBA19A74D150009CDF0 /* FPNavigationController.h */; };
+		4508FCBD19A74D150009CDF0 /* FPNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4508FCBB19A74D150009CDF0 /* FPNavigationController.m */; };
 		451051E1195B300E00F877B3 /* FPMultipartUploader.h in Headers */ = {isa = PBXBuildFile; fileRef = 451051DF195B300E00F877B3 /* FPMultipartUploader.h */; };
 		451051E2195B300E00F877B3 /* FPMultipartUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 451051E0195B300E00F877B3 /* FPMultipartUploader.m */; };
 		453096E6194738A6001D970C /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
@@ -303,6 +305,8 @@
 		45066AA819A204040069B062 /* FPAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPAuthController.m; sourceTree = "<group>"; };
 		45066AA919A204040069B062 /* FPRemoteSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPRemoteSourceController.h; sourceTree = "<group>"; };
 		45066AAA19A204040069B062 /* FPRemoteSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPRemoteSourceController.m; sourceTree = "<group>"; };
+		4508FCBA19A74D150009CDF0 /* FPNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPNavigationController.h; sourceTree = "<group>"; };
+		4508FCBB19A74D150009CDF0 /* FPNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPNavigationController.m; sourceTree = "<group>"; };
 		450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		451051DF195B300E00F877B3 /* FPMultipartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMultipartUploader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		451051E0195B300E00F877B3 /* FPMultipartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMultipartUploader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -709,6 +713,8 @@
 				45765FCE19A4A0C50018E2EC /* FPSourceListController.h */,
 				45765FCF19A4A0C50018E2EC /* FPSourceListController.m */,
 				45C13B73199CEA93002DE7D3 /* Supporting Files */,
+				4508FCBA19A74D150009CDF0 /* FPNavigationController.h */,
+				4508FCBB19A74D150009CDF0 /* FPNavigationController.m */,
 			);
 			name = Mac;
 			path = FPPicker/Platforms/Mac;
@@ -951,6 +957,7 @@
 				4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */,
 				4579CF63199CEB0100E0BCB4 /* FPConstants.h in Headers */,
 				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
+				4508FCBC19A74D150009CDF0 /* FPNavigationController.h in Headers */,
 				45C13B94199CEA93002DE7D3 /* FPPicker.h in Headers */,
 				45D0396C19A20CC300983134 /* FPPickerController.h in Headers */,
 				45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */,
@@ -1422,6 +1429,7 @@
 				4579CF62199CEB0100E0BCB4 /* FPConfig.m in Sources */,
 				45D0398019A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */,
 				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
+				4508FCBD19A74D150009CDF0 /* FPNavigationController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
 				4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */,
 				45B9888919A4F12300CE7DFC /* FPBorderView.m in Sources */,

@@ -7,7 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
             <connections>
-                <outlet property="fpLogo" destination="hPF-gT-PIz" id="iRD-vw-Zh8"/>
+                <outlet property="navigationController" destination="MaS-US-3o9" id="k0z-vC-mmM"/>
                 <outlet property="remoteSourceController" destination="x1c-Ek-q6A" id="8o8-Xj-zGb"/>
                 <outlet property="sourceListController" destination="hgi-NG-CYI" id="pJU-n6-tNg"/>
                 <outlet property="view" destination="EiT-Mj-1SZ" id="eQ3-uc-MTa"/>
@@ -132,11 +132,10 @@
                                         <tabViewItems>
                                             <tabViewItem label="Authentication" identifier="1" id="IJU-SS-EaY">
                                                 <view key="view" ambiguous="YES" id="XNc-se-Hwl" customClass="FPView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="520"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
                                                         <button verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V51-Fd-1Yv">
-                                                            <rect key="frame" x="215" y="243" width="126" height="32"/>
+                                                            <rect key="frame" x="215" y="-277" width="126" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="114" id="uzo-Pk-4xN"/>
                                                             </constraints>
@@ -149,7 +148,7 @@
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="el5-a2-xHQ">
-                                                            <rect key="frame" x="163" y="310" width="230" height="17"/>
+                                                            <rect key="frame" x="163" y="-210" width="230" height="17"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This source requires authentication." id="Ahr-UW-Q5B">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -157,7 +156,7 @@
                                                             </textFieldCell>
                                                         </textField>
                                                         <imageView ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUn-wN-P5j">
-                                                            <rect key="frame" x="262" y="335" width="32" height="32"/>
+                                                            <rect key="frame" x="262" y="-185" width="32" height="32"/>
                                                             <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSCaution" id="Xs4-sx-B2I"/>
                                                         </imageView>
                                                     </subviews>
@@ -330,12 +329,12 @@ Gw
                                 <constraints>
                                     <constraint firstAttribute="width" constant="238" id="g6c-Yb-za3"/>
                                 </constraints>
-                                <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="7NR-rL-gpP" id="VEw-fl-zKV">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="VEw-fl-zKV">
                                     <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" id="JwQ-24-mlw">
+                                    <menu key="menu" autoenablesItems="NO" id="JwQ-24-mlw">
                                         <items>
-                                            <menuItem title="Item 1" state="on" id="7NR-rL-gpP"/>
+                                            <menuItem title="Item 1" id="7NR-rL-gpP"/>
                                             <menuItem title="Item 2" id="Ozm-E2-Ce6"/>
                                             <menuItem title="Item 3" id="10X-Uz-JY1"/>
                                         </items>
@@ -357,8 +356,12 @@ Gw
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedRounded" trackingMode="selectOne" id="cVW-5F-prr">
                                     <font key="font" metaFont="system"/>
                                     <segments>
-                                        <segment image="NSIconViewTemplate" width="32"/>
-                                        <segment image="NSListViewTemplate" width="32" selected="YES" tag="1"/>
+                                        <segment image="NSIconViewTemplate" width="32">
+                                            <nil key="label"/>
+                                        </segment>
+                                        <segment image="NSListViewTemplate" width="32" selected="YES" tag="1">
+                                            <nil key="label"/>
+                                        </segment>
                                     </segments>
                                 </segmentedCell>
                             </segmentedControl>
@@ -368,7 +371,7 @@ Gw
                                     <constraint firstAttribute="width" constant="133" id="4KL-b7-3ao"/>
                                     <constraint firstAttribute="height" constant="48" id="WYd-lv-xhP"/>
                                 </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="logo_small" id="vkJ-gy-dEj"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="vkJ-gy-dEj"/>
                             </imageView>
                         </subviews>
                         <constraints>
@@ -461,6 +464,15 @@ Gw
             </view>
             <point key="canvasLocation" x="139" y="875"/>
         </window>
+        <viewController id="MaS-US-3o9" customClass="FPNavigationController">
+            <connections>
+                <outlet property="currentDirectoryPopupButton" destination="CfZ-G8-wbc" id="7eG-v6-OP2"/>
+                <outlet property="displayStyleSegmentedControl" destination="dWJ-7C-jk6" id="kXd-4S-moa"/>
+                <outlet property="fpLogo" destination="hPF-gT-PIz" id="chz-db-kWk"/>
+                <outlet property="navigationSegmentedControl" destination="cN8-SS-PUP" id="Pd8-10-Sjj"/>
+                <outlet property="view" destination="ZFQ-Ut-9s9" id="dDV-Tn-hoc"/>
+            </connections>
+        </viewController>
         <customObject id="hgi-NG-CYI" customClass="FPSourceListController">
             <connections>
                 <outlet property="delegate" destination="-2" id="UQv-Gc-wNZ"/>
@@ -493,6 +505,5 @@ Gw
         <image name="NSGoRightTemplate" width="9" height="9"/>
         <image name="NSIconViewTemplate" width="11" height="10"/>
         <image name="NSListViewTemplate" width="11" height="10"/>
-        <image name="logo_small" width="249" height="89"/>
     </resources>
 </document>

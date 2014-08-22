@@ -10,12 +10,17 @@
 #import "FPPrivateConfig.h"
 #import "FPRemoteSourceController.h"
 #import "FPSourceListController.h"
-#import "FPSource.h"
-#import "FPUtils.h"
+#import "FPNavigationController.h"
 
 @interface FPPickerController () <FPSourceListControllerDelegate,
-                                  NSSplitViewDelegate>
+                                  NSSplitViewDelegate,
+                                  NSWindowDelegate>
 
+@property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
+@property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
+@property (nonatomic, weak) IBOutlet FPNavigationController *navigationController;
+
+@property (nonatomic, weak) NSWindow *window;
 @property (nonatomic, assign) NSModalSession modalSession;
 
 @end
@@ -35,11 +40,6 @@
 }
 
 #pragma mark - Other Methods
-
-- (void)awakeFromNib
-{
-    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
-}
 
 - (instancetype)init
 {
