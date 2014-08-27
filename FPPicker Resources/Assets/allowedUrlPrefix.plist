@@ -73,5 +73,7 @@
 	<string>https://login.yahoo.com/m</string>
 	<string>https://login.yahoo.com/ylc</string>
 	<string>https://www.flickr.com/ms/signin/yahoo/</string>
+	<string>https://s-static.ak.facebook.com/connect/xd_arbiter/</string>
+	<string>https://www.facebook.com/connect/ping</string>
 </array>
 </plist>
