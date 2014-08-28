@@ -1,3 +1,6 @@
+v 3.2.3 - 08/28/2014
+- Improving compatibility with Instagram (issue #56 — @nickhart).
+
 v 3.2.2 - 08/12/2014
 - Added https://login.yahoo.com/ylc to allowedUrlPrefix.plist
 - Ensure FPPickerControllerKey is returned when key (i.e. S3 filename) is available
