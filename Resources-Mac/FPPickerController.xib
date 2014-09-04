@@ -7,6 +7,7 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
             <connections>
+                <outlet property="currentSelectionTextField" destination="k3g-ic-oSN" id="f7d-aJ-O4y"/>
                 <outlet property="navigationController" destination="MaS-US-3o9" id="k0z-vC-mmM"/>
                 <outlet property="remoteSourceController" destination="x1c-Ek-q6A" id="8o8-Xj-zGb"/>
                 <outlet property="sourceListController" destination="hgi-NG-CYI" id="pJU-n6-tNg"/>

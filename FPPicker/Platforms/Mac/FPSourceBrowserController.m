@@ -7,7 +7,7 @@
 //
 
 #import "FPSourceBrowserController.h"
-#import "FPUtils.h"
+#import "FPInternalHeaders.h"
 #import "FPThumbnail.h"
 
 @implementation FPSourceBrowserController
@@ -41,6 +41,11 @@
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
 {
     DLog(@"Selection did change %@", browser.selectionIndexes);
+
+    NSNumber *selectionCount = @(browser.selectionIndexes.count);
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:FPBrowserSelectionDidChangeNotification
+                                                        object:selectionCount];
 }
 
 - (void)          imageBrowser:(IKImageBrowserView *)browser

@@ -10,6 +10,8 @@
 
 @interface FPPickerController : NSWindowController
 
+@property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;
+
 - (void)open;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "FPPickerController.h"
-#import "FPPrivateConfig.h"
+#import "FPInternalHeaders.h"
 #import "FPRemoteSourceController.h"
 #import "FPSourceListController.h"
 #import "FPNavigationController.h"
@@ -26,7 +26,7 @@
 
 @implementation FPPickerController
 
-#pragma mark - Other Methods
+#pragma mark - Public Methods
 
 - (instancetype)init
 {
@@ -35,14 +35,48 @@
     if (self)
     {
         self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(browserSelectionDidChange:)
+                                                     name:FPBrowserSelectionDidChangeNotification
+                                                   object:nil];
     }
 
     return self;
 }
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)open
 {
     self.modalSession = [NSApp beginModalSessionForWindow:self.window];
+}
+
+#pragma mark - Notifications
+
+- (void)browserSelectionDidChange:(NSNotification *)sender
+{
+    NSUInteger selectionCount = [sender.object unsignedIntegerValue];
+    NSString *selectionString;
+
+    switch (selectionCount)
+    {
+        case 0:
+            selectionString = @"No items selected";
+            break;
+        case 1:
+            selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
+
+        default:
+            selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
+
+            break;
+    }
+
+    self.currentSelectionTextField.stringValue = selectionString;
 }
 
 #pragma mark - Actions

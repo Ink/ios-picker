@@ -22,3 +22,7 @@ FOUNDATION_EXPORT NSString * const FPSourceFlickr;
 FOUNDATION_EXPORT NSString * const FPSourcePicasa;
 FOUNDATION_EXPORT NSString * const FPSourceSkydrive;
 FOUNDATION_EXPORT NSString * const FPSourceEvernote;
+
+// Global Filepicker Notifications
+
+FOUNDATION_EXPORT NSString * const FPBrowserSelectionDidChangeNotification;

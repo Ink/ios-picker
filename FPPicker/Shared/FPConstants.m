@@ -24,3 +24,7 @@ NSString *const FPSourceFlickr = @"flickr";
 NSString *const FPSourcePicasa = @"picasa";
 NSString *const FPSourceSkydrive = @"skydrive";
 NSString *const FPSourceEvernote = @"evernote";
+
+// Global Filepicker Notifications
+
+NSString * const FPBrowserSelectionDidChangeNotification = @"io.filepicker.selection.did.change";
