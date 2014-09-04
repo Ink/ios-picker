@@ -10,12 +10,13 @@
 
 @class FPSource;
 @class FPAuthController;
+@class FPSourceBrowserController;
 
 @interface FPRemoteSourceController : NSViewController
 
+@property (nonatomic, weak) IBOutlet FPSourceBrowserController *sourceBrowserController;
 @property (nonatomic, weak) IBOutlet FPAuthController *authController;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
-@property (nonatomic, strong) IBOutlet NSTextView *textView;
 @property (nonatomic, strong) IBOutlet NSButton *loginButton;
 @property (nonatomic, strong) IBOutlet NSButton *logoutButton;
 @property (nonatomic, strong) IBOutlet NSTabView *tabView;

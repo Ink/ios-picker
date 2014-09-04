@@ -7,6 +7,7 @@
 //
 
 #import "FPRemoteSourceController.h"
+#import "FPSourceBrowserController.h"
 #import "FPUtils+RequestHelpers.h"
 #import "FPAuthController.h"
 #import "FPInternalHeaders.h"
@@ -155,9 +156,9 @@ typedef enum : NSUInteger
 
     // Display results to the user
 
-    // TODO: Replace NSTextView with real controls
+    self.sourceBrowserController.items = JSON[@"contents"];
 
-    self.textView.string = [JSON description];
+    [self.sourceBrowserController.thumbnailListView reloadData];
 }
 
 - (void)fpLoadResponseFailureAtPath:(NSString *)loadPath

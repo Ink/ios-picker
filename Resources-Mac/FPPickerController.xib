@@ -177,36 +177,33 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                             </tabViewItem>
-                                            <tabViewItem label="Results" identifier="2" id="DlQ-xf-11H">
+                                            <tabViewItem label="ThumbnailList" identifier="2" id="DlQ-xf-11H">
                                                 <view key="view" id="e42-Ic-Ais" customClass="FPView">
                                                     <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <scrollView borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xYF-Qo-vkY">
+                                                        <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dLe-0S-vnq">
                                                             <rect key="frame" x="20" y="2" width="516" height="420"/>
-                                                            <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="CRL-Me-gqp">
-                                                                <rect key="frame" x="1" y="1" width="238" height="133"/>
+                                                            <clipView key="contentView" id="7y9-NY-6zL">
+                                                                <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" horizontallyResizable="YES" verticallyResizable="NO" selectionGranularity="word" findStyle="panel" continuousSpellChecking="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" spellingCorrection="YES" smartInsertDelete="YES" id="M6c-1r-Udz">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="242" height="448"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <size key="minSize" width="516" height="420"/>
-                                                                        <size key="maxSize" width="558" height="10000000"/>
-                                                                        <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <size key="minSize" width="516" height="420"/>
-                                                                        <size key="maxSize" width="558" height="10000000"/>
-                                                                    </textView>
+                                                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="IKImageBrowserView">
+                                                                        <rect key="frame" x="0.0" y="-82" width="516" height="420"/>
+                                                                        <connections>
+                                                                            <outlet property="dataSource" destination="uiA-OB-dvu" id="BAy-wr-0sS"/>
+                                                                            <outlet property="delegate" destination="uiA-OB-dvu" id="2lH-eR-c6T"/>
+                                                                        </connections>
+                                                                    </view>
                                                                 </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
-                                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="vxs-Z2-A5n">
-                                                                <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                            <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eYX-9Y-fgv">
+                                                                <rect key="frame" x="-100" y="-100" width="900" height="16"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
-                                                            <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="DOV-0d-AVE">
-                                                                <rect key="frame" x="223" y="1" width="16" height="133"/>
+                                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="9fq-37-k23">
+                                                                <rect key="frame" x="885" y="0.0" width="15" height="568"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
@@ -225,23 +222,27 @@
                                                         </progressIndicator>
                                                     </subviews>
                                                     <constraints>
-                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" id="2Vk-bs-bf5"/>
+                                                        <constraint firstItem="dLe-0S-vnq" firstAttribute="centerX" secondItem="StE-he-IMG" secondAttribute="centerX" id="Ax7-6h-2JH"/>
                                                         <constraint firstItem="Maz-ps-kcL" firstAttribute="top" secondItem="e42-Ic-Ais" secondAttribute="top" constant="20" symbolic="YES" id="E74-IA-Kp4"/>
                                                         <constraint firstAttribute="bottom" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="431" id="JpM-o8-Kf8"/>
-                                                        <constraint firstItem="Maz-ps-kcL" firstAttribute="trailing" secondItem="xYF-Qo-vkY" secondAttribute="trailing" id="MMs-n1-mwu"/>
-                                                        <constraint firstAttribute="trailing" secondItem="xYF-Qo-vkY" secondAttribute="trailing" constant="20" id="WaS-aj-aCP"/>
-                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="9" id="dTg-r6-BeQ"/>
-                                                        <constraint firstItem="xYF-Qo-vkY" firstAttribute="leading" secondItem="e42-Ic-Ais" secondAttribute="leading" constant="20" id="iqd-Id-h45"/>
+                                                        <constraint firstItem="dLe-0S-vnq" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="9" id="L1M-k3-msa"/>
+                                                        <constraint firstAttribute="bottom" secondItem="dLe-0S-vnq" secondAttribute="bottom" constant="2" id="TxH-2l-u5Z"/>
+                                                        <constraint firstItem="dLe-0S-vnq" firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" id="jgB-Y6-vCb"/>
                                                         <constraint firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" constant="20" symbolic="YES" id="oPK-sB-aIO"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerX" secondItem="e42-Ic-Ais" secondAttribute="centerX" id="qbQ-u0-m8r"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerY" secondItem="e42-Ic-Ais" secondAttribute="centerY" id="w7E-Jz-hzp"/>
-                                                        <constraint firstAttribute="bottom" secondItem="xYF-Qo-vkY" secondAttribute="bottom" constant="2" id="ymJ-31-3Vf"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                                             <color key="value" name="highlightColor" catalog="System" colorSpace="catalog"/>
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </tabViewItem>
+                                            <tabViewItem label="RegularList" identifier="3" id="aI6-u7-uBT">
+                                                <view key="view" id="SRr-mh-QUG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 </view>
                                             </tabViewItem>
                                         </tabViewItems>
@@ -462,6 +463,11 @@ Gw
             </view>
             <point key="canvasLocation" x="139" y="875"/>
         </window>
+        <customObject id="uiA-OB-dvu" customClass="FPSourceBrowserController">
+            <connections>
+                <outlet property="thumbnailListView" destination="DIS-ff-gbj" id="mUv-NW-nEn"/>
+            </connections>
+        </customObject>
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">
             <connections>
                 <outlet property="currentDirectoryPopupButton" destination="CfZ-G8-wbc" id="7eG-v6-OP2"/>
@@ -490,8 +496,8 @@ Gw
                 <outlet property="loginButton" destination="V51-Fd-1Yv" id="pur-oN-Zfr"/>
                 <outlet property="logoutButton" destination="Maz-ps-kcL" id="LEM-fK-vtq"/>
                 <outlet property="progressIndicator" destination="StE-he-IMG" id="j08-8a-csM"/>
+                <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="Pyb-s7-QVf"/>
                 <outlet property="tabView" destination="TY8-oi-GLc" id="cCX-YL-INp"/>
-                <outlet property="textView" destination="M6c-1r-Udz" id="gnB-z0-S5s"/>
                 <outlet property="view" destination="juK-Db-zcZ" id="u29-2g-Im5"/>
             </connections>
         </viewController>
