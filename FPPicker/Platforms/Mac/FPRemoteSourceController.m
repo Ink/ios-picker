@@ -88,9 +88,9 @@ typedef enum : NSUInteger
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods
 
-- (void)sourceBrowserWantsToChangeCurrentDirectory:(NSString *)newDirectory
+- (void)sourceBrowserWantsToChangeCurrentPath:(NSString *)newPath
 {
-    self.path = newDirectory;
+    self.path = newPath;
 
     [self fpLoadContentAtPath];
 }

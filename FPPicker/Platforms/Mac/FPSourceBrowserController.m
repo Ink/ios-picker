@@ -89,9 +89,9 @@
     if ([item[@"is_dir"] boolValue])
     {
         if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(sourceBrowserWantsToChangeCurrentDirectory:)])
+            [self.delegate respondsToSelector:@selector(sourceBrowserWantsToChangeCurrentPath:)])
         {
-            [self.delegate sourceBrowserWantsToChangeCurrentDirectory:item[@"link_path"]];
+            [self.delegate sourceBrowserWantsToChangeCurrentPath:item[@"link_path"]];
         }
     }
 }

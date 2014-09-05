@@ -13,7 +13,7 @@
 
 @optional
 
-- (void)sourceBrowserWantsToChangeCurrentDirectory:(NSString *)newDirectory;
+- (void)sourceBrowserWantsToChangeCurrentPath:(NSString *)newPath;
 
 @end
 
