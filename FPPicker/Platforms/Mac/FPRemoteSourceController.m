@@ -20,7 +20,7 @@ typedef enum : NSUInteger
 } FPSourceTabView;
 
 
-@interface FPRemoteSourceController ()
+@interface FPRemoteSourceController () <FPSourceBrowserControllerDelegate>
 
 /*!
    Parallel operation queue.
@@ -86,6 +86,15 @@ typedef enum : NSUInteger
     [self fpLoadContents:self.path];
 }
 
+#pragma mark - FPSourceBrowserControllerDelegate Methods
+
+- (void)sourceBrowserWantsToChangeCurrentDirectory:(NSString *)newDirectory
+{
+    self.path = newDirectory;
+
+    [self fpLoadContentAtPath];
+}
+
 #pragma mark - Private Methods
 
 - (void)fpLoadContents:(NSString *)loadpath
@@ -147,11 +156,6 @@ typedef enum : NSUInteger
     else
     {
         [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
-
-        NSString *rootLevelPath = [NSString stringWithFormat:@"%@/", self.source.rootUrl];
-        BOOL isRootLevel = [loadPath isEqualToString:rootLevelPath];
-
-        self.logoutButton.hidden = isRootLevel ? NO : YES;
     }
 
     // Display results to the user

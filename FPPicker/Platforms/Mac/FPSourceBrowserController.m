@@ -10,7 +10,35 @@
 #import "FPInternalHeaders.h"
 #import "FPThumbnail.h"
 
+@interface FPSourceBrowserController ()
+
+@property (nonatomic, strong) NSOperationQueue *thumbnailFetchingOperationQueue;
+
+@end
+
 @implementation FPSourceBrowserController
+
+#pragma mark - Accessors
+
+- (NSOperationQueue *)thumbnailFetchingOperationQueue
+{
+    if (!_thumbnailFetchingOperationQueue)
+    {
+        _thumbnailFetchingOperationQueue = [NSOperationQueue new];
+        _thumbnailFetchingOperationQueue.maxConcurrentOperationCount = 5;
+    }
+
+    return _thumbnailFetchingOperationQueue;
+}
+
+- (void)setItems:(NSArray *)items
+{
+    [self.thumbnailFetchingOperationQueue cancelAllOperations];
+
+    _items = items;
+}
+
+#pragma mark - Public Methods
 
 - (void)awakeFromNib
 {
@@ -36,6 +64,11 @@
                               forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
 }
 
+- (void)dealloc
+{
+    [self.thumbnailFetchingOperationQueue cancelAllOperations];
+}
+
 #pragma mark - IKImageBrowser delegate
 
 - (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
@@ -48,10 +81,26 @@
                                                         object:selectionCount];
 }
 
+- (void)           imageBrowser:(IKImageBrowserView *)aBrowser
+    cellWasDoubleClickedAtIndex:(NSUInteger)index
+{
+    NSDictionary *item = self.items[index];
+
+    if ([item[@"is_dir"] boolValue])
+    {
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(sourceBrowserWantsToChangeCurrentDirectory:)])
+        {
+            [self.delegate sourceBrowserWantsToChangeCurrentDirectory:item[@"link_path"]];
+        }
+    }
+}
+
 - (void)          imageBrowser:(IKImageBrowserView *)browser
     cellWasRightClickedAtIndex:(NSUInteger)index
                      withEvent:(NSEvent *)event
 {
+    // No-op
 }
 
 #pragma mark - IKImageBrowser data source
@@ -70,10 +119,7 @@
     thumb.UID = item[@"link_path"];
     thumb.title = [item[@"display_name"] length] > 0 ? item[@"display_name"] : item[@"filename"];
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        // Load thumbnail asynchronously
-        // and force redraw of affected thumbnail's rect in browser
-
+    NSBlockOperation *thumbnailFetchingOperation = [NSBlockOperation blockOperationWithBlock: ^{
         NSURL *iconURL = [NSURL URLWithString:item[@"thumbnail"]];
 
         thumb.icon = [[NSImage alloc] initWithContentsOfURL:iconURL];
@@ -81,7 +127,9 @@
         NSRect cellFrame = [browser itemFrameAtIndex:index];
 
         [browser setNeedsDisplayInRect:cellFrame];
-    });
+    }];
+
+    [self.thumbnailFetchingOperationQueue addOperation:thumbnailFetchingOperation];
 
     return thumb;
 }
