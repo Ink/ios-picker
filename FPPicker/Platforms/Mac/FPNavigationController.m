@@ -62,7 +62,7 @@
 
         NSMenuItem *menuItem = [NSMenuItem new];
 
-        menuItem.title = obj;
+        menuItem.title = [obj stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         menuItem.image = icon;
         menuItem.representedObject = [self fullPathToRelativePath:obj];
         menuItem.target = self;
