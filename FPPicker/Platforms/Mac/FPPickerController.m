@@ -103,6 +103,15 @@
     [self.remoteSourceController fpLoadContentAtPath];
 }
 
+#pragma mark - FPNavigationControllerDelegate Methods
+
+- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath
+{
+    self.remoteSourceController.path = newPath;
+
+    [self.remoteSourceController fpLoadContentAtPath];
+}
+
 #pragma mark - NSWindowDelegate Methods
 
 - (void)windowDidBecomeMain:(NSNotification *)notification

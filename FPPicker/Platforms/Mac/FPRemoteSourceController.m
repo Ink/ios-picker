@@ -84,6 +84,9 @@ typedef enum : NSUInteger
 - (void)fpLoadContentAtPath
 {
     [self fpLoadContents:self.path];
+
+    [[NSNotificationCenter defaultCenter] postNotificationName:FPSourcePathDidChangeNotification
+                                                        object:self.path];
 }
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods

@@ -7,10 +7,12 @@
 //
 
 #import "FPNavigationController.h"
+#import "FPInternalHeaders.h"
 #import "FPUtils.h"
 
 @interface FPNavigationController ()
 
+@property (nonatomic, strong) NSString *currentPath;
 @property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *currentDirectoryPopupButton;
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *navigationSegmentedControl;
@@ -24,6 +26,21 @@
 {
     self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
 
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sourcePathDidChange:)
+                                                 name:FPSourcePathDidChangeNotification
+                                               object:nil];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)sourcePathDidChange:(NSNotification *)sender
+{
+    self.currentPath = sender.object;
+
     [self populateCurrentDirectoryPopupButton];
 }
 
@@ -31,68 +48,73 @@
 
 - (void)populateCurrentDirectoryPopupButton
 {
-    // Temporary filler code
-
     [self.currentDirectoryPopupButton removeAllItems];
     self.currentDirectoryPopupButton.autoenablesItems = NO;
 
-    NSMenuItem *menuItem = [NSMenuItem new];
-    NSMenuItem *menuItem2 = [NSMenuItem new];
-    NSMenuItem *menuItem3 = [NSMenuItem new];
+    NSArray *pathComponents = [self currentPathComponents];
 
-    menuItem.title = @"Item 1";
-    menuItem2.title = @"Item 2";
-    menuItem3.title = @"Item 3";
+    [pathComponents.reverseObjectEnumerator.allObjects enumerateObjectsUsingBlock: ^(id obj,
+                                                                                     NSUInteger idx,
+                                                                                     BOOL *stop) {
+        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
 
-    [self.currentDirectoryPopupButton.menu addItem:menuItem];
-    [self.currentDirectoryPopupButton.menu addItem:menuItem2];
-    [self.currentDirectoryPopupButton.menu addItem:menuItem3];
-    [self.currentDirectoryPopupButton.menu addItem:[NSMenuItem separatorItem]];
+        icon.size = NSMakeSize(16, 16);
 
-    NSMenuItem *recentItemsGroupItem = [NSMenuItem new];
+        NSMenuItem *menuItem = [NSMenuItem new];
 
-    NSFont *font = [NSFont systemFontOfSize:11.0];
+        menuItem.title = obj;
+        menuItem.image = icon;
+        menuItem.representedObject = [self fullPathToRelativePath:obj];
+        menuItem.target = self;
+        menuItem.action = @selector(currentDirectoryPopupButtonSelectionChanged:);
 
-    NSDictionary *attrsDictionary = @{
-        NSFontAttributeName:font,
-        NSForegroundColorAttributeName:[NSColor controlShadowColor]
-    };
+        [self.currentDirectoryPopupButton.menu addItem:menuItem];
+    }];
 
-    NSAttributedString *recentPlacesAttributedString = [[NSAttributedString alloc] initWithString:@"Recent Places"
-                                                                                       attributes:attrsDictionary];
+    if (pathComponents.count > 0)
+    {
+        [self.currentDirectoryPopupButton selectItemAtIndex:0];
+    }
+}
 
-    recentItemsGroupItem.attributedTitle = recentPlacesAttributedString;
-    recentItemsGroupItem.enabled = NO;
+- (IBAction)currentDirectoryPopupButtonSelectionChanged:(id)sender
+{
+    NSString *newPath = [sender representedObject];
 
-    [self.currentDirectoryPopupButton.menu addItem:recentItemsGroupItem];
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(currentDirectoryPopupButtonSelectionChanged:)])
+    {
+        [self.delegate currentDirectoryPopupButtonSelectionChanged:newPath];
+    }
+}
 
-    NSMenuItem *menuItem4 = [NSMenuItem new];
-    NSMenuItem *menuItem5 = [NSMenuItem new];
+#pragma mark - Private Methods
 
-    NSString *homePath = [@"~" stringByStandardizingPath];
+- (NSArray *)currentPathComponents
+{
+    NSMutableArray *pathComponents = [[self.currentPath componentsSeparatedByString:@"/"] mutableCopy];
 
-    NSImage *homeFolderImage = [[NSWorkspace sharedWorkspace] iconForFile:homePath];
+    [pathComponents removeObject:@""];
 
-    homeFolderImage.size = NSMakeSize(16, 16);
+    return [pathComponents copy];
+}
 
-    menuItem4.title = homePath.lastPathComponent;
-    menuItem4.image = homeFolderImage;
-    menuItem4.keyEquivalent = @"h";
-    menuItem4.keyEquivalentModifierMask = NSCommandKeyMask | NSShiftKeyMask;
+- (NSString *)fullPathToRelativePath:(NSString *)relativePath
+{
+    NSArray *currentPathComponents = [self currentPathComponents];
+    NSString *representedPath = [NSString stringWithFormat:@"/%@/", currentPathComponents[0]];
 
-    NSString *documentsPath = [@"~/Documents" stringByStandardizingPath];
+    if (currentPathComponents.count > 1)
+    {
+        for (NSUInteger i = 1; i <= [currentPathComponents indexOfObject:relativePath]; i++)
+        {
+            NSString *extra = [NSString stringWithFormat:@"%@/", currentPathComponents[i]];
 
-    NSImage *documentsFolderImage = [[NSWorkspace sharedWorkspace] iconForFile:documentsPath];
+            representedPath = [representedPath stringByAppendingString:extra];
+        }
+    }
 
-    documentsFolderImage.size = NSMakeSize(16, 16);
-
-    menuItem5.title = documentsPath.lastPathComponent;
-    menuItem5.image = documentsFolderImage;
-
-    [self.currentDirectoryPopupButton.menu addItem:menuItem4];
-    [self.currentDirectoryPopupButton.menu addItem:menuItem5];
-
-    [self.currentDirectoryPopupButton selectItem:menuItem4];
+    return representedPath;
 }
 
 @end

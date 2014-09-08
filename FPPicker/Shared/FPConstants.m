@@ -28,3 +28,4 @@ NSString *const FPSourceEvernote = @"evernote";
 // Global Filepicker Notifications
 
 NSString * const FPBrowserSelectionDidChangeNotification = @"io.filepicker.selection.did.change";
+NSString * const FPSourcePathDidChangeNotification = @"io.filepicker.sourcepath.did.change";

@@ -26,3 +26,4 @@ FOUNDATION_EXPORT NSString * const FPSourceEvernote;
 // Global Filepicker Notifications
 
 FOUNDATION_EXPORT NSString * const FPBrowserSelectionDidChangeNotification;
+FOUNDATION_EXPORT NSString * const FPSourcePathDidChangeNotification;

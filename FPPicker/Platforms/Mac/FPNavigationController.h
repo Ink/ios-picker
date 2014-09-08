@@ -8,6 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 
+@protocol FPNavigationControllerDelegate <NSObject>
+
+@optional
+
+- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath;
+
+@end
+
 @interface FPNavigationController : NSViewController
+
+@property (nonatomic, weak) IBOutlet id<FPNavigationControllerDelegate>delegate;
 
 @end

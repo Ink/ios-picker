@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6206.8"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.9"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6206.9"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
@@ -472,6 +472,7 @@ Gw
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">
             <connections>
                 <outlet property="currentDirectoryPopupButton" destination="CfZ-G8-wbc" id="7eG-v6-OP2"/>
+                <outlet property="delegate" destination="-2" id="vlb-wG-NVc"/>
                 <outlet property="displayStyleSegmentedControl" destination="dWJ-7C-jk6" id="kXd-4S-moa"/>
                 <outlet property="fpLogo" destination="hPF-gT-PIz" id="chz-db-kWk"/>
                 <outlet property="navigationSegmentedControl" destination="cN8-SS-PUP" id="Pd8-10-Sjj"/>
