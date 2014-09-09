@@ -165,6 +165,29 @@ typedef enum : NSUInteger
 
     self.sourceBrowserController.items = JSON[@"contents"];
 
+    id next = JSON[@"next"];
+
+    if (next && next != [NSNull null])
+    {
+        if ([next respondsToSelector:@selector(stringValue)])
+        {
+            self.nextPage = [next stringValue];
+        }
+        else
+        {
+            self.nextPage = next;
+        }
+    }
+    else
+    {
+        self.nextPage = nil;
+    }
+
+    if (self.nextPage)
+    {
+        [self fpLoadNextPage];
+    }
+
     [self.sourceBrowserController.thumbnailListView reloadData];
 }
 
@@ -185,6 +208,111 @@ typedef enum : NSUInteger
         [self fpPresentError:error
              withMessageText:@"Response error"];
     }
+}
+
+- (void)fpLoadNextPage
+{
+    [self.progressIndicator startAnimation:self];
+
+    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
+
+    NSURLRequest *request = [self fpRequestForLoadPath:self.path
+                                            withFormat:@"info"
+                                           byAppending:nextPageParam
+                                           cachePolicy:NSURLRequestReloadIgnoringCacheData];
+
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.sourceBrowserController.items];
+
+        [tempArray addObjectsFromArray:responseObject[@"contents"]];
+
+        self.sourceBrowserController.items = [tempArray copy];
+
+        tempArray = nil;
+
+        id next = responseObject[@"next"];
+
+        if (next && next != [NSNull null])
+        {
+            if ([next respondsToSelector:@selector(stringValue)])
+            {
+                self.nextPage = [next stringValue];
+            }
+            else
+            {
+                self.nextPage = next;
+            }
+        }
+        else
+        {
+            self.nextPage = nil;
+        }
+
+        if (self.nextPage)
+        {
+            [self fpLoadNextPage];
+        }
+
+        [self.sourceBrowserController.thumbnailListView reloadData];
+        [self.progressIndicator stopAnimation:self];
+    };
+
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        DLog(@"Error: %@", error);
+
+        self.nextPage = nil;
+
+        [self.sourceBrowserController.thumbnailListView reloadData];
+        [self.progressIndicator stopAnimation:self];
+    };
+
+    AFHTTPRequestOperation *operation;
+
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+
+    [self.parallelOperationQueue addOperation:operation];
+}
+
+- (NSURLRequest *)fpRequestForLoadPath:(NSString *)loadpath
+                            withFormat:(NSString *)type
+                           byAppending:(NSString *)additionalString
+                           cachePolicy:(NSURLRequestCachePolicy)policy
+{
+    FPSession *fpSession = [FPSession new];
+
+    fpSession.APIKey = fpAPIKEY;
+    fpSession.mimetypes = self.source.mimetypes;
+
+    NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
+
+    NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
+
+    if ([urlString rangeOfString:@"?"].location == NSNotFound)
+    {
+        [urlString appendFormat:@"?format=%@&%@=%@", type, @"js_session", escapedSessionString];
+    }
+    else
+    {
+        [urlString appendFormat:@"&format=%@&%@=%@", type, @"js_session", escapedSessionString];
+    }
+
+    [urlString appendString:additionalString];
+
+    //NSLog(@"Loading Contents from URL: %@", urlString);
+    NSURL *url = [NSURL URLWithString:urlString];
+
+
+    NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:url
+                                                            cachePolicy:policy
+                                                        timeoutInterval:240];
+
+    [mrequest setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES]];
+
+    return mrequest;
 }
 
 - (void)fpPresentError:(NSError *)error
