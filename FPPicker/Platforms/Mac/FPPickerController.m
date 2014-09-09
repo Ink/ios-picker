@@ -66,10 +66,12 @@
     {
         case 0:
             selectionString = @"No items selected";
+
             break;
         case 1:
             selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
 
+            break;
         default:
             selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
 
