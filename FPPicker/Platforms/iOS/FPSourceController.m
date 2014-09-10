@@ -695,28 +695,36 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     CGPoint tapPoint = [sender locationOfTouch:sender.view.tag
                                         inView:sender.view];
-
-    int rowIndex = (int)MIN(floor(tapPoint.x / 105), self.numPerRow - 1);
-
+    
+    int cellWidth = self.thumbSize + self.padding;
+    int rowIndex = (int)MIN(floor(tapPoint.x / cellWidth), self.numPerRow - 1);
+    
     // Do nothing if there isn't a corresponding image view.
-
-    if (rowIndex >= [sender.view.subviews count])
+    
+    if (rowIndex >= sender.view.subviews.count)
     {
         return;
     }
-
+    
     UIImageView *selectedView = sender.view.subviews[rowIndex];
+    
+    // Do nothing if image view has an invalid tag
+    
+    if (selectedView.tag <= 0)
+    {
+        return;
+    }
+    
     NSInteger index = selectedView.tag - CELL_FIRST_TAG;
-
     NSMutableDictionary *obj = self.contents[index];
     UIImage *thumbnail;
-
+    
     BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
-
+    
     if (thumbExists)
     {
         thumbnail = selectedView.image;
-
+        
         [self objectSelectedAtIndex:index
                             forView:sender.view
                       withThumbnail:thumbnail];
