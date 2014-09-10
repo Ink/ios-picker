@@ -8,10 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+@class ALAsset;
+
 @interface FPMediaInfo : NSObject
 
 @property (nonatomic, strong) NSString *mediaType;
-@property (nonatomic, strong) id originalImage; // UIImage on iOS; NSImage on OS X
+@property (nonatomic, strong) ALAsset *originalAsset;
 @property (nonatomic, strong) NSURL *mediaURL;
 @property (nonatomic, strong) NSURL *remoteURL;
 @property (nonatomic, strong) NSString *filename;

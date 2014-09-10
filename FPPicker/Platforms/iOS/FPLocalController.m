@@ -597,43 +597,39 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
 }
 
-- (void)uploadPhotoAsset:(ALAsset *)asset shouldUpload:(BOOL)shouldUpload
+- (void)uploadPhotoAsset:(ALAsset *)asset
+            shouldUpload:(BOOL)shouldUpload
                  success:(void (^)(NSDictionary *data))success
                  failure:(void (^)(NSError *error, NSDictionary *data))failure
                 progress:(void (^)(float progress))progress
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
-
-    UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
-                                         scale:representation.scale
-                                   orientation:(UIImageOrientation)representation.orientation];
-
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
+    
     mediaInfo.mediaType = (NSString *)kUTTypeImage;
-    mediaInfo.originalImage = image;
-
+    mediaInfo.originalAsset = asset;
+    
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {
         NSDictionary *data = JSON[@"data"][0][@"data"];
-
+        
         mediaInfo.mediaURL = localURL;
         mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
-
+        
         success([mediaInfo dictionary]);
     };
-
+    
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
                                                            NSURL *localURL) {
         mediaInfo.mediaURL = localURL;
         mediaInfo.filename = representation.filename;
-
+        
         failure(error, [mediaInfo dictionary]);
     };
-
+    
     [FPLibrary uploadAsset:asset
                withOptions:nil
               shouldUpload:shouldUpload
@@ -642,7 +638,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                   progress:progress];
 }
 
-- (void)uploadVideoAsset:(ALAsset *)asset shouldUpload:(BOOL)shouldUpload
+- (void)uploadVideoAsset:(ALAsset *)asset
+            shouldUpload:(BOOL)shouldUpload
                  success:(void (^)(NSDictionary *data))success
                  failure:(void (^)(NSError *error, NSDictionary *data))failure
                 progress:(void (^)(float progress))progress
