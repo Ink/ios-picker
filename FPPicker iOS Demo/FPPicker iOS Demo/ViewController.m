@@ -199,14 +199,19 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    ALAsset *asset = info[@"FPPickerControllerOriginalAsset"];
-    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    if (info[@"FPPickerControllerOriginalAsset"])
+    {
+        ALAsset *asset = info[@"FPPickerControllerOriginalAsset"];
+        ALAssetRepresentation *representation = asset.defaultRepresentation;
 
-    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage
-                                         scale:representation.scale
-                                   orientation:(UIImageOrientation)representation.orientation];
-
-    self.imageView.image = image;
+        self.imageView.image = [UIImage imageWithCGImage:representation.fullScreenImage
+                                                   scale:representation.scale
+                                             orientation:(UIImageOrientation)representation.orientation];
+    }
+    else if (info[@"FPPickerControllerOriginalImage"])
+    {
+        self.imageView.image = info[@"FPPickerControllerOriginalImage"];
+    }
 
     [self.myPopoverController dismissPopoverAnimated:YES];
 
@@ -231,15 +236,24 @@
     {
         // Check if uploaded file is an image to add it to carousel
 
+        UIImage *image;
+
         if (data[@"FPPickerControllerOriginalAsset"])
         {
             ALAsset *asset = data[@"FPPickerControllerOriginalAsset"];
             ALAssetRepresentation *representation = asset.defaultRepresentation;
 
-            UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage
-                                                 scale:representation.scale
-                                           orientation:(UIImageOrientation)representation.orientation];
+            image = [UIImage imageWithCGImage:representation.fullScreenImage
+                                        scale:representation.scale
+                                  orientation:(UIImageOrientation)representation.orientation];
+        }
+        else if (data[@"FPPickerControllerOriginalImage"])
+        {
+            image = data[@"FPPickerControllerOriginalImage"];
+        }
 
+        if (image)
+        {
             [images addObject:image];
         }
     }

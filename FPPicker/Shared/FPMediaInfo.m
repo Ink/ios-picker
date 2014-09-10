@@ -29,6 +29,11 @@
         mediaInfo[@"FPPickerControllerOriginalAsset"] = self.originalAsset;
     }
 
+    if (self.originalImage)
+    {
+        mediaInfo[@"FPPickerControllerOriginalImage"] = self.originalImage;
+    }
+
     if (self.mediaType)
     {
         mediaInfo[@"FPPickerControllerMediaType"] = self.mediaType;
