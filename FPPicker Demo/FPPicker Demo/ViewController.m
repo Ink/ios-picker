@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @interface ViewController ()
 
@@ -114,7 +115,7 @@
     /*
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
-    fpController.maxFiles = 5;
+    fpController.maxFiles = 10;
 
     /*
      * Display it.
@@ -200,7 +201,14 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    self.imageView.image = info[@"FPPickerControllerOriginalImage"];
+    ALAsset *asset = info[@"FPPickerControllerOriginalAsset"];
+    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    
+    UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage
+                                         scale:representation.scale
+                                   orientation:(UIImageOrientation)representation.orientation];
+
+    self.imageView.image = image;
 
     [self.myPopoverController dismissPopoverAnimated:YES];
 
@@ -224,9 +232,17 @@
     for (NSDictionary *data in results)
     {
         // Check if uploaded file is an image to add it to carousel
-        if (data[@"FPPickerControllerOriginalImage"])
+
+        if (data[@"FPPickerControllerOriginalAsset"])
         {
-            [images addObject:data[@"FPPickerControllerOriginalImage"]];
+            ALAsset *asset = data[@"FPPickerControllerOriginalAsset"];
+            ALAssetRepresentation *representation = asset.defaultRepresentation;
+   
+            UIImage *image = [UIImage imageWithCGImage:representation.fullScreenImage
+                                             scale:representation.scale
+                                       orientation:(UIImageOrientation)representation.orientation];
+            
+            [images addObject:image];
         }
     }
 

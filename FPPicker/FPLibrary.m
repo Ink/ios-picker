@@ -15,6 +15,21 @@
 
 @implementation FPLibrary
 
+#pragma mark - Queues
+
++ (dispatch_queue_t)upload_processing_queue
+{
+    static dispatch_queue_t _upload_processing_queue;
+    static dispatch_once_t onceToken;
+
+    dispatch_once(&onceToken, ^{
+        _upload_processing_queue = dispatch_queue_create("io.filepicker.upload.processing.queue",
+                                                         DISPATCH_QUEUE_SERIAL);
+    });
+
+    return _upload_processing_queue;
+}
+
 #pragma mark - Camera Upload Methods
 
 + (void)uploadImage:(UIImage *)image
@@ -105,66 +120,66 @@
             failure:(FPUploadAssetFailureWithLocalURLBlock)failure
            progress:(FPUploadAssetProgressBlock)progress
 {
-    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    dispatch_sync([self upload_processing_queue], ^{
+        NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
+        ALAssetRepresentation *representation = asset.defaultRepresentation;
+        CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
 
-    CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
+        NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(utiToConvert,
+                                                                                           kUTTagClassMIMEType);
 
-    NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(utiToConvert,
-                                                                                       kUTTagClassMIMEType);
+        if (([mimetype isEqualToString:@"video/quicktime"]) ||
+            ([mimetype isEqualToString:@"image/png"]))
+        {
+            DLog(@"Copying %@", mimetype);
 
-    NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
+            [FPUtils copyAssetRepresentation:representation
+                                intoLocalURL:tempURL];
+        }
+        else
+        {
+            /*
+                NOTE: This is another area that needs focus.
 
-    if (([mimetype isEqualToString:@"video/quicktime"]) ||
-        ([mimetype isEqualToString:@"image/png"]))
-    {
-        DLog(@"Copying %@", mimetype);
+                We are compressing a full resolution JPEG image that is loaded fully into memory.
+                This can easily cause memory pressure on the device.
 
-        [FPUtils copyAssetRepresentation:representation
-                            intoLocalURL:tempURL];
-    }
-    else
-    {
-        /*
-            NOTE: This is another area that needs focus.
+                Alternatives:
 
-            We are compressing a full resolution JPEG image that is loaded fully into memory.
-            This can easily cause memory pressure on the device.
+                1. Just copy it (as we currently do with PNG and video)
+                2. Compressing an smaller representation of the image.
+             */
 
-            Alternatives:
+            DLog(@"Compressing and copying JPEG");
 
-            1. Just copy it (as we currently do with PNG and video)
-            2. Compressing an smaller representation of the image.
-         */
+            UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
+                                                 scale:representation.scale
+                                           orientation:(UIImageOrientation)representation.orientation];
 
-        DLog(@"Compressing and copying JPEG");
+            NSData *filedata = UIImageJPEGRepresentation(image, 0.6);
 
-        UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
-                                             scale:representation.scale
-                                       orientation:(UIImageOrientation)representation.orientation];
+            [filedata writeToURL:tempURL
+                      atomically:YES];
+        }
 
-        NSData *filedata = UIImageJPEGRepresentation(image, 0.6);
+        FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+            success(JSON, tempURL);
+        };
 
-        [filedata writeToURL:tempURL
-                  atomically:YES];
-    }
+        FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+            DLog(@"File upload failed with %@, response was: %@", error, JSON);
 
-    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        success(JSON, tempURL);
-    };
+            failure(error, JSON, tempURL);
+        };
 
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        DLog(@"File upload failed with %@, response was: %@", error, JSON);
-
-        failure(error, JSON, tempURL);
-    };
-
-    [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                    named:representation.filename
-                               ofMimetype:mimetype
-                             shouldUpload:shouldUpload
-                                  success:successBlock
-                                  failure:failureBlock
-                                 progress:progress];
+        [FPLibrary uploadLocalURLToFilepicker:tempURL
+                                        named:representation.filename
+                                   ofMimetype:mimetype
+                                 shouldUpload:shouldUpload
+                                      success:successBlock
+                                      failure:failureBlock
+                                     progress:progress];
+    });
 }
 
 #pragma mark - Save As Methods
