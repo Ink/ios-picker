@@ -1325,7 +1325,13 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
         {
-            mediaInfo.originalImage = [UIImage imageWithData:file];
+            UIImage *imageToCompress = [UIImage imageWithData:file];
+
+            mediaInfo.originalImage = [FPUtils compressImage:imageToCompress
+                                       withCompressionFactor:0.6f
+                                              andOrientation:imageToCompress.imageOrientation];
+
+            imageToCompress = nil;
         }
 
         if (headers[@"X-Data-Key"])

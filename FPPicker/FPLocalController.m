@@ -630,6 +630,14 @@
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
 
+        UIImage *imageToCompress = [UIImage imageWithCGImage:representation.fullScreenImage];
+
+        mediaInfo.originalImage = [FPUtils compressImage:imageToCompress
+                                   withCompressionFactor:0.6f
+                                          andOrientation:(UIImageOrientation)representation.orientation];
+
+        imageToCompress = nil;
+
         success([mediaInfo dictionary]);
     };
 
@@ -660,6 +668,7 @@
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
     mediaInfo.mediaType = (NSString *)kUTTypeVideo;
+    mediaInfo.originalAsset = asset;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {

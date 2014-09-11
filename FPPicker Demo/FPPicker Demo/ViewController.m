@@ -201,16 +201,7 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    if (info[@"FPPickerControllerOriginalAsset"])
-    {
-        ALAsset *asset = info[@"FPPickerControllerOriginalAsset"];
-        ALAssetRepresentation *representation = asset.defaultRepresentation;
-
-        self.imageView.image = [UIImage imageWithCGImage:representation.fullScreenImage
-                                                   scale:representation.scale
-                                             orientation:(UIImageOrientation)representation.orientation];
-    }
-    else if (info[@"FPPickerControllerOriginalImage"])
+    if (info[@"FPPickerControllerOriginalImage"])
     {
         self.imageView.image = info[@"FPPickerControllerOriginalImage"];
     }
@@ -238,25 +229,9 @@
     {
         // Check if uploaded file is an image to add it to carousel
 
-        UIImage *image;
-
-        if (data[@"FPPickerControllerOriginalAsset"])
+        if (data[@"FPPickerControllerOriginalImage"])
         {
-            ALAsset *asset = data[@"FPPickerControllerOriginalAsset"];
-            ALAssetRepresentation *representation = asset.defaultRepresentation;
-
-            image = [UIImage imageWithCGImage:representation.fullScreenImage
-                                        scale:representation.scale
-                                  orientation:(UIImageOrientation)representation.orientation];
-        }
-        else if (data[@"FPPickerControllerOriginalImage"])
-        {
-            image = data[@"FPPickerControllerOriginalImage"];
-        }
-
-        if (image)
-        {
-            [images addObject:image];
+            [images addObject:data[@"FPPickerControllerOriginalImage"]];
         }
     }
 
