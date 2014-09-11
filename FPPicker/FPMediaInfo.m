@@ -49,6 +49,11 @@
         mediaInfo[@"FPPickerControllerRemoteURL"] = self.remoteURL;
     }
 
+    if (self.source)
+    {
+        mediaInfo[@"FPPickerControllerSource"] = self.source;
+    }
+
     return [mediaInfo copy];
 }
 

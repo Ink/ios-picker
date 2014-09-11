@@ -15,6 +15,7 @@
 #import "FPThumbCell.h"
 #import "FPProgressTracker.h"
 #import "UIImageView+AFNetworking.h"
+#import "FPMediaInfo.h"
 
 typedef void (^FPFetchObjectSuccessBlock)(NSDictionary *data);
 typedef void (^FPFetchObjectFailureBlock)(NSError *error);
@@ -719,7 +720,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     int cellWidth = self.thumbSize + self.padding;
     int rowIndex = (int)MIN(floor(tapPoint.x / cellWidth), self.numPerRow - 1);
-    
+
     // Do nothing if there isn't a corresponding image view.
 
     if (rowIndex >= sender.view.subviews.count)
@@ -728,14 +729,14 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
 
     UIImageView *selectedView = sender.view.subviews[rowIndex];
-    
+
     // Do nothing if image view has an invalid tag
 
     if (selectedView.tag <= 0)
     {
         return;
     }
-    
+
     NSInteger index = selectedView.tag - CELL_FIRST_TAG;
     NSMutableDictionary *obj = self.contents[index];
     UIImage *thumbnail;
@@ -1253,13 +1254,14 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                              id responseObject) {
         NSLog(@"result: %@", responseObject);
 
-        NSDictionary *info = @{
-            @"FPPickerControllerRemoteURL":responseObject[@"url"],
-            @"FPPickerControllerFilename":responseObject[@"filename"],
-            @"FPPickerControllerKey":responseObject[@"key"]
-        };
+        FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-        success(info);
+        mediaInfo.remoteURL = responseObject[@"url"];
+        mediaInfo.filename = responseObject[@"filename"];
+        mediaInfo.key = responseObject[@"key"];
+        mediaInfo.source = self.sourceType;
+
+        success([mediaInfo dictionary]);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1313,27 +1315,25 @@ static const CGFloat ROW_HEIGHT = 44.0;
             mimetype = [mimetype componentsSeparatedByString:@";"][0];
         }
 
-        NSString *UTI = [FPUtils utiForMimetype:mimetype];
-        NSMutableDictionary *info;
+        FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-        info = [NSMutableDictionary dictionaryWithDictionary:@{
-                    @"FPPickerControllerRemoteURL":headers[@"X-Data-Url"],
-                    @"FPPickerControllerFilename":headers[@"X-File-Name"],
-                    @"FPPickerControllerMediaURL":tempURL,
-                    @"FPPickerControllerMediaType":UTI
-                }];
+        mediaInfo.remoteURL = headers[@"X-Data-Url"];
+        mediaInfo.filename = headers[@"X-File-Name"];
+        mediaInfo.mediaURL = tempURL;
+        mediaInfo.mediaType = [FPUtils utiForMimetype:mimetype];
+        mediaInfo.source = self.sourceType;
 
         if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
         {
-            info[@"FPPickerControllerOriginalImage"] = [UIImage imageWithData:file];
+            mediaInfo.originalImage = [UIImage imageWithData:file];
         }
 
         if (headers[@"X-Data-Key"])
         {
-            info[@"FPPickerControllerKey"] = headers[@"X-Data-Key"];
+            mediaInfo.key = headers[@"X-Data-Key"];
         }
 
-        success(info);
+        success([mediaInfo dictionary]);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
