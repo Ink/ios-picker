@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Filepicker.io (Couldtop Inc.). All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
+
 @class UIImage;
 @class ALAssetRepresentation;
 
@@ -145,5 +147,14 @@
    @returns An UIImage
  */
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
+
+/*!
+   Returns a JPEG compressed image with the desired compression factor.
+
+   @returns An UIImage
+ */
++ (UIImage *)compressImage:(UIImage *)image
+     withCompressionFactor:(CGFloat)compressionFactor
+            andOrientation:(UIImageOrientation)orientation;
 
 @end
