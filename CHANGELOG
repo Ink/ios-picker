@@ -1,3 +1,10 @@
+v 3.2.4 - 09/12/2014
+- Remote sources now return the associated FPSource used in FPPickerControllerSource.
+- Local sources now return the associated ALAsset used in FPPickerControllerOriginalAsset.
+- Greatly reduced memory usage by returning a compressed version of the image in FPPickerControllerOriginalImage (this is particularly relevant when uploading a large number of images.)
+- Fixed a glitch in cell selection that could lead to a crash.
+- Fixed a minor UI glitch in iOS 8.
+
 v 3.2.3 - 08/28/2014
 - Improving compatibility with Instagram (issue #56 — @nickhart).
 
