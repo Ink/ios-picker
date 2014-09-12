@@ -215,4 +215,20 @@
     return imageCopy;
 }
 
++ (UIImage *)compressImage:(UIImage *)image
+     withCompressionFactor:(CGFloat)compressionFactor
+            andOrientation:(UIImageOrientation)orientation
+{
+    NSData *imageData = UIImageJPEGRepresentation(image, compressionFactor);
+    UIImage *compressedImage = [[UIImage alloc] initWithData:imageData];
+
+    imageData = nil;
+
+    UIImage *compressedAndRotatedImage = [UIImage imageWithCGImage:compressedImage.CGImage
+                                                             scale:1.0
+                                                       orientation:orientation];
+
+    return compressedAndRotatedImage;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "FPUtils.h"
+#import <UIKit/UIKit.h>
 
 @class ALAssetRepresentation;
 
@@ -38,5 +39,14 @@
    @returns An UIImage
  */
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image;
+
+/*!
+   Returns a JPEG compressed image with the desired compression factor.
+
+   @returns An UIImage
+ */
++ (UIImage *)compressImage:(UIImage *)image
+     withCompressionFactor:(CGFloat)compressionFactor
+            andOrientation:(UIImageOrientation)orientation;
 
 @end

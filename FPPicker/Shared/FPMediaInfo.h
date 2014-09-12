@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class ALAsset;
+@class FPSource;
 
 @interface FPMediaInfo : NSObject
 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) NSURL *remoteURL;
 @property (nonatomic, strong) NSString *filename;
 @property (nonatomic, strong) NSString *key;
+@property (nonatomic, strong) FPSource *source;
 
 - (NSDictionary *)dictionary;
 

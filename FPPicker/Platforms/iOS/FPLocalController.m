@@ -605,31 +605,39 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
-    
+
     mediaInfo.mediaType = (NSString *)kUTTypeImage;
     mediaInfo.originalAsset = asset;
-    
+
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {
         NSDictionary *data = JSON[@"data"][0][@"data"];
-        
+
         mediaInfo.mediaURL = localURL;
         mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
-        
+
+        UIImage *imageToCompress = [UIImage imageWithCGImage:representation.fullScreenImage];
+
+        mediaInfo.originalImage = [FPUtils compressImage:imageToCompress
+                                   withCompressionFactor:0.6f
+                                          andOrientation:(UIImageOrientation)representation.orientation];
+
+        imageToCompress = nil;
+
         success([mediaInfo dictionary]);
     };
-    
+
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
                                                            id JSON,
                                                            NSURL *localURL) {
         mediaInfo.mediaURL = localURL;
         mediaInfo.filename = representation.filename;
-        
+
         failure(error, [mediaInfo dictionary]);
     };
-    
+
     [FPLibrary uploadAsset:asset
                withOptions:nil
               shouldUpload:shouldUpload
@@ -648,6 +656,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
     mediaInfo.mediaType = (NSString *)kUTTypeVideo;
+    mediaInfo.originalAsset = asset;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {

@@ -6,8 +6,6 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-@class UIImage;
-
 @interface FPUtils : NSObject
 
 /*!
