@@ -614,7 +614,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         NSDictionary *data = JSON[@"data"][0][@"data"];
 
         mediaInfo.mediaURL = localURL;
-        mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
+        mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
 
@@ -663,7 +663,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         NSDictionary *data = JSON[@"data"][0][@"data"];
 
         mediaInfo.mediaURL = localURL;
-        mediaInfo.remoteURL = [NSURL URLWithString:data[@"url"]];
+        mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
 
