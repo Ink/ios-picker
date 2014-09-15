@@ -1,3 +1,6 @@
+v 3.2.5 - 09/15/2014
+- Fixed missing FPPickerControllerRemoteURL bug introduced in v3.2.4.
+
 v 3.2.4 - 09/12/2014
 - Remote sources now return the associated FPSource used in FPPickerControllerSource.
 - Local sources now return the associated ALAsset used in FPPickerControllerOriginalAsset.
