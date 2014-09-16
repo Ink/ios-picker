@@ -1,3 +1,6 @@
+v 3.2.7 - 09/??/2014
+- Fixed another case where FPPickerControllerRemoteURL was missing.
+
 v 3.2.6 - 09/16/2014
 - Fixed an UI locking issue during authentication when targetting iOS 8.
 
