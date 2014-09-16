@@ -9,6 +9,14 @@
 #import "FPAuthController.h"
 #import "FPUtils+ResourceHelpers.h"
 
+// WebKit error constants are not exposed in iOS (they are in WebKit for Mac)
+// So we define them here (conditionally) for documentation purposes.
+// https://developer.apple.com/library/prerelease/mac/documentation/Cocoa/Reference/WebKit/Miscellaneous/WebKit_Constants/#//apple_ref/doc/constant_group/WebKit_Policy_Errors
+
+#ifndef WebKitErrorFrameLoadInterruptedByPolicyChange
+#define WebKitErrorFrameLoadInterruptedByPolicyChange 102
+#endif
+
 @interface FPAuthController ()
 
 @property (nonatomic, strong) NSDictionary *settings;
@@ -135,9 +143,6 @@
           request.URL.absoluteString,
           request.URL.path);
 
-    [MBProgressHUD hideHUDForView:localWebView
-                         animated:YES];
-
     if ([request.URL.path isEqualToString:@"/dialog/open"])
     {
         //NSLog(@"HIT");
@@ -167,6 +172,8 @@
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern:object])
             {
+                NSForceLog(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
+
                 return NO;
             }
         }
@@ -183,9 +190,6 @@
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern:object])
             {
-                [MBProgressHUD showHUDAddedTo:localWebView
-                                     animated:YES];
-
                 return YES;
             }
         }
@@ -212,9 +216,28 @@
     }
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webview
+- (void)webViewDidStartLoad:(UIWebView *)webView
 {
-    [MBProgressHUD hideAllHUDsForView:webview
+    [MBProgressHUD showHUDAddedTo:webView
+                         animated:YES];
+}
+
+- (void)         webView:(UIWebView *)webView
+    didFailLoadWithError:(NSError *)error
+{
+    [MBProgressHUD hideAllHUDsForView:webView
+                             animated:YES];
+
+    if ([error.domain isEqualToString:@"WebKitErrorDomain"] &&
+        error.code != WebKitErrorFrameLoadInterruptedByPolicyChange)
+    {
+        NSForceLog(@"Web view load error: %@", error);
+    }
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [MBProgressHUD hideAllHUDsForView:webView
                              animated:YES];
 
     int width = CGRectGetWidth(CGRectApplyAffineTransform(self.view.bounds,
@@ -227,15 +250,15 @@
                     "document.getElementsByTagName('head')[0].appendChild(meta)", width
                    ];
 
-    [webview stringByEvaluatingJavaScriptFromString:js];
+    [webView stringByEvaluatingJavaScriptFromString:js];
 
     if ([self.settings[@"HideAllLinks"] boolValue])
     {
         NSString *xui = [FPUtils xuiJSString];
         NSString *linkRemoval = @"x$('a').setStyle('display', 'none')";
 
-        [webview stringByEvaluatingJavaScriptFromString:xui];
-        [webview stringByEvaluatingJavaScriptFromString:linkRemoval];
+        [webView stringByEvaluatingJavaScriptFromString:xui];
+        [webView stringByEvaluatingJavaScriptFromString:linkRemoval];
     }
 }
 
