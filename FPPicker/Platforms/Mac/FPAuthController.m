@@ -41,6 +41,7 @@
                            success:(FPAuthSuccessBlock)success
                            failure:(FPAuthFailureBlock)failure
 {
+    [self cleanupSessionCookie];
     [self loadRequestWithSource:source
                         success:success
                         failure:failure];
@@ -164,6 +165,58 @@
 
     [NSApp endSheet:self.view.window];
     [self.view.window orderOut:sender];
+}
+
+#pragma mark - Private Methods
+
+- (void)cleanupSessionCookie
+{
+    // Since our cookies are stored system-wide (used by Safari and also our library) and
+    // our user may have existing cookies from the web-based Filepicker library,
+    // there could be an iframe value pair stored on the session cookie which will cause
+    // our authentication process to fail in the last step.
+    // A work-around for this is to simply remove the iframe value pair from the session cookie.
+
+    for (NSHTTPCookie *cookie in fpCOOKIES)
+    {
+        if (![cookie.name isEqualToString:@"session"])
+        {
+            continue;
+        }
+
+        NSError *error;
+
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"\\&iframe\\=\\w+\\="
+                                                                               options:0
+                                                                                 error:&error];
+
+        if (error)
+        {
+            DLog(@"Error: %@", error);
+
+            continue;
+        }
+
+        NSString *newCookieValue = [regex stringByReplacingMatchesInString:cookie.value
+                                                                   options:0
+                                                                     range:NSMakeRange(0, cookie.value.length)
+                                                              withTemplate:@""];
+
+        if (![cookie.value isEqualToString:newCookieValue])
+        {
+            NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+            NSMutableDictionary *cookieProperties = [cookie.properties mutableCopy];
+
+            cookieProperties[NSHTTPCookieValue] = newCookieValue;
+
+            NSHTTPCookie *newcookie = [NSHTTPCookie cookieWithProperties:cookieProperties];
+
+            [cookieStorage deleteCookie:cookie];
+            [cookieStorage setCookie:newcookie];
+
+            NSForceLog(@"Removed iframe from session cookie.");
+        }
+    }
 }
 
 @end
