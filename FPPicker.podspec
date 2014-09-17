@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '3.2.6'
+  s.version      = '3.2.7'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
-    :tag => 'v3.2.6'
+    :tag => 'v3.2.7'
   }
 
   s.platforms    = { :ios => '6.0' }
@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'Foundation', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
 
-  s.dependency 'AFNetworking', '~> 2.3.1'
+  s.dependency 'AFNetworking', '~> 2.4.1'
 
   s.requires_arc = true
 
