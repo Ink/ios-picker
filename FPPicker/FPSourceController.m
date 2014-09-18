@@ -1256,7 +1256,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-        mediaInfo.remoteURL = responseObject[@"url"];
+        mediaInfo.remoteURL = [NSURL URLWithString:responseObject[@"url"]];
         mediaInfo.filename = responseObject[@"filename"];
         mediaInfo.key = responseObject[@"key"];
         mediaInfo.source = self.sourceType;
@@ -1317,7 +1317,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-        mediaInfo.remoteURL = headers[@"X-Data-Url"];
+        mediaInfo.remoteURL = [NSURL URLWithString:headers[@"X-Data-Url"]];
         mediaInfo.filename = headers[@"X-File-Name"];
         mediaInfo.mediaURL = tempURL;
         mediaInfo.mediaType = [FPUtils utiForMimetype:mimetype];

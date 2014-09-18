@@ -120,6 +120,8 @@
 		456D94EA194F0BC900D0A34E /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E215A89C9D0085E186 /* libFPPicker.a */; };
 		456D94EB194F0BD500D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		456D94EC194F0C0000D0A34E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031B615A8EEC40085E186 /* MobileCoreServices.framework */; };
+		4572913119CADEE400447FAB /* FPImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4572912F19CADEE400447FAB /* FPImagePickerController.h */; };
+		4572913219CADEE400447FAB /* FPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572913019CADEE400447FAB /* FPImagePickerController.m */; };
 		457868091949FFDA009515E2 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
 		458B1FEC1949D726008360E9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 458B1FEB1949D726008360E9 /* XCTest.framework */; };
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
@@ -356,6 +358,8 @@
 		456D94B1194F068F00D0A34E /* SelectOverlayiOS7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SelectOverlayiOS7.png; sourceTree = "<group>"; };
 		456D94B2194F068F00D0A34E /* SelectOverlayiOS7@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SelectOverlayiOS7@2x.png"; sourceTree = "<group>"; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
+		4572912F19CADEE400447FAB /* FPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImagePickerController.h; sourceTree = "<group>"; };
+		4572913019CADEE400447FAB /* FPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImagePickerController.m; sourceTree = "<group>"; };
 		458B1FEA1949D726008360E9 /* FPPicker Functional Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "FPPicker Functional Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458B1FEB1949D726008360E9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		458B20031949D7C1008360E9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -795,6 +799,8 @@
 				83A0314E15A89E040085E186 /* FPPickerController.m */,
 				83A031B915A8F2570085E186 /* FPSaveController.h */,
 				83A031BA15A8F2570085E186 /* FPSaveController.m */,
+				4572912F19CADEE400447FAB /* FPImagePickerController.h */,
+				4572913019CADEE400447FAB /* FPImagePickerController.m */,
 			);
 			name = "Nav Controllers";
 			sourceTree = "<group>";
@@ -955,6 +961,7 @@
 				45B71DDD19768B33006B5DAF /* FPSinglepartUploader.h in Headers */,
 				83A0315A15A89E050085E186 /* FPLibrary.h in Headers */,
 				453096E6194738A6001D970C /* FPUtils.h in Headers */,
+				4572913119CADEE400447FAB /* FPImagePickerController.h in Headers */,
 				0266B3A3184EB1A800A91862 /* FPTableWithUploadButtonViewController.h in Headers */,
 				83A0315C15A89E050085E186 /* FPLocalController.h in Headers */,
 				83A0315E15A89E050085E186 /* FPPicker.h in Headers */,
@@ -1351,6 +1358,7 @@
 				45ADBF361951A3C600EB2215 /* AFNetworkReachabilityManager.m in Sources */,
 				836A9D3B169B5CF1006AC920 /* FPInfoViewController.m in Sources */,
 				45920DE1194A0D8A007003C1 /* FPConfig.m in Sources */,
+				4572913219CADEE400447FAB /* FPImagePickerController.m in Sources */,
 				45ADBF521951A3C600EB2215 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				45FDFF2A19C058BD00D71A00 /* FPMediaInfo.m in Sources */,
 				832739F4171F384F000A4A23 /* FPLocalAlbumController.m in Sources */,

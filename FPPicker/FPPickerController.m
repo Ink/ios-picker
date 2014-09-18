@@ -9,6 +9,7 @@
 #import "FPInternalHeaders.h"
 #import "FPPickerController.h"
 #import "FPSourceListController.h"
+#import "FPImagePickerController.h"
 #import "FPUtils.h"
 #import "FPMediaInfo.h"
 
@@ -138,7 +139,7 @@
 
 #pragma mark UIImagePickerControllerDelegate Methods
 
-- (void)    imagePickerController:(UIImagePickerController *)picker
+- (void)    imagePickerController:(FPImagePickerController *)picker
     didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     __block id <FPPickerDelegate>fpdelegate = _fpdelegate;
@@ -217,6 +218,7 @@
             mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
             mediaInfo.filename = data[@"filename"];
             mediaInfo.key = data[@"key"];
+            mediaInfo.source = picker.fpSourcetype;
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [FPMBProgressHUD hideHUDForView:picker.view

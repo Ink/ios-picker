@@ -211,6 +211,7 @@
     sView.fpdelegate = self.fpdelegate;
     sView.selectMultiple = self.selectMultiple;
     sView.maxFiles = self.maxFiles;
+    sView.sourceType = self.sourceType;
 
     [self.navigationController pushViewController:sView
                                          animated:YES];
