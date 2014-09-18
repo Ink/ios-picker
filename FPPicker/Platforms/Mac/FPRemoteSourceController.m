@@ -91,11 +91,36 @@ typedef enum : NSUInteger
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods
 
-- (void)sourceBrowserWantsToChangeCurrentPath:(NSString *)newPath
+- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    wantsToPerformActionOnItems:(NSArray *)items
 {
-    self.path = newPath;
+    if (items.count == 1)
+    {
+        NSDictionary *item = items[0];
 
-    [self fpLoadContentAtPath];
+        if ([item[@"is_dir"] boolValue])
+        {
+            self.path = item[@"link_path"];
+
+            [self fpLoadContentAtPath];
+        }
+    }
+    else
+    {
+        DLog(@"User wants to perform an action on selected items %@", items);
+    }
+}
+
+- (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
+{
+    if (self.path.pathComponents.count > 3)
+    {
+        DLog(@"We need to go up one directory");
+
+        self.path = [[self.path stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+
+        [self fpLoadContentAtPath];
+    }
 }
 
 #pragma mark - Private Methods

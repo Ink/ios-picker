@@ -71,7 +71,7 @@
 
 #pragma mark - IKImageBrowser delegate
 
-- (void)imageBrowserSelectionDidChange:(IKImageBrowserView *)browser
+- (void)imageBrowserSelectionDidChange:(FPImageBrowserView *)browser
 {
     DLog(@"Selection did change %@", browser.selectionIndexes);
 
@@ -81,36 +81,60 @@
                                                         object:selectionCount];
 }
 
-- (void)           imageBrowser:(IKImageBrowserView *)aBrowser
+- (void)           imageBrowser:(FPImageBrowserView *)aBrowser
     cellWasDoubleClickedAtIndex:(NSUInteger)index
 {
-    NSDictionary *item = self.items[index];
-
-    if ([item[@"is_dir"] boolValue])
-    {
-        if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(sourceBrowserWantsToChangeCurrentPath:)])
-        {
-            [self.delegate sourceBrowserWantsToChangeCurrentPath:item[@"link_path"]];
-        }
-    }
+    [self performActionOnSelectionIndexes:aBrowser.selectionIndexes];
 }
 
-- (void)          imageBrowser:(IKImageBrowserView *)browser
+- (void)          imageBrowser:(FPImageBrowserView *)browser
     cellWasRightClickedAtIndex:(NSUInteger)index
                      withEvent:(NSEvent *)event
 {
     // No-op
 }
 
+- (BOOL)          imageBrowser:(FPImageBrowserView *)aBrowser
+    shouldForwardKeyboardEvent:(NSEvent *)event
+{
+    if (event.modifierFlags & NSCommandKeyMask)
+    {
+        if (event.keyCode == 0x7E)
+        {
+            // Cmd+Up pressed
+
+            if (self.delegate &&
+                [self.delegate respondsToSelector:@selector(sourceBrowserWantsToGoUpOneDirectory:)])
+            {
+                [self.delegate sourceBrowserWantsToGoUpOneDirectory:self];
+            }
+
+            return NO;
+        }
+        else if (event.keyCode == 0x7D)
+        {
+            // Cmd+Down pressed
+
+            if (aBrowser.selectionIndexes.count > 0)
+            {
+                [self performActionOnSelectionIndexes:aBrowser.selectionIndexes];
+            }
+
+            return NO;
+        }
+    }
+
+    return YES;
+}
+
 #pragma mark - IKImageBrowser data source
 
-- (NSUInteger)numberOfItemsInImageBrowser:(IKImageBrowserView *)browser
+- (NSUInteger)numberOfItemsInImageBrowser:(FPImageBrowserView *)browser
 {
     return self.items.count;
 }
 
-- (id)imageBrowser:(IKImageBrowserView *)browser
+- (id)imageBrowser:(FPImageBrowserView *)browser
        itemAtIndex:(NSUInteger)index
 {
     NSDictionary *item = self.items[index];
@@ -132,6 +156,40 @@
     [self.thumbnailFetchingOperationQueue addOperation:thumbnailFetchingOperation];
 
     return thumb;
+}
+
+#pragma mark - Private Methods
+
+- (void)performActionOnSelectionIndexes:(NSIndexSet *)selectionIndexes
+{
+    NSMutableArray *items = [NSMutableArray array];
+
+    [selectionIndexes enumerateIndexesUsingBlock: ^(NSUInteger idx,
+                                                    BOOL *stop) {
+        NSDictionary *item = self.items[idx];
+
+        [items addObject:item];
+
+        if (items.count > 1 &&
+            [item[@"is_dir"] boolValue])
+        {
+            DLog(@"ERROR: Can't perform action on selections containing either: 1) multiple directories or 2) hybrid selections consisting of directories and files.");
+
+            *stop = YES;
+        }
+    }];
+
+    if (items.count < selectionIndexes.count)
+    {
+        return;
+    }
+
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToPerformActionOnItems:)])
+    {
+        [self.delegate sourceBrowser:self
+         wantsToPerformActionOnItems:[items copy]];
+    }
 }
 
 @end

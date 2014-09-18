@@ -42,6 +42,8 @@
 		4571E1F7199CF1030093E841 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572913719CAE6D900447FAB /* FPImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4572913519CAE6D900447FAB /* FPImagePickerController.h */; };
 		4572913819CAE6D900447FAB /* FPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572913619CAE6D900447FAB /* FPImagePickerController.m */; };
+		4572914819CAFE2900447FAB /* FPImageBrowserView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4572914619CAFE2900447FAB /* FPImageBrowserView.h */; };
+		4572914919CAFE2900447FAB /* FPImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572914719CAFE2900447FAB /* FPImageBrowserView.m */; };
 		45765FD019A4A0C50018E2EC /* FPSourceListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45765FCE19A4A0C50018E2EC /* FPSourceListController.h */; };
 		45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765FCF19A4A0C50018E2EC /* FPSourceListController.m */; };
 		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; };
@@ -331,6 +333,8 @@
 		45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSharedInternalHeaders.h; sourceTree = "<group>"; };
 		4572913519CAE6D900447FAB /* FPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImagePickerController.h; sourceTree = "<group>"; };
 		4572913619CAE6D900447FAB /* FPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImagePickerController.m; sourceTree = "<group>"; };
+		4572914619CAFE2900447FAB /* FPImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImageBrowserView.h; sourceTree = "<group>"; };
+		4572914719CAFE2900447FAB /* FPImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImageBrowserView.m; sourceTree = "<group>"; };
 		45765FCE19A4A0C50018E2EC /* FPSourceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceListController.h; sourceTree = "<group>"; };
 		45765FCF19A4A0C50018E2EC /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceListController.m; sourceTree = "<group>"; };
 		45808B5319B46A7D00ECBDA1 /* FPThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPThumbnail.h; sourceTree = "<group>"; };
@@ -739,6 +743,8 @@
 				45C13B73199CEA93002DE7D3 /* Supporting Files */,
 				4508FCBA19A74D150009CDF0 /* FPNavigationController.h */,
 				4508FCBB19A74D150009CDF0 /* FPNavigationController.m */,
+				4572914619CAFE2900447FAB /* FPImageBrowserView.h */,
+				4572914719CAFE2900447FAB /* FPImageBrowserView.m */,
 			);
 			name = Mac;
 			path = FPPicker/Platforms/Mac;
@@ -989,6 +995,7 @@
 				45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */,
 				45066AAB19A204040069B062 /* FPAuthController.h in Headers */,
 				4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */,
+				4572914819CAFE2900447FAB /* FPImageBrowserView.h in Headers */,
 				45E1A41619A5FC8000287419 /* FPView.h in Headers */,
 				4579CF66199CEB0100E0BCB4 /* FPMultipartUploader.h in Headers */,
 				45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */,
@@ -1460,6 +1467,7 @@
 				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
 				4508FCBD19A74D150009CDF0 /* FPNavigationController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
+				4572914919CAFE2900447FAB /* FPImageBrowserView.m in Sources */,
 				4579CF60199CEB0100E0BCB4 /* FPAPIClient.m in Sources */,
 				45B9888919A4F12300CE7DFC /* FPBorderView.m in Sources */,
 				45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */,

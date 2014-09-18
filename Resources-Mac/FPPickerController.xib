@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.9"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6206.9"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6245"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
@@ -19,7 +19,7 @@
         <window title="Filepicker Dialog" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <rect key="contentRect" x="196" y="240" width="780" height="580"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="780" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -189,7 +189,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="IKImageBrowserView">
+                                                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
                                                                         <rect key="frame" x="0.0" y="-82" width="516" height="420"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="BAy-wr-0sS"/>
@@ -332,6 +332,9 @@ Gw
                                         <segment image="NSGoRightTemplate" width="24" tag="1"/>
                                     </segments>
                                 </segmentedCell>
+                                <connections>
+                                    <action selector="navigate:" target="MaS-US-3o9" id="7ve-KQ-VKX"/>
+                                </connections>
                             </segmentedControl>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWJ-7C-jk6">
                                 <rect key="frame" x="72" y="14" width="55" height="23"/>
@@ -416,12 +419,12 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="81" width="640" height="540"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <view key="contentView" id="hu1-WR-NgY">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="540"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <webView translatesAutoresizingMaskIntoConstraints="NO" id="g2y-dV-G5Y">
+                    <webView maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2y-dV-G5Y">
                         <rect key="frame" x="0.0" y="61" width="640" height="479"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="479" id="GC9-7E-rxP"/>

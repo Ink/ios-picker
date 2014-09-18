@@ -8,19 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import <Quartz/Quartz.h>
+#import "FPImageBrowserView.h"
+
+@class FPSourceBrowserController;
 
 @protocol FPSourceBrowserControllerDelegate <NSObject>
 
 @optional
 
-- (void)sourceBrowserWantsToChangeCurrentPath:(NSString *)newPath;
+- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    wantsToPerformActionOnItems:(NSArray *)items;
+
+- (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController;
 
 @end
 
 @interface FPSourceBrowserController : NSObject
 
 @property (nonatomic, weak) IBOutlet id<FPSourceBrowserControllerDelegate>delegate;
-@property (nonatomic, weak) IBOutlet IKImageBrowserView *thumbnailListView;
+@property (nonatomic, weak) IBOutlet FPImageBrowserView *thumbnailListView;
 @property (nonatomic, strong) NSArray *items;
 
 @end

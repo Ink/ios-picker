@@ -37,6 +37,8 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+#pragma mark - Notifications
+
 - (void)sourcePathDidChange:(NSNotification *)sender
 {
     self.currentPath = sender.object;
@@ -51,27 +53,28 @@
     [self.currentDirectoryPopupButton removeAllItems];
     self.currentDirectoryPopupButton.autoenablesItems = NO;
 
-    NSArray *pathComponents = [self currentPathComponents];
+    NSString *tmpPath = self.currentPath;
 
-    [pathComponents.reverseObjectEnumerator.allObjects enumerateObjectsUsingBlock: ^(id obj,
-                                                                                     NSUInteger idx,
-                                                                                     BOOL *stop) {
+    while (tmpPath.pathComponents.count > 2)
+    {
         NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
 
         icon.size = NSMakeSize(16, 16);
 
         NSMenuItem *menuItem = [NSMenuItem new];
 
-        menuItem.title = [obj stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        menuItem.title = [tmpPath lastPathComponent];
         menuItem.image = icon;
-        menuItem.representedObject = [self fullPathToRelativePath:obj];
+        menuItem.representedObject = tmpPath;
         menuItem.target = self;
         menuItem.action = @selector(currentDirectoryPopupButtonSelectionChanged:);
 
         [self.currentDirectoryPopupButton.menu addItem:menuItem];
-    }];
 
-    if (pathComponents.count > 0)
+        tmpPath = [[tmpPath stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+    }
+
+    if (self.currentDirectoryPopupButton.itemArray.count > 0)
     {
         [self.currentDirectoryPopupButton selectItemAtIndex:0];
     }
@@ -86,35 +89,6 @@
     {
         [self.delegate currentDirectoryPopupButtonSelectionChanged:newPath];
     }
-}
-
-#pragma mark - Private Methods
-
-- (NSArray *)currentPathComponents
-{
-    NSMutableArray *pathComponents = [[self.currentPath componentsSeparatedByString:@"/"] mutableCopy];
-
-    [pathComponents removeObject:@""];
-
-    return [pathComponents copy];
-}
-
-- (NSString *)fullPathToRelativePath:(NSString *)relativePath
-{
-    NSArray *currentPathComponents = [self currentPathComponents];
-    NSString *representedPath = [NSString stringWithFormat:@"/%@/", currentPathComponents[0]];
-
-    if (currentPathComponents.count > 1)
-    {
-        for (NSUInteger i = 1; i <= [currentPathComponents indexOfObject:relativePath]; i++)
-        {
-            NSString *extra = [NSString stringWithFormat:@"%@/", currentPathComponents[i]];
-
-            representedPath = [representedPath stringByAppendingString:extra];
-        }
-    }
-
-    return representedPath;
 }
 
 @end
