@@ -28,7 +28,7 @@ Pod::Spec.new do |s|
 
   s.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'Foundation', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
 
-  s.dependency 'AFNetworking', '~> 2.3.1'
+  s.dependency 'AFNetworking', '~> 2.4.1'
 
   s.requires_arc = true
 
