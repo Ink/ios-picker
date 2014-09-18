@@ -1,3 +1,7 @@
+v 3.2.8 - 09/??/2014
+- FPPickerControllerSource is now returned when using either camera roll and camera sources.
+- FPPickerControllerRemoteURL is now consistently returned as a NSURL with any source.
+
 v 3.2.7 - 09/17/2014
 - Updated AFNetworking dependency to 2.4.1.
 - Fixed another case where FPPickerControllerRemoteURL was missing.
