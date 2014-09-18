@@ -40,6 +40,8 @@
 		45718C0D199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		4571E1F7199CF1030093E841 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4572913719CAE6D900447FAB /* FPImagePickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4572913519CAE6D900447FAB /* FPImagePickerController.h */; };
+		4572913819CAE6D900447FAB /* FPImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4572913619CAE6D900447FAB /* FPImagePickerController.m */; };
 		45765FD019A4A0C50018E2EC /* FPSourceListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45765FCE19A4A0C50018E2EC /* FPSourceListController.h */; };
 		45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45765FCF19A4A0C50018E2EC /* FPSourceListController.m */; };
 		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; };
@@ -327,6 +329,8 @@
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
 		45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSharedInternalHeaders.h; sourceTree = "<group>"; };
+		4572913519CAE6D900447FAB /* FPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImagePickerController.h; sourceTree = "<group>"; };
+		4572913619CAE6D900447FAB /* FPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImagePickerController.m; sourceTree = "<group>"; };
 		45765FCE19A4A0C50018E2EC /* FPSourceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceListController.h; sourceTree = "<group>"; };
 		45765FCF19A4A0C50018E2EC /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceListController.m; sourceTree = "<group>"; };
 		45808B5319B46A7D00ECBDA1 /* FPThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPThumbnail.h; sourceTree = "<group>"; };
@@ -788,6 +792,8 @@
 		45D7356719476F08001EF626 /* Nav Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4572913519CAE6D900447FAB /* FPImagePickerController.h */,
+				4572913619CAE6D900447FAB /* FPImagePickerController.m */,
 				83A0314D15A89E040085E186 /* FPPickerController.h */,
 				83A0314E15A89E040085E186 /* FPPickerController.m */,
 				83A031B915A8F2570085E186 /* FPSaveController.h */,
@@ -1029,6 +1035,7 @@
 				02C136AA1856794000D6940E /* FPProgressTracker.h in Headers */,
 				83A0316115A89E050085E186 /* FPSearchController.h in Headers */,
 				45B71DE119768B68006B5DAF /* FPUploader.h in Headers */,
+				4572913719CAE6D900447FAB /* FPImagePickerController.h in Headers */,
 				45B7606E19758251007C9284 /* FPSession+ConvenienceMethods.h in Headers */,
 				83A0316315A89E050085E186 /* FPSourceController.h in Headers */,
 				83A0316515A89E050085E186 /* FPSourceListController.h in Headers */,
@@ -1500,6 +1507,7 @@
 				83A0316615A89E050085E186 /* FPSourceListController.m in Sources */,
 				83A031A715A8A4AD0085E186 /* FPSource.m in Sources */,
 				4587CB2819A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */,
+				4572913819CAE6D900447FAB /* FPImagePickerController.m in Sources */,
 				83A031BC15A8F2570085E186 /* FPSaveController.m in Sources */,
 				831E0ABF15AA6E460081004F /* FPSaveSourceController.m in Sources */,
 				831E0B4815AAC3F30081004F /* FPThumbCell.m in Sources */,

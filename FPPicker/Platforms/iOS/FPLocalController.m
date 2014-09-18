@@ -657,6 +657,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     mediaInfo.mediaType = (NSString *)kUTTypeVideo;
     mediaInfo.originalAsset = asset;
+    mediaInfo.source = self.sourceType;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                            NSURL *localURL) {

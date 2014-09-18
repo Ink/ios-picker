@@ -15,7 +15,9 @@
 #import "FPSaveController.h"
 #import "FPSearchController.h"
 #import "FPInfoViewController.h"
+#import "FPImagePickerController.h"
 #import "FPSource+SupportedSources.h"
+
 
 @implementation FPSourceListController
 
@@ -134,21 +136,22 @@
 
     if (source.identifier == FPSourceCamera)
     {
-        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+        if ([FPImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
         {
-            UIImagePickerController *imgPicker = [UIImagePickerController new];
+            FPImagePickerController *imgPicker = [FPImagePickerController new];
 
             imgPicker.delegate = self.imageDelegate;
             imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            imgPicker.fpSourcetype = source;
 
             if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
             {
                 FPPickerController *picker = (FPPickerController *)self.fpdelegate;
 
-                //UIImagePickerController Properties
+                //FPImagePickerController Properties
 
                 NSArray *allMediaTypes =
-                    [UIImagePickerController availableMediaTypesForSourceType:imgPicker.sourceType];
+                    [FPImagePickerController availableMediaTypesForSourceType:imgPicker.sourceType];
 
                 NSMutableArray *wantedMediaTypes = [NSMutableArray array];
 
