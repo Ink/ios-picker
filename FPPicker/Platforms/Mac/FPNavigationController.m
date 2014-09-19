@@ -63,7 +63,7 @@
 
         NSMenuItem *menuItem = [NSMenuItem new];
 
-        menuItem.title = [tmpPath lastPathComponent];
+        menuItem.title = tmpPath.lastPathComponent.stringByRemovingPercentEncoding;
         menuItem.image = icon;
         menuItem.representedObject = tmpPath;
         menuItem.target = self;
@@ -71,7 +71,7 @@
 
         [self.currentDirectoryPopupButton.menu addItem:menuItem];
 
-        tmpPath = [[tmpPath stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+        tmpPath = [tmpPath.stringByDeletingLastPathComponent stringByAppendingString:@"/"];
     }
 
     if (self.currentDirectoryPopupButton.itemArray.count > 0)
