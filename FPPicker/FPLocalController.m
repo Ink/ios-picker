@@ -82,6 +82,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [self loadPhotoData];
+    [self setupLayoutConstants];
 
     [super viewWillAppear:animated];
 }
@@ -93,20 +94,13 @@
         self.contentSizeForViewInPopover = fpWindowSize;
     }
 
-    CGRect bounds = [self getViewBounds];
-    self.thumbSize = fpLocalThumbSize;
-    self.numPerRow = (int)CGRectGetWidth(bounds) / self.thumbSize;
-    self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
-
-    if (self.padding < 4)
-    {
-        self.numPerRow -= 1;
-        self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
-    }
+    [self setupLayoutConstants];
 
     NSLog(@"numperro; %d", self.numPerRow);
 
     // Just make one instance empty label
+
+    CGRect bounds = [self getViewBounds];
 
     _emptyLabel  = [[UILabel alloc] initWithFrame:CGRectMake(0,
                                                              CGRectGetMidY(bounds) - 60,
@@ -151,6 +145,13 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self setupLayoutConstants];
+    [self.tableView reloadData];
 }
 
 - (void)setPhotos:(NSArray *)photos
@@ -711,6 +712,21 @@
     }
 
     return bounds;
+}
+
+- (void)setupLayoutConstants
+{
+    CGSize screenSize = [self getViewBounds].size;
+
+    self.thumbSize = fpLocalThumbSize;
+    self.numPerRow = (int)screenSize.width / self.thumbSize;
+    self.padding = (int)((screenSize.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
+
+    if (self.padding < 4)
+    {
+        self.numPerRow -= 1;
+        self.padding = (int)((screenSize.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
+    }
 }
 
 @end
