@@ -72,6 +72,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self setupLayoutConstants];
     [self loadPhotoData];
 
     [super viewWillAppear:animated];
@@ -138,6 +139,13 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self setupLayoutConstants];
+    [self.tableView reloadData];
 }
 
 - (void)setPhotos:(NSArray *)photos
@@ -699,6 +707,21 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
 
     return bounds;
+}
+
+- (void)setupLayoutConstants
+{
+    CGSize screenSize = [self getViewBounds].size;
+
+    self.thumbSize = fpLocalThumbSize;
+    self.numPerRow = (int)screenSize.width / self.thumbSize;
+    self.padding = (int)((screenSize.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
+
+    if (self.padding < 4)
+    {
+        self.numPerRow -= 1;
+        self.padding = (int)((screenSize.width - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
+    }
 }
 
 @end
