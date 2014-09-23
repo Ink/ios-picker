@@ -1,4 +1,8 @@
-v 3.2.8 - 09/??/2014
+v 3.2.8 - 09/23/2014
+- Fixed an UI reflow issue when rotating the device using a local source (FPLocalController).
+- Fixed a bug in FPPickerController that was preventing the delegate from being called in certain conditions.
+- Fixed a bug that was causing the upload button not to be visible in landscape mode when using a version of iOS between 7.1 and 8.0 (both non inclusive.)
+- Improved iPhone support on included iOS demo app.
 - FPPickerControllerSource is now returned when using either camera roll and camera sources.
 - FPPickerControllerRemoteURL is now consistently returned as a NSURL with any source.
 
