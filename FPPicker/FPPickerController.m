@@ -142,8 +142,6 @@
 - (void)    imagePickerController:(FPImagePickerController *)picker
     didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    __block id <FPPickerDelegate>fpdelegate = _fpdelegate;
-
     if (self.hasStatusBar)
     {
         [[UIApplication sharedApplication] setStatusBarHidden:NO];
@@ -183,15 +181,15 @@
     }
     UIGraphicsEndImageContext();
 
-    if ([fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             NSDictionary *mediaInfo = @{
                 @"FPPickerControllerThumbnailImage":thumbImage
             };
 
-            [fpdelegate FPPickerController:self
-                      didPickMediaWithInfo:mediaInfo];
+            [self.fpdelegate FPPickerController:self
+                           didPickMediaWithInfo:mediaInfo];
         });
     }
 
@@ -226,8 +224,8 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [fpdelegate FPPickerController:self
-                     didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
+                    [self.fpdelegate FPPickerController:self
+                          didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
                 }];
             });
         };
@@ -243,8 +241,8 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [fpdelegate FPPickerController:self
-                     didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
+                    [self.fpdelegate FPPickerController:self
+                          didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
                 }];
             });
         };
@@ -289,7 +287,7 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [fpdelegate FPPickerControllerDidCancel:self];
+                    [self.fpdelegate FPPickerControllerDidCancel:self];
                 }];
             });
         }
@@ -315,10 +313,10 @@
 - (void)FPSourceController:(FPSourceController *)picker
       didPickMediaWithInfo:(NSDictionary *)info
 {
-    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
-        [_fpdelegate FPPickerController:self
-                   didPickMediaWithInfo:info];
+        [self.fpdelegate FPPickerController:self
+                       didPickMediaWithInfo:info];
     }
 }
 
@@ -328,10 +326,8 @@
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked something from a source: %@", info);
 
-    [_fpdelegate FPPickerController:self
-      didFinishPickingMediaWithInfo:info];
-
-    _fpdelegate = nil;
+    [self.fpdelegate FPPickerController:self
+          didFinishPickingMediaWithInfo:info];
 }
 
 - (void)                  FPSourceController:(FPSourceController *)picker
@@ -341,13 +337,11 @@
     NSLog(@"Picked multiple files from a source: %@", results);
 
     //It's optional, so check
-    if ([_fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
-        [_fpdelegate FPPickerController:self
+        [self.fpdelegate FPPickerController:self
          didFinishPickingMultipleMediaWithResults:results];
     }
-
-    _fpdelegate = nil;
 }
 
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker
@@ -356,12 +350,10 @@
     NSLog(@"FP Canceled.");
 
     //It's optional, so check
-    if ([_fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+    if ([self.fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
     {
-        [_fpdelegate FPPickerControllerDidCancel:self];
+        [self.fpdelegate FPPickerControllerDidCancel:self];
     }
-
-    _fpdelegate = nil;
 }
 
 #pragma mark UINavigationControllerDelegate Methods
