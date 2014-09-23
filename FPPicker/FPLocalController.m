@@ -81,8 +81,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self loadPhotoData];
     [self setupLayoutConstants];
+    [self loadPhotoData];
 
     [super viewWillAppear:animated];
 }
@@ -93,8 +93,6 @@
     {
         self.contentSizeForViewInPopover = fpWindowSize;
     }
-
-    [self setupLayoutConstants];
 
     NSLog(@"numperro; %d", self.numPerRow);
 
