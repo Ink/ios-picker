@@ -23,7 +23,7 @@
     // consideration, so we need to detect landscape mode and exchange width <-> height.
     // In iOS 8 this is no longer necessary because [UIScreen bounds] is now interface-oriented.
 
-    if (SYSTEM_VERSION_LESS_THAN_OR_EQUAL_TO(@"7.1") &&
+    if (SYSTEM_VERSION_LESS_THAN(@"8.0") &&
         UIInterfaceOrientationIsLandscape(orientation))
     {
         size = CGSizeMake(size.height, size.width);
