@@ -13,12 +13,24 @@
 @interface FPSourceBrowserController ()
 
 @property (nonatomic, strong) NSOperationQueue *thumbnailFetchingOperationQueue;
+@property (nonatomic, strong) NSCache *thumbnailCache;
 
 @end
 
 @implementation FPSourceBrowserController
 
 #pragma mark - Accessors
+
+- (NSCache *)thumbnailCache
+{
+    if (!_thumbnailCache)
+    {
+        _thumbnailCache = [NSCache new];
+        _thumbnailCache.countLimit = 4096;
+    }
+
+    return _thumbnailCache;
+}
 
 - (NSOperationQueue *)thumbnailFetchingOperationQueue
 {
@@ -138,22 +150,45 @@
        itemAtIndex:(NSUInteger)index
 {
     NSDictionary *item = self.items[index];
-    FPThumbnail *thumb = [FPThumbnail new];
+    NSString *itemUID = item[@"link_path"];
+    FPThumbnail *thumb = [self.thumbnailCache objectForKey:itemUID];
 
-    thumb.UID = item[@"link_path"];
-    thumb.title = [item[@"display_name"] length] > 0 ? item[@"display_name"] : item[@"filename"];
+    if (!thumb)
+    {
+        thumb = [FPThumbnail new];
 
-    NSBlockOperation *thumbnailFetchingOperation = [NSBlockOperation blockOperationWithBlock: ^{
+        thumb.UID = itemUID;
+        thumb.title = [item[@"display_name"] length] > 0 ? item[@"display_name"] : item[@"filename"];
+
         NSURL *iconURL = [NSURL URLWithString:item[@"thumbnail"]];
+        NSURLRequest *iconURLRequest = [NSURLRequest requestWithURL:iconURL];
 
-        thumb.icon = [[NSImage alloc] initWithContentsOfURL:iconURL];
+        AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:iconURLRequest];
 
-        NSRect cellFrame = [browser itemFrameAtIndex:index];
+        AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                                 id responseObject) {
+            thumb.icon = responseObject;
 
-        [browser setNeedsDisplayInRect:cellFrame];
-    }];
+            [self.thumbnailCache setObject:thumb
+                                    forKey:itemUID];
 
-    [self.thumbnailFetchingOperationQueue addOperation:thumbnailFetchingOperation];
+            NSRect cellFrame = [browser itemFrameAtIndex:index];
+
+            [browser setNeedsDisplayInRect:cellFrame];
+        };
+
+        AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                                 NSError *error) {
+            DLog(@"Thumbnail image %@ load error: %@", itemUID, error);
+        };
+
+        [requestOperation setCompletionBlockWithSuccess:successOperationBlock
+                                                failure:failureOperationBlock];
+
+        requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
+
+        [requestOperation start];
+    }
 
     return thumb;
 }
