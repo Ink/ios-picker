@@ -7,25 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FPBaseSourceController.h"
 
-@class FPSource;
-@class FPAuthController;
-@class FPSourceBrowserController;
+@class FPRemoteSourceController;
 
-@interface FPRemoteSourceController : NSViewController
+@protocol FPRemoteSourceControllerDelegate <FPBaseSourceControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet FPSourceBrowserController *sourceBrowserController;
-@property (nonatomic, weak) IBOutlet FPAuthController *authController;
-@property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
-@property (nonatomic, strong) IBOutlet NSButton *loginButton;
-@property (nonatomic, strong) IBOutlet NSButton *logoutButton;
-@property (nonatomic, strong) IBOutlet NSTabView *tabView;
+- (void)remoteSourceRequiresAuthentication:(FPRemoteSourceController *)sender;
 
-@property (nonatomic, strong) FPSource *source;
-@property (nonatomic, strong) NSString *path;
-@property (nonatomic, strong) NSString *viewType;
-@property (nonatomic, strong) NSString *nextPage;
+@end
 
-- (void)fpLoadContentAtPath;
+
+@interface FPRemoteSourceController : FPBaseSourceController
+
+@property (nonatomic, weak) id<FPRemoteSourceControllerDelegate>delegate;
 
 @end

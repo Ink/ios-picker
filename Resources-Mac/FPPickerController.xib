@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6245"/>
@@ -8,9 +8,10 @@
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
             <connections>
                 <outlet property="currentSelectionTextField" destination="k3g-ic-oSN" id="f7d-aJ-O4y"/>
-                <outlet property="navigationController" destination="MaS-US-3o9" id="k0z-vC-mmM"/>
-                <outlet property="remoteSourceController" destination="x1c-Ek-q6A" id="8o8-Xj-zGb"/>
-                <outlet property="sourceListController" destination="hgi-NG-CYI" id="pJU-n6-tNg"/>
+                <outlet property="displayStyleSegmentedControl" destination="dWJ-7C-jk6" id="XTV-Tj-v7t"/>
+                <outlet property="fpLogo" destination="hPF-gT-PIz" id="nvk-J8-NRd"/>
+                <outlet property="sourceListController" destination="hgi-NG-CYI" id="ubE-TE-9va"/>
+                <outlet property="sourceViewController" destination="fX3-UZ-gXh" id="1zD-VU-RPv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="uy0-BV-pMy"/>
             </connections>
         </customObject>
@@ -146,7 +147,7 @@
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <connections>
-                                                                <action selector="login:" target="x1c-Ek-q6A" id="Yhr-De-Co4"/>
+                                                                <action selector="login:" target="fX3-UZ-gXh" id="Ndf-1c-9ma"/>
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="el5-a2-xHQ">
@@ -215,19 +216,33 @@
                                                                 <font key="font" metaFont="system"/>
                                                             </buttonCell>
                                                             <connections>
-                                                                <action selector="logout:" target="x1c-Ek-q6A" id="EG9-5d-Yrg"/>
+                                                                <action selector="logout:" target="fX3-UZ-gXh" id="Ouw-ui-clt"/>
                                                             </connections>
                                                         </button>
                                                         <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
                                                             <rect key="frame" x="262" y="220" width="32" height="32"/>
                                                         </progressIndicator>
+                                                        <searchField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uqi-M4-PgZ">
+                                                            <rect key="frame" x="20" y="430" width="436" height="22"/>
+                                                            <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Enter Your Search Here" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="LxP-8k-6cA">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </searchFieldCell>
+                                                            <connections>
+                                                                <action selector="search:" target="fX3-UZ-gXh" id="5CC-x8-P9V"/>
+                                                            </connections>
+                                                        </searchField>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="dLe-0S-vnq" firstAttribute="centerX" secondItem="StE-he-IMG" secondAttribute="centerX" id="Ax7-6h-2JH"/>
+                                                        <constraint firstItem="Maz-ps-kcL" firstAttribute="leading" secondItem="uqi-M4-PgZ" secondAttribute="trailing" constant="8" symbolic="YES" id="Dzh-Vt-dPe"/>
                                                         <constraint firstAttribute="bottom" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="431" id="S0m-8H-Z73"/>
                                                         <constraint firstAttribute="bottom" secondItem="dLe-0S-vnq" secondAttribute="bottom" constant="2" id="TxH-2l-u5Z"/>
                                                         <constraint firstItem="Maz-ps-kcL" firstAttribute="top" secondItem="e42-Ic-Ais" secondAttribute="top" constant="20" symbolic="YES" id="fa1-KD-oSb"/>
+                                                        <constraint firstItem="uqi-M4-PgZ" firstAttribute="leading" secondItem="e42-Ic-Ais" secondAttribute="leading" constant="20" symbolic="YES" id="hUv-gG-7bn"/>
                                                         <constraint firstItem="dLe-0S-vnq" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="bottom" constant="9" id="nm1-ip-iIt"/>
+                                                        <constraint firstItem="uqi-M4-PgZ" firstAttribute="top" secondItem="Maz-ps-kcL" secondAttribute="top" id="p0e-U8-YDw"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerX" secondItem="e42-Ic-Ais" secondAttribute="centerX" id="qbQ-u0-m8r"/>
                                                         <constraint firstItem="StE-he-IMG" firstAttribute="centerY" secondItem="e42-Ic-Ais" secondAttribute="centerY" id="w7E-Jz-hzp"/>
                                                         <constraint firstAttribute="trailing" secondItem="Maz-ps-kcL" secondAttribute="trailing" constant="20" symbolic="YES" id="zxi-71-EzK"/>
@@ -341,10 +356,10 @@ Gw
                                 <segmentedCell key="cell" borderStyle="border" alignment="left" style="capsule" trackingMode="selectOne" id="cVW-5F-prr">
                                     <font key="font" metaFont="system"/>
                                     <segments>
-                                        <segment image="NSIconViewTemplate" width="24">
+                                        <segment image="NSIconViewTemplate" width="24" selected="YES">
                                             <nil key="label"/>
                                         </segment>
-                                        <segment image="NSListViewTemplate" width="24" selected="YES" tag="1">
+                                        <segment image="NSListViewTemplate" width="24" tag="1">
                                             <nil key="label"/>
                                         </segment>
                                     </segments>
@@ -468,23 +483,21 @@ Gw
         </window>
         <customObject id="uiA-OB-dvu" customClass="FPSourceBrowserController">
             <connections>
-                <outlet property="delegate" destination="x1c-Ek-q6A" id="Jwz-kV-gQD"/>
+                <outlet property="delegate" destination="fX3-UZ-gXh" id="zYs-XR-gTW"/>
                 <outlet property="thumbnailListView" destination="DIS-ff-gbj" id="mUv-NW-nEn"/>
             </connections>
         </customObject>
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">
             <connections>
                 <outlet property="currentDirectoryPopupButton" destination="CfZ-G8-wbc" id="7eG-v6-OP2"/>
-                <outlet property="delegate" destination="-2" id="vlb-wG-NVc"/>
-                <outlet property="displayStyleSegmentedControl" destination="dWJ-7C-jk6" id="kXd-4S-moa"/>
-                <outlet property="fpLogo" destination="hPF-gT-PIz" id="chz-db-kWk"/>
+                <outlet property="delegate" destination="fX3-UZ-gXh" id="Uw2-ti-vf1"/>
                 <outlet property="navigationSegmentedControl" destination="cN8-SS-PUP" id="Pd8-10-Sjj"/>
                 <outlet property="view" destination="ZFQ-Ut-9s9" id="dDV-Tn-hoc"/>
             </connections>
         </viewController>
         <customObject id="hgi-NG-CYI" customClass="FPSourceListController">
             <connections>
-                <outlet property="delegate" destination="-2" id="UQv-Gc-wNZ"/>
+                <outlet property="delegate" destination="fX3-UZ-gXh" id="xgX-RH-tsz"/>
                 <outlet property="outlineView" destination="WrB-h3-GUR" id="LIb-7w-2pq"/>
             </connections>
         </customObject>
@@ -495,15 +508,17 @@ Gw
                 <outlet property="webView" destination="g2y-dV-G5Y" id="JMS-nk-Rcn"/>
             </connections>
         </viewController>
-        <viewController id="x1c-Ek-q6A" customClass="FPRemoteSourceController">
+        <viewController id="fX3-UZ-gXh" customClass="FPSourceViewController">
             <connections>
-                <outlet property="authController" destination="n1b-SP-myf" id="d1e-Qe-21U"/>
-                <outlet property="loginButton" destination="V51-Fd-1Yv" id="pur-oN-Zfr"/>
-                <outlet property="logoutButton" destination="Maz-ps-kcL" id="LEM-fK-vtq"/>
-                <outlet property="progressIndicator" destination="StE-he-IMG" id="j08-8a-csM"/>
-                <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="Pyb-s7-QVf"/>
-                <outlet property="tabView" destination="TY8-oi-GLc" id="cCX-YL-INp"/>
-                <outlet property="view" destination="juK-Db-zcZ" id="u29-2g-Im5"/>
+                <outlet property="authController" destination="n1b-SP-myf" id="rhY-Vy-oBz"/>
+                <outlet property="loginButton" destination="V51-Fd-1Yv" id="7Zj-bS-LEE"/>
+                <outlet property="logoutButton" destination="Maz-ps-kcL" id="op2-5N-iKS"/>
+                <outlet property="navigationController" destination="MaS-US-3o9" id="s0e-KI-wSF"/>
+                <outlet property="progressIndicator" destination="StE-he-IMG" id="vFf-Ln-Jdf"/>
+                <outlet property="searchField" destination="uqi-M4-PgZ" id="MDv-JF-aSw"/>
+                <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
+                <outlet property="tabView" destination="TY8-oi-GLc" id="CrP-35-6f1"/>
+                <outlet property="view" destination="juK-Db-zcZ" id="9dT-G1-9pG"/>
             </connections>
         </viewController>
     </objects>

@@ -161,6 +161,12 @@
 		45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
 		45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A07194F3388008C633A /* FPUtilsTests.m */; };
 		45C14A0C194F35DC008C633A /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317415A8A2A40085E186 /* FPPicker.bundle */; };
+		45C7179619D4182400727129 /* FPBaseSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C7179419D4182400727129 /* FPBaseSourceController.h */; };
+		45C7179719D4182400727129 /* FPBaseSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7179519D4182400727129 /* FPBaseSourceController.m */; };
+		45C7179A19D418C500727129 /* FPSourceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C7179819D418C500727129 /* FPSourceViewController.h */; };
+		45C7179B19D418C500727129 /* FPSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7179919D418C500727129 /* FPSourceViewController.m */; };
+		45C7179E19D44AF400727129 /* FPImageSearchSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C7179C19D44AF400727129 /* FPImageSearchSourceController.h */; };
+		45C7179F19D44AF400727129 /* FPImageSearchSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C7179D19D44AF400727129 /* FPImageSearchSourceController.m */; };
 		45CD26D8199CB64C0048B483 /* FPMediaInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD26D6199CB64C0048B483 /* FPMediaInfo.h */; };
 		45CD26D9199CB64C0048B483 /* FPMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26D7199CB64C0048B483 /* FPMediaInfo.m */; };
 		45D0396919A20A7700983134 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D0396819A20A7700983134 /* WebKit.framework */; };
@@ -257,8 +263,8 @@
 		83A0316015A89E050085E186 /* FPPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314E15A89E040085E186 /* FPPickerController.m */; };
 		83A0316115A89E050085E186 /* FPSearchController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314F15A89E040085E186 /* FPSearchController.h */; settings = {ATTRIBUTES = (); }; };
 		83A0316215A89E050085E186 /* FPSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315015A89E040085E186 /* FPSearchController.m */; };
-		83A0316315A89E050085E186 /* FPSourceController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0315115A89E040085E186 /* FPSourceController.h */; settings = {ATTRIBUTES = (); }; };
-		83A0316415A89E050085E186 /* FPSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315215A89E040085E186 /* FPSourceController.m */; };
+		83A0316315A89E050085E186 /* FPSourceViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0315115A89E040085E186 /* FPSourceViewController.h */; settings = {ATTRIBUTES = (); }; };
+		83A0316415A89E050085E186 /* FPSourceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315215A89E040085E186 /* FPSourceViewController.m */; };
 		83A0316515A89E050085E186 /* FPSourceListController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0315315A89E050085E186 /* FPSourceListController.h */; settings = {ATTRIBUTES = (); }; };
 		83A0316615A89E050085E186 /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315415A89E050085E186 /* FPSourceListController.m */; };
 		83A0317C15A8A2A40085E186 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83A0317A15A8A2A40085E186 /* InfoPlist.strings */; };
@@ -429,6 +435,12 @@
 		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
 		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
 		45C14A07194F3388008C633A /* FPUtilsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtilsTests.m; sourceTree = "<group>"; };
+		45C7179419D4182400727129 /* FPBaseSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPBaseSourceController.h; sourceTree = "<group>"; };
+		45C7179519D4182400727129 /* FPBaseSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPBaseSourceController.m; sourceTree = "<group>"; };
+		45C7179819D418C500727129 /* FPSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceViewController.h; sourceTree = "<group>"; };
+		45C7179919D418C500727129 /* FPSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceViewController.m; sourceTree = "<group>"; };
+		45C7179C19D44AF400727129 /* FPImageSearchSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImageSearchSourceController.h; sourceTree = "<group>"; };
+		45C7179D19D44AF400727129 /* FPImageSearchSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImageSearchSourceController.m; sourceTree = "<group>"; };
 		45CD26D6199CB64C0048B483 /* FPMediaInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMediaInfo.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		45CD26D7199CB64C0048B483 /* FPMediaInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMediaInfo.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		45CD2718199CCB9A0048B483 /* FPTypedefs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPTypedefs.h; sourceTree = "<group>"; };
@@ -480,8 +492,8 @@
 		83A0314E15A89E040085E186 /* FPPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPickerController.m; sourceTree = "<group>"; };
 		83A0314F15A89E040085E186 /* FPSearchController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSearchController.h; sourceTree = "<group>"; };
 		83A0315015A89E040085E186 /* FPSearchController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSearchController.m; sourceTree = "<group>"; };
-		83A0315115A89E040085E186 /* FPSourceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceController.h; sourceTree = "<group>"; };
-		83A0315215A89E040085E186 /* FPSourceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPSourceController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		83A0315115A89E040085E186 /* FPSourceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceViewController.h; sourceTree = "<group>"; };
+		83A0315215A89E040085E186 /* FPSourceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPSourceViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0315315A89E050085E186 /* FPSourceListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceListController.h; sourceTree = "<group>"; };
 		83A0315415A89E050085E186 /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPSourceListController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		83A0317415A8A2A40085E186 /* FPPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FPPicker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -745,6 +757,12 @@
 				4508FCBB19A74D150009CDF0 /* FPNavigationController.m */,
 				4572914619CAFE2900447FAB /* FPImageBrowserView.h */,
 				4572914719CAFE2900447FAB /* FPImageBrowserView.m */,
+				45C7179419D4182400727129 /* FPBaseSourceController.h */,
+				45C7179519D4182400727129 /* FPBaseSourceController.m */,
+				45C7179819D418C500727129 /* FPSourceViewController.h */,
+				45C7179919D418C500727129 /* FPSourceViewController.m */,
+				45C7179C19D44AF400727129 /* FPImageSearchSourceController.h */,
+				45C7179D19D44AF400727129 /* FPImageSearchSourceController.m */,
 			);
 			name = Mac;
 			path = FPPicker/Platforms/Mac;
@@ -778,8 +796,8 @@
 				83A0314B15A89E040085E186 /* FPLocalController.m */,
 				832739F1171F384E000A4A23 /* FPLocalAlbumController.h */,
 				832739F2171F384F000A4A23 /* FPLocalAlbumController.m */,
-				83A0315115A89E040085E186 /* FPSourceController.h */,
-				83A0315215A89E040085E186 /* FPSourceController.m */,
+				83A0315115A89E040085E186 /* FPSourceViewController.h */,
+				83A0315215A89E040085E186 /* FPSourceViewController.m */,
 				831E0ABC15AA6E460081004F /* FPSaveSourceController.h */,
 				831E0ABD15AA6E460081004F /* FPSaveSourceController.m */,
 				83A0314F15A89E040085E186 /* FPSearchController.h */,
@@ -997,6 +1015,7 @@
 				4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */,
 				4572914819CAFE2900447FAB /* FPImageBrowserView.h in Headers */,
 				45E1A41619A5FC8000287419 /* FPView.h in Headers */,
+				45C7179619D4182400727129 /* FPBaseSourceController.h in Headers */,
 				4579CF66199CEB0100E0BCB4 /* FPMultipartUploader.h in Headers */,
 				45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */,
 				4579CF5F199CEB0100E0BCB4 /* FPAPIClient.h in Headers */,
@@ -1013,9 +1032,11 @@
 				4579CF65199CEB0100E0BCB4 /* FPMacros.h in Headers */,
 				45808B5919B4726D00ECBDA1 /* FPSourceBrowserController.h in Headers */,
 				45808B5519B46A7D00ECBDA1 /* FPThumbnail.h in Headers */,
+				45C7179A19D418C500727129 /* FPSourceViewController.h in Headers */,
 				4579CF6F199CEB0100E0BCB4 /* FPTypedefs.h in Headers */,
 				4579CF68199CEB0100E0BCB4 /* FPPrivateConfig.h in Headers */,
 				45C13B98199CEA93002DE7D3 /* FPInternalHeaders.h in Headers */,
+				45C7179E19D44AF400727129 /* FPImageSearchSourceController.h in Headers */,
 				4579CF5A199CEAFC00E0BCB4 /* NSData+FPHexString.h in Headers */,
 				4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */,
 			);
@@ -1044,7 +1065,7 @@
 				45B71DE119768B68006B5DAF /* FPUploader.h in Headers */,
 				4572913719CAE6D900447FAB /* FPImagePickerController.h in Headers */,
 				45B7606E19758251007C9284 /* FPSession+ConvenienceMethods.h in Headers */,
-				83A0316315A89E050085E186 /* FPSourceController.h in Headers */,
+				83A0316315A89E050085E186 /* FPSourceViewController.h in Headers */,
 				83A0316515A89E050085E186 /* FPSourceListController.h in Headers */,
 				83A031A615A8A4AD0085E186 /* FPSource.h in Headers */,
 				83A031BB15A8F2570085E186 /* FPSaveController.h in Headers */,
@@ -1476,6 +1497,7 @@
 				4579CF67199CEB0100E0BCB4 /* FPMultipartUploader.m in Sources */,
 				45E1A41719A5FC8000287419 /* FPView.m in Sources */,
 				4579CF5D199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.m in Sources */,
+				45C7179F19D44AF400727129 /* FPImageSearchSourceController.m in Sources */,
 				4579CF6C199CEB0100E0BCB4 /* FPUploader.m in Sources */,
 				4579CF57199CEAF200E0BCB4 /* FPSession.m in Sources */,
 				4587CB2919A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */,
@@ -1485,6 +1507,8 @@
 				45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */,
 				45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
 				4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */,
+				45C7179719D4182400727129 /* FPBaseSourceController.m in Sources */,
+				45C7179B19D418C500727129 /* FPSourceViewController.m in Sources */,
 				4579CF6E199CEB0100E0BCB4 /* FPUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1510,7 +1534,7 @@
 				83A0315D15A89E050085E186 /* FPLocalController.m in Sources */,
 				83A0316015A89E050085E186 /* FPPickerController.m in Sources */,
 				83A0316215A89E050085E186 /* FPSearchController.m in Sources */,
-				83A0316415A89E050085E186 /* FPSourceController.m in Sources */,
+				83A0316415A89E050085E186 /* FPSourceViewController.m in Sources */,
 				0266B3A4184EB1A800A91862 /* FPTableWithUploadButtonViewController.m in Sources */,
 				83A0316615A89E050085E186 /* FPSourceListController.m in Sources */,
 				83A031A715A8A4AD0085E186 /* FPSource.m in Sources */,

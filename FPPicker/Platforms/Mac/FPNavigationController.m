@@ -13,10 +13,8 @@
 @interface FPNavigationController ()
 
 @property (nonatomic, strong) NSString *currentPath;
-@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *currentDirectoryPopupButton;
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *navigationSegmentedControl;
-@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
 
 @end
 
@@ -24,7 +22,9 @@
 
 - (void)awakeFromNib
 {
-    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
+    [super awakeFromNib];
+
+    self.shouldEnableControls = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sourcePathDidChange:)
@@ -35,6 +35,16 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Accessors
+
+- (void)setShouldEnableControls:(BOOL)shouldEnableControls
+{
+    _shouldEnableControls = shouldEnableControls;
+
+    [self.currentDirectoryPopupButton setEnabled:shouldEnableControls];
+    [self.navigationSegmentedControl setEnabled:shouldEnableControls];
 }
 
 #pragma mark - Notifications

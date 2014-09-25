@@ -10,15 +10,15 @@
 #import "FPInternalHeaders.h"
 #import "FPRemoteSourceController.h"
 #import "FPSourceListController.h"
-#import "FPNavigationController.h"
+#import "FPSourceViewController.h"
 
-@interface FPPickerController () <FPSourceListControllerDelegate,
-                                  NSSplitViewDelegate,
+@interface FPPickerController () <NSSplitViewDelegate,
                                   NSWindowDelegate>
 
-@property (nonatomic, weak) IBOutlet FPRemoteSourceController *remoteSourceController;
+@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
+@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
+@property (nonatomic, weak) IBOutlet FPSourceViewController *sourceViewController;
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
-@property (nonatomic, weak) IBOutlet FPNavigationController *navigationController;
 
 @property (nonatomic, assign) NSModalSession modalSession;
 
@@ -27,6 +27,13 @@
 @implementation FPPickerController
 
 #pragma mark - Public Methods
+
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+
+    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
+}
 
 - (instancetype)init
 {
@@ -93,25 +100,6 @@
 - (IBAction)close:(id)sender
 {
     [self.window close];
-}
-
-#pragma mark - FPSourceListControllerDelegate Methods
-
-- (void)sourceListController:(FPSourceListController *)sourceListController
-             didSelectSource:(FPSource *)source
-{
-    self.remoteSourceController.source = source;
-
-    [self.remoteSourceController fpLoadContentAtPath];
-}
-
-#pragma mark - FPNavigationControllerDelegate Methods
-
-- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath
-{
-    self.remoteSourceController.path = newPath;
-
-    [self.remoteSourceController fpLoadContentAtPath];
 }
 
 #pragma mark - NSWindowDelegate Methods
