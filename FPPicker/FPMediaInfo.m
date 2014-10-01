@@ -34,6 +34,16 @@
         mediaInfo[@"FPPickerControllerOriginalImage"] = self.originalImage;
     }
 
+    if (self.thumbnailImage)
+    {
+        mediaInfo[@"FPPickerControllerThumbnailImage"] = self.thumbnailImage;
+    }
+
+    if (self.filesize)
+    {
+        mediaInfo[@"FPPickerControllerFilesize"] = self.filesize;
+    }
+
     if (self.mediaType)
     {
         mediaInfo[@"FPPickerControllerMediaType"] = self.mediaType;
