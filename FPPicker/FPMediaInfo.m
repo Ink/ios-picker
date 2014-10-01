@@ -12,7 +12,7 @@
 
 - (NSDictionary *)dictionary
 {
-    NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionaryWithCapacity:6];
+    NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionary];
 
     if (self.filename)
     {
