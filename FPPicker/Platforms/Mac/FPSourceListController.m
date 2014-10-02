@@ -44,7 +44,6 @@ const NSString *FPSourceGroupRemote = @"Remote";
     if (!_topLevelItems)
     {
         _topLevelItems = @[
-            FPSourceGroupLocal,
             FPSourceGroupRemote
                          ];
     }
@@ -58,7 +57,6 @@ const NSString *FPSourceGroupRemote = @"Remote";
     {
         _childrenItems = [NSMutableDictionary new];
 
-        _childrenItems[FPSourceGroupLocal] = [FPSource localDesktopSources];
         _childrenItems[FPSourceGroupRemote] = [FPSource remoteSources];
     }
 

@@ -246,15 +246,11 @@ typedef enum : NSUInteger
 
 - (IBAction)search:(id)sender
 {
-    DLog(@"sender = %@", sender);
-
     if ([self.sourceController isKindOfClass:[FPImageSearchSourceController class]])
     {
         FPImageSearchSourceController *imageSearchSourceController = (FPImageSearchSourceController *)self.sourceController;
 
         imageSearchSourceController.searchString = [sender stringValue];
-
-        DLog(@"imageSearchSourceController.searchString = %@", imageSearchSourceController.searchString);
 
         [self.sourceController fpLoadContentAtPath:YES];
     }
