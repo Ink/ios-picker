@@ -1,6 +1,6 @@
 v 3.2.9 - ??/??/2014
 - Added AFNetworkingOperationFailingURLResponseDataErrorKey symbol renaming to avoid conflicts with AFNetworking 2.4.1.
-- Added https://login.yahoo.com/ to allowedUrlPrefix.plist
+- Added https://login.yahoo.com/ and https://edit.yahoo.com/ to allowedUrlPrefix.plist
 
 v 3.2.8 - 09/23/2014
 - Fixed an UI reflow issue when rotating the device using a local source (FPLocalController).
