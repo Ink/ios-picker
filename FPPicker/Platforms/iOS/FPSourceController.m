@@ -1175,15 +1175,20 @@ static const CGFloat ROW_HEIGHT = 44.0;
     NSLog(@"Selected Contents: %@", obj);
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionary];
+        FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+        mediaInfo.filename = obj[@"filename"];
+        mediaInfo.mediaType = [FPUtils utiForMimetype:obj[@"mimetype"]];
+        mediaInfo.filesize = obj[@"bytes"];
+        mediaInfo.source = self.sourceType;
 
         if (thumbnail)
         {
-            mediaInfo[@"FPPickerControllerThumbnailImage"] = thumbnail;
+            mediaInfo.thumbnailImage = thumbnail;
         }
 
         [self.fpdelegate FPSourceController:self
-                       didPickMediaWithInfo:mediaInfo];
+                       didPickMediaWithInfo:[mediaInfo dictionary]];
 
         self.view.userInteractionEnabled = NO;
     });
