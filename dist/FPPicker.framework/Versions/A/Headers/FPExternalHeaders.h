@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^FPVideoUploadPreprocessorBlock)(NSURL *localURL);
+typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimetype);
+
 @class FPPickerController;
 @class FPSaveController;
 
