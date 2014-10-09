@@ -619,11 +619,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
     hud.mode = FPMBProgressHUDModeDeterminate;
 
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:self.selectedObjects.count];
-
-    // TODO: What should we do on failures? Right now we just press forward, but
-    // You could imagine wanting to fail fast
-
-    NSInteger __block totalCount = self.selectedObjects.count;
+    NSInteger totalCount = self.selectedObjects.count;
+    NSInteger __block amtProcessed = 0;
 
     if (totalCount == 1)
     {
@@ -645,41 +642,39 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSInteger index = [self.contents indexOfObject:obj];
             UIImage *thumbnail = self.selectedObjectThumbnails[@(index)];
 
+            void (^markProgress)() = ^void () {
+                amtProcessed++;
+
+                if (amtProcessed >= totalCount)
+                {
+                    hud.labelText = @"Finished uploading";
+
+                    [self finishMultipleUpload:results];
+                }
+                else
+                {
+                    hud.labelText = [NSString stringWithFormat:@"Downloading %lu of %ld files", (long)amtProcessed + 1, (long)totalCount];
+                }
+
+                hud.progress = [progressTracker setProgress:1.f
+                                                     forKey:obj];
+            };
+
             FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
-                @synchronized(results)
-                {
-                    [results addObject:data];
-
-                    // Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
-
-                    if (results.count >= totalCount)
-                    {
-                        hud.labelText = @"Finished uploading";
-
-                        [self finishMultipleUpload:results];
-                    }
-                    else
-                    {
-                        hud.labelText = [NSString stringWithFormat:@"Downloading %lu of %ld files", (long)results.count + 1, (long)totalCount];
-                    }
-                }
-
-                @synchronized(progressTracker)
-                {
-                    hud.progress = [progressTracker setProgress:1.f
-                                                         forKey:obj];
-                }
+                [results addObject:data];
+                markProgress();
             };
 
             FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-                NSLog(@"FAIL %@", error);
+                NSForceLog(@"FAIL %@", error);
 
-                [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
-                                           animated:YES];
-
-                if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+                if (error.code == kCFURLErrorNotConnectedToInternet ||
+                    error.code == kCFURLErrorRedirectToNonExistentLocation ||
                     error.code == kCFURLErrorUnsupportedURL)
                 {
+                    [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
+                                               animated:YES];
+
                     [self.navigationController popViewControllerAnimated:YES];
 
                     UIAlertView *message;
@@ -692,16 +687,15 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
                     [message show];
                 }
-
-                [self.fpdelegate FPSourceControllerDidCancel:self];
+                else
+                {
+                    markProgress();
+                }
             };
 
             FPFetchObjectProgressBlock progressBlock = ^(float progress) {
-                @synchronized(progressTracker)
-                {
-                    hud.progress = [progressTracker setProgress:progress
-                                                         forKey:obj];
-                }
+                hud.progress = [progressTracker setProgress:progress
+                                                     forKey:obj];
             };
 
             [self fetchObject:obj
@@ -1130,9 +1124,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
         };
 
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-            NSLog(@"FAIL %@", error);
+            NSForceLog(@"FAIL %@", error);
 
-            if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
+            if (error.code == kCFURLErrorNotConnectedToInternet ||
+                error.code == kCFURLErrorRedirectToNonExistentLocation ||
                 error.code == kCFURLErrorUnsupportedURL)
             {
                 [self.navigationController popViewControllerAnimated:YES];
@@ -1196,21 +1191,37 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSLog(@"Selected Contents: %@", obj);
 
+    FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+    mediaInfo.filename = obj[@"filename"];
+    mediaInfo.mediaType = [FPUtils utiForMimetype:obj[@"mimetype"]];
+    mediaInfo.filesize = obj[@"bytes"];
+    mediaInfo.source = self.sourceType;
+
+    if (thumbnail)
+    {
+        mediaInfo.thumbnailImage = thumbnail;
+    }
+
+    NSDictionary *mediaInfoDict = [mediaInfo dictionary];
+
+    if (![self.fpdelegate FPSourceController:self
+                     shouldPickMediaWithInfo:mediaInfoDict])
+    {
+        NSDictionary *failureErrorUserInfo = @{
+            NSLocalizedDescriptionKey:@"Media can not be picked"
+        };
+
+        failure([NSError errorWithDomain:@"iOS-picker"
+                                    code:200
+                                userInfo:failureErrorUserInfo]);
+
+        return;
+    }
+
     dispatch_async(dispatch_get_main_queue(), ^{
-        FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-        mediaInfo.filename = obj[@"filename"];
-        mediaInfo.mediaType = [FPUtils utiForMimetype:obj[@"mimetype"]];
-        mediaInfo.filesize = obj[@"bytes"];
-        mediaInfo.source = self.sourceType;
-
-        if (thumbnail)
-        {
-            mediaInfo.thumbnailImage = thumbnail;
-        }
-
         [self.fpdelegate FPSourceController:self
-                       didPickMediaWithInfo:[mediaInfo dictionary]];
+                       didPickMediaWithInfo:mediaInfoDict];
 
         self.view.userInteractionEnabled = NO;
     });
