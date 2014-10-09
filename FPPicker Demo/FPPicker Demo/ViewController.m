@@ -219,23 +219,37 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    if (info[@"FPPickerControllerOriginalImage"])
+    if (info)
     {
-        self.imageView.image = info[@"FPPickerControllerOriginalImage"];
-    }
+        if (info[@"FPPickerControllerOriginalImage"])
+        {
+            self.imageView.image = info[@"FPPickerControllerOriginalImage"];
+        }
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        {
+            [self.myPopoverController dismissPopoverAnimated:YES];
+        }
+
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
+    }
+    else
     {
-        [self.myPopoverController dismissPopoverAnimated:YES];
+        NSLog(@"Nothing was picked.");
     }
-
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
 }
 
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     NSLog(@"FILES CHOSEN: %@", results);
+
+    if (results.count == 0)
+    {
+        NSLog(@"Nothing was picked.");
+
+        return;
+    }
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
     {

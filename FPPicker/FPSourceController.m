@@ -1126,28 +1126,29 @@ static const CGFloat ROW_HEIGHT = 44.0;
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
             NSForceLog(@"FAIL %@", error);
 
-            if (error.code == kCFURLErrorNotConnectedToInternet ||
-                error.code == kCFURLErrorRedirectToNonExistentLocation ||
-                error.code == kCFURLErrorUnsupportedURL)
-            {
-                [self.navigationController popViewControllerAnimated:YES];
-
-                UIAlertView *message;
-
-                message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                     message:@"You aren't connected to the internet so we can't get your files."
-                                                    delegate:nil
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-
-                [message show];
-            }
-
             dispatch_async(dispatch_get_main_queue(), ^{
                 [FPMBProgressHUD hideAllHUDsForView:self.navigationController.view
                                            animated:YES];
 
-                [self.fpdelegate FPSourceControllerDidCancel:self];
+                if (error.code == kCFURLErrorNotConnectedToInternet ||
+                    error.code == kCFURLErrorRedirectToNonExistentLocation ||
+                    error.code == kCFURLErrorUnsupportedURL)
+                {
+                    [self.navigationController popViewControllerAnimated:YES];
+
+                    UIAlertView *message;
+
+                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
+                                                         message:@"You aren't connected to the internet so we can't get your files."
+                                                        delegate:nil
+                                               cancelButtonTitle:@"OK"
+                                               otherButtonTitles:nil];
+
+                    [message show];
+                }
+
+                [self.fpdelegate FPSourceController:self
+                      didFinishPickingMediaWithInfo:nil];
             });
         };
 
