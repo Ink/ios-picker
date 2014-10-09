@@ -56,7 +56,7 @@
     }
     else
     {
-        filedata = UIImageJPEGRepresentation(image, 0.6);
+        filedata = UIImageJPEGRepresentation(image, 1.0);
         filename = @"camera.jpg";
     }
 
@@ -122,45 +122,17 @@
 {
     dispatch_sync([self upload_processing_queue], ^{
         NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
+        NSString *filename = asset.defaultRepresentation.filename;
         ALAssetRepresentation *representation = asset.defaultRepresentation;
         CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
 
         NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(utiToConvert,
                                                                                            kUTTagClassMIMEType);
 
-        if (([mimetype isEqualToString:@"video/quicktime"]) ||
-            ([mimetype isEqualToString:@"image/png"]))
-        {
-            DLog(@"Copying %@", mimetype);
+        DLog(@"Copying %@", mimetype);
 
-            [FPUtils copyAssetRepresentation:representation
-                                intoLocalURL:tempURL];
-        }
-        else
-        {
-            /*
-                NOTE: This is another area that needs focus.
-
-                We are compressing a full resolution JPEG image that is loaded fully into memory.
-                This can easily cause memory pressure on the device.
-
-                Alternatives:
-
-                1. Just copy it (as we currently do with PNG and video)
-                2. Compressing an smaller representation of the image.
-             */
-
-            DLog(@"Compressing and copying JPEG");
-
-            UIImage *image = [UIImage imageWithCGImage:representation.fullResolutionImage
-                                                 scale:representation.scale
-                                           orientation:(UIImageOrientation)representation.orientation];
-
-            NSData *filedata = UIImageJPEGRepresentation(image, 0.6);
-
-            [filedata writeToURL:tempURL
-                      atomically:YES];
-        }
+        [FPUtils copyAssetRepresentation:representation
+                            intoLocalURL:tempURL];
 
         FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
             success(JSON, tempURL);
@@ -173,7 +145,7 @@
         };
 
         [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                        named:representation.filename
+                                        named:filename
                                    ofMimetype:mimetype
                                  shouldUpload:shouldUpload
                                       success:successBlock
@@ -335,6 +307,42 @@
 
         return;
     }
+
+    // Initialize preprocessors
+
+    FPVideoUploadPreprocessorBlock videoUploadPreprocessorBlock = [FPConfig sharedInstance].videoUploadPreprocessorBlock;
+    FPImageUploadPreprocessorBlock imageUploadPreprocessorBlock = [FPConfig sharedInstance].imageUploadPreprocessorBlock;
+
+    if (!imageUploadPreprocessorBlock)
+    {
+        imageUploadPreprocessorBlock = ^(NSURL *localURL,
+                                         NSString *mimetype) {
+            if ([mimetype isEqualToString:@"image/jpeg"])
+            {
+                DLog(@"Compressing JPEG");
+
+                UIImage *image = [UIImage imageWithContentsOfFile:localURL.path];
+                NSData *filedata = UIImageJPEGRepresentation(image, 0.6);
+
+                [filedata writeToURL:localURL
+                          atomically:YES];
+            }
+        };
+    }
+
+    // Apply preprocessors
+
+    if ([mimetype isEqualToString:@"video/quicktime"])
+    {
+        videoUploadPreprocessorBlock(localURL);
+    }
+    else if (([mimetype isEqualToString:@"image/png"]) ||
+             ([mimetype isEqualToString:@"image/jpeg"]))
+    {
+        imageUploadPreprocessorBlock(localURL, mimetype);
+    }
+
+    // Do upload
 
     FPUploader *fileUploader;
     size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
