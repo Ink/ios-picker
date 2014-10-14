@@ -205,6 +205,14 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
+- (BOOL) FPPickerController:(FPPickerController *)picker
+    shouldPickMediaWithInfo:(FPMediaInfo *)info
+{
+    // Add your custom logic here
+
+    return YES;
+}
+
 - (void)FPPickerController:(FPPickerController *)picker
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
@@ -215,24 +223,38 @@
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    if (info.containsImageAtMediaURL)
+    if (info)
     {
-        self.imageView.image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
-    }
+        if (info.containsImageAtMediaURL)
+        {
+            self.imageView.image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
+        }
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+        {
+            [self.myPopoverController dismissPopoverAnimated:YES];
+        }
+
+        [self dismissViewControllerAnimated:YES
+                                 completion:nil];
+    }
+    else
     {
-        [self.myPopoverController dismissPopoverAnimated:YES];
+        NSLog(@"Nothing was picked.");
     }
-
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
 }
 
 - (void)                  FPPickerController:(FPPickerController *)picker
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     NSLog(@"FILES CHOSEN: %@", results);
+
+    if (results.count == 0)
+    {
+        NSLog(@"Nothing was picked.");
+
+        return;
+    }
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
     {
@@ -261,6 +283,7 @@
     self.imageView.animationImages = images;
     self.imageView.animationRepeatCount = 100.f;
     self.imageView.animationDuration = 2.f * images.count; // 2 seconds per image
+
     [self.imageView startAnimating];
 }
 

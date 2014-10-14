@@ -11,7 +11,8 @@
 
 @implementation FPSaveController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithNibName:(NSString *)nibNameOrNil
+               bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil
                            bundle:nibBundleOrNil];
@@ -167,6 +168,12 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
+- (BOOL) FPSourceController:(FPSourceController *)picker
+    shouldPickMediaWithInfo:(FPMediaInfo *)info
+{
+    return YES;
+}
+
 - (void)FPSourceController:(FPSourceController *)picker
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
@@ -180,12 +187,19 @@
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     //The user saved a file to the cloud or camera roll.
+
     NSLog(@"Saved something to a source: %@", info);
 
     [self.fpdelegate FPSaveController:self
         didFinishPickingMediaWithInfo:info];
 
     self.fpdelegate = nil;
+}
+
+- (void)                  FPSourceController:(FPSourceController *)picker
+    didFinishPickingMultipleMediaWithResults:(NSArray *)results
+{
+    // NO-OP
 }
 
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker

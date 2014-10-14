@@ -8,6 +8,9 @@
 
 @import Foundation;
 
+typedef void (^FPVideoUploadPreprocessorBlock)(NSURL *localURL);
+typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimetype);
+
 @interface FPConfig : NSObject
 
 /*!
@@ -53,6 +56,16 @@
    The bucket or container in the specified file store where the file should end up.
  */
 @property (nonatomic, strong) NSString *storeContainer;
+
+/*!
+   User-definable video upload preprocessor block.
+ */
+@property (nonatomic, copy) FPVideoUploadPreprocessorBlock videoUploadPreprocessorBlock;
+
+/*!
+   User-definable image upload preprocessor block.
+ */
+@property (nonatomic, copy) FPImageUploadPreprocessorBlock imageUploadPreprocessorBlock;
 
 /*!
    Returns a singleton FPConfig instance.

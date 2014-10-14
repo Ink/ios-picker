@@ -304,6 +304,18 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
+- (BOOL) FPSourceController:(FPSourceController *)picker
+    shouldPickMediaWithInfo:(FPMediaInfo *)info
+{
+    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:shouldPickMediaWithInfo:)])
+    {
+        return [self.fpdelegate FPPickerController:self
+                           shouldPickMediaWithInfo:info];
+    }
+
+    return YES;
+}
+
 - (void)FPSourceController:(FPSourceController *)picker
       didPickMediaWithInfo:(FPMediaInfo *)info
 {

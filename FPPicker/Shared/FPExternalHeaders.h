@@ -16,6 +16,7 @@
 
 @optional
 
+- (BOOL)FPPickerController:(FPPickerController *)picker shouldPickMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
@@ -38,6 +39,7 @@
 
 @protocol FPSourcePickerDelegate <NSObject>
 
+- (BOOL)FPSourceController:(FPSourceController *)picker shouldPickMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
