@@ -104,6 +104,8 @@ static UIColor *ANGRY_COLOR;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+
     [self.uploadButtonContainer removeFromSuperview];
 }
 

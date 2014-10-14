@@ -15,7 +15,6 @@
 
 @property (nonatomic, strong) NSString *mediaType;
 @property (nonatomic, strong) ALAsset *originalAsset;
-@property (nonatomic, strong) id originalImage;
 @property (nonatomic, strong) id thumbnailImage;
 @property (nonatomic, strong) NSURL *mediaURL;
 @property (nonatomic, strong) NSURL *remoteURL;
@@ -25,5 +24,8 @@
 @property (nonatomic, strong) NSNumber *filesize;
 
 - (NSDictionary *)dictionary;
+
+- (BOOL)containsImageAtMediaURL;
+- (BOOL)containsVideoAtMediaURL;
 
 @end

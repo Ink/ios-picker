@@ -325,9 +325,9 @@
     {
         DLog(@"Not uploading");
 
-        NSError *error = [NSError errorWithDomain:@"io.filepicker"
-                                             code:200
-                                         userInfo:nil];
+        NSError *error = [FPUtils errorWithCode:200
+                          andLocalizedDescription:@"Should upload flag is set to NO."];
+
         failure(error, nil);
 
         return;

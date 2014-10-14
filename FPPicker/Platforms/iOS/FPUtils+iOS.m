@@ -10,16 +10,8 @@
 #import "FPPrivateConfig.h"
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <MobileCoreServices/MobileCoreServices.h>
 
 @implementation FPUtils (iOS)
-
-+ (NSString *)utiForMimetype:(NSString *)mimetype
-{
-    return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType,
-                                                                               (__bridge CFStringRef)mimetype,
-                                                                               NULL);
-}
 
 + (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
                    intoLocalURL:(NSURL *)localURL

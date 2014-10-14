@@ -2,11 +2,11 @@
 //  FPPicker.h
 //  FPPicker
 //
-//  Created by Ruben Nine on 13/10/14.
+//  Created by Ruben Nine on 13/08/14.
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Cocoa/Cocoa.h>
 
 //! Project version number for FPPicker.
 FOUNDATION_EXPORT double FPPickerVersionNumber;
@@ -18,7 +18,6 @@ FOUNDATION_EXPORT const unsigned char FPPickerVersionString[];
 
 #import "FPConfig.h"
 #import "FPConstants.h"
-#import "FPExternalHeaders.h"
-#import "FPPickerController.h"
-#import "FPSaveController.h"
 #import "FPMediaInfo.h"
+#import "FPPickerController.h"
+//#import "FPSaveController.h"

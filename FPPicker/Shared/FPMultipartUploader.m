@@ -169,11 +169,8 @@
             NSString *localizedErrorDescription = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
                                                    (unsigned long)actualBytesRead];
 
-            NSDictionary *userInfo = @{ NSLocalizedDescriptionKey:localizedErrorDescription };
-
-            NSError *error = [NSError errorWithDomain:@"io.filepicker"
-                                                 code:200
-                                             userInfo:userInfo];
+            NSError *error = [FPUtils errorWithCode:200
+                              andLocalizedDescription:localizedErrorDescription];
 
             [self finishWithError:error];
         }

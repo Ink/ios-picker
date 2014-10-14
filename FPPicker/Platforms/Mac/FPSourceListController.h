@@ -18,11 +18,14 @@
 
 @end
 
-@interface FPSourceListController : NSObject <NSOutlineViewDelegate,
-                                              NSOutlineViewDataSource>
+@interface FPSourceListController : NSViewController <NSOutlineViewDelegate,
+                                                      NSOutlineViewDataSource>
 
 @property (nonatomic, weak) IBOutlet NSOutlineView *outlineView;
 @property (nonatomic, weak) IBOutlet id<FPSourceListControllerDelegate>delegate;
+
+@property (nonatomic, strong) NSArray *sourceNames;
+@property (nonatomic, strong) NSArray *dataTypes;
 
 - (void)loadAndExpandSourceListIfRequired;
 

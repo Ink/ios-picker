@@ -10,10 +10,6 @@
 #import "FPThumbCell.h"
 #import "UIImageView+AFNetworking.h"
 
-typedef void (^FPFetchObjectSuccessBlock)(NSDictionary *data);
-typedef void (^FPFetchObjectFailureBlock)(NSError *error);
-typedef void (^FPFetchObjectProgressBlock)(float progress);
-
 @interface FPSourceController ()
 
 @property int padding;
@@ -623,10 +619,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSInteger index = [self.contents indexOfObject:obj];
             UIImage *thumbnail = self.selectedObjectThumbnails[@(index)];
 
-            FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
+            FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *info) {
                 @synchronized(results)
                 {
-                    [results addObject:data];
+                    [results addObject:info];
 
                     // Check >= in case we miss (we shouldn't, but hey, better safe than sorry)
 
@@ -1097,13 +1093,13 @@ static const CGFloat ROW_HEIGHT = 44.0;
             hud.labelText = @"Downloading file";
         });
 
-        FPFetchObjectSuccessBlock successBlock = ^(NSDictionary *data) {
+        FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                          animated:YES];
 
                 [self.fpdelegate FPSourceController:self
-                      didFinishPickingMediaWithInfo:data];
+                      didFinishPickingMediaWithInfo:mediaInfo];
             });
         };
 
@@ -1178,7 +1174,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
         mediaInfo.filename = obj[@"filename"];
-        mediaInfo.mediaType = [FPUtils utiForMimetype:obj[@"mimetype"]];
+        mediaInfo.mediaType = [FPUtils UTIForMimetype:obj[@"mimetype"]];
         mediaInfo.filesize = obj[@"bytes"];
         mediaInfo.source = self.sourceType;
 
@@ -1188,7 +1184,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
 
         [self.fpdelegate FPSourceController:self
-                       didPickMediaWithInfo:[mediaInfo dictionary]];
+                       didPickMediaWithInfo:mediaInfo];
 
         self.view.userInteractionEnabled = NO;
     });
@@ -1197,8 +1193,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
     {
-        NSLog(@"Should I download?");
-
         FPPickerController *pickerC = (FPPickerController *)self.fpdelegate;
 
         shouldDownload = [pickerC shouldDownload];
@@ -1206,8 +1200,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if (shouldDownload)
     {
-        NSLog(@"Download");
-
         [self getObjectInfoAndData:obj
                            success:success
                            failure:failure
@@ -1215,8 +1207,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
     else
     {
-        NSLog(@"No Download");
-
         [self getObjectInfo:obj
                     success:success
                     failure:failure
@@ -1225,9 +1215,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
 }
 
 - (void)getObjectInfo:(NSDictionary *)obj
-              success:(void (^)(NSDictionary *data))success
-              failure:(void (^)(NSError *error))failure
-             progress:(void (^)(float progress))progress
+              success:(FPFetchObjectSuccessBlock)success
+              failure:(FPFetchObjectFailureBlock)failure
+             progress:(FPFetchObjectProgressBlock)progress
 {
     NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
                                           withFormat:@"fpurl"
@@ -1235,8 +1225,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSLog(@"result: %@", responseObject);
-
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
         mediaInfo.remoteURL = [NSURL URLWithString:responseObject[@"url"]];
@@ -1244,7 +1232,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         mediaInfo.key = responseObject[@"key"];
         mediaInfo.source = self.sourceType;
 
-        success([mediaInfo dictionary]);
+        success(mediaInfo);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1271,9 +1259,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
 }
 
 - (void)getObjectInfoAndData:(NSDictionary *)obj
-                     success:(void (^)(NSDictionary *data))success
-                     failure:(void (^)(NSError *error))failure
-                    progress:(void (^)(float progress))progress
+                     success:(FPFetchObjectSuccessBlock)success
+                     failure:(FPFetchObjectFailureBlock)failure
+                    progress:(FPFetchObjectProgressBlock)progress
 {
     NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
                                           withFormat:@"data"
@@ -1287,11 +1275,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSData *file = [[NSData alloc] initWithContentsOfFile:tempPath];
         NSDictionary *headers = [operation.response allHeaderFields];
         NSString *mimetype = headers[@"Content-Type"];
-
-        // TODO: Should be looking at obj mimetype as well.
 
         if ([mimetype rangeOfString:@";"].location != NSNotFound)
         {
@@ -1303,26 +1288,15 @@ static const CGFloat ROW_HEIGHT = 44.0;
         mediaInfo.remoteURL = [NSURL URLWithString:headers[@"X-Data-Url"]];
         mediaInfo.filename = headers[@"X-File-Name"];
         mediaInfo.mediaURL = tempURL;
-        mediaInfo.mediaType = [FPUtils utiForMimetype:mimetype];
+        mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
         mediaInfo.source = self.sourceType;
-
-        if ([FPUtils mimetype:mimetype instanceOfMimetype:@"image/*"])
-        {
-            UIImage *imageToCompress = [UIImage imageWithData:file];
-
-            mediaInfo.originalImage = [FPUtils compressImage:imageToCompress
-                                       withCompressionFactor:0.6f
-                                              andOrientation:imageToCompress.imageOrientation];
-
-            imageToCompress = nil;
-        }
 
         if (headers[@"X-Data-Key"])
         {
             mediaInfo.key = headers[@"X-Data-Key"];
         }
 
-        success([mediaInfo dictionary]);
+        success(mediaInfo);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1342,7 +1316,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
                                            long long totalBytesRead,
                                            long long totalBytesExpectedToRead) {
-        NSLog(@"Get %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
+        //DLog(@"Getting %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
 
         if (progress && totalBytesExpectedToRead > 0)
         {
@@ -1388,7 +1362,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     [urlString appendString:additionalString];
 
-    //NSLog(@"Loading Contents from URL: %@", urlString);
     NSURL *url = [NSURL URLWithString:urlString];
 
 

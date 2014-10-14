@@ -11,6 +11,10 @@
 #import <CommonCrypto/CommonHMAC.h>
 #import "NSData+FPHexString.h"
 
+#if TARGET_OS_IPHONE
+#import <MobileCoreServices/MobileCoreServices.h>
+#endif
+
 @implementation FPUtils
 
 + (NSBundle *)frameworkBundle
@@ -265,6 +269,36 @@
                                                            range:NSMakeRange(0, standardizedURLPath.length)];
 
     return numberOfMatches > 0;
+}
+
++ (NSString *)UTIForMimetype:(NSString *)mimetype
+{
+    return (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType,
+                                                                               (__bridge CFStringRef)mimetype,
+                                                                               NULL);
+}
+
++ (BOOL)      UTI:(NSString *)UTI
+    conformsToUTI:(NSString *)conformsToUTI
+{
+    Boolean result = UTTypeConformsTo((__bridge CFStringRef)UTI,
+                                      (__bridge CFStringRef)conformsToUTI);
+
+    return (BOOL)result;
+}
+
++ (NSError *) errorWithCode:(NSInteger)code
+    andLocalizedDescription:(NSString *)localizedDescription
+{
+    NSDictionary *userInfo = @{
+        NSLocalizedDescriptionKey:localizedDescription
+    };
+
+    NSError *error = [NSError errorWithDomain:@"io.filepicker"
+                                         code:code
+                                     userInfo:userInfo];
+
+    return error;
 }
 
 @end

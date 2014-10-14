@@ -57,7 +57,24 @@ const NSString *FPSourceGroupRemote = @"Remote";
     {
         _childrenItems = [NSMutableDictionary new];
 
-        _childrenItems[FPSourceGroupRemote] = [FPSource remoteSources];
+        NSArray *activeSources = [FPSource remoteSources];
+
+        if (self.sourceNames)
+        {
+            NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"identifier IN %@", self.sourceNames];
+
+            activeSources = [activeSources filteredArrayUsingPredicate:filterPredicate];
+        }
+
+        if (self.dataTypes)
+        {
+            for (FPSource *source in activeSources)
+            {
+                source.mimetypes = self.dataTypes;
+            }
+        }
+
+        _childrenItems[FPSourceGroupRemote] = activeSources;
     }
 
     return _childrenItems;

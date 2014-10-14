@@ -7,10 +7,19 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FPExternalHeaders.h"
 
 @interface FPPickerController : NSWindowController
 
-@property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;
+@property (nonatomic, weak) id<FPPickerDelegate> delegate;
+
+@property (nonatomic, strong) NSArray *sourceNames;
+@property (nonatomic, strong) NSArray *dataTypes;
+
+@property (nonatomic, assign) NSInteger maxFiles;
+
+@property (nonatomic, assign) BOOL shouldUpload;
+@property (nonatomic, assign) BOOL shouldDownload;
 
 - (void)open;
 

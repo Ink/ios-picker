@@ -167,7 +167,8 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *)info
+- (void)FPSourceController:(FPSourceController *)picker
+      didPickMediaWithInfo:(FPMediaInfo *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidSave:)])
     {
@@ -175,7 +176,8 @@
     }
 }
 
-- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)       FPSourceController:(FPSourceController *)picker
+    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     //The user saved a file to the cloud or camera roll.
     NSLog(@"Saved something to a source: %@", info);

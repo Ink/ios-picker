@@ -154,6 +154,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     FPSaveController *fpsave = (FPSaveController *)self.fpdelegate;
 
     if (fpsave.proposedFilename)
@@ -164,6 +166,8 @@
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [super viewDidDisappear:animated];
+
     if (self.textField.text)
     {
         FPSaveController *fpsave = (FPSaveController *)self.fpdelegate;

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
+@import Foundation;
+
 @interface FPUtils : NSObject
 
 /*!
@@ -107,5 +109,29 @@
  */
 + (BOOL)  validateURL:(NSString *)URL
     againstURLPattern:(NSString *)URLPattern;
+
+/*!
+   Returns the UTI (Universal Type Identifier) corresponding to a given mimetype.
+
+   @returns A NSString with the UTI
+ */
++ (NSString *)UTIForMimetype:(NSString *)mimetype;
+
+/*!
+   Tests for a conformance relationship between the two identified
+   types. Returns true if the types are equal, or if the first type
+
+   @returns YES when conforming; NO otherwise
+ */
++ (BOOL)      UTI:(NSString *)UTI
+    conformsToUTI:(NSString *)conformsToUTI;
+
+/*!
+   Returns a NSError instance with a given error code and localized error description.
+
+   @returns A NSError
+ */
++ (NSError *) errorWithCode:(NSInteger)code
+    andLocalizedDescription:(NSString *)localizedDescription;
 
 @end

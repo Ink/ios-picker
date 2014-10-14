@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
+@import Foundation;
+
 @interface FPSource : NSObject
 
 @property (nonatomic, strong) NSString *name;

@@ -29,6 +29,15 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45718BAF199CFEC100C27324"
+            BuildableName = "FPPicker Mac Demo.app"
+            BlueprintName = "FPPicker Mac Demo"
+            ReferencedContainer = "container:FPPicker Mac Demo/FPPicker Mac Demo.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -57,6 +66,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "45C13B22199CEA4A002DE7D3"
+            BuildableName = "FPPickerMac.framework"
+            BlueprintName = "FPPickerMac"
+            ReferencedContainer = "container:FPPicker.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

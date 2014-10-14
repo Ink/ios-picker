@@ -72,6 +72,8 @@
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+
     [self.FPSearchDisplayController setActive:YES
                                      animated:YES];
 }

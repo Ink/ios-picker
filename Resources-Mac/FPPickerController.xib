@@ -7,10 +7,9 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPPickerController">
             <connections>
-                <outlet property="currentSelectionTextField" destination="k3g-ic-oSN" id="f7d-aJ-O4y"/>
                 <outlet property="displayStyleSegmentedControl" destination="dWJ-7C-jk6" id="XTV-Tj-v7t"/>
                 <outlet property="fpLogo" destination="hPF-gT-PIz" id="nvk-J8-NRd"/>
-                <outlet property="sourceListController" destination="hgi-NG-CYI" id="ubE-TE-9va"/>
+                <outlet property="sourceListController" destination="OSU-pt-Ydv" id="VoJ-Ol-ef9"/>
                 <outlet property="sourceViewController" destination="fX3-UZ-gXh" id="1zD-VU-RPv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="uy0-BV-pMy"/>
             </connections>
@@ -20,7 +19,7 @@
         <window title="Filepicker Dialog" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <rect key="contentRect" x="196" y="240" width="780" height="580"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="780" height="580"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -100,8 +99,8 @@
                                                         </tableColumn>
                                                     </tableColumns>
                                                     <connections>
-                                                        <outlet property="dataSource" destination="hgi-NG-CYI" id="AlX-Sm-n6R"/>
-                                                        <outlet property="delegate" destination="hgi-NG-CYI" id="4Zd-Xi-nLg"/>
+                                                        <outlet property="dataSource" destination="OSU-pt-Ydv" id="0Ri-He-nvR"/>
+                                                        <outlet property="delegate" destination="OSU-pt-Ydv" id="EhF-NY-DLz"/>
                                                     </connections>
                                                 </outlineView>
                                             </subviews>
@@ -347,9 +346,6 @@ Gw
                                         <segment image="NSGoRightTemplate" width="24" tag="1"/>
                                     </segments>
                                 </segmentedCell>
-                                <connections>
-                                    <action selector="navigate:" target="MaS-US-3o9" id="7ve-KQ-VKX"/>
-                                </connections>
                             </segmentedControl>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dWJ-7C-jk6">
                                 <rect key="frame" x="72" y="14" width="55" height="23"/>
@@ -434,7 +430,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="81" width="640" height="540"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
             <view key="contentView" id="hu1-WR-NgY">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="540"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -495,12 +491,13 @@ Gw
                 <outlet property="view" destination="ZFQ-Ut-9s9" id="dDV-Tn-hoc"/>
             </connections>
         </viewController>
-        <customObject id="hgi-NG-CYI" customClass="FPSourceListController">
+        <viewController id="OSU-pt-Ydv" customClass="FPSourceListController">
             <connections>
-                <outlet property="delegate" destination="fX3-UZ-gXh" id="xgX-RH-tsz"/>
-                <outlet property="outlineView" destination="WrB-h3-GUR" id="LIb-7w-2pq"/>
+                <outlet property="delegate" destination="fX3-UZ-gXh" id="Vas-Jp-z8H"/>
+                <outlet property="outlineView" destination="WrB-h3-GUR" id="m1G-7H-iot"/>
+                <outlet property="view" destination="WrB-h3-GUR" id="vFP-3v-7EA"/>
             </connections>
-        </customObject>
+        </viewController>
         <viewController nibName="" id="n1b-SP-myf" customClass="FPAuthController">
             <connections>
                 <outlet property="progressIndicator" destination="I32-59-yaP" id="NLJ-VW-nMm"/>
@@ -511,9 +508,11 @@ Gw
         <viewController id="fX3-UZ-gXh" customClass="FPSourceViewController">
             <connections>
                 <outlet property="authController" destination="n1b-SP-myf" id="rhY-Vy-oBz"/>
+                <outlet property="currentSelectionTextField" destination="k3g-ic-oSN" id="2xs-ta-6AI"/>
                 <outlet property="loginButton" destination="V51-Fd-1Yv" id="7Zj-bS-LEE"/>
                 <outlet property="logoutButton" destination="Maz-ps-kcL" id="op2-5N-iKS"/>
                 <outlet property="navigationController" destination="MaS-US-3o9" id="s0e-KI-wSF"/>
+                <outlet property="pickerController" destination="-2" id="4aE-tT-Tle"/>
                 <outlet property="progressIndicator" destination="StE-he-IMG" id="vFf-Ln-Jdf"/>
                 <outlet property="searchField" destination="uqi-M4-PgZ" id="MDv-JF-aSw"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>

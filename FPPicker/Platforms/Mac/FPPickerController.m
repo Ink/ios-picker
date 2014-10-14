@@ -11,6 +11,7 @@
 #import "FPRemoteSourceController.h"
 #import "FPSourceListController.h"
 #import "FPSourceViewController.h"
+#import "FPSource+SupportedSources.h"
 
 @interface FPPickerController () <NSSplitViewDelegate,
                                   NSWindowDelegate>
@@ -28,6 +29,12 @@
 
 #pragma mark - Public Methods
 
+- (void)initializeProperties
+{
+    self.shouldUpload = YES;
+    self.shouldDownload = YES;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
@@ -43,58 +50,27 @@
     {
         self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
 
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(browserSelectionDidChange:)
-                                                     name:FPBrowserSelectionDidChangeNotification
-                                                   object:nil];
+        [self initializeProperties];
     }
 
     return self;
 }
 
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (void)open
 {
     self.modalSession = [NSApp beginModalSessionForWindow:self.window];
-}
 
-#pragma mark - Notifications
-
-- (void)browserSelectionDidChange:(NSNotification *)sender
-{
-    NSUInteger selectionCount = [sender.object unsignedIntegerValue];
-    NSString *selectionString;
-
-    switch (selectionCount)
-    {
-        case 0:
-            selectionString = @"No items selected";
-
-            break;
-        case 1:
-            selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
-
-            break;
-        default:
-            selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
-
-            break;
-    }
-
-    self.currentSelectionTextField.stringValue = selectionString;
+    [NSApp runModalSession:self.modalSession];
 }
 
 #pragma mark - Actions
 
 - (IBAction)openFiles:(id)sender
 {
-    // TODO: Open the files
-
-    [self.window close];
+    if ([self.sourceViewController pickSelectedItems])
+    {
+        [self.window close];
+    }
 }
 
 - (IBAction)close:(id)sender
@@ -104,8 +80,13 @@
 
 #pragma mark - NSWindowDelegate Methods
 
-- (void)windowDidBecomeMain:(NSNotification *)notification
+- (void)windowDidLoad
 {
+    [super windowDidLoad];
+
+    self.sourceListController.sourceNames = self.sourceNames;
+    self.sourceListController.dataTypes = self.dataTypes;
+
     [self.sourceListController loadAndExpandSourceListIfRequired];
 }
 

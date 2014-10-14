@@ -13,6 +13,8 @@
 #import "FPImageSearchSourceController.h"
 #import "FPNavigationController.h"
 #import "FPAuthController.h"
+#import "FPPickerController.h"
+#import "FPFileTransferWindowController.h"
 #import "FPInternalHeaders.h"
 
 typedef enum : NSUInteger
@@ -25,7 +27,8 @@ typedef enum : NSUInteger
 @interface FPSourceViewController () <FPSourceListControllerDelegate,
                                       FPSourceBrowserControllerDelegate,
                                       FPRemoteSourceControllerDelegate,
-                                      FPNavigationControllerDelegate>
+                                      FPNavigationControllerDelegate,
+                                      FPFileTransferWindowControllerDelegate>
 
 @property (nonatomic, strong) FPBaseSourceController *sourceController;
 
@@ -43,19 +46,68 @@ typedef enum : NSUInteger
     self.loginButton.enabled = NO;
 }
 
+- (BOOL)pickSelectedItems
+{
+    // Validate selection by looking for directories
+
+    for (NSDictionary *item in self.sourceBrowserController.selectedItems)
+    {
+        if ([item[@"is_dir"] boolValue])
+        {
+            // Display alert with error
+
+            NSError *error = [FPUtils errorWithCode:200
+                              andLocalizedDescription:@"Selection must not contain any directories."];
+
+            [self fpPresentError:error
+                 withMessageText:@"Selection error"];
+
+            return NO;
+        }
+    }
+
+    FPFileTransferWindowController *fileTransferController = [FPFileTransferWindowController new];
+
+    fileTransferController.delegate = self;
+    fileTransferController.sourceController = self.sourceController;
+
+    [fileTransferController enqueueItems:self.sourceBrowserController.selectedItems];
+    [fileTransferController process];
+
+    return YES;
+}
+
+#pragma mark - FPFileTransferWindowControllerDelegate Methods
+
+- (void)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
+       didFinishDownloadingItems:(NSArray *)items
+{
+    DLog(@"Got items: %@", @(items.count));
+
+    if (self.pickerController.delegate &&
+        [self.pickerController.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+    {
+        [self.pickerController.delegate FPPickerController:self.pickerController
+                  didFinishPickingMultipleMediaWithResults:items];
+    }
+}
+
+- (BOOL)FPFileTransferControllerShouldDownload:(FPFileTransferWindowController *)fileTransferWindowController
+{
+    return self.pickerController.shouldDownload;
+}
+
+- (BOOL)FPFileTransferControllerShouldUpload:(FPFileTransferWindowController *)fileTransferWindowController
+{
+    return self.pickerController.shouldUpload;
+}
+
 #pragma mark - FPSourceListControllerDelegate Methods
 
 - (void)sourceListController:(FPSourceListController *)sourceListController
              didSelectSource:(FPSource *)source
 {
-    if ([source.identifier isEqualToString:@"filesystem"])
-    {
-        // TODO: Implement FPLocalFilesystemSourceController
-
-        //self.sourceController = [FPLocalFilesystemSourceController new];
-        self.sourceController = [FPRemoteSourceController new];
-    }
-    else if ([source.identifier isEqualToString:@"imagesearch"])
+    if ([source.identifier isEqualToString:@"imagesearch"])
     {
         self.sourceController = [FPImageSearchSourceController new];
     }
@@ -86,32 +138,43 @@ typedef enum : NSUInteger
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods
 
-- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
-    wantsToPerformActionOnItems:(NSArray *)items
+- (void) sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    selectionDidChange:(NSArray *)selectedItems
 {
-    if (items.count == 1)
-    {
-        NSDictionary *item = items[0];
+    NSString *selectionString;
+    NSUInteger selectionCount = selectedItems.count;
 
-        if ([item[@"is_dir"] boolValue])
-        {
-            self.sourceController.path = item[@"link_path"];
-
-            [self.sourceController fpLoadContentAtPath:NO];
-        }
-    }
-    else
+    switch (selectionCount)
     {
-        DLog(@"User wants to perform an action on selected items %@", items);
+        case 0:
+            selectionString = @"No items selected";
+
+            break;
+        case 1:
+            selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
+
+            break;
+        default:
+            selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
+
+            break;
     }
+
+    self.currentSelectionTextField.stringValue = selectionString;
+}
+
+- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    wantsToEnterDirectoryAtPath:(NSString *)path
+{
+    self.sourceController.path = path;
+
+    [self.sourceController fpLoadContentAtPath:NO];
 }
 
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
 {
     if (self.sourceController.path.pathComponents.count > 3)
     {
-        DLog(@"We need to go up one directory");
-
         self.sourceController.path = [[self.sourceController.path stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
 
         [self.sourceController fpLoadContentAtPath:NO];
@@ -138,11 +201,8 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didReceiveNewContent:(id)content
 {
-    NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.sourceBrowserController.items];
+    self.sourceBrowserController.items = [self.sourceBrowserController.items arrayByAddingObjectsFromArray:content];
 
-    [tempArray addObjectsFromArray:content];
-
-    self.sourceBrowserController.items = [tempArray copy];
     [self.sourceBrowserController.thumbnailListView reloadData];
     [self.progressIndicator stopAnimation:self];
 }

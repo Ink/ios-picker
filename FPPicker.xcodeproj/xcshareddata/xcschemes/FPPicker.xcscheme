@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "83A030E115A89C9D0085E186"
-               BuildableName = "libFPPicker.a"
+               BlueprintIdentifier = "4531447C19EC3DB5003230F5"
+               BuildableName = "FPPicker.framework"
                BlueprintName = "FPPicker"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458B1FE91949D726008360E9"
-               BuildableName = "FPPicker Functional Tests.xctest"
-               BlueprintName = "FPPicker Functional Tests"
                ReferencedContainer = "container:FPPicker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "458B1FE91949D726008360E9"
-               BuildableName = "FPPicker Functional Tests.xctest"
-               BlueprintName = "FPPicker Functional Tests"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45C13B37199CEA4A002DE7D3"
-               BuildableName = "FPPicker MacTests.xctest"
-               BlueprintName = "FPPicker MacTests"
-               ReferencedContainer = "container:FPPicker.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -76,8 +42,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "83A030E115A89C9D0085E186"
-            BuildableName = "libFPPicker.a"
+            BlueprintIdentifier = "4531447C19EC3DB5003230F5"
+            BuildableName = "FPPicker.framework"
             BlueprintName = "FPPicker"
             ReferencedContainer = "container:FPPicker.xcodeproj">
          </BuildableReference>
@@ -91,6 +57,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "4531447C19EC3DB5003230F5"
+            BuildableName = "FPPicker.framework"
+            BlueprintName = "FPPicker"
+            ReferencedContainer = "container:FPPicker.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

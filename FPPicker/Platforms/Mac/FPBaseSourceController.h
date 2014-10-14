@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "FPSource.h"
+#import "FPInternalHeaders.h"
 
 @class FPBaseSourceController;
 
 @protocol FPBaseSourceControllerDelegate <NSObject>
 
 - (void)sourceDidStartContentLoad:(FPBaseSourceController *)sender;
+//- (void)sourceDidCancel:(FPBaseSourceController *)sender;
 - (void)source:(FPBaseSourceController *)sender didFinishContentLoad:(id)content;
 - (void)source:(FPBaseSourceController *)sender didReceiveNewContent:(id)content;
 - (void)source:(FPBaseSourceController *)sender didFailContentLoadWithError:(NSError *)error;
@@ -44,5 +46,13 @@
 @property (nonatomic, weak) id<FPBaseSourceControllerDelegate>delegate;
 
 - (void)fpLoadContentAtPath:(BOOL)force;
+
+- (void)cancelAllOperations;
+
+- (void)requestObjectMediaInfo:(NSDictionary *)obj
+                shouldDownload:(BOOL)shouldDownload
+                       success:(FPFetchObjectSuccessBlock)success
+                       failure:(FPFetchObjectFailureBlock)failure
+                      progress:(FPFetchObjectProgressBlock)progress;
 
 @end

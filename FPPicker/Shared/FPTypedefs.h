@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
+@class FPMediaInfo;
+
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
 
 typedef void (^FPUploadAssetFailureBlock)(NSError *error,
@@ -19,6 +21,13 @@ typedef void (^FPUploadAssetSuccessWithLocalURLBlock)(id JSON,
 typedef void (^FPUploadAssetFailureWithLocalURLBlock)(NSError *error,
                                                       id JSON,
                                                       NSURL *localURL);
+
+typedef void (^FPFetchObjectSuccessBlock)(FPMediaInfo *mediaInfo);
+
+typedef void (^FPFetchObjectFailureBlock)(NSError *error);
+
+typedef void (^FPFetchObjectProgressBlock)(float progress);
+
 
 // AFNetworking block typedefs.
 

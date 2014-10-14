@@ -14,11 +14,11 @@
 
 @protocol FPSourceBrowserControllerDelegate <NSObject>
 
+- (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController selectionDidChange:(NSArray *)selectedItems;
+
 @optional
 
-- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
-    wantsToPerformActionOnItems:(NSArray *)items;
-
+- (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController wantsToEnterDirectoryAtPath:(NSString *)path;
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController;
 
 @end
@@ -28,5 +28,6 @@
 @property (nonatomic, weak) IBOutlet id<FPSourceBrowserControllerDelegate>delegate;
 @property (nonatomic, weak) IBOutlet FPImageBrowserView *thumbnailListView;
 @property (nonatomic, strong) NSArray *items;
+@property (readonly, strong) NSArray *selectedItems;
 
 @end

@@ -180,9 +180,9 @@
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary *mediaInfo = @{
-                @"FPPickerControllerThumbnailImage":thumbImage
-            };
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.thumbnailImage = thumbImage;
 
             [self.fpdelegate FPPickerController:self
                            didPickMediaWithInfo:mediaInfo];
@@ -221,7 +221,7 @@
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
                     [self.fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
+                          didFinishPickingMediaWithInfo:mediaInfo];
                 }];
             });
         };
@@ -238,7 +238,7 @@
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
                     [self.fpdelegate FPPickerController:self
-                          didFinishPickingMediaWithInfo:[mediaInfo dictionary]];
+                          didFinishPickingMediaWithInfo:mediaInfo];
                 }];
             });
         };
@@ -250,8 +250,6 @@
         if ([info[@"UIImagePickerControllerMediaType"] isEqual:(NSString *)kUTTypeImage])
         {
             NSString *dataType = @"image/jpeg";
-
-            mediaInfo.originalImage = imageToSave;
 
             [FPLibrary uploadImage:imageToSave
                         ofMimetype:dataType
@@ -307,7 +305,7 @@
 #pragma mark FPSourcePickerDelegate Methods
 
 - (void)FPSourceController:(FPSourceController *)picker
-      didPickMediaWithInfo:(NSDictionary *)info
+      didPickMediaWithInfo:(FPMediaInfo *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
@@ -317,7 +315,7 @@
 }
 
 - (void)       FPSourceController:(FPSourceController *)picker
-    didFinishPickingMediaWithInfo:(NSDictionary *)info
+    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     //The user chose a file from the cloud or camera roll.
     NSLog(@"Picked something from a source: %@", info);

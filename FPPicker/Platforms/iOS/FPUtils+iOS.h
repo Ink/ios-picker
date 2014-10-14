@@ -14,13 +14,6 @@
 @interface FPUtils (iOS)
 
 /*!
-   Returns the UTI (Universal Type Identifier) corresponding to a given mimetype.
-
-   @returns A NSString with the UTI
- */
-+ (NSString *)utiForMimetype:(NSString *)mimetype;
-
-/*!
    Performs a copy in chunks from a given ALAssetRepresentation into a local URL.
 
    @notes

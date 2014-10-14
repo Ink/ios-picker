@@ -8,8 +8,8 @@
 
 #import "FPLocalController.h"
 
-typedef void (^FPLocalUploadAssetSuccessBlock)(NSDictionary *data);
-typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, NSDictionary *data);
+typedef void (^FPLocalUploadAssetSuccessBlock)(FPMediaInfo *info);
+typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, FPMediaInfo *info);
 typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 @interface FPLocalController ()
@@ -350,32 +350,32 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
             hud.mode = MBProgressHUDModeDeterminate;
         });
 
-        FPLocalUploadAssetSuccessBlock successBlock = ^(NSDictionary *data) {
+        FPLocalUploadAssetSuccessBlock successBlock = ^(FPMediaInfo *info) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.view
                                          animated:YES];
 
                 [self.fpdelegate FPSourceController:nil
-                      didFinishPickingMediaWithInfo:data];
+                      didFinishPickingMediaWithInfo:info];
             });
         };
 
         FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error,
-                                                        NSDictionary *data) {
+                                                        FPMediaInfo *info) {
             NSLog(@"Error %@:", error);
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.view
                                          animated:YES];
 
-                if (!data)
+                if (!info)
                 {
                     [self.fpdelegate FPSourceControllerDidCancel:nil];
                 }
                 else
                 {
                     [self.fpdelegate FPSourceController:nil
-                          didFinishPickingMediaWithInfo:data];
+                          didFinishPickingMediaWithInfo:info];
                 }
             });
         };
@@ -449,10 +449,10 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         // We push all the uploads onto background threads. Now we have to be careful
         // as we're working in multi-threaded environment.
 
-        FPLocalUploadAssetSuccessBlock successBlock = ^(NSDictionary *data) {
+        FPLocalUploadAssetSuccessBlock successBlock = ^(FPMediaInfo *info) {
             @synchronized(results)
             {
-                [results addObject:data];
+                [results addObject:info];
 
                 // OK to do from background thread
 
@@ -475,14 +475,16 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         };
 
         FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error,
-                                                        NSDictionary *data) {
+                                                        FPMediaInfo *info) {
             // Carry on!
 
-            NSLog(@"Had an error while uploading multiple files, pressing onwards. Error was %@, data was %@", error, data);
+            NSLog(@"Had an error while uploading multiple files, pressing onwards. Error was %@, info was %@",
+                  error,
+                  info);
 
             @synchronized(results)
             {
-                if (!data)
+                if (!info)
                 {
                     // Skip it
 
@@ -500,7 +502,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                 }
                 else
                 {
-                    [results addObject:data];
+                    [results addObject:info];
                 }
 
                 // OK to do from background thread
@@ -552,9 +554,9 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
            progress:(FPLocalUploadAssetProgressBlock)progress
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSDictionary *mediaInfo = @{
-            @"FPPickerControllerThumbnailImage":[UIImage imageWithCGImage:asset.thumbnail]
-        };
+        FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+        mediaInfo.thumbnailImage = [UIImage imageWithCGImage:asset.thumbnail];
 
         [self.fpdelegate FPSourceController:nil
                        didPickMediaWithInfo:mediaInfo];
@@ -595,21 +597,17 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         NSLog(@"Type: %@", [asset valueForProperty:@"ALAssetPropertyType"]);
         NSLog(@"Didnt handle");
 
-        NSDictionary *failureErrorUserInfo = @{
-            NSLocalizedDescriptionKey:@"Invalid asset type"
-        };
-
-        failure([NSError errorWithDomain:@"iOS-picker"
-                                    code:200
-                                userInfo:failureErrorUserInfo], nil);
+        failure([FPUtils errorWithCode:200
+                 andLocalizedDescription:@"Invalid asset type"],
+                nil);
     }
 }
 
 - (void)uploadPhotoAsset:(ALAsset *)asset
             shouldUpload:(BOOL)shouldUpload
-                 success:(void (^)(NSDictionary *data))success
-                 failure:(void (^)(NSError *error, NSDictionary *data))failure
-                progress:(void (^)(float progress))progress
+                 success:(FPLocalUploadAssetSuccessBlock)success
+                 failure:(FPLocalUploadAssetFailureBlock)failure
+                progress:(FPLocalUploadAssetProgressBlock)progress
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
@@ -626,15 +624,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
 
-        UIImage *imageToCompress = [UIImage imageWithCGImage:representation.fullScreenImage];
-
-        mediaInfo.originalImage = [FPUtils compressImage:imageToCompress
-                                   withCompressionFactor:0.6f
-                                          andOrientation:(UIImageOrientation)representation.orientation];
-
-        imageToCompress = nil;
-
-        success([mediaInfo dictionary]);
+        success(mediaInfo);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
@@ -643,7 +633,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.mediaURL = localURL;
         mediaInfo.filename = representation.filename;
 
-        failure(error, [mediaInfo dictionary]);
+        failure(error, mediaInfo);
     };
 
     [FPLibrary uploadAsset:asset
@@ -656,9 +646,9 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 - (void)uploadVideoAsset:(ALAsset *)asset
             shouldUpload:(BOOL)shouldUpload
-                 success:(void (^)(NSDictionary *data))success
-                 failure:(void (^)(NSError *error, NSDictionary *data))failure
-                progress:(void (^)(float progress))progress
+                 success:(FPLocalUploadAssetSuccessBlock)success
+                 failure:(FPLocalUploadAssetFailureBlock)failure
+                progress:(FPLocalUploadAssetProgressBlock)progress
 {
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
@@ -676,7 +666,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
 
-        success([mediaInfo dictionary]);
+        success(mediaInfo);
     };
 
     FPUploadAssetFailureWithLocalURLBlock failureBlock = ^(NSError *error,
@@ -685,7 +675,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.mediaURL = localURL;
         mediaInfo.filename = representation.filename;
 
-        failure(error, [mediaInfo dictionary]);
+        failure(error, mediaInfo);
     };
 
     [FPLibrary uploadAsset:asset

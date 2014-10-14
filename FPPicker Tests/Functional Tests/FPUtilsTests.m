@@ -41,23 +41,23 @@
 
 - (void)testUtiForMimetype
 {
-    XCTAssertEqualObjects([FPUtils utiForMimetype:@"image/jpeg"],
+    XCTAssertEqualObjects([FPUtils UTIForMimetype:@"image/jpeg"],
                           @"public.jpeg",
                           @"jpeg UTI should match");
 
-    XCTAssertEqualObjects([FPUtils utiForMimetype:@"image/png"],
+    XCTAssertEqualObjects([FPUtils UTIForMimetype:@"image/png"],
                           @"public.png",
                           @"png UTI should match");
 
-    XCTAssertEqualObjects([FPUtils utiForMimetype:@"video/mp4"],
+    XCTAssertEqualObjects([FPUtils UTIForMimetype:@"video/mp4"],
                           @"public.mpeg-4",
                           @"mpeg-4 UTI should match");
 
-    XCTAssertEqualObjects([FPUtils utiForMimetype:@"video/quicktime"],
+    XCTAssertEqualObjects([FPUtils UTIForMimetype:@"video/quicktime"],
                           @"com.apple.quicktime-movie",
                           @"quicktime-movie UTI should match");
 
-    XCTAssertEqualObjects([FPUtils utiForMimetype:@"text/plain"],
+    XCTAssertEqualObjects([FPUtils UTIForMimetype:@"text/plain"],
                           @"public.plain-text",
                           @"plain-text UTI should match");
 }
@@ -121,7 +121,7 @@
 
 - (void)testJSONEncodeObject
 {
-    NSDictionary *dic = @{@"alpha":@{@"beta":@"beta-value"}};
+    NSDictionary *dic = @{ @"alpha":@{ @"beta":@"beta-value" }};
 
     NSError *error;
     NSString *JSONString = [FPUtils JSONEncodeObject:dic

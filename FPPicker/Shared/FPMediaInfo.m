@@ -7,6 +7,7 @@
 //
 
 #import "FPMediaInfo.h"
+#import "FPUtils.h"
 
 @implementation FPMediaInfo
 
@@ -27,11 +28,6 @@
     if (self.originalAsset)
     {
         mediaInfo[@"FPPickerControllerOriginalAsset"] = self.originalAsset;
-    }
-
-    if (self.originalImage)
-    {
-        mediaInfo[@"FPPickerControllerOriginalImage"] = self.originalImage;
     }
 
     if (self.thumbnailImage)
@@ -65,6 +61,39 @@
     }
 
     return [mediaInfo copy];
+}
+
+- (BOOL)containsImageAtMediaURL
+{
+    if (self.mediaURL &&
+        self.mediaType &&
+        [FPUtils UTI:self.mediaType conformsToUTI:@"public.image"])
+    {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (BOOL)containsVideoAtMediaURL
+{
+    if (self.mediaURL &&
+        self.mediaType &&
+        [FPUtils UTI:self.mediaType conformsToUTI:@"public.video"])
+    {
+        return YES;
+    }
+
+    return NO;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@ (%@, containsImageAtMediaURL: %d, containsVideoAtMediaURL: %d)",
+            [super description],
+            self.dictionary,
+            [self containsImageAtMediaURL],
+            [self containsVideoAtMediaURL]];
 }
 
 @end

@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
+@import Foundation;
+
 @interface FPConfig : NSObject
 
 /*!

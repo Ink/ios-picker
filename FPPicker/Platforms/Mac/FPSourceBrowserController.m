@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSOperationQueue *thumbnailFetchingOperationQueue;
 @property (nonatomic, strong) NSCache *thumbnailCache;
+@property (readwrite, nonatomic, strong) NSArray *selectedItems;
 
 @end
 
@@ -85,18 +86,25 @@
 
 - (void)imageBrowserSelectionDidChange:(FPImageBrowserView *)browser
 {
-    DLog(@"Selection did change %@", browser.selectionIndexes);
+    NSMutableArray *items = [NSMutableArray array];
 
-    NSNumber *selectionCount = @(browser.selectionIndexes.count);
+    [browser.selectionIndexes enumerateIndexesUsingBlock: ^(NSUInteger idx,
+                                                            BOOL *stop) {
+        NSDictionary *item = self.items[idx];
 
-    [[NSNotificationCenter defaultCenter] postNotificationName:FPBrowserSelectionDidChangeNotification
-                                                        object:selectionCount];
+        [items addObject:item];
+    }];
+
+    self.selectedItems = [items copy];
+
+    [self.delegate sourceBrowser:self
+              selectionDidChange:self.selectedItems];
 }
 
 - (void)           imageBrowser:(FPImageBrowserView *)aBrowser
     cellWasDoubleClickedAtIndex:(NSUInteger)index
 {
-    [self performActionOnSelectionIndexes:aBrowser.selectionIndexes];
+    [self performActionOnSelection];
 }
 
 - (void)          imageBrowser:(FPImageBrowserView *)browser
@@ -129,7 +137,7 @@
 
             if (aBrowser.selectionIndexes.count > 0)
             {
-                [self performActionOnSelectionIndexes:aBrowser.selectionIndexes];
+                [self performActionOnSelection];
             }
 
             return NO;
@@ -195,35 +203,25 @@
 
 #pragma mark - Private Methods
 
-- (void)performActionOnSelectionIndexes:(NSIndexSet *)selectionIndexes
+- (void)performActionOnSelection
 {
-    NSMutableArray *items = [NSMutableArray array];
+    NSArray *items = [self selectedItems];
 
-    [selectionIndexes enumerateIndexesUsingBlock: ^(NSUInteger idx,
-                                                    BOOL *stop) {
-        NSDictionary *item = self.items[idx];
+    if (items.count > 1)
+    {
+        return;
+    }
 
-        [items addObject:item];
-
-        if (items.count > 1 &&
-            [item[@"is_dir"] boolValue])
-        {
-            DLog(@"ERROR: Can't perform action on selections containing either: 1) multiple directories or 2) hybrid selections consisting of directories and files.");
-
-            *stop = YES;
-        }
-    }];
-
-    if (items.count < selectionIndexes.count)
+    if ((items.count == 1) && ![items[0][@"is_dir"] boolValue])
     {
         return;
     }
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToPerformActionOnItems:)])
+        [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToEnterDirectoryAtPath:)])
     {
         [self.delegate sourceBrowser:self
-         wantsToPerformActionOnItems:[items copy]];
+         wantsToEnterDirectoryAtPath:items[0][@"link_path"]];
     }
 }
 

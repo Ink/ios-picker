@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner" customClass="FPFileTransferWindowController">
+            <connections>
+                <outlet property="descriptionTextField" destination="XOO-7J-g3u" id="SPn-4Q-D9I"/>
+                <outlet property="progressIndicator" destination="gBE-xN-5Zq" id="6at-Nf-8cx"/>
+                <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
+            </connections>
+        </customObject>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <window title="File Transfer" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="F0z-JX-Cv5">
+            <windowStyleMask key="styleMask" titled="YES"/>
+            <rect key="contentRect" x="196" y="240" width="500" height="100"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <view key="contentView" id="se5-gp-TjO">
+                <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XOO-7J-g3u">
+                        <rect key="frame" x="20" y="63" width="462" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Detailed progress description here" id="mqe-Yk-KMf">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <progressIndicator maxValue="100" indeterminate="YES" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="gBE-xN-5Zq">
+                        <rect key="frame" x="22" y="36" width="434" height="20"/>
+                    </progressIndicator>
+                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-AT-8jw">
+                        <rect key="frame" x="464" y="39" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="16" id="YZg-4p-kg8"/>
+                            <constraint firstAttribute="height" constant="16" id="Ynf-Wn-rXk"/>
+                        </constraints>
+                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="UTu-aS-W9N">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                            <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                        </buttonCell>
+                        <connections>
+                            <action selector="cancel:" target="-2" id="5VS-Uz-Gq2"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="XOO-7J-g3u" secondAttribute="bottom" constant="8" symbolic="YES" id="7Ld-rQ-yEP"/>
+                    <constraint firstItem="gBE-xN-5Zq" firstAttribute="leading" secondItem="XOO-7J-g3u" secondAttribute="leading" id="Iy8-2a-oD1"/>
+                    <constraint firstAttribute="trailing" secondItem="XOO-7J-g3u" secondAttribute="trailing" constant="20" symbolic="YES" id="dgF-Bm-be0"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="trailing" secondItem="XOO-7J-g3u" secondAttribute="trailing" id="tUa-ju-QCe"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="gBE-xN-5Zq" secondAttribute="top" id="x3Z-hD-1fT"/>
+                    <constraint firstItem="XOO-7J-g3u" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="22" id="xuL-rC-PFX"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="leading" secondItem="gBE-xN-5Zq" secondAttribute="trailing" constant="8" symbolic="YES" id="z9J-ro-6TX"/>
+                    <constraint firstItem="XOO-7J-g3u" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" symbolic="YES" id="zIe-Rb-tMu"/>
+                </constraints>
+            </view>
+            <connections>
+                <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
+            </connections>
+            <point key="canvasLocation" x="149" y="62"/>
+        </window>
+    </objects>
+    <resources>
+        <image name="NSStopProgressFreestandingTemplate" width="83" height="83"/>
+    </resources>
+</document>

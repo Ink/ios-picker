@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 Filepicker.io. All rights reserved.
 //
 
+@import Foundation;
+
 FOUNDATION_EXPORT NSString * const FPSourceFilesystem;
 FOUNDATION_EXPORT NSString * const FPSourceBox;
 FOUNDATION_EXPORT NSString * const FPSourceCameraRoll;
@@ -25,5 +27,4 @@ FOUNDATION_EXPORT NSString * const FPSourceEvernote;
 
 // Global Filepicker Notifications
 
-FOUNDATION_EXPORT NSString * const FPBrowserSelectionDidChangeNotification;
-FOUNDATION_EXPORT NSString * const FPSourcePathDidChangeNotification;
+FOUNDATION_EXPORT NSString *const FPSourcePathDidChangeNotification;
