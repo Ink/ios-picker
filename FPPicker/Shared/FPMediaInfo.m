@@ -11,58 +11,6 @@
 
 @implementation FPMediaInfo
 
-- (NSDictionary *)dictionary
-{
-    NSMutableDictionary *mediaInfo = [NSMutableDictionary dictionary];
-
-    if (self.filename)
-    {
-        mediaInfo[@"FPPickerControllerFilename"] = self.filename;
-    }
-
-    if (self.key)
-    {
-        mediaInfo[@"FPPickerControllerKey"] = self.key;
-    }
-
-    if (self.originalAsset)
-    {
-        mediaInfo[@"FPPickerControllerOriginalAsset"] = self.originalAsset;
-    }
-
-    if (self.thumbnailImage)
-    {
-        mediaInfo[@"FPPickerControllerThumbnailImage"] = self.thumbnailImage;
-    }
-
-    if (self.filesize)
-    {
-        mediaInfo[@"FPPickerControllerFilesize"] = self.filesize;
-    }
-
-    if (self.mediaType)
-    {
-        mediaInfo[@"FPPickerControllerMediaType"] = self.mediaType;
-    }
-
-    if (self.mediaURL)
-    {
-        mediaInfo[@"FPPickerControllerMediaURL"] = self.mediaURL;
-    }
-
-    if (self.remoteURL)
-    {
-        mediaInfo[@"FPPickerControllerRemoteURL"] = self.remoteURL;
-    }
-
-    if (self.source)
-    {
-        mediaInfo[@"FPPickerControllerSource"] = self.source;
-    }
-
-    return [mediaInfo copy];
-}
-
 - (BOOL)containsImageAtMediaURL
 {
     if (self.mediaURL &&
@@ -89,11 +37,19 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ (%@, containsImageAtMediaURL: %d, containsVideoAtMediaURL: %d)",
+    return [NSString stringWithFormat:@"%@ {mediaType: %@, mediaURL: %@, remoteURL: %@, filename: %@, filesize: %@, key: %@, source: %@, originalAsset: %@, thumbnailImage: %@, containsImageAtMediaURL: %@, containsVideoAtMediaURL: %@}",
             [super description],
-            self.dictionary,
-            [self containsImageAtMediaURL],
-            [self containsVideoAtMediaURL]];
+            self.mediaType,
+            self.mediaURL,
+            self.remoteURL,
+            self.filename,
+            self.filesize,
+            self.key,
+            self.source,
+            self.originalAsset,
+            self.thumbnailImage,
+            self.containsImageAtMediaURL ? @"YES":@"NO",
+            self.containsVideoAtMediaURL ? @"YES":@"NO"];
 }
 
 @end

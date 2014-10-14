@@ -14,16 +14,14 @@
 @interface FPMediaInfo : NSObject
 
 @property (nonatomic, strong) NSString *mediaType;
-@property (nonatomic, strong) ALAsset *originalAsset;
-@property (nonatomic, strong) id thumbnailImage;
 @property (nonatomic, strong) NSURL *mediaURL;
 @property (nonatomic, strong) NSURL *remoteURL;
 @property (nonatomic, strong) NSString *filename;
+@property (nonatomic, strong) NSNumber *filesize;
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) FPSource *source;
-@property (nonatomic, strong) NSNumber *filesize;
-
-- (NSDictionary *)dictionary;
+@property (nonatomic, strong) ALAsset *originalAsset;
+@property (nonatomic, strong) id thumbnailImage;
 
 - (BOOL)containsImageAtMediaURL;
 - (BOOL)containsVideoAtMediaURL;
