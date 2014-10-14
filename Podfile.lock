@@ -22,9 +22,9 @@ PODS:
     - AFNetworking/NSURLSession
   - MBProgressHUD (0.9)
   - OCMock (3.0.2)
-  - OHHTTPStubs (3.1.5):
+  - OHHTTPStubs (3.1.6):
     - OHHTTPStubs/Core
-  - OHHTTPStubs/Core (3.1.5)
+  - OHHTTPStubs/Core (3.1.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.4.1)
@@ -36,6 +36,6 @@ SPEC CHECKSUMS:
   AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
   MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
   OCMock: b9836ab89d8d5e66cbe6333f93857037c310ee62
-  OHHTTPStubs: c1e362552b71b81e1deb7a80f44c51585b946c43
+  OHHTTPStubs: 6781373b69e0a67b27239799f11764d0fbefac55
 
-COCOAPODS: 0.33.1
+COCOAPODS: 0.34.2
