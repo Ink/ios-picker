@@ -10,4 +10,6 @@
 
 @interface ViewController : NSViewController
 
+@property (nonatomic, retain) IBOutlet NSImageView *imageView;
+
 @end

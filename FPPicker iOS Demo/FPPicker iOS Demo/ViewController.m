@@ -7,9 +7,11 @@
 //
 
 #import "ViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
 
-@interface ViewController ()
+@import FPPicker;
+
+@interface ViewController () <FPPickerDelegate,
+                              FPSaveDelegate>
 
 @property (nonatomic, retain) FPSaveController *fpSave;
 
@@ -20,6 +22,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -202,17 +205,19 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
-- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info
+- (void)FPPickerController:(FPPickerController *)picker
+      didPickMediaWithInfo:(FPMediaInfo *)info
 {
 }
 
-- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)       FPPickerController:(FPPickerController *)picker
+    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"FILE CHOSEN: %@", info);
 
-    if (info[@"FPPickerControllerOriginalImage"])
+    if (info.containsImageAtMediaURL)
     {
-        self.imageView.image = info[@"FPPickerControllerOriginalImage"];
+        self.imageView.image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
     }
 
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
@@ -224,7 +229,8 @@
                              completion:nil];
 }
 
-- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results
+- (void)                  FPPickerController:(FPPickerController *)picker
+    didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     NSLog(@"FILES CHOSEN: %@", results);
 
@@ -240,13 +246,15 @@
 
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:results.count];
 
-    for (NSDictionary *data in results)
+    for (FPMediaInfo *info in results)
     {
         // Check if uploaded file is an image to add it to carousel
 
-        if (data[@"FPPickerControllerOriginalImage"])
+        if (info.containsImageAtMediaURL)
         {
-            [images addObject:data[@"FPPickerControllerOriginalImage"]];
+            UIImage *image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
+
+            [images addObject:image];
         }
     }
 
@@ -284,7 +292,8 @@
     }
 }
 
-- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)         FPSaveController:(FPSaveController *)picker
+    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"FILE SAVED: %@", info);
 }
@@ -304,7 +313,8 @@
     }
 }
 
-- (void)FPSaveController:(FPSaveController *)picker didError:(NSDictionary *)info
+- (void)FPSaveController:(FPSaveController *)picker
+                didError:(NSDictionary *)info
 {
     NSLog(@"FP Error");
 }

@@ -7,7 +7,8 @@
 //
 
 #import "AppDelegate.h"
-#import <FPPicker/FPPicker.h>
+
+@import FPPicker;
 
 @implementation AppDelegate
 

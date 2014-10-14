@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4531436A19EC2EB5003230F5 /* FPPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DE6194B0AC400568BC7 /* FPPicker.framework */; };
 		45923217194B0DF700259974 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45923216194B0DF700259974 /* AssetsLibrary.framework */; };
 		45ADBF761951AEEA00EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */; };
 		45C9A5F6199CD7FC00428F0E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9A5E9199CD7FC00428F0E /* AppDelegate.m */; };
@@ -19,11 +20,16 @@
 		45F38DA4194B0AA900568BC7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA3194B0AA900568BC7 /* Foundation.framework */; };
 		45F38DA6194B0AA900568BC7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA5194B0AA900568BC7 /* CoreGraphics.framework */; };
 		45F38DA8194B0AA900568BC7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DA7194B0AA900568BC7 /* UIKit.framework */; };
-		45F38DF1194B0AF500568BC7 /* libFPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 45F38DE6194B0AC400568BC7 /* libFPPicker.a */; };
-		45F38DF2194B0AFE00568BC7 /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 45F38DE8194B0AC400568BC7 /* FPPicker.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4531436819EC2EA6003230F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4531447C19EC3DB5003230F5;
+			remoteInfo = FPPicker;
+		};
 		45718C05199D036D00C27324 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
@@ -58,20 +64,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 458B1FEA1949D726008360E9;
 			remoteInfo = "FPPicker Functional Tests";
-		};
-		45F38DEB194B0AC400568BC7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 450B5A4B1949EFC0007AF44A;
-			remoteInfo = "FPPicker Integration Tests";
-		};
-		45F38DED194B0ACF00568BC7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45F38DDB194B0AC400568BC7 /* FPPicker.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 83A030E115A89C9D0085E186;
-			remoteInfo = FPPicker;
 		};
 		45F38DEF194B0ACF00568BC7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -109,7 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45F38DF1194B0AF500568BC7 /* libFPPicker.a in Frameworks */,
+				4531436A19EC2EB5003230F5 /* FPPicker.framework in Frameworks */,
 				45923217194B0DF700259974 /* AssetsLibrary.framework in Frameworks */,
 				45F38DA6194B0AA900568BC7 /* CoreGraphics.framework in Frameworks */,
 				45F38DA4194B0AA900568BC7 /* Foundation.framework in Frameworks */,
@@ -127,11 +119,11 @@
 				45C9A5FE199CD81400428F0E /* Supporting Files */,
 				45C9A5E8199CD7FC00428F0E /* AppDelegate.h */,
 				45C9A5E9199CD7FC00428F0E /* AppDelegate.m */,
+				45C9A5F4199CD7FC00428F0E /* ViewController.h */,
+				45C9A5F5199CD7FC00428F0E /* ViewController.m */,
 				45C9A5EA199CD7FC00428F0E /* Main_iPad.storyboard */,
 				45C9A5EC199CD7FC00428F0E /* Main_iPhone.storyboard */,
 				45C9A5F2199CD7FC00428F0E /* Images.xcassets */,
-				45C9A5F4199CD7FC00428F0E /* ViewController.h */,
-				45C9A5F5199CD7FC00428F0E /* ViewController.m */,
 			);
 			path = "FPPicker iOS Demo";
 			sourceTree = "<group>";
@@ -181,12 +173,11 @@
 		45F38DDC194B0AC400568BC7 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45F38DE6194B0AC400568BC7 /* libFPPicker.a */,
+				45F38DE6194B0AC400568BC7 /* FPPicker.framework */,
 				45718C06199D036D00C27324 /* FPPickerMac.framework */,
 				45F38DE8194B0AC400568BC7 /* FPPicker.bundle */,
-				45F38DEA194B0AC400568BC7 /* FPPicker Functional Tests.xctest */,
-				45F38DEC194B0AC400568BC7 /* FPPicker Integration Tests.app */,
 				45718C08199D036D00C27324 /* FPPicker.bundle */,
+				45F38DEA194B0AC400568BC7 /* FPPicker Functional Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -205,7 +196,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				45F38DEE194B0ACF00568BC7 /* PBXTargetDependency */,
+				4531436919EC2EA6003230F5 /* PBXTargetDependency */,
 				45F38DF0194B0ACF00568BC7 /* PBXTargetDependency */,
 			);
 			name = "FPPicker iOS Demo";
@@ -261,10 +252,10 @@
 			remoteRef = 45718C07199D036D00C27324 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		45F38DE6194B0AC400568BC7 /* libFPPicker.a */ = {
+		45F38DE6194B0AC400568BC7 /* FPPicker.framework */ = {
 			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFPPicker.a;
+			fileType = wrapper.framework;
+			path = FPPicker.framework;
 			remoteRef = 45F38DE5194B0AC400568BC7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -282,13 +273,6 @@
 			remoteRef = 45F38DE9194B0AC400568BC7 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		45F38DEC194B0AC400568BC7 /* FPPicker Integration Tests.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = "FPPicker Integration Tests.app";
-			remoteRef = 45F38DEB194B0AC400568BC7 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -300,7 +284,6 @@
 				45C9A5F9199CD7FC00428F0E /* InfoPlist.strings in Resources */,
 				45C9A5F7199CD7FC00428F0E /* Main_iPad.storyboard in Resources */,
 				45C9A5F8199CD7FC00428F0E /* Main_iPhone.storyboard in Resources */,
-				45F38DF2194B0AFE00568BC7 /* FPPicker.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,10 +303,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45F38DEE194B0ACF00568BC7 /* PBXTargetDependency */ = {
+		4531436919EC2EA6003230F5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FPPicker;
-			targetProxy = 45F38DED194B0ACF00568BC7 /* PBXContainerItemProxy */;
+			targetProxy = 4531436819EC2EA6003230F5 /* PBXContainerItemProxy */;
 		};
 		45F38DF0194B0ACF00568BC7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -439,13 +422,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker iOS Demo/FPPicker iOS Demo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
-				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;
@@ -459,13 +437,8 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker iOS Demo/FPPicker iOS Demo-Prefix.pch";
-				HEADER_SEARCH_PATHS = (
-					"$(inherited)",
-					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
-					$SRCROOT/../FPPicker/Platforms/iOS/PublicHeaders,
-				);
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;

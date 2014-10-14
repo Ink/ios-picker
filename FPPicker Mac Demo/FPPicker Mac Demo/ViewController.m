@@ -7,9 +7,10 @@
 //
 
 #import "ViewController.h"
-#import <FPPickerMac/FPPicker.h>
 
-@interface ViewController ()
+@import FPPickerMac;
+
+@interface ViewController () <FPPickerDelegate>
 
 @property (nonatomic, strong) FPPickerController *pickerController;
 
@@ -17,15 +18,34 @@
 
 @implementation ViewController
 
+#pragma mark - Accessors
+
 - (FPPickerController *)pickerController
 {
     if (!_pickerController)
     {
         _pickerController = [FPPickerController new];
+
+        _pickerController.delegate = self;
+        _pickerController.shouldDownload = YES;
+        _pickerController.shouldUpload = YES;
+
+        _pickerController.sourceNames = @[
+            FPSourceDropbox,
+            FPSourceFlickr,
+            FPSourceImagesearch
+                                        ];
+
+        _pickerController.dataTypes = @[
+            @"image/*",
+            @"video/quicktime"
+                                      ];
     }
 
     return _pickerController;
 }
+
+#pragma mark - Public Methods
 
 - (IBAction)selectImageAction:(id)sender
 {
@@ -34,6 +54,22 @@
 
 - (IBAction)saveImageAction:(id)sender
 {
+}
+
+#pragma mark - FPPickerDelegate Methods
+
+- (void)                  FPPickerController:(FPPickerController *)picker
+    didFinishPickingMultipleMediaWithResults:(NSArray *)results
+{
+    for (FPMediaInfo *info in results)
+    {
+        if (info.containsImageAtMediaURL)
+        {
+            NSImage *image = [[NSImage alloc] initWithContentsOfURL:info.mediaURL];
+
+            self.imageView.image = image;
+        }
+    }
 }
 
 @end

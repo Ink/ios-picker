@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4546C16E19EC4E6B00477C9B /* FPPickerMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
 		45718BB4199CFEC100C27324 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BB3199CFEC100C27324 /* Cocoa.framework */; };
 		45718BBE199CFEC100C27324 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45718BBC199CFEC100C27324 /* InfoPlist.strings */; };
 		45718BC0199CFEC100C27324 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45718BBF199CFEC100C27324 /* main.m */; };
@@ -14,12 +15,25 @@
 		45718BC7199CFEC100C27324 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45718BC6199CFEC100C27324 /* AppDelegate.m */; };
 		45718BCA199CFEC100C27324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45718BC8199CFEC100C27324 /* MainMenu.xib */; };
 		45718BCC199CFEC100C27324 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45718BCB199CFEC100C27324 /* Images.xcassets */; };
-		45718BFE199CFF0700C27324 /* FPPickerMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; };
 		45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		45D0397A19A21DB800983134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397919A21DB800983134 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		4546C16A19EC4E5200477C9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4546C16119EC4BCC00477C9B;
+			remoteInfo = "FPPicker Resources Mac";
+		};
+		4546C16C19EC4E5500477C9B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 45C13B22199CEA4A002DE7D3;
+			remoteInfo = FPPickerMac;
+		};
 		45718BF0199CFEDD00C27324 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
@@ -47,20 +61,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 458B1FEA1949D726008360E9;
 			remoteInfo = "FPPicker Functional Tests";
-		};
-		45718BFA199CFEDD00C27324 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 45FB62EE199CEF1700D0535A;
-			remoteInfo = "FPPicker Resources Mac";
-		};
-		45D0397219A20F2C00983134 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 45C13B22199CEA4A002DE7D3;
-			remoteInfo = FPPickerMac;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -104,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				45718BFE199CFF0700C27324 /* FPPickerMac.framework in Frameworks */,
+				4546C16E19EC4E6B00477C9B /* FPPickerMac.framework in Frameworks */,
 				45718BB4199CFEC100C27324 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,11 +155,11 @@
 			children = (
 				45718BC5199CFEC100C27324 /* AppDelegate.h */,
 				45718BC6199CFEC100C27324 /* AppDelegate.m */,
+				45D0397819A21DB800983134 /* ViewController.h */,
+				45D0397919A21DB800983134 /* ViewController.m */,
 				45718BC8199CFEC100C27324 /* MainMenu.xib */,
 				45718BCB199CFEC100C27324 /* Images.xcassets */,
 				45718BBA199CFEC100C27324 /* Supporting Files */,
-				45D0397819A21DB800983134 /* ViewController.h */,
-				45D0397919A21DB800983134 /* ViewController.m */,
 			);
 			path = "FPPicker Mac Demo";
 			sourceTree = "<group>";
@@ -179,10 +179,10 @@
 		45718BE8199CFEDC00C27324 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				45718BF1199CFEDD00C27324 /* libFPPicker.a */,
+				45718BF1199CFEDD00C27324 /* FPPicker.framework */,
 				45718BF3199CFEDD00C27324 /* FPPickerMac.framework */,
 				45718BF5199CFEDD00C27324 /* FPPicker.bundle */,
-				45718BFB199CFEDD00C27324 /* FPPicker.bundle */,
+				4546C16B19EC4E5200477C9B /* FPPicker.bundle */,
 				45718BF7199CFEDD00C27324 /* FPPicker Functional Tests.xctest */,
 			);
 			name = Products;
@@ -203,7 +203,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				45D0397319A20F2C00983134 /* PBXTargetDependency */,
+				4546C16D19EC4E5500477C9B /* PBXTargetDependency */,
 			);
 			name = "FPPicker Mac Demo";
 			productName = "FPPicker Mac Demo";
@@ -244,10 +244,17 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		45718BF1199CFEDD00C27324 /* libFPPicker.a */ = {
+		4546C16B19EC4E5200477C9B /* FPPicker.bundle */ = {
 			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libFPPicker.a;
+			fileType = wrapper.cfbundle;
+			path = FPPicker.bundle;
+			remoteRef = 4546C16A19EC4E5200477C9B /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45718BF1199CFEDD00C27324 /* FPPicker.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FPPicker.framework;
 			remoteRef = 45718BF0199CFEDD00C27324 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -270,13 +277,6 @@
 			fileType = wrapper.cfbundle;
 			path = "FPPicker Functional Tests.xctest";
 			remoteRef = 45718BF6199CFEDD00C27324 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		45718BFB199CFEDD00C27324 /* FPPicker.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = FPPicker.bundle;
-			remoteRef = 45718BFA199CFEDD00C27324 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -309,10 +309,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		45D0397319A20F2C00983134 /* PBXTargetDependency */ = {
+		4546C16D19EC4E5500477C9B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FPPickerMac;
-			targetProxy = 45D0397219A20F2C00983134 /* PBXContainerItemProxy */;
+			targetProxy = 4546C16C19EC4E5500477C9B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

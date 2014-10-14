@@ -28,16 +28,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "45718BD0199CFEC200C27324"
-               BuildableName = "FPPicker Mac DemoTests.xctest"
-               BlueprintName = "FPPicker Mac DemoTests"
-               ReferencedContainer = "container:FPPicker Mac Demo.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
