@@ -26,6 +26,9 @@
 @property (nonatomic, strong) IBOutlet NSTabView *tabView;
 @property (nonatomic, strong) IBOutlet NSSearchField *searchField;
 
+@property (nonatomic, assign) BOOL allowsFileSelection;
+@property (nonatomic, assign) BOOL allowsMultipleSelection;
+
 - (BOOL)pickSelectedItems;
 
 @end

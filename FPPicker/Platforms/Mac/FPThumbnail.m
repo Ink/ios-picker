@@ -33,16 +33,18 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ (icon=%@)",
+    return [NSString stringWithFormat:@"%@ {icon=%@, isDimmed=%@}",
             self.title,
-            self.icon];
+            self.icon,
+            self.isDimmed ? @"YES"   :@"NO"];
 }
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"%@ (icon=%@)",
+    return [NSString stringWithFormat:@"%@ {icon=%@, isDimmed=%@}",
             self.title,
-            self.icon];
+            self.icon,
+            self.isDimmed ? @"YES"   :@"NO"];
 }
 
 @end

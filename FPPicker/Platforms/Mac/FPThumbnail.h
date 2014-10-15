@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSImage *icon;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *UID;
+@property (nonatomic, assign) BOOL isDimmed;
 
 @end

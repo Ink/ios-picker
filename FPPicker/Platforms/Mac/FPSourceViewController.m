@@ -37,6 +37,24 @@ typedef enum : NSUInteger
 
 @implementation FPSourceViewController
 
+#pragma mark - Accessors
+
+- (void)setAllowsFileSelection:(BOOL)allowsFileSelection
+{
+    _allowsFileSelection = allowsFileSelection;
+
+    self.sourceBrowserController.allowsFileSelection = allowsFileSelection;
+
+    [self.currentSelectionTextField setHidden:!allowsFileSelection];
+}
+
+- (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
+{
+    _allowsMultipleSelection = allowsMultipleSelection;
+
+    self.sourceBrowserController.allowsMultipleSelection = allowsMultipleSelection;
+}
+
 #pragma mark - Public Methods
 
 - (void)awakeFromNib
@@ -79,6 +97,19 @@ typedef enum : NSUInteger
 
 #pragma mark - FPFileTransferWindowControllerDelegate Methods
 
+- (BOOL)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
+         shouldPickMediaWithInfo:(FPMediaInfo *)info
+{
+    if (self.pickerController.delegate &&
+        [self.pickerController.delegate respondsToSelector:@selector(FPPickerController:shouldPickMediaWithInfo:)])
+    {
+        return [self.pickerController.delegate FPPickerController:self.pickerController
+                                          shouldPickMediaWithInfo:info];
+    }
+
+    return YES;
+}
+
 - (void)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
        didFinishDownloadingItems:(NSArray *)items
 {
@@ -89,6 +120,15 @@ typedef enum : NSUInteger
     {
         [self.pickerController.delegate FPPickerController:self.pickerController
                   didFinishPickingMultipleMediaWithResults:items];
+    }
+}
+
+- (void)FPFileTransferControllerDidCancelDownloadingItems:(FPFileTransferWindowController *)fileTransferWindowController
+{
+    if (self.pickerController.delegate &&
+        [self.pickerController.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+    {
+        [self.pickerController.delegate FPPickerControllerDidCancel:self.pickerController];
     }
 }
 
@@ -138,29 +178,40 @@ typedef enum : NSUInteger
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods
 
+- (void)       sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    didMomentarilySelectItem:(NSDictionary *)item
+{
+    DLog(@"item = %@", item);
+}
+
 - (void) sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     selectionDidChange:(NSArray *)selectedItems
 {
-    NSString *selectionString;
-    NSUInteger selectionCount = selectedItems.count;
-
-    switch (selectionCount)
+    if (!self.currentSelectionTextField.isHidden)
     {
-        case 0:
-            selectionString = @"No items selected";
+        NSString *selectionString;
+        NSUInteger selectionCount = selectedItems.count;
 
-            break;
-        case 1:
-            selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
+        switch (selectionCount)
+        {
+            case 0:
+                selectionString = @"No items selected";
 
-            break;
-        default:
-            selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
+                break;
 
-            break;
+            case 1:
+                selectionString = [NSString stringWithFormat:@"%lu item selected", (unsigned long)selectionCount];
+
+                break;
+
+            default:
+                selectionString = [NSString stringWithFormat:@"%lu items selected", (unsigned long)selectionCount];
+
+                break;
+        }
+
+        self.currentSelectionTextField.stringValue = selectionString;
     }
-
-    self.currentSelectionTextField.stringValue = selectionString;
 }
 
 - (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController

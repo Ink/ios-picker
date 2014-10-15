@@ -279,6 +279,8 @@
 		45DF54A01958306500B694CD /* successfulMultipartStartResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */; };
 		45DF54A21958342F00B694CD /* successfulMultipartUploadResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */; };
 		45DF54A41958354200B694CD /* successfulMultipartEndResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */; };
+		45E10AF219EE9E9400D34BC0 /* FPImageBrowserCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E10AF019EE9E9400D34BC0 /* FPImageBrowserCell.h */; };
+		45E10AF319EE9E9400D34BC0 /* FPImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */; };
 		45E1A41619A5FC8000287419 /* FPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E1A41419A5FC8000287419 /* FPView.h */; };
 		45E1A41719A5FC8000287419 /* FPView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1A41519A5FC8000287419 /* FPView.m */; };
 		45FB62A9199CECE600D0535A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FB62A8199CECE600D0535A /* Cocoa.framework */; };
@@ -474,6 +476,8 @@
 		45DF549F1958306500B694CD /* successfulMultipartStartResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartStartResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartStartResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DF54A11958342F00B694CD /* successfulMultipartUploadResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartUploadResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartUploadResponse.json"; sourceTree = SOURCE_ROOT; };
 		45DF54A31958354200B694CD /* successfulMultipartEndResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulMultipartEndResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulMultipartEndResponse.json"; sourceTree = SOURCE_ROOT; };
+		45E10AF019EE9E9400D34BC0 /* FPImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImageBrowserCell.h; sourceTree = "<group>"; };
+		45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImageBrowserCell.m; sourceTree = "<group>"; };
 		45E1A41419A5FC8000287419 /* FPView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPView.h; sourceTree = "<group>"; };
 		45E1A41519A5FC8000287419 /* FPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPView.m; sourceTree = "<group>"; };
 		45FB62A8199CECE600D0535A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -687,10 +691,14 @@
 		45B9888519A4F10D00CE7DFC /* Custom Controls */ = {
 			isa = PBXGroup;
 			children = (
+				4572914619CAFE2900447FAB /* FPImageBrowserView.h */,
+				4572914719CAFE2900447FAB /* FPImageBrowserView.m */,
 				45B9888619A4F12300CE7DFC /* FPBorderView.h */,
 				45B9888719A4F12300CE7DFC /* FPBorderView.m */,
 				45E1A41419A5FC8000287419 /* FPView.h */,
 				45E1A41519A5FC8000287419 /* FPView.m */,
+				45E10AF019EE9E9400D34BC0 /* FPImageBrowserCell.h */,
+				45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -786,11 +794,8 @@
 				45808B5819B4726D00ECBDA1 /* FPSourceBrowserController.m */,
 				45765FCE19A4A0C50018E2EC /* FPSourceListController.h */,
 				45765FCF19A4A0C50018E2EC /* FPSourceListController.m */,
-				45C13B73199CEA93002DE7D3 /* Supporting Files */,
 				4508FCBA19A74D150009CDF0 /* FPNavigationController.h */,
 				4508FCBB19A74D150009CDF0 /* FPNavigationController.m */,
-				4572914619CAFE2900447FAB /* FPImageBrowserView.h */,
-				4572914719CAFE2900447FAB /* FPImageBrowserView.m */,
 				45C7179419D4182400727129 /* FPBaseSourceController.h */,
 				45C7179519D4182400727129 /* FPBaseSourceController.m */,
 				45C7179819D418C500727129 /* FPSourceViewController.h */,
@@ -799,6 +804,7 @@
 				45C7179D19D44AF400727129 /* FPImageSearchSourceController.m */,
 				4578B08219E824BD00B188F3 /* FPFileTransferWindowController.h */,
 				4578B08319E824BD00B188F3 /* FPFileTransferWindowController.m */,
+				45C13B73199CEA93002DE7D3 /* Supporting Files */,
 			);
 			name = Mac;
 			path = FPPicker/Platforms/Mac;
@@ -1102,6 +1108,7 @@
 				453B7A4019DEA59F000D2841 /* FPExternalHeaders.h in Headers */,
 				4579CF58199CEAF200E0BCB4 /* FPMediaInfo.h in Headers */,
 				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
+				45E10AF219EE9E9400D34BC0 /* FPImageBrowserCell.h in Headers */,
 				4508FCBC19A74D150009CDF0 /* FPNavigationController.h in Headers */,
 				45C13B94199CEA93002DE7D3 /* FPPickerMac.h in Headers */,
 				45D0396C19A20CC300983134 /* FPPickerController.h in Headers */,
@@ -1605,6 +1612,7 @@
 				45B9888919A4F12300CE7DFC /* FPBorderView.m in Sources */,
 				45765FD119A4A0C50018E2EC /* FPSourceListController.m in Sources */,
 				4579CF64199CEB0100E0BCB4 /* FPConstants.m in Sources */,
+				45E10AF319EE9E9400D34BC0 /* FPImageBrowserCell.m in Sources */,
 				4579CF71199CEB0600E0BCB4 /* FPProgressTracker.m in Sources */,
 				4579CF67199CEB0100E0BCB4 /* FPMultipartUploader.m in Sources */,
 				45E1A41719A5FC8000287419 /* FPView.m in Sources */,
