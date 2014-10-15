@@ -15,6 +15,7 @@
 @protocol FPSourceBrowserControllerDelegate <NSObject>
 
 - (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController selectionDidChange:(NSArray *)selectedItems;
+- (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController didMomentarilySelectItem:(NSDictionary *)item;
 
 @optional
 
@@ -29,5 +30,7 @@
 @property (nonatomic, weak) IBOutlet FPImageBrowserView *thumbnailListView;
 @property (nonatomic, strong) NSArray *items;
 @property (readonly, strong) NSArray *selectedItems;
+@property (nonatomic, assign) BOOL allowsFileSelection;
+@property (nonatomic, assign) BOOL allowsMultipleSelection;
 
 @end

@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSOperationQueue *thumbnailFetchingOperationQueue;
 @property (nonatomic, strong) NSCache *thumbnailCache;
 @property (readwrite, nonatomic, strong) NSArray *selectedItems;
+@property (nonatomic, strong) NSIndexSet *selectionIndexes;
 
 @end
 
@@ -51,7 +52,27 @@
     _items = items;
 }
 
+- (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
+{
+    _allowsFileSelection = allowsMultipleSelection;
+
+    self.thumbnailListView.allowsMultipleSelection = allowsMultipleSelection;
+}
+
 #pragma mark - Public Methods
+
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self)
+    {
+        self.allowsFileSelection = YES;
+        self.allowsMultipleSelection = YES;
+    }
+
+    return self;
+}
 
 - (void)awakeFromNib
 {
@@ -95,10 +116,32 @@
         [items addObject:item];
     }];
 
+    if (items.count == 1 &&
+        !self.allowsMultipleSelection &&
+        !self.allowsFileSelection)
+    {
+        NSDictionary *item = items[0];
+
+        if (![item[@"is_dir"] boolValue])
+        {
+            // Maintain previous selection
+
+            [browser setSelectionIndexes:self.selectionIndexes
+                    byExtendingSelection:NO];
+
+            [self.delegate sourceBrowser:self
+                didMomentarilySelectItem:item];
+
+            return;
+        }
+    }
+
     self.selectedItems = [items copy];
 
     [self.delegate sourceBrowser:self
               selectionDidChange:self.selectedItems];
+
+    self.selectionIndexes = browser.selectionIndexes;
 }
 
 - (void)           imageBrowser:(FPImageBrowserView *)aBrowser
@@ -167,6 +210,7 @@
 
         thumb.UID = itemUID;
         thumb.title = [item[@"display_name"] length] > 0 ? item[@"display_name"] : item[@"filename"];
+        thumb.isDimmed = self.allowsFileSelection ? NO : ![item[@"is_dir"] boolValue];
 
         NSURL *iconURL = [NSURL URLWithString:item[@"thumbnail"]];
         NSURLRequest *iconURLRequest = [NSURLRequest requestWithURL:iconURL];
