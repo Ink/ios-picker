@@ -181,13 +181,16 @@ typedef enum : NSUInteger
 - (void)       sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     didMomentarilySelectItem:(NSDictionary *)item
 {
-    DLog(@"item = %@", item);
+    if (self.filenameTextField)
+    {
+        self.filenameTextField.stringValue = item[@"filename"];
+    }
 }
 
 - (void) sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     selectionDidChange:(NSArray *)selectedItems
 {
-    if (!self.currentSelectionTextField.isHidden)
+    if (self.currentSelectionTextField)
     {
         NSString *selectionString;
         NSUInteger selectionCount = selectedItems.count;

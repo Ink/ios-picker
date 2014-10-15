@@ -21,6 +21,7 @@
 @property (nonatomic, weak) IBOutlet FPAuthController *authController;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;
+@property (nonatomic, strong) IBOutlet NSTextField *filenameTextField;
 @property (nonatomic, strong) IBOutlet NSButton *loginButton;
 @property (nonatomic, strong) IBOutlet NSButton *logoutButton;
 @property (nonatomic, strong) IBOutlet NSTabView *tabView;
