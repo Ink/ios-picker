@@ -7,6 +7,7 @@
 //
 
 #import "FPImageBrowserView.h"
+#import "FPImageBrowserCell.h"
 
 @implementation FPImageBrowserView
 
@@ -23,6 +24,18 @@
     }
 
     [super keyDown:event];
+}
+
+- (IKImageBrowserCell *)newCellForRepresentedItem:(id /* <IKImageBrowserItem> */)anItem
+{
+    FPImageBrowserCell *cell = [FPImageBrowserCell new];
+
+    if ([anItem respondsToSelector:@selector(isDimmed)])
+    {
+        cell.isDimmed = [anItem isDimmed];
+    }
+
+    return cell;
 }
 
 @end
