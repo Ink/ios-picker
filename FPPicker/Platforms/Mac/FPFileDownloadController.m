@@ -42,23 +42,18 @@
     return self;
 }
 
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-
-    // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
-}
-
 #pragma mark - Public Methods
 
 - (void)process
 {
-    [super process];
+    // Check there's items
 
     if (self.items.count == 0)
     {
         return;
     }
+
+    // Check there's a delegate
 
     if (!self.delegate)
     {
@@ -68,6 +63,8 @@
         return;
     }
 
+    // Check there's a sourceController
+
     if (!self.sourceController)
     {
         [NSException raise:@"Source controller is missing"
@@ -75,6 +72,12 @@
 
         return;
     }
+
+    // Call super
+
+    [super process];
+
+    // Initialize variables, etc.
 
     NSUInteger totalCount = self.items.count;
     NSMutableArray *results = [NSMutableArray array];
@@ -87,6 +90,8 @@
     [self.progressIndicator startAnimation:self];
 
     self.progressTracker = [[FPProgressTracker alloc] initWithObjectCount:totalCount];
+
+    // Start processing
 
     dispatch_apply(totalCount,
                    dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0),
@@ -145,8 +150,6 @@
         };
 
         // Request items
-
-        DLog(@"shouldDownloadData = %d", self.shouldDownloadData);
 
         [self.sourceController requestObjectMediaInfo:item
                                        shouldDownload:self.shouldDownloadData

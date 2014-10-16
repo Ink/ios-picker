@@ -69,18 +69,20 @@
 
 - (void)process
 {
+    __block BOOL hasStarted = NO;
+
+    // Validate arguments
+
     if (![self validateArguments])
     {
         return;
     }
 
+    // Call super
+
     [super process];
 
-    self.descriptionTextField.stringValue = @"About to start uploading file";
-
-    __block BOOL hasStarted = NO;
-
-    [self.progressIndicator startAnimation:self];
+    // Callbacks
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         DLog(@"Upload returned: %@", JSON);
@@ -136,6 +138,10 @@
         self.progressIndicator.doubleValue = progress;
     };
 
+    self.descriptionTextField.stringValue = @"About to start uploading file";
+
+    [self.progressIndicator startAnimation:self];
+
     if (self.dataURL)
     {
         [FPLibrary uploadDataURL:self.dataURL
@@ -158,15 +164,6 @@
                       failure:failureBlock
                      progress:progressBlock];
     }
-}
-
-#pragma mark - Actions
-
-- (IBAction)cancel:(id)sender
-{
-    [super cancel:sender];
-
-    DLog(@"cancelling");
 }
 
 #pragma mark - Private Methods
