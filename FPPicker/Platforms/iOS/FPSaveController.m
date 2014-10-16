@@ -102,7 +102,7 @@
                                  animated:YES];
 
         [self.fpdelegate FPSaveController:self
-            didFinishPickingMediaWithInfo:nil];
+             didFinishSavingMediaWithInfo:nil];
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
@@ -164,48 +164,50 @@
     }
 
     [self.fpdelegate FPSaveController:self
-        didFinishPickingMediaWithInfo:nil];
+         didFinishSavingMediaWithInfo:nil];
 }
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (BOOL) FPSourceController:(FPSourceController *)picker
+- (BOOL) FPSourceController:(FPSourceController *)sourceController
     shouldPickMediaWithInfo:(FPMediaInfo *)info
 {
     return YES;
 }
 
-- (void)FPSourceController:(FPSourceController *)picker
+- (void)FPSourceController:(FPSourceController *)sourceController
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
     // NO-OP
 }
 
-- (void)       FPSourceController:(FPSourceController *)picker
+- (void)       FPSourceController:(FPSourceController *)sourceController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     // The user saved a file to the cloud or camera roll.
 
-    NSLog(@"Saved something to a source: %@", info);
+    DLog(@"Saved something to a source: %@", info);
 
     [self.fpdelegate FPSaveController:self
-        didFinishPickingMediaWithInfo:info];
+         didFinishSavingMediaWithInfo:info];
 
     self.fpdelegate = nil;
 }
 
-- (void)                  FPSourceController:(FPSourceController *)picker
+- (void)                  FPSourceController:(FPSourceController *)sourceController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     // NO-OP
 }
 
-- (void)FPSourceControllerDidCancel:(FPSourceController *)picker
+- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController
 {
     //The user chose to cancel when saving to the cloud or camera roll.
-    NSLog(@"FP Save Canceled.");
+
+    DLog(@"FP Save Canceled.");
 
     [self.fpdelegate FPSaveControllerDidCancel:self];
+
     self.fpdelegate = nil;
 }
 
@@ -214,6 +216,7 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     [self.fpdelegate FPSaveControllerDidCancel:self];
+
     self.fpdelegate = nil;
 }
 

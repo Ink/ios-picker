@@ -16,11 +16,11 @@
 
 @optional
 
-- (BOOL)FPPickerController:(FPPickerController *)picker shouldPickMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
-- (void)FPPickerControllerDidCancel:(FPPickerController *)picker;
+- (BOOL)FPPickerController:(FPPickerController *)pickerController shouldPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPPickerController:(FPPickerController *)pickerController didPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPPickerController:(FPPickerController *)pickerController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPPickerController:(FPPickerController *)pickerController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
+- (void)FPPickerControllerDidCancel:(FPPickerController *)pickerController;
 
 @end
 
@@ -28,9 +28,9 @@
 
 @optional
 
-- (void)FPSaveController:(FPSaveController *)picker didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSaveController:(FPSaveController *)picker didError:(NSError *)error;
-- (void)FPSaveControllerDidCancel:(FPSaveController *)picker;
+- (void)FPSaveController:(FPSaveController *)saveController didFinishSavingMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPSaveController:(FPSaveController *)saveController didError:(NSError *)error;
+- (void)FPSaveControllerDidCancel:(FPSaveController *)saveController;
 
 @end
 
@@ -38,10 +38,10 @@
 
 @protocol FPSourcePickerDelegate <NSObject>
 
-- (BOOL)FPSourceController:(FPSourceController *)picker shouldPickMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSourceController:(FPSourceController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
-- (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
+- (BOOL)FPSourceController:(FPSourceController *)sourceController shouldPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPSourceController:(FPSourceController *)sourceController didPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPSourceController:(FPSourceController *)sourceController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
+- (void)FPSourceController:(FPSourceController *)sourceController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
+- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController;
 
 @end

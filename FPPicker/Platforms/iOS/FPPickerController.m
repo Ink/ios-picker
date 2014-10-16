@@ -306,7 +306,7 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (BOOL) FPSourceController:(FPSourceController *)picker
+- (BOOL) FPSourceController:(FPSourceController *)sourceController
     shouldPickMediaWithInfo:(FPMediaInfo *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:shouldPickMediaWithInfo:)])
@@ -318,7 +318,7 @@
     return YES;
 }
 
-- (void)FPSourceController:(FPSourceController *)picker
+- (void)FPSourceController:(FPSourceController *)sourceController
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
@@ -328,23 +328,24 @@
     }
 }
 
-- (void)       FPSourceController:(FPSourceController *)picker
+- (void)       FPSourceController:(FPSourceController *)sourceController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
-    //The user chose a file from the cloud or camera roll.
-    NSLog(@"Picked something from a source: %@", info);
+    // The user chose a file from the cloud or camera roll.
+
+    DLog(@"Picked something from a source: %@", info);
 
     [self.fpdelegate FPPickerController:self
           didFinishPickingMediaWithInfo:info];
 }
 
-- (void)                  FPSourceController:(FPSourceController *)picker
+- (void)                  FPSourceController:(FPSourceController *)sourceController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
-    //The user chose a file from the cloud or camera roll.
-    NSLog(@"Picked multiple files from a source: %@", results);
+    // The user chose a file from the cloud or camera roll.
 
-    //It's optional, so check
+    DLog(@"Picked multiple files from a source: %@", results);
+
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
         [self.fpdelegate FPPickerController:self
@@ -352,12 +353,12 @@
     }
 }
 
-- (void)FPSourceControllerDidCancel:(FPSourceController *)picker
+- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController
 {
-    //The user chose to cancel when using the cloud or camera roll.
-    NSLog(@"FP Canceled.");
+    // The user chose to cancel when using the cloud or camera roll.
 
-    //It's optional, so check
+    DLog(@"FP Canceled.");
+
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
     {
         [self.fpdelegate FPPickerControllerDidCancel:self];
