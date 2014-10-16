@@ -1,22 +1,20 @@
 //
-//  FPPickerController.m
+//  FPSaveController.m
 //  FPPicker
 //
-//  Created by Ruben Nine on 18/08/14.
+//  Created by Ruben Nine on 15/10/14.
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#define FPPickerController_protected
-
-#import "FPPickerController.h"
+#import "FPSaveController.h"
 #import "FPInternalHeaders.h"
 #import "FPSourceListController.h"
 #import "FPSourceViewController.h"
-#import "FPFileDownloadController.h"
+#import "FPFileUploadController.h"
 
-@interface FPPickerController () <NSSplitViewDelegate,
-                                  NSWindowDelegate,
-                                  FPFileTransferControllerDelegate>
+@interface FPSaveController  () <NSSplitViewDelegate,
+                                 NSWindowDelegate,
+                                 FPFileTransferControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
@@ -24,10 +22,11 @@
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
 
 @property (nonatomic, assign) NSModalSession modalSession;
+@property (nonatomic, strong) FPFileUploadController *uploadController;
 
 @end
 
-@implementation FPPickerController
+@implementation FPSaveController
 
 #pragma mark - Public Methods
 
@@ -44,10 +43,7 @@
 
     if (self)
     {
-        self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
-
-        self.shouldUpload = YES;
-        self.shouldDownload = YES;
+        self = [[self.class alloc] initWithWindowNibName:@"FPSaveController"];
     }
 
     return self;
@@ -62,44 +58,41 @@
 
 #pragma mark - Actions
 
-- (IBAction)openFiles:(id)sender
+- (IBAction)saveFile:(id)sender
 {
-//    if ([self.sourceViewController pickSelectedItems])
+    NSString *filename = self.sourceViewController.filenameTextField.stringValue;
+    NSString *path = self.sourceViewController.currentPath;
 
-    // Validate selection by looking for directories
-
-    NSArray *selectedItems = self.sourceViewController.selectedItems;
-    FPBaseSourceController *sourceController = self.sourceViewController.sourceController;
-
-    if (!selectedItems)
+    if (self.data)
     {
+        self.uploadController = [[FPFileUploadController alloc] initWithData:self.data
+                                                                    filename:filename
+                                                                  targetPath:path
+                                                                 andMimetype:self.dataType];
+    }
+    else if (self.dataURL)
+    {
+        self.uploadController = [[FPFileUploadController alloc] initWithDataURL:self.dataURL
+                                                                       filename:filename
+                                                                     targetPath:path
+                                                                    andMimetype:self.dataType];
+    }
+
+    if (!self.uploadController)
+    {
+        DLog(@"No upload controller was intanstiated.");
+
         return;
     }
 
-    for (NSDictionary *item in selectedItems)
+    self.uploadController.delegate = self;
+
+    [self.uploadController process];
+
+
     {
-        if ([item[@"is_dir"] boolValue])
-        {
-            // Display alert with error
-
-            NSError *error = [FPUtils errorWithCode:200
-                              andLocalizedDescription:@"Selection must not contain any directories."];
-
-            [FPUtils presentError:error
-                  withMessageText:@"Selection error"];
-
-            return;
-        }
+        [self.window close];
     }
-
-    FPFileDownloadController *fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems];
-
-    fileDownloadController.delegate = self;
-    fileDownloadController.sourceController = sourceController;
-
-    [fileDownloadController process];
-
-    [self.window close];
 }
 
 - (IBAction)close:(id)sender
@@ -114,25 +107,42 @@
                                      info:(id)info
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+        [self.delegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
     {
-        [self.delegate FPPickerController:self
-         didFinishPickingMultipleMediaWithResults:info];
+        [self.delegate FPSaveController:self
+           didFinishSavingMediaWithInfo:info];
+    }
+    else
+    {
+        DLog(@"Upload finished: %@", info);
     }
 }
 
 - (void)FPFileTransferControllerDidFail:(FPFileTransferController *)transferController
                                   error:(NSError *)error
 {
-    DLog(@"Error: %@", error);
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(FPSaveController:didError:)])
+    {
+        [self.delegate FPSaveController:self
+                               didError:error];
+    }
+    else
+    {
+        DLog(@"Upload failed: %@", error);
+    }
 }
 
 - (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+        [self.delegate respondsToSelector:@selector(FPSaveControllerDidCancel:)])
     {
-        [self.delegate FPPickerControllerDidCancel:self];
+        [self.delegate FPSaveControllerDidCancel:self];
+    }
+    else
+    {
+        DLog(@"Upload was cancelled");
     }
 }
 
@@ -142,8 +152,12 @@
 {
     [super windowDidLoad];
 
+    self.sourceViewController.allowsFileSelection = NO;
+    self.sourceViewController.allowsMultipleSelection = NO;
+    self.sourceViewController.filenameTextField.stringValue = self.proposedFilename;
+
     self.sourceListController.sourceNames = self.sourceNames;
-    self.sourceListController.dataTypes = self.dataTypes;
+    self.sourceListController.dataTypes = @[self.dataType];
 
     [self.sourceListController loadAndExpandSourceListIfRequired];
 }

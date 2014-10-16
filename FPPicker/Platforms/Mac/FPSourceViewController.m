@@ -14,7 +14,7 @@
 #import "FPNavigationController.h"
 #import "FPAuthController.h"
 #import "FPPickerController.h"
-#import "FPFileTransferWindowController.h"
+#import "FPSaveController.h"
 #import "FPInternalHeaders.h"
 
 typedef enum : NSUInteger
@@ -27,11 +27,10 @@ typedef enum : NSUInteger
 @interface FPSourceViewController () <FPSourceListControllerDelegate,
                                       FPSourceBrowserControllerDelegate,
                                       FPRemoteSourceControllerDelegate,
-                                      FPNavigationControllerDelegate,
-                                      FPFileTransferWindowControllerDelegate>
+                                      FPNavigationControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet NSScrollView *scrollView;
-@property (nonatomic, strong) FPBaseSourceController *sourceController;
+@property (readwrite, nonatomic) FPBaseSourceController *sourceController;
 
 @end
 
@@ -65,87 +64,19 @@ typedef enum : NSUInteger
     self.loginButton.enabled = NO;
 }
 
-- (BOOL)pickSelectedItems
+- (NSString *)currentPath
 {
-    // Validate selection by looking for directories
+    return self.sourceController.path;
+}
 
-    for (NSDictionary *item in self.sourceBrowserController.selectedItems)
-    {
-        if ([item[@"is_dir"] boolValue])
-        {
-            // Display alert with error
-
-            NSError *error = [FPUtils errorWithCode:200
-                              andLocalizedDescription:@"Selection must not contain any directories."];
-
-            [self fpPresentError:error
-                 withMessageText:@"Selection error"];
-
-            return NO;
-        }
-    }
-
-    FPFileTransferWindowController *fileTransferController = [FPFileTransferWindowController new];
-
-    fileTransferController.delegate = self;
-    fileTransferController.sourceController = self.sourceController;
-
-    [fileTransferController enqueueItems:self.sourceBrowserController.selectedItems];
-    [fileTransferController process];
-
-    return YES;
+- (NSArray *)selectedItems
+{
+    return self.sourceBrowserController.selectedItems;
 }
 
 - (void)cancelAllOperations
 {
     [self.sourceController cancelAllOperations];
-}
-
-#pragma mark - FPFileTransferWindowControllerDelegate Methods
-
-- (BOOL)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
-         shouldPickMediaWithInfo:(FPMediaInfo *)info
-{
-    if (self.pickerController.delegate &&
-        [self.pickerController.delegate respondsToSelector:@selector(FPPickerController:shouldPickMediaWithInfo:)])
-    {
-        return [self.pickerController.delegate FPPickerController:self.pickerController
-                                          shouldPickMediaWithInfo:info];
-    }
-
-    return YES;
-}
-
-- (void)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
-       didFinishDownloadingItems:(NSArray *)items
-{
-    DLog(@"Got items: %@", @(items.count));
-
-    if (self.pickerController.delegate &&
-        [self.pickerController.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
-    {
-        [self.pickerController.delegate FPPickerController:self.pickerController
-                  didFinishPickingMultipleMediaWithResults:items];
-    }
-}
-
-- (void)FPFileTransferControllerDidCancelDownloadingItems:(FPFileTransferWindowController *)fileTransferWindowController
-{
-    if (self.pickerController.delegate &&
-        [self.pickerController.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
-    {
-        [self.pickerController.delegate FPPickerControllerDidCancel:self.pickerController];
-    }
-}
-
-- (BOOL)FPFileTransferControllerShouldDownload:(FPFileTransferWindowController *)fileTransferWindowController
-{
-    return self.pickerController.shouldDownload;
-}
-
-- (BOOL)FPFileTransferControllerShouldUpload:(FPFileTransferWindowController *)fileTransferWindowController
-{
-    return self.pickerController.shouldUpload;
 }
 
 #pragma mark - FPSourceListControllerDelegate Methods
@@ -199,7 +130,9 @@ typedef enum : NSUInteger
     if (self.filenameTextField &&
         self.sourceController.source.overwritePossible)
     {
-        self.filenameTextField.stringValue = item[@"filename"];
+        NSString *filename = item[@"filename"];
+
+        self.filenameTextField.stringValue = filename;
     }
 }
 
@@ -307,8 +240,8 @@ typedef enum : NSUInteger
     FPAuthFailureBlock failureBlock = ^(NSError *error) {
         self.loginButton.enabled = YES;
 
-        [self fpPresentError:error
-             withMessageText:@"Response error"];
+        [FPUtils presentError:error
+              withMessageText:@"Response error"];
     };
 
     [self.authController displayAuthSheetWithSource:self.sourceController.source
@@ -357,8 +290,8 @@ typedef enum : NSUInteger
                                                              NSError *error) {
         [self.progressIndicator stopAnimation:self];
 
-        [self fpPresentError:error
-             withMessageText:@"Logout failure"];
+        [FPUtils presentError:error
+              withMessageText:@"Logout failure"];
     };
 
     AFHTTPRequestOperation *operation;
@@ -384,18 +317,6 @@ typedef enum : NSUInteger
 }
 
 #pragma mark - Private Methods
-
-- (void)fpPresentError:(NSError *)error
-       withMessageText:(NSString *)messageText
-{
-    NSAlert *alert = [NSAlert alertWithMessageText:messageText
-                                     defaultButton:@"OK"
-                                   alternateButton:nil
-                                       otherButton:nil
-                         informativeTextWithFormat:@"%@", error.localizedDescription];
-
-    [alert runModal];
-}
 
 - (void)authSheetDidEnd:(NSWindow *)sheet
              returnCode:(NSInteger)returnCode

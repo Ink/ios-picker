@@ -8,6 +8,6 @@
 
 #import "FPSharedInternalHeaders.h"
 
-#import "FPUtils.h"
+#import "FPUtils+Mac.h"
 #import "FPConstants.h"
 #import "FPPrivateConfig.h"
