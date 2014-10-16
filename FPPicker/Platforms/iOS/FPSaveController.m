@@ -9,6 +9,12 @@
 #import "FPSaveController.h"
 #import "FPInternalHeaders.h"
 
+@interface FPSaveController () <UINavigationControllerDelegate,
+                                UIPopoverControllerDelegate,
+                                FPSourcePickerDelegate>
+
+@end
+
 @implementation FPSaveController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
@@ -107,7 +113,7 @@
         if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
         {
             [self.fpdelegate FPSaveController:self
-                                     didError:JSON];
+                                     didError:error];
         }
         else
         {
@@ -145,11 +151,6 @@
 
 - (void)saveFileLocally
 {
-    if ([self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidSave:)])
-    {
-        [self.fpdelegate FPSaveControllerDidSave:self];
-    }
-
     [MBProgressHUD showHUDAddedTo:self.view
                          animated:YES];
 
@@ -177,16 +178,13 @@
 - (void)FPSourceController:(FPSourceController *)picker
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
-    if ([self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidSave:)])
-    {
-        [self.fpdelegate FPSaveControllerDidSave:self];
-    }
+    // NO-OP
 }
 
 - (void)       FPSourceController:(FPSourceController *)picker
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
-    //The user saved a file to the cloud or camera roll.
+    // The user saved a file to the cloud or camera roll.
 
     NSLog(@"Saved something to a source: %@", info);
 

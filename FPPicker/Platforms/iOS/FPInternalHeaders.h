@@ -9,10 +9,10 @@
 #import "FPSharedInternalHeaders.h"
 
 #import "FPAuthController.h"
-#import "FPLibrary.h"
+#import "FPUtils+iOS.h"
+#import "FPLibrary+iOS.h"
 #import "FPPickerController.h"
 #import "FPSaveController.h"
 #import "FPSourceListController.h"
 #import "FPTableWithUploadButtonViewController.h"
-#import "FPUtils+iOS.h"
 #import "MBProgressHUD.h"

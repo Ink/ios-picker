@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FPExternalHeaders.h"
 
-@interface FPPickerController : UINavigationController <UIImagePickerControllerDelegate,
-                                                        FPSourcePickerDelegate,
-                                                        UINavigationControllerDelegate>
+@interface FPPickerController : UINavigationController
 
 @property (nonatomic, weak) id <FPPickerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;

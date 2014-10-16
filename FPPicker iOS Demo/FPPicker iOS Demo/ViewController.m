@@ -302,8 +302,11 @@
 
 #pragma mark - FPSaveControllerDelegate Methods
 
-- (void)FPSaveControllerDidSave:(FPSaveController *)picker
+- (void)         FPSaveController:(FPSaveController *)picker
+    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
+    NSLog(@"FP finished saving with info %@", info);
+
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
     {
         [self.myPopoverController dismissPopoverAnimated:YES];
@@ -313,12 +316,6 @@
         [self.fpSave dismissViewControllerAnimated:YES
                                         completion:nil];
     }
-}
-
-- (void)         FPSaveController:(FPSaveController *)picker
-    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
-{
-    NSLog(@"FILE SAVED: %@", info);
 }
 
 - (void)FPSaveControllerDidCancel:(FPSaveController *)picker
@@ -337,9 +334,9 @@
 }
 
 - (void)FPSaveController:(FPSaveController *)picker
-                didError:(NSDictionary *)info
+                didError:(NSError *)error
 {
-    NSLog(@"FP Error");
+    NSLog(@"FP Error: %@", error);
 }
 
 @end

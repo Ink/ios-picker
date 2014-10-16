@@ -10,7 +10,9 @@
 #import "FPImagePickerController.h"
 #import "FPInternalHeaders.h"
 
-@interface FPPickerController ()
+@interface FPPickerController () <UIImagePickerControllerDelegate,
+                                  UINavigationControllerDelegate,
+                                  FPSourcePickerDelegate>
 
 @property (nonatomic, assign) BOOL hasStatusBar;
 
