@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FPFileTransferWindowController">
+        <customObject id="-2" userLabel="File's Owner" customClass="FPFileTransferController">
             <connections>
                 <outlet property="descriptionTextField" destination="XOO-7J-g3u" id="SPn-4Q-D9I"/>
                 <outlet property="progressIndicator" destination="gBE-xN-5Zq" id="6at-Nf-8cx"/>
@@ -35,8 +35,8 @@
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4qF-AT-8jw">
                         <rect key="frame" x="464" y="39" width="16" height="16"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="16" id="YZg-4p-kg8"/>
-                            <constraint firstAttribute="height" constant="16" id="Ynf-Wn-rXk"/>
+                            <constraint firstAttribute="width" constant="16" id="W0S-za-id6"/>
+                            <constraint firstAttribute="height" constant="16" id="fQ0-x9-VRx"/>
                         </constraints>
                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" imageScaling="proportionallyDown" inset="2" id="UTu-aS-W9N">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -51,13 +51,13 @@ Gw
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="XOO-7J-g3u" secondAttribute="bottom" constant="8" symbolic="YES" id="7Ld-rQ-yEP"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="trailing" secondItem="XOO-7J-g3u" secondAttribute="trailing" id="Gww-82-01p"/>
                     <constraint firstItem="gBE-xN-5Zq" firstAttribute="leading" secondItem="XOO-7J-g3u" secondAttribute="leading" id="Iy8-2a-oD1"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="gBE-xN-5Zq" secondAttribute="top" id="JeK-Gx-sWm"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="XOO-7J-g3u" secondAttribute="bottom" constant="8" symbolic="YES" id="SeG-XB-eI6"/>
                     <constraint firstAttribute="trailing" secondItem="XOO-7J-g3u" secondAttribute="trailing" constant="20" symbolic="YES" id="dgF-Bm-be0"/>
-                    <constraint firstItem="4qF-AT-8jw" firstAttribute="trailing" secondItem="XOO-7J-g3u" secondAttribute="trailing" id="tUa-ju-QCe"/>
-                    <constraint firstItem="4qF-AT-8jw" firstAttribute="top" secondItem="gBE-xN-5Zq" secondAttribute="top" id="x3Z-hD-1fT"/>
+                    <constraint firstItem="4qF-AT-8jw" firstAttribute="leading" secondItem="gBE-xN-5Zq" secondAttribute="trailing" constant="8" symbolic="YES" id="uSE-wv-YX8"/>
                     <constraint firstItem="XOO-7J-g3u" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="22" id="xuL-rC-PFX"/>
-                    <constraint firstItem="4qF-AT-8jw" firstAttribute="leading" secondItem="gBE-xN-5Zq" secondAttribute="trailing" constant="8" symbolic="YES" id="z9J-ro-6TX"/>
                     <constraint firstItem="XOO-7J-g3u" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" symbolic="YES" id="zIe-Rb-tMu"/>
                 </constraints>
             </view>
