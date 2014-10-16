@@ -9,6 +9,10 @@
 #import "FPConfig.h"
 #import "FPPrivateConfig.h"
 
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
+
 @interface FPConfig ()
 
 @property (nonatomic, readwrite, strong) NSURL *baseURL;
@@ -46,6 +50,37 @@ static FPConfig *FPSharedInstance = nil;
 
     return _baseURL;
 }
+
+#if TARGET_OS_IPHONE
+
+// In iOS, if no image preprocessing block is given,
+// we will use a default implementation that compresses JPEG images at 0.6 quality.
+
+- (FPImageUploadPreprocessorBlock)imageUploadPreprocessorBlock
+{
+    if (!_imageUploadPreprocessorBlock)
+    {
+        _imageUploadPreprocessorBlock = ^(NSURL *localURL,
+                                          NSString *mimetype) {
+            if ([mimetype isEqualToString:@"image/jpeg"])
+            {
+                CGFloat compresionQuality = 0.6;
+
+                DLog(@"Compressing JPEG with %f compression quality.", compresionQuality);
+
+                UIImage *image = [UIImage imageWithContentsOfFile:localURL.path];
+                NSData *filedata = UIImageJPEGRepresentation(image, compresionQuality);
+
+                [filedata writeToURL:localURL
+                          atomically:YES];
+            }
+        };
+    }
+
+    return _imageUploadPreprocessorBlock;
+}
+
+#endif
 
 #pragma mark - Private
 
