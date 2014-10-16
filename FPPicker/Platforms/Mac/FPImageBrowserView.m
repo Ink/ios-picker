@@ -11,6 +11,26 @@
 
 @implementation FPImageBrowserView
 
+- (void)mouseDown:(NSEvent *)theEvent
+{
+    NSInteger idx = [self indexOfItemAtLocationInWindow:theEvent.locationInWindow];
+
+    [self dimCellAtIndexIfRequired:idx
+                             state:NO];
+
+    [super mouseDown:theEvent];
+}
+
+- (void)mouseUp:(NSEvent *)theEvent
+{
+    NSInteger idx = [self indexOfItemAtLocationInWindow:theEvent.locationInWindow];
+
+    [self dimCellAtIndexIfRequired:idx
+                             state:YES];
+
+    [super mouseUp:theEvent];
+}
+
 - (void)keyDown:(NSEvent *)event
 {
     if (self.delegate &&
@@ -36,6 +56,33 @@
     }
 
     return cell;
+}
+
+#pragma mark - Private Methods
+
+- (void)dimCellAtIndexIfRequired:(NSUInteger)index
+                           state:(BOOL)state
+{
+    if (index != NSNotFound)
+    {
+        FPImageBrowserCell *cell = (FPImageBrowserCell *)[self cellForItemAtIndex:index];
+
+        if ([cell.representedItem respondsToSelector:@selector(isDimmed)] &&
+            [cell.representedItem isDimmed])
+        {
+            cell.isDimmed = state;
+
+            [self setNeedsDisplayInRect:cell.frame];
+        }
+    }
+}
+
+- (NSUInteger)indexOfItemAtLocationInWindow:(NSPoint)locationInWindow
+{
+    NSPoint point = [self convertPoint:locationInWindow
+                              fromView:nil];
+
+    return [self indexOfItemAtPoint:point];
 }
 
 @end
