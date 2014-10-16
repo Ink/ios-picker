@@ -17,7 +17,7 @@
             <windowStyleMask key="styleMask" titled="YES"/>
             <rect key="contentRect" x="196" y="240" width="500" height="100"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
-            <view key="contentView" id="se5-gp-TjO">
+            <view key="contentView" id="se5-gp-TjO" customClass="FPView">
                 <rect key="frame" x="0.0" y="0.0" width="500" height="100"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -60,6 +60,11 @@ Gw
                     <constraint firstItem="XOO-7J-g3u" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="22" id="xuL-rC-PFX"/>
                     <constraint firstItem="XOO-7J-g3u" firstAttribute="top" secondItem="se5-gp-TjO" secondAttribute="top" constant="20" symbolic="YES" id="zIe-Rb-tMu"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
+                        <color key="value" cyan="0.0" magenta="0.0" yellow="0.0" black="0.0" alpha="1" colorSpace="custom" customColorSpace="genericCMYKColorSpace"/>
+                    </userDefinedRuntimeAttribute>
+                </userDefinedRuntimeAttributes>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
