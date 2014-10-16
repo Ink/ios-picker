@@ -203,6 +203,7 @@
     NSDictionary *item = self.items[index];
     NSString *itemUID = item[@"link_path"];
     FPThumbnail *thumb = [self.thumbnailCache objectForKey:itemUID];
+    BOOL isDir = [item[@"is_dir"] boolValue];
 
     if (!thumb)
     {
@@ -210,7 +211,21 @@
 
         thumb.UID = itemUID;
         thumb.title = [item[@"display_name"] length] > 0 ? item[@"display_name"] : item[@"filename"];
-        thumb.isDimmed = self.allowsFileSelection ? NO : ![item[@"is_dir"] boolValue];
+        thumb.isDimmed = self.allowsFileSelection ? NO : !isDir;
+
+        // Let's display directories using OS X's generic folder icon
+
+        if (isDir)
+        {
+            thumb.icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+
+            [self.thumbnailCache setObject:thumb
+                                    forKey:itemUID];
+
+            return thumb;
+        }
+
+        // Any other icons will be downloaded
 
         NSURL *iconURL = [NSURL URLWithString:item[@"thumbnail"]];
         NSURLRequest *iconURLRequest = [NSURLRequest requestWithURL:iconURL];
