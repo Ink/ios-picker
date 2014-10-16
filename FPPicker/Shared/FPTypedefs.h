@@ -6,6 +6,9 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
+@class AFHTTPRequestOperation;
+@protocol AFMultipartFormData;
+
 @class FPMediaInfo;
 
 typedef void (^FPUploadAssetSuccessBlock)(id JSON);
