@@ -205,7 +205,7 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
-- (BOOL) FPPickerController:(FPPickerController *)picker
+- (BOOL) FPPickerController:(FPPickerController *)pickerController
     shouldPickMediaWithInfo:(FPMediaInfo *)info
 {
     // Add your custom logic here
@@ -213,12 +213,12 @@
     return YES;
 }
 
-- (void)FPPickerController:(FPPickerController *)picker
+- (void)FPPickerController:(FPPickerController *)pickerController
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
 }
 
-- (void)       FPPickerController:(FPPickerController *)picker
+- (void)       FPPickerController:(FPPickerController *)pickerController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"FILE CHOSEN: %@", info);
@@ -244,7 +244,7 @@
     }
 }
 
-- (void)                  FPPickerController:(FPPickerController *)picker
+- (void)                  FPPickerController:(FPPickerController *)pickerController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     NSLog(@"FILES CHOSEN: %@", results);
@@ -287,7 +287,7 @@
     [self.imageView startAnimating];
 }
 
-- (void)FPPickerControllerDidCancel:(FPPickerController *)picker
+- (void)FPPickerControllerDidCancel:(FPPickerController *)pickerController
 {
     NSLog(@"FP Cancelled Open");
 
@@ -302,7 +302,7 @@
 
 #pragma mark - FPSaveControllerDelegate Methods
 
-- (void)         FPSaveController:(FPSaveController *)picker
+- (void)         FPSaveController:(FPSaveController *)saveController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"FP finished saving with info %@", info);
@@ -318,7 +318,7 @@
     }
 }
 
-- (void)FPSaveControllerDidCancel:(FPSaveController *)picker
+- (void)FPSaveControllerDidCancel:(FPSaveController *)saveController
 {
     NSLog(@"FP Cancelled Save");
 
@@ -333,7 +333,7 @@
     }
 }
 
-- (void)FPSaveController:(FPSaveController *)picker
+- (void)FPSaveController:(FPSaveController *)saveController
                 didError:(NSError *)error
 {
     NSLog(@"FP Error: %@", error);
