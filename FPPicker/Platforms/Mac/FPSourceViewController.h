@@ -31,5 +31,6 @@
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 
 - (BOOL)pickSelectedItems;
+- (void)cancelAllOperations;
 
 @end

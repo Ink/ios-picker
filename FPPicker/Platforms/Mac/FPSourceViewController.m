@@ -95,6 +95,11 @@ typedef enum : NSUInteger
     return YES;
 }
 
+- (void)cancelAllOperations
+{
+    [self.sourceController cancelAllOperations];
+}
+
 #pragma mark - FPFileTransferWindowControllerDelegate Methods
 
 - (BOOL)FPFileTransferController:(FPFileTransferWindowController *)fileTransferWindowController
@@ -147,6 +152,8 @@ typedef enum : NSUInteger
 - (void)sourceListController:(FPSourceListController *)sourceListController
              didSelectSource:(FPSource *)source
 {
+    [self cancelAllOperations];
+
     if ([source.identifier isEqualToString:@"imagesearch"])
     {
         self.sourceController = [FPImageSearchSourceController new];
@@ -267,9 +274,6 @@ typedef enum : NSUInteger
     DLog(@"Error loading content: %@", error);
 
     [self.progressIndicator stopAnimation:self];
-
-    [self fpPresentError:error
-         withMessageText:@"Request Error"];
 }
 
 #pragma mark - FPRemoteSourceControllerDelegate Methods
