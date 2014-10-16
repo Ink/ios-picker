@@ -30,6 +30,7 @@ typedef enum : NSUInteger
                                       FPNavigationControllerDelegate,
                                       FPFileTransferWindowControllerDelegate>
 
+@property (nonatomic, weak) IBOutlet NSScrollView *scrollView;
 @property (nonatomic, strong) FPBaseSourceController *sourceController;
 
 @end
@@ -172,6 +173,13 @@ typedef enum : NSUInteger
     [self.searchField setHidden:!self.sourceController.searchSupported];
 
     [self.sourceController fpLoadContentAtPath:YES];
+
+
+    // Scroll to top
+
+    NSPoint pt = NSMakePoint(0.0, NSMaxY([self.scrollView.documentView bounds]));
+
+    [self.scrollView.documentView scrollPoint:pt];
 }
 
 #pragma mark - FPNavigationControllerDelegate Methods
@@ -188,7 +196,8 @@ typedef enum : NSUInteger
 - (void)       sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     didMomentarilySelectItem:(NSDictionary *)item
 {
-    if (self.filenameTextField)
+    if (self.filenameTextField &&
+        self.sourceController.source.overwritePossible)
     {
         self.filenameTextField.stringValue = item[@"filename"];
     }
