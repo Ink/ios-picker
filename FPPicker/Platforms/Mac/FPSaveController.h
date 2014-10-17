@@ -8,16 +8,16 @@
 
 #import <Cocoa/Cocoa.h>
 #import "FPExternalHeaders.h"
-#import "FPPickerController.h"
 
 @interface FPSaveController : NSWindowController
+
+@property (nonatomic, weak) id<FPSaveDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSURL *dataURL;
 @property (nonatomic, strong) NSString *dataType;
 @property (nonatomic, strong) NSString *proposedFilename;
-@property (nonatomic, weak) id<FPSaveDelegate> delegate;
 
 - (void)open;
 

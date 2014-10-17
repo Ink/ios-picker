@@ -7,34 +7,19 @@
 //
 
 #import "FPImageSearchSourceController.h"
-#import "FPUtils.h"
+#import "FPInternalHeaders.h"
 
 @implementation FPImageSearchSourceController
 
-#pragma mark - Public Methods
-
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self)
-    {
-        self.navigationSupported = NO;
-        self.searchSupported = YES;
-    }
-
-    return self;
-}
+#pragma mark - Accessors
 
 - (void)setSearchString:(NSString *)searchString
 {
     _searchString = searchString;
 
-    self.path = [NSString stringWithFormat:@"%@/%@",
-                 self.source.rootUrl,
-                 [FPUtils urlEncodeString:searchString]];
-
-    DLog(@"setting path of %@ to %@", self, self.path);
+    self.representedSource.currentPath = [NSString stringWithFormat:@"%@/%@",
+                                          self.representedSource.source.rootUrl,
+                                          [FPUtils urlEncodeString:searchString]];
 }
 
 @end

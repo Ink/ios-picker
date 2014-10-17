@@ -7,35 +7,15 @@
 //
 
 #import "FPNavigationController.h"
-#import "FPInternalHeaders.h"
-#import "FPUtils.h"
 
 @interface FPNavigationController ()
 
-@property (nonatomic, strong) NSString *currentPath;
 @property (nonatomic, weak) IBOutlet NSPopUpButton *currentDirectoryPopupButton;
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *navigationSegmentedControl;
 
 @end
 
 @implementation FPNavigationController
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-
-    self.shouldEnableControls = YES;
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(sourcePathDidChange:)
-                                                 name:FPSourcePathDidChangeNotification
-                                               object:nil];
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
 
 #pragma mark - Accessors
 
@@ -47,13 +27,14 @@
     [self.navigationSegmentedControl setEnabled:shouldEnableControls];
 }
 
-#pragma mark - Notifications
-
-- (void)sourcePathDidChange:(NSNotification *)sender
+- (void)setCurrentPath:(NSString *)currentPath
 {
-    self.currentPath = sender.object;
+    _currentPath = currentPath;
 
-    [self populateCurrentDirectoryPopupButton];
+    if (currentPath)
+    {
+        [self populateCurrentDirectoryPopupButton];
+    }
 }
 
 #pragma mark - Private Methods

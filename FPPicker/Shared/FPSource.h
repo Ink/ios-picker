@@ -19,5 +19,6 @@
 @property (nonatomic, strong) NSArray *mimetypes;
 @property (nonatomic, strong) NSArray *externalDomains;
 @property (nonatomic, assign) BOOL overwritePossible;
+@property (nonatomic, assign) BOOL requiresAuth;
 
 @end

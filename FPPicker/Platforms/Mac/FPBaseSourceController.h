@@ -7,47 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "FPSource.h"
-#import "FPInternalHeaders.h"
+#import "FPTypedefs.h"
 
 @class FPBaseSourceController;
+@class FPRepresentedSource;
 
 @protocol FPBaseSourceControllerDelegate <NSObject>
 
 - (void)sourceDidStartContentLoad:(FPBaseSourceController *)sender;
-//- (void)sourceDidCancel:(FPBaseSourceController *)sender;
 - (void)source:(FPBaseSourceController *)sender didFinishContentLoad:(id)content;
 - (void)source:(FPBaseSourceController *)sender didReceiveNewContent:(id)content;
-- (void)source:(FPBaseSourceController *)sender didFailContentLoadWithError:(NSError *)error;
+- (void)sourceController:(FPBaseSourceController *)sender didFailContentLoadWithError:(NSError *)error;
 
 @end
 
 @interface FPBaseSourceController : NSObject
 
-/*!
-   Parallel operation queue.
-   This operation queue (unlike FPAPIClient -operationQueue)
-   supports unlimited simultaneous operations.
- */
-@property (nonatomic, strong) NSOperationQueue *parallelOperationQueue;
-
-/*!
-   Serial operation queue.
-   This operation queue is limited to 1 simultaneous operation.
- */
-@property (nonatomic, strong) NSOperationQueue *serialOperationQueue;
-
-@property (nonatomic, assign) BOOL navigationSupported;
-@property (nonatomic, assign) BOOL searchSupported;
-@property (nonatomic, strong) FPSource *source;
-@property (nonatomic, strong) NSString *path;
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
 @property (nonatomic, strong) NSString *nextPage;
 
-@property (nonatomic, weak) id<FPBaseSourceControllerDelegate>delegate;
+@property (nonatomic, weak) id <FPBaseSourceControllerDelegate> delegate;
 
 - (void)fpLoadContentAtPath:(BOOL)force;
-
-- (void)cancelAllOperations;
 
 - (void)requestObjectMediaInfo:(NSDictionary *)obj
                 shouldDownload:(BOOL)shouldDownload

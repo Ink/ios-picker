@@ -13,8 +13,6 @@
 #import "FPImageSearchSourceController.h"
 #import "FPNavigationController.h"
 #import "FPAuthController.h"
-#import "FPPickerController.h"
-#import "FPSaveController.h"
 #import "FPInternalHeaders.h"
 
 typedef enum : NSUInteger
@@ -24,10 +22,8 @@ typedef enum : NSUInteger
 } FPSourceTabView;
 
 
-@interface FPSourceViewController () <FPSourceListControllerDelegate,
-                                      FPSourceBrowserControllerDelegate,
-                                      FPRemoteSourceControllerDelegate,
-                                      FPNavigationControllerDelegate>
+@interface FPSourceViewController () <FPSourceBrowserControllerDelegate,
+                                      FPRemoteSourceControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet NSScrollView *scrollView;
 @property (readwrite, nonatomic) FPBaseSourceController *sourceController;
@@ -55,36 +51,13 @@ typedef enum : NSUInteger
     self.sourceBrowserController.allowsMultipleSelection = allowsMultipleSelection;
 }
 
-#pragma mark - Public Methods
-
-- (void)awakeFromNib
+- (void)setRepresentedSource:(FPRepresentedSource *)representedSource
 {
-    [super awakeFromNib];
+    _representedSource = representedSource;
 
-    self.loginButton.enabled = NO;
-}
-
-- (NSString *)currentPath
-{
-    return self.sourceController.path;
-}
-
-- (NSArray *)selectedItems
-{
-    return self.sourceBrowserController.selectedItems;
-}
-
-- (void)cancelAllOperations
-{
-    [self.sourceController cancelAllOperations];
-}
-
-#pragma mark - FPSourceListControllerDelegate Methods
-
-- (void)sourceListController:(FPSourceListController *)sourceListController
-             didSelectSource:(FPSource *)source
-{
     [self cancelAllOperations];
+
+    FPSource *source = representedSource.source;
 
     if ([source.identifier isEqualToString:@"imagesearch"])
     {
@@ -95,31 +68,55 @@ typedef enum : NSUInteger
         self.sourceController = [FPRemoteSourceController new];
     }
 
-    self.sourceController.source = source;
+    self.sourceController.representedSource = representedSource;
     self.sourceController.delegate = self;
 
-    self.navigationController.shouldEnableControls = self.sourceController.navigationSupported;
-    self.searchField.stringValue = @"";
-
-    [self.searchField setHidden:!self.sourceController.searchSupported];
-
-    [self.sourceController fpLoadContentAtPath:YES];
-
-
-    // Scroll to top
-
-    NSPoint pt = NSMakePoint(0.0, NSMaxY([self.scrollView.documentView bounds]));
-
-    [self.scrollView.documentView scrollPoint:pt];
+    [self loadCurrentPathAndInvalidateCache:YES];
 }
 
-#pragma mark - FPNavigationControllerDelegate Methods
+#pragma mark - Public Methods
 
-- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath
+- (void)awakeFromNib
 {
-    self.sourceController.path = newPath;
+    [super awakeFromNib];
 
-    [self.sourceController fpLoadContentAtPath:NO];
+    self.loginButton.enabled = NO;
+}
+
+- (void)loadCurrentPathAndInvalidateCache:(BOOL)shouldInvalidate
+{
+    self.sourceBrowserController.items = nil;
+
+    [self.sourceController fpLoadContentAtPath:shouldInvalidate];
+
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(sourceViewController:pathChangedTo:)])
+    {
+        [self.delegate sourceViewController:self
+                              pathChangedTo:self.sourceController.representedSource.currentPath];
+    }
+}
+
+- (void)loadPath:(NSString *)path
+{
+    self.sourceController.representedSource.currentPath = path;
+
+    [self loadCurrentPathAndInvalidateCache:YES];
+}
+
+- (NSString *)currentPath
+{
+    return self.sourceController.representedSource.currentPath;
+}
+
+- (NSArray *)selectedItems
+{
+    return self.sourceBrowserController.selectedItems;
+}
+
+- (void)cancelAllOperations
+{
+    [self.sourceController.representedSource cancelAllOperations];
 }
 
 #pragma mark - FPSourceBrowserControllerDelegate Methods
@@ -127,12 +124,18 @@ typedef enum : NSUInteger
 - (void)       sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     didMomentarilySelectItem:(NSDictionary *)item
 {
-    if (self.filenameTextField &&
-        self.sourceController.source.overwritePossible)
+    FPSource *source = self.sourceController.representedSource.source;
+
+    if (source.overwritePossible)
     {
         NSString *filename = item[@"filename"];
 
-        self.filenameTextField.stringValue = filename;
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(sourceViewController:didMomentarilySelectFilename:)])
+        {
+            [self.delegate sourceViewController:self
+                   didMomentarilySelectFilename:filename];
+        }
     }
 }
 
@@ -169,18 +172,18 @@ typedef enum : NSUInteger
 - (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     wantsToEnterDirectoryAtPath:(NSString *)path
 {
-    self.sourceController.path = path;
+    self.sourceController.representedSource.currentPath = path;
 
-    [self.sourceController fpLoadContentAtPath:NO];
+    [self loadCurrentPathAndInvalidateCache:NO];
 }
 
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
 {
-    if (self.sourceController.path.pathComponents.count > 3)
+    if (self.sourceController.representedSource.currentPath.pathComponents.count > 3)
     {
-        self.sourceController.path = [[self.sourceController.path stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+        self.sourceController.representedSource.currentPath = [[self.sourceController.representedSource.currentPath stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
 
-        [self.sourceController fpLoadContentAtPath:NO];
+        [self loadCurrentPathAndInvalidateCache:NO];
     }
 }
 
@@ -194,11 +197,25 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didFinishContentLoad:(id)content
 {
+    DLog(@"wtf, %ld", self.sourceBrowserController.items.count);
+
+    if (self.sourceBrowserController.items.count == 0)
+    {
+        [self scrollToTop];
+    }
+
     self.sourceBrowserController.items = content;
 
     [self.sourceBrowserController.thumbnailListView reloadData];
     [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
     [self.progressIndicator stopAnimation:self];
+
+    FPSource *source = self.sourceController.representedSource.source;
+
+    if (source.requiresAuth)
+    {
+        [self updateLoggedInStateInRepresentedSource:YES];
+    }
 }
 
 - (void)          source:(FPBaseSourceController *)sender
@@ -210,7 +227,7 @@ typedef enum : NSUInteger
     [self.progressIndicator stopAnimation:self];
 }
 
-- (void)                 source:(FPBaseSourceController *)sender
+- (void)       sourceController:(FPBaseSourceController *)sender
     didFailContentLoadWithError:(NSError *)error
 {
     DLog(@"Error loading content: %@", error);
@@ -223,6 +240,7 @@ typedef enum : NSUInteger
 - (void)remoteSourceRequiresAuthentication:(FPRemoteSourceController *)sender
 {
     [self.tabView selectTabViewItemAtIndex:FPAuthenticationTabView];
+    [self updateLoggedInStateInRepresentedSource:NO];
 
     self.loginButton.enabled = YES;
 }
@@ -234,7 +252,7 @@ typedef enum : NSUInteger
     FPAuthSuccessBlock successBlock = ^{
         self.loginButton.enabled = NO;
 
-        [self.sourceController fpLoadContentAtPath:YES];
+        [self loadCurrentPathAndInvalidateCache:YES];
     };
 
     FPAuthFailureBlock failureBlock = ^(NSError *error) {
@@ -244,64 +262,12 @@ typedef enum : NSUInteger
               withMessageText:@"Response error"];
     };
 
-    [self.authController displayAuthSheetWithSource:self.sourceController.source
+    [self.authController displayAuthSheetWithSource:self.sourceController.representedSource.source
                                       inModalWindow:self.view.window
                                       modalDelegate:self
                                      didEndSelector:@selector(authSheetDidEnd:returnCode:contextInfo:)
                                             success:successBlock
                                             failure:failureBlock];
-}
-
-- (IBAction)logout:(id)sender
-{
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth",
-                           fpBASE_URL,
-                           self.sourceController.source.identifier];
-
-    NSURL *url = [NSURL URLWithString:urlString];
-
-    NSURLRequest *request = [NSURLRequest requestWithURL:url
-                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
-                                         timeoutInterval:240];
-
-    [self.progressIndicator startAnimation:self];
-
-    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             id responseObject) {
-        [self.sourceController fpLoadContentAtPath:YES];
-
-        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-
-        for (NSString *urlString in self.sourceController.source.externalDomains)
-        {
-            NSArray *siteCookies;
-            siteCookies = [cookieStorage cookiesForURL:[NSURL URLWithString:urlString]];
-
-            for (NSHTTPCookie *cookie in siteCookies)
-            {
-                [cookieStorage deleteCookie:cookie];
-            }
-        }
-
-        [self.progressIndicator stopAnimation:self];
-    };
-
-    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             NSError *error) {
-        [self.progressIndicator stopAnimation:self];
-
-        [FPUtils presentError:error
-              withMessageText:@"Logout failure"];
-    };
-
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [self.sourceController.serialOperationQueue cancelAllOperations];
-    [self.sourceController.serialOperationQueue addOperation:operation];
 }
 
 - (IBAction)search:(id)sender
@@ -312,7 +278,7 @@ typedef enum : NSUInteger
 
         imageSearchSourceController.searchString = [sender stringValue];
 
-        [self.sourceController fpLoadContentAtPath:YES];
+        [self loadCurrentPathAndInvalidateCache:YES];
     }
 }
 
@@ -323,6 +289,34 @@ typedef enum : NSUInteger
             contextInfo:(void *)contextInfo
 {
     // NO-OP
+}
+
+- (void)updateLoggedInStateInRepresentedSource:(BOOL)isLoggedIn
+{
+    FPRepresentedSource *representedSource = self.sourceController.representedSource;
+
+    if (isLoggedIn != representedSource.isLoggedIn)
+    {
+        representedSource.isLoggedIn = isLoggedIn;
+
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(sourceViewController:representedSourceLoginStatusChanged:)])
+        {
+            [self.delegate sourceViewController:self
+             representedSourceLoginStatusChanged:representedSource];
+        }
+    }
+}
+
+- (void)scrollToTop
+{
+    DLog(@"scroll to top, dude");
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSPoint pt = NSMakePoint(0.0, NSMaxY([self.scrollView.documentView bounds]));
+
+        [self.scrollView.documentView scrollPoint:pt];
+    });
 }
 
 @end

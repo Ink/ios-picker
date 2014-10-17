@@ -12,7 +12,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ {name: %@, identifier: %@, icon: %@, rootUrl: %@, open_mimetypes: %@, save_mimetypes: %@, mimetypes: %@, externalDomains: %@, overwritePossible: %d}",
+    return [NSString stringWithFormat:@"%@ {name: %@, identifier: %@, icon: %@, rootUrl: %@, open_mimetypes: %@, save_mimetypes: %@, mimetypes: %@, externalDomains: %@, overwritePossible: %@, requiresAuth: %@}",
             super.description,
             self.name,
             self.identifier,
@@ -22,7 +22,8 @@
             self.saveMimetypes,
             self.mimetypes,
             self.externalDomains,
-            self.overwritePossible];
+            self.overwritePossible ? @"YES":@"NO",
+            self.requiresAuth ? @"YES":@"NO"];
 }
 
 @end

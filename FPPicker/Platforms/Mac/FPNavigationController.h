@@ -19,6 +19,8 @@
 @interface FPNavigationController : NSViewController
 
 @property (nonatomic, weak) IBOutlet id <FPNavigationControllerDelegate> delegate;
+
 @property (nonatomic, assign) BOOL shouldEnableControls;
+@property (nonatomic, strong) NSString *currentPath;
 
 @end

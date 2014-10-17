@@ -16,21 +16,6 @@
 
 @implementation FPBaseSourceController
 
-#pragma mark - Public Methods
-
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self)
-    {
-        self.navigationSupported = YES;
-        self.searchSupported = NO;
-    }
-
-    return self;
-}
-
 - (void)fpLoadContentAtPath:(BOOL)force
 {
     NSAssert(NO, @"This method must be implemented by subclasses.");
@@ -58,42 +43,11 @@
     }
 }
 
-- (void)cancelAllOperations
+- (void)setRepresentedSource:(FPRepresentedSource *)representedSource
 {
-    [self.serialOperationQueue cancelAllOperations];
-    [self.parallelOperationQueue cancelAllOperations];
-}
+    [representedSource cancelAllOperations];
 
-#pragma mark - Accessors
-
-- (NSOperationQueue *)parallelOperationQueue
-{
-    if (!_parallelOperationQueue)
-    {
-        _parallelOperationQueue = [NSOperationQueue new];
-    }
-
-    return _parallelOperationQueue;
-}
-
-- (NSOperationQueue *)serialOperationQueue
-{
-    if (!_serialOperationQueue)
-    {
-        _serialOperationQueue = [NSOperationQueue new];
-        _serialOperationQueue.maxConcurrentOperationCount = 1;
-    }
-
-    return _serialOperationQueue;
-}
-
-- (void)setSource:(FPSource *)source
-{
-    _source = source;
-
-    self.path = [NSString stringWithFormat:@"%@/", self.source.rootUrl];
-
-    [self cancelAllOperations];
+    _representedSource = representedSource;
 }
 
 #pragma mark - Private Methods
@@ -118,7 +72,7 @@
         mediaInfo.remoteURL = [NSURL URLWithString:responseObject[@"url"]];
         mediaInfo.filename = responseObject[@"filename"];
         mediaInfo.key = responseObject[@"key"];
-        mediaInfo.source = self.source;
+        mediaInfo.source = self.representedSource.source;
 
         success(mediaInfo);
     };
@@ -143,7 +97,7 @@
         }
     }];
 
-    [self.parallelOperationQueue addOperation:operation];
+    [self.representedSource.parallelOperationQueue addOperation:operation];
 }
 
 - (void)getObjectInfoAndData:(NSDictionary *)obj
@@ -176,7 +130,7 @@
         mediaInfo.filename = headers[@"X-File-Name"];
         mediaInfo.mediaURL = tempURL;
         mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
-        mediaInfo.source = self.source;
+        mediaInfo.source = self.representedSource.source;
 
         if (headers[@"X-Data-Key"])
         {
@@ -211,7 +165,7 @@
         }
     }];
 
-    [self.parallelOperationQueue addOperation:operation];
+    [self.representedSource.parallelOperationQueue addOperation:operation];
 }
 
 - (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
@@ -232,7 +186,7 @@
     FPSession *fpSession = [FPSession new];
 
     fpSession.APIKey = fpAPIKEY;
-    fpSession.mimetypes = self.source.mimetypes;
+    fpSession.mimetypes = self.representedSource.source.mimetypes;
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
 

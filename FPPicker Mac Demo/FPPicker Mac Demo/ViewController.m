@@ -51,7 +51,6 @@
 - (IBAction)selectImageAction:(id)sender
 {
     self.pickerController.shouldDownload = YES;
-    self.pickerController.shouldUpload = YES;
 
     self.pickerController.sourceNames = @[
         FPSourceDropbox,

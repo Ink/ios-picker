@@ -8,28 +8,35 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FPPickerController;
-@class FPSaveController;
-@class FPAuthController;
 @class FPSourceBrowserController;
-@class FPNavigationController;
+@class FPAuthController;
 @class FPBaseSourceController;
+@class FPSourceViewController;
+@class FPRepresentedSource;
+
+@protocol FPSourceViewControllerDelegate <NSObject>
+
+@optional
+
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController representedSourceLoginStatusChanged:(FPRepresentedSource *)representedSource;
+
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController didMomentarilySelectFilename:(NSString *)filename;
+
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController pathChangedTo:(NSString *)newPath;
+
+@end
 
 @interface FPSourceViewController : NSViewController
 
-@property (nonatomic, weak) IBOutlet FPPickerController *pickerController;
-@property (nonatomic, weak) IBOutlet FPSaveController *saveController;
-@property (nonatomic, weak) IBOutlet FPNavigationController *navigationController;
 @property (nonatomic, weak) IBOutlet FPSourceBrowserController *sourceBrowserController;
 @property (nonatomic, weak) IBOutlet FPAuthController *authController;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;
-@property (nonatomic, weak) IBOutlet NSTextField *filenameTextField;
 @property (nonatomic, weak) IBOutlet NSButton *loginButton;
-@property (nonatomic, weak) IBOutlet NSButton *logoutButton;
 @property (nonatomic, weak) IBOutlet NSTabView *tabView;
-@property (nonatomic, weak) IBOutlet NSSearchField *searchField;
+@property (nonatomic, weak) IBOutlet id <FPSourceViewControllerDelegate> delegate;
 
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
 @property (readonly, strong) FPBaseSourceController *sourceController;
 @property (nonatomic, assign) BOOL allowsFileSelection;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
@@ -37,6 +44,7 @@
 - (NSString *)currentPath;
 - (NSArray *)selectedItems;
 
+- (void)loadPath:(NSString *)path;
 - (void)cancelAllOperations;
 
 @end

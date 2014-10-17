@@ -105,6 +105,7 @@
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.dropbox.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -121,6 +122,7 @@
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = NO;
         source.externalDomains = @[@"https://www.facebook.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -137,6 +139,7 @@
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
         source.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -153,6 +156,7 @@
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.box.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -169,6 +173,7 @@
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
         source.externalDomains = @[@"https://www.github.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -185,6 +190,7 @@
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = NO;
         source.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -201,6 +207,7 @@
         source.saveMimetypes = @[];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.instagram.com",  @"https://instagram.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -217,6 +224,7 @@
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = NO;
         source.externalDomains = @[@"https://*.flickr.com", @"http://*.flickr.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -233,6 +241,7 @@
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.evernote.com",  @"https://evernote.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -249,6 +258,7 @@
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.google.com", @"https://accounts.google.com", @"https://google.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -265,6 +275,7 @@
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://login.live.com",  @"https://skydrive.live.com"];
+        source.requiresAuth = YES;
 
         [sources addObject:source];
     }
@@ -281,6 +292,7 @@
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
         source.externalDomains = @[];
+        source.requiresAuth = NO;
 
         [sources addObject:source];
     }

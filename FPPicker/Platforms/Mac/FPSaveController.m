@@ -8,19 +8,13 @@
 
 #import "FPSaveController.h"
 #import "FPInternalHeaders.h"
-#import "FPSourceListController.h"
-#import "FPSourceViewController.h"
+#import "FPDialogController.h"
 #import "FPFileUploadController.h"
 
-@interface FPSaveController  () <NSSplitViewDelegate,
-                                 NSWindowDelegate,
+@interface FPSaveController  () <NSWindowDelegate,
                                  FPFileTransferControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
-@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
-@property (nonatomic, weak) IBOutlet FPSourceViewController *sourceViewController;
-@property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
-
+@property (nonatomic, weak) IBOutlet FPDialogController *dialogController;
 @property (nonatomic, assign) NSModalSession modalSession;
 @property (nonatomic, strong) FPFileUploadController *uploadController;
 
@@ -29,13 +23,6 @@
 @implementation FPSaveController
 
 #pragma mark - Public Methods
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-
-    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
-}
 
 - (instancetype)init
 {
@@ -60,8 +47,8 @@
 
 - (IBAction)saveFile:(id)sender
 {
-    NSString *filename = self.sourceViewController.filenameTextField.stringValue;
-    NSString *path = self.sourceViewController.currentPath;
+    NSString *filename = [self.dialogController filenameFromSaveTextField];
+    NSString *path = [self.dialogController currentPath];
 
     if (self.data)
     {
@@ -97,7 +84,7 @@
 
 - (IBAction)close:(id)sender
 {
-    [self.sourceViewController cancelAllOperations];
+    [self.dialogController cancelAllOperations];
     [self.window close];
 }
 
@@ -152,14 +139,10 @@
 {
     [super windowDidLoad];
 
-    self.sourceViewController.allowsFileSelection = NO;
-    self.sourceViewController.allowsMultipleSelection = NO;
-    self.sourceViewController.filenameTextField.stringValue = self.proposedFilename;
+    [self.dialogController setupDialogForSavingWithDefaultFileName:self.proposedFilename];
 
-    self.sourceListController.sourceNames = self.sourceNames;
-    self.sourceListController.dataTypes = @[self.dataType];
-
-    [self.sourceListController loadAndExpandSourceListIfRequired];
+    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                             andDataTypes:@[self.dataType]];
 }
 
 - (void)windowWillClose:(NSNotification *)notification
@@ -168,44 +151,6 @@
     {
         [NSApp endModalSession:self.modalSession];
     }
-}
-
-#pragma mark - NSSplitViewDelegate Methods
-
-- (BOOL)           splitView:(NSSplitView *)splitView
-    shouldHideDividerAtIndex:(NSInteger)dividerIndex
-{
-    return YES;
-}
-
-- (BOOL)     splitView:(NSSplitView *)splitView
-    canCollapseSubview:(NSView *)subview
-{
-    return NO;
-}
-
-- (CGFloat)      splitView:(NSSplitView *)splitView
-    constrainMinCoordinate:(CGFloat)proposedMinimumPosition
-               ofSubviewAt:(NSInteger)dividerIndex
-{
-    if (proposedMinimumPosition < 150)
-    {
-        proposedMinimumPosition = 150;
-    }
-
-    return proposedMinimumPosition;
-}
-
-- (CGFloat)      splitView:(NSSplitView *)splitView
-    constrainMaxCoordinate:(CGFloat)proposedMinimumPosition
-               ofSubviewAt:(NSInteger)dividerIndex
-{
-    if (proposedMinimumPosition > 225)
-    {
-        proposedMinimumPosition = 225;
-    }
-
-    return proposedMinimumPosition;
 }
 
 @end

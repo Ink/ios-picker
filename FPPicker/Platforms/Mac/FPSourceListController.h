@@ -8,13 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class FPSource;
+@class FPRepresentedSource;
 @class FPSourceListController;
 
 @protocol FPSourceListControllerDelegate <NSObject>
 
 - (void)sourceListController:(FPSourceListController *)sourceListController
-             didSelectSource:(FPSource *)source;
+             didSelectSource:(FPRepresentedSource *)representedSource;
+
+- (void)sourceListController:(FPSourceListController *)sourceListController
+         didLogoutFromSource:(FPRepresentedSource *)representedSource;
 
 @end
 
@@ -22,11 +25,13 @@
                                                       NSOutlineViewDataSource>
 
 @property (nonatomic, weak) IBOutlet NSOutlineView *outlineView;
-@property (nonatomic, weak) IBOutlet id<FPSourceListControllerDelegate>delegate;
+@property (nonatomic, weak) IBOutlet id <FPSourceListControllerDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 
 - (void)loadAndExpandSourceListIfRequired;
+- (void)refreshOutline;
+- (void)cancelAllOperations;
 
 @end

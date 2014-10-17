@@ -6,23 +6,15 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#define FPPickerController_protected
-
 #import "FPPickerController.h"
 #import "FPInternalHeaders.h"
-#import "FPSourceListController.h"
-#import "FPSourceViewController.h"
+#import "FPDialogController.h"
 #import "FPFileDownloadController.h"
 
-@interface FPPickerController () <NSSplitViewDelegate,
-                                  NSWindowDelegate,
+@interface FPPickerController () <NSWindowDelegate,
                                   FPFileTransferControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet NSImageView *fpLogo;
-@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
-@property (nonatomic, weak) IBOutlet FPSourceViewController *sourceViewController;
-@property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
-
+@property (nonatomic, weak) IBOutlet FPDialogController *dialogController;
 @property (nonatomic, assign) NSModalSession modalSession;
 
 @end
@@ -30,13 +22,6 @@
 @implementation FPPickerController
 
 #pragma mark - Public Methods
-
-- (void)awakeFromNib
-{
-    [super awakeFromNib];
-
-    self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
-}
 
 - (instancetype)init
 {
@@ -46,7 +31,6 @@
     {
         self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
 
-        self.shouldUpload = YES;
         self.shouldDownload = YES;
     }
 
@@ -60,16 +44,62 @@
     [NSApp runModalSession:self.modalSession];
 }
 
+#pragma mark - NSWindowController Methods
+
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+
+    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                             andDataTypes:self.dataTypes];
+}
+
+#pragma mark - NSWindowDelegate Methods
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if (self.modalSession)
+    {
+        [NSApp endModalSession:self.modalSession];
+    }
+}
+
+#pragma mark - FPFileTransferControllerDelegate Methods
+
+- (void)FPFileTransferControllerDidFinish:(FPFileTransferController *)transferController
+                                     info:(id)info
+{
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+    {
+        [self.delegate FPPickerController:self
+         didFinishPickingMultipleMediaWithResults:info];
+    }
+}
+
+- (void)FPFileTransferControllerDidFail:(FPFileTransferController *)transferController
+                                  error:(NSError *)error
+{
+    DLog(@"Error downloading: %@", error);
+}
+
+- (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController
+{
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+    {
+        [self.delegate FPPickerControllerDidCancel:self];
+    }
+}
+
 #pragma mark - Actions
 
 - (IBAction)openFiles:(id)sender
 {
-//    if ([self.sourceViewController pickSelectedItems])
-
     // Validate selection by looking for directories
 
-    NSArray *selectedItems = self.sourceViewController.selectedItems;
-    FPBaseSourceController *sourceController = self.sourceViewController.sourceController;
+    NSArray *selectedItems = [self.dialogController selectedItems];
+    FPBaseSourceController *sourceController = [self.dialogController selectedSourceController];
 
     if (!selectedItems)
     {
@@ -96,6 +126,7 @@
 
     fileDownloadController.delegate = self;
     fileDownloadController.sourceController = sourceController;
+    fileDownloadController.shouldDownloadData = self.shouldDownload;
 
     [fileDownloadController process];
 
@@ -104,94 +135,8 @@
 
 - (IBAction)close:(id)sender
 {
-    [self.sourceViewController cancelAllOperations];
+    [self.dialogController cancelAllOperations];
     [self.window close];
-}
-
-#pragma mark - FPFileTransferControllerDelegate Methods
-
-- (void)FPFileTransferControllerDidFinish:(FPFileTransferController *)transferController
-                                     info:(id)info
-{
-    if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
-    {
-        [self.delegate FPPickerController:self
-         didFinishPickingMultipleMediaWithResults:info];
-    }
-}
-
-- (void)FPFileTransferControllerDidFail:(FPFileTransferController *)transferController
-                                  error:(NSError *)error
-{
-    DLog(@"Error: %@", error);
-}
-
-- (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController
-{
-    if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
-    {
-        [self.delegate FPPickerControllerDidCancel:self];
-    }
-}
-
-#pragma mark - NSWindowDelegate Methods
-
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-
-    self.sourceListController.sourceNames = self.sourceNames;
-    self.sourceListController.dataTypes = self.dataTypes;
-
-    [self.sourceListController loadAndExpandSourceListIfRequired];
-}
-
-- (void)windowWillClose:(NSNotification *)notification
-{
-    if (self.modalSession)
-    {
-        [NSApp endModalSession:self.modalSession];
-    }
-}
-
-#pragma mark - NSSplitViewDelegate Methods
-
-- (BOOL)           splitView:(NSSplitView *)splitView
-    shouldHideDividerAtIndex:(NSInteger)dividerIndex
-{
-    return YES;
-}
-
-- (BOOL)     splitView:(NSSplitView *)splitView
-    canCollapseSubview:(NSView *)subview
-{
-    return NO;
-}
-
-- (CGFloat)      splitView:(NSSplitView *)splitView
-    constrainMinCoordinate:(CGFloat)proposedMinimumPosition
-               ofSubviewAt:(NSInteger)dividerIndex
-{
-    if (proposedMinimumPosition < 150)
-    {
-        proposedMinimumPosition = 150;
-    }
-
-    return proposedMinimumPosition;
-}
-
-- (CGFloat)      splitView:(NSSplitView *)splitView
-    constrainMaxCoordinate:(CGFloat)proposedMinimumPosition
-               ofSubviewAt:(NSInteger)dividerIndex
-{
-    if (proposedMinimumPosition > 225)
-    {
-        proposedMinimumPosition = 225;
-    }
-
-    return proposedMinimumPosition;
 }
 
 @end

@@ -8,7 +8,9 @@
 
 #import "FPSourceListController.h"
 #import "FPInternalHeaders.h"
+#import "FPRepresentedSource.h"
 #import "FPSource+SupportedSources.h"
+#import "FPTableCellView.h"
 
 const NSString *FPSourceGroupLocal = @"Local";
 const NSString *FPSourceGroupRemote = @"Remote";
@@ -58,6 +60,7 @@ const NSString *FPSourceGroupRemote = @"Remote";
         _childrenItems = [NSMutableDictionary new];
 
         NSArray *activeSources = [FPSource remoteSources];
+        NSMutableArray *representedSources = [NSMutableArray array];
 
         if (self.sourceNames)
         {
@@ -74,13 +77,40 @@ const NSString *FPSourceGroupRemote = @"Remote";
             }
         }
 
-        _childrenItems[FPSourceGroupRemote] = activeSources;
+        for (FPSource *source in activeSources)
+        {
+            FPRepresentedSource *representedSource = [[FPRepresentedSource alloc] initWithSource:source];
+
+            [representedSources addObject:representedSource];
+        }
+
+        _childrenItems[FPSourceGroupRemote] = representedSources;
     }
 
     return _childrenItems;
 }
 
 #pragma mark - Public Methods
+
+- (void)cancelAllOperations
+{
+    [self.childrenItems enumerateKeysAndObjectsUsingBlock: ^(id key,
+                                                             id obj,
+                                                             BOOL *stop) {
+        if ([obj isKindOfClass:[NSArray class]])
+        {
+            for (id entry in obj)
+            {
+                if ([entry isKindOfClass:[FPRepresentedSource class]])
+                {
+                    FPRepresentedSource *representedSource = entry;
+
+                    [representedSource cancelAllOperations];
+                }
+            }
+        }
+    }];
+}
 
 - (void)loadAndExpandSourceListIfRequired
 {
@@ -112,6 +142,16 @@ const NSString *FPSourceGroupRemote = @"Remote";
     }
 }
 
+- (void)refreshOutline
+{
+    NSIndexSet *selectedRowIndexes = self.outlineView.selectedRowIndexes;
+
+    [self.outlineView reloadData];
+
+    [self.outlineView selectRowIndexes:selectedRowIndexes
+                  byExtendingSelection:NO];
+}
+
 #pragma mark - NSOutlineViewDelegate Methods
 
 - (NSView *)outlineView:(NSOutlineView *)outlineView
@@ -131,13 +171,35 @@ const NSString *FPSourceGroupRemote = @"Remote";
     }
     else
     {
-        NSTableCellView *result = [outlineView makeViewWithIdentifier:@"DataCell"
+        FPTableCellView *result = [outlineView makeViewWithIdentifier:@"DataCell"
                                                                 owner:nil];
 
-        FPSource *source = item;
+        FPRepresentedSource *representedSource = item;
 
-        result.textField.stringValue = source.name;
-        result.imageView.image = [[FPUtils frameworkBundle] imageForResource:source.icon];
+        NSString *sourceName = representedSource.source.name;
+        NSString *sourceIconName = representedSource.source.icon;
+
+        result.textField.stringValue = sourceName;
+        result.imageView.image = [[FPUtils frameworkBundle] imageForResource:sourceIconName];
+
+        [result.button setHidden:!representedSource.isLoggedIn];
+
+        if (representedSource.isLoggedIn)
+        {
+            result.button.target = self;
+            result.button.action = @selector(logoutFromSource:);
+
+            [[result.button cell] setRepresentedObject:representedSource];
+        }
+        else
+        {
+            result.button.target = nil;
+            result.button.action = nil;
+
+            [[result.button cell] setRepresentedObject:nil];
+        }
+
+        DLog(@"representedSource: %@", representedSource);
 
         return result;
     }
@@ -213,6 +275,70 @@ const NSString *FPSourceGroupRemote = @"Remote";
     NSArray *childrenForItem = [self childrenForItem:item];
 
     return childrenForItem.count;
+}
+
+#pragma mark - Actions
+
+- (IBAction)logoutFromSource:(id)sender
+{
+    FPRepresentedSource *representedSource = [[sender cell] representedObject];
+    FPSource *source = representedSource.source;
+
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth",
+                           fpBASE_URL,
+                           source.identifier];
+
+    NSURL *url = [NSURL URLWithString:urlString];
+
+    NSURLRequest *request = [NSURLRequest requestWithURL:url
+                                             cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
+                                         timeoutInterval:60];
+
+    [sender setEnabled:NO];
+
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSHTTPCookieStorage *cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+
+        for (NSString *urlString in source.externalDomains)
+        {
+            NSArray *siteCookies;
+            siteCookies = [cookieStorage cookiesForURL:[NSURL URLWithString:urlString]];
+
+            for (NSHTTPCookie *cookie in siteCookies)
+            {
+                [cookieStorage deleteCookie:cookie];
+            }
+        }
+
+        representedSource.isLoggedIn = NO;
+
+        [self refreshOutline];
+        [sender setEnabled:YES];
+
+        if (self.delegate)
+        {
+            [self.delegate sourceListController:self
+                            didLogoutFromSource:representedSource];
+        }
+    };
+
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        [sender setEnabled:YES];
+
+        [FPUtils presentError:error
+              withMessageText:@"Logout failure"];
+    };
+
+    AFHTTPRequestOperation *operation;
+
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+
+    [representedSource.serialOperationQueue cancelAllOperations];
+    [representedSource.serialOperationQueue addOperation:operation];
 }
 
 #pragma mark - Private Methods

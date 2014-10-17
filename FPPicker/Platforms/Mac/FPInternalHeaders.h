@@ -11,3 +11,4 @@
 #import "FPUtils+Mac.h"
 #import "FPConstants.h"
 #import "FPPrivateConfig.h"
+#import "FPRepresentedSource.h"

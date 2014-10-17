@@ -22,11 +22,8 @@
 {
     NSURLRequestCachePolicy cachePolicy = force ? NSURLRequestReloadRevalidatingCacheData : NSURLRequestReturnCacheDataElseLoad;
 
-    [self fpLoadContents:self.path
+    [self fpLoadContents:self.representedSource.currentPath
              cachePolicy:cachePolicy];
-
-    [[NSNotificationCenter defaultCenter] postNotificationName:FPSourcePathDidChangeNotification
-                                                        object:self.path];
 }
 
 #pragma mark - Private Methods
@@ -38,7 +35,7 @@
 
     NSURLRequest *request = [FPUtils requestForLoadPath:loadpath
                                                withType:@"info"
-                                              mimetypes:self.source.mimetypes
+                                              mimetypes:self.representedSource.source.mimetypes
                                             byAppending:@""
                                             cachePolicy:policy];
 
@@ -62,8 +59,8 @@
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [self.serialOperationQueue cancelAllOperations];
-    [self.serialOperationQueue addOperation:operation];
+    [self.representedSource.serialOperationQueue cancelAllOperations];
+    [self.representedSource.serialOperationQueue addOperation:operation];
 }
 
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadPath
@@ -127,8 +124,8 @@
     }
     else
     {
-        [self.delegate source:self
-         didFailContentLoadWithError:error];
+        [self.delegate sourceController:self
+            didFailContentLoadWithError:error];
     }
 }
 
@@ -138,7 +135,7 @@
 
     NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
 
-    NSURLRequest *request = [self fpRequestForLoadPath:self.path
+    NSURLRequest *request = [self fpRequestForLoadPath:self.representedSource.currentPath
                                             withFormat:@"info"
                                            byAppending:nextPageParam
                                            cachePolicy:NSURLRequestReloadIgnoringCacheData];
@@ -178,8 +175,8 @@
 
         self.nextPage = nil;
 
-        [self.delegate source:self
-         didFailContentLoadWithError:error];
+        [self.delegate sourceController:self
+            didFailContentLoadWithError:error];
     };
 
     AFHTTPRequestOperation *operation;
@@ -188,7 +185,7 @@
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [self.parallelOperationQueue addOperation:operation];
+    [self.representedSource.parallelOperationQueue addOperation:operation];
 }
 
 - (NSURLRequest *)fpRequestForLoadPath:(NSString *)loadpath
@@ -199,7 +196,7 @@
     FPSession *fpSession = [FPSession new];
 
     fpSession.APIKey = fpAPIKEY;
-    fpSession.mimetypes = self.source.mimetypes;
+    fpSession.mimetypes = self.representedSource.source.mimetypes;
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
 
