@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4504082119F121E300DB26AF /* FPButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 4504081F19F121E300DB26AF /* FPButton.h */; };
+		4504082219F121E300DB26AF /* FPButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 4504082019F121E300DB26AF /* FPButton.m */; };
 		45066A9E19A1F6D10069B062 /* xui-2.3.2.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */; };
 		45066AA219A1F9B20069B062 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
 		45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
@@ -334,6 +336,8 @@
 		02C136A91856794000D6940E /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
 		1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Integration Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD629DAC49B68C7A544DC77 /* Pods-FPPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-FPPicker/Pods-FPPicker.release.xcconfig"; sourceTree = "<group>"; };
+		4504081F19F121E300DB26AF /* FPButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPButton.h; sourceTree = "<group>"; };
+		4504082019F121E300DB26AF /* FPButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPButton.m; sourceTree = "<group>"; };
 		45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "xui-2.3.2.min.js"; sourceTree = "<group>"; };
 		45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+ResourceHelpers.h"; sourceTree = "<group>"; };
 		45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+ResourceHelpers.m"; sourceTree = "<group>"; };
@@ -732,6 +736,8 @@
 				45E1A41519A5FC8000287419 /* FPView.m */,
 				45E10AF019EE9E9400D34BC0 /* FPImageBrowserCell.h */,
 				45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */,
+				4504081F19F121E300DB26AF /* FPButton.h */,
+				4504082019F121E300DB26AF /* FPButton.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -1163,6 +1169,7 @@
 				45066AAD19A204040069B062 /* FPRemoteSourceController.h in Headers */,
 				45066AAB19A204040069B062 /* FPAuthController.h in Headers */,
 				4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */,
+				4504082119F121E300DB26AF /* FPButton.h in Headers */,
 				4572914819CAFE2900447FAB /* FPImageBrowserView.h in Headers */,
 				45E1A41619A5FC8000287419 /* FPView.h in Headers */,
 				45C7179619D4182400727129 /* FPBaseSourceController.h in Headers */,
@@ -1685,6 +1692,7 @@
 				4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */,
 				4578B08619E824BD00B188F3 /* FPFileTransferController.m in Sources */,
 				45C7179719D4182400727129 /* FPBaseSourceController.m in Sources */,
+				4504082219F121E300DB26AF /* FPButton.m in Sources */,
 				45C7179B19D418C500727129 /* FPSourceViewController.m in Sources */,
 				4579CF6E199CEB0100E0BCB4 /* FPUtils.m in Sources */,
 			);
