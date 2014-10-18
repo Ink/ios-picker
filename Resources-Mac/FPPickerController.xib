@@ -396,7 +396,7 @@ Gw
                             </popUpButtonCell>
                         </popUpButton>
                     </toolbarItem>
-                    <toolbarItem implicitItemIdentifier="EAF94EC8-28E6-449E-A377-214B5D6E6BBC" label="Filepicker Logo" paletteLabel="Filepicker Logo" image="logo_small" id="wC9-0G-hQS">
+                    <toolbarItem implicitItemIdentifier="EAF94EC8-28E6-449E-A377-214B5D6E6BBC" label="Filepicker Logo" paletteLabel="Filepicker Logo" id="wC9-0G-hQS">
                         <nil key="toolTip"/>
                         <size key="minSize" width="133" height="48"/>
                         <size key="maxSize" width="133" height="48"/>
@@ -407,7 +407,7 @@ Gw
                                 <constraint firstAttribute="height" constant="48" id="7CS-b4-QRo"/>
                                 <constraint firstAttribute="width" constant="133" id="RPM-vL-0ml"/>
                             </constraints>
-                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="logo_small" id="HZm-UG-QRD"/>
+                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" id="HZm-UG-QRD"/>
                         </imageView>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="D4904CEC-7A67-4A7D-9BEE-342BA3824871" explicitItemIdentifier="Search Field" label="Search Field" paletteLabel="Search Field" id="eE9-Ky-NCt">
@@ -555,6 +555,5 @@ Gw
         <image name="NSIconViewTemplate" width="10" height="10"/>
         <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
-        <image name="logo_small" width="249" height="89"/>
     </resources>
 </document>
