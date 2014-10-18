@@ -30,6 +30,8 @@
 @property (nonatomic, weak) IBOutlet NSSearchField *searchField;
 @property (nonatomic, weak) IBOutlet NSTextField *saveFilenameTextField;
 
+@property (nonatomic, assign) NSModalSession modalSession;
+
 @end
 
 @implementation FPDialogController
@@ -41,6 +43,19 @@
     [super awakeFromNib];
 
     self.fpLogo.image = [[FPUtils frameworkBundle] imageForResource:@"logo_small"];
+}
+
+- (void)open
+{
+    self.modalSession = [NSApp beginModalSessionForWindow:self.window];
+
+    [NSApp runModalSession:self.modalSession];
+}
+
+- (void)close
+{
+    [self cancelAllOperations];
+    [self.window close];
 }
 
 - (void)setupSourceListWithSourceNames:(NSArray *)sourceNames
@@ -226,6 +241,57 @@
     }
 
     return proposedMinimumPosition;
+}
+
+#pragma mark - NSWindowDelegate Methods
+
+- (void)windowWillClose:(NSNotification *)notification
+{
+    if (self.modalSession)
+    {
+        [NSApp endModalSession:self.modalSession];
+    }
+}
+
+#pragma mark - NSWindowControllerDelegate Methods
+
+- (void)windowDidLoad
+{
+    [super windowDidLoad];
+
+    self.window.styleMask &= ~NSTexturedBackgroundWindowMask;
+
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(dialogControllerDidLoadWindow:)])
+    {
+        [self.delegate dialogControllerDidLoadWindow:self];
+    }
+}
+
+#pragma mark - Actions
+
+- (IBAction)performAction:(id)sender
+{
+    if (self.delegate)
+    {
+        [self.delegate dialogControllerPressedActionButton:self];
+    }
+    else
+    {
+        NSForceLog(@"Perform action called, but no delegate found to handle it.");
+    }
+}
+
+- (IBAction)cancelAction:(id)sender
+{
+    if (self.delegate)
+    {
+        [self.delegate dialogControllerPressedCancelButton:self];
+    }
+    else
+    {
+        NSForceLog(@"Cancel action called, but no delegate found to handle it.");
+    }
 }
 
 @end

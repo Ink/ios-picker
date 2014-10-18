@@ -10,10 +10,25 @@
 
 @class FPBaseSourceController;
 @class FPRepresentedSource;
+@class FPDialogController;
 
-@interface FPDialogController : NSObject
+@protocol FPDialogControllerDelegate <NSObject>
 
-@property (nonatomic, weak) IBOutlet NSWindow *window;
+- (void)dialogControllerPressedCancelButton:(FPDialogController *)dialogController;
+- (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController;
+
+@optional
+
+- (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController;
+
+@end
+
+@interface FPDialogController : NSWindowController
+
+@property (nonatomic, weak) id <FPDialogControllerDelegate> delegate;
+
+- (void)open;
+- (void)close;
 
 - (void)setupSourceListWithSourceNames:(NSArray *)sourceNames
                           andDataTypes:(NSArray *)dataTypes;

@@ -7,45 +7,51 @@
 //
 
 #import "FPSaveController.h"
-#import "FPInternalHeaders.h"
 #import "FPDialogController.h"
 #import "FPFileUploadController.h"
 
-@interface FPSaveController  () <NSWindowDelegate,
-                                 FPFileTransferControllerDelegate>
+@interface FPSaveController () <FPDialogControllerDelegate,
+                                FPFileTransferControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet FPDialogController *dialogController;
-@property (nonatomic, assign) NSModalSession modalSession;
+@property (nonatomic, strong) FPDialogController *dialogController;
 @property (nonatomic, strong) FPFileUploadController *uploadController;
 
 @end
 
 @implementation FPSaveController
 
-#pragma mark - Public Methods
+#pragma mark - Accessors
 
-- (instancetype)init
+- (FPDialogController *)dialogController
 {
-    self = [super init];
-
-    if (self)
+    if (!_dialogController)
     {
-        self = [[self.class alloc] initWithWindowNibName:@"FPSaveController"];
+        _dialogController = [[FPDialogController alloc] initWithWindowNibName:@"FPSaveController"];
+
+        _dialogController.delegate = self;
     }
 
-    return self;
+    return _dialogController;
 }
+
+#pragma mark - Public Methods
 
 - (void)open
 {
-    self.modalSession = [NSApp beginModalSessionForWindow:self.window];
-
-    [NSApp runModalSession:self.modalSession];
+    [self.dialogController open];
 }
 
-#pragma mark - Actions
+#pragma mark - FPDialogControllerDelegate Methods
 
-- (IBAction)saveFile:(id)sender
+- (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController
+{
+    [self.dialogController setupDialogForSavingWithDefaultFileName:self.proposedFilename];
+
+    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                             andDataTypes:@[self.dataType]];
+}
+
+- (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController
 {
     NSString *filename = [self.dialogController filenameFromSaveTextField];
     NSString *path = [self.dialogController currentPath];
@@ -64,28 +70,24 @@
                                                                      targetPath:path
                                                                     andMimetype:self.dataType];
     }
-
-    if (!self.uploadController)
+    else
     {
-        DLog(@"No upload controller was intanstiated.");
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Either data or dataURL must be present.)"];
 
         return;
     }
 
+    [self.dialogController close];
+
     self.uploadController.delegate = self;
 
     [self.uploadController process];
-
-
-    {
-        [self.window close];
-    }
 }
 
-- (IBAction)close:(id)sender
+- (void)dialogControllerPressedCancelButton:(FPDialogController *)dialogController
 {
-    [self.dialogController cancelAllOperations];
-    [self.window close];
+    [self.dialogController close];
 }
 
 #pragma mark - FPFileTransferControllerDelegate Methods
@@ -129,27 +131,7 @@
     }
     else
     {
-        DLog(@"Upload was cancelled");
-    }
-}
-
-#pragma mark - NSWindowDelegate Methods
-
-- (void)windowDidLoad
-{
-    [super windowDidLoad];
-
-    [self.dialogController setupDialogForSavingWithDefaultFileName:self.proposedFilename];
-
-    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
-                                             andDataTypes:@[self.dataType]];
-}
-
-- (void)windowWillClose:(NSNotification *)notification
-{
-    if (self.modalSession)
-    {
-        [NSApp endModalSession:self.modalSession];
+        DLog(@"Upload was cancelled.");
     }
 }
 

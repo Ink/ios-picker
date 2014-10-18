@@ -197,8 +197,6 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didFinishContentLoad:(id)content
 {
-    DLog(@"wtf, %ld", self.sourceBrowserController.items.count);
-
     if (self.sourceBrowserController.items.count == 0)
     {
         [self scrollToTop];
@@ -310,8 +308,6 @@ typedef enum : NSUInteger
 
 - (void)scrollToTop
 {
-    DLog(@"scroll to top, dude");
-
     dispatch_async(dispatch_get_main_queue(), ^{
         NSPoint pt = NSMakePoint(0.0, NSMaxY([self.scrollView.documentView bounds]));
 

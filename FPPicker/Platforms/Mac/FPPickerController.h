@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "FPExternalHeaders.h"
 
-@interface FPPickerController : NSWindowController
+@interface FPPickerController : NSObject
 
 @property (nonatomic, weak) id<FPPickerDelegate> delegate;
 

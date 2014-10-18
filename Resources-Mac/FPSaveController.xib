@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6245"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6245"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="FPSaveController">
+        <customObject id="-2" userLabel="File's Owner" customClass="FPDialogController">
             <connections>
-                <outlet property="dialogController" destination="7Ee-Cz-fim" id="cul-pp-p2T"/>
-                <outlet property="sourceViewController" destination="fX3-UZ-gXh" id="1zD-VU-RPv"/>
+                <outlet property="currentDirectoryDropdownToolbarItem" destination="Rg1-Bx-SmA" id="WaU-wv-nWo"/>
+                <outlet property="displayStyleSegmentedControl" destination="Qx3-mb-k8Q" id="s0E-m5-ahc"/>
+                <outlet property="fpLogo" destination="7C6-CW-DB6" id="h6H-IN-dun"/>
+                <outlet property="navigationController" destination="MaS-US-3o9" id="gdv-ti-DUu"/>
+                <outlet property="saveFilenameTextField" destination="73m-E4-0Ob" id="zuL-1N-Ne3"/>
+                <outlet property="searchField" destination="o9X-mh-VVe" id="a70-pA-e83"/>
+                <outlet property="searchFieldToolbarItem" destination="74e-cf-tuh" id="lNW-Vb-b0q"/>
+                <outlet property="sourceListController" destination="OSU-pt-Ydv" id="dQr-jl-aVN"/>
+                <outlet property="sourceViewController" destination="fX3-UZ-gXh" id="bm4-W1-iIt"/>
+                <outlet property="toolbar" destination="SdX-t9-b3u" id="UW7-VP-X6n"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="uy0-BV-pMy"/>
             </connections>
         </customObject>
@@ -17,10 +26,10 @@
         <window title="Save" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" texturedBackground="YES" unifiedTitleAndToolbar="YES"/>
             <rect key="contentRect" x="196" y="240" width="780" height="533"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="780" height="533"/>
-                <autoresizingMask key="autoresizingMask"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="ScC-LW-v0k" customClass="FPBorderView">
                         <rect key="frame" x="0.0" y="485" width="780" height="48"/>
@@ -54,22 +63,22 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </customView>
-                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="J1M-vV-REc">
+                    <splitView dividerStyle="thin" vertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X4y-iR-KoS">
                         <rect key="frame" x="0.0" y="60" width="780" height="425"/>
                         <subviews>
-                            <customView id="PtP-M6-YaE">
-                                <rect key="frame" x="0.0" y="0.0" width="223" height="425"/>
+                            <customView id="AGP-6P-RXs">
+                                <rect key="frame" x="0.0" y="0.0" width="222" height="425"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
-                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-vL-Uzd">
+                                    <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="26" horizontalPageScroll="10" verticalLineScroll="26" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wZ6-vL-Uzd">
                                         <rect key="frame" x="0.0" y="0.0" width="223" height="425"/>
                                         <clipView key="contentView" drawsBackground="NO" id="MvT-Vy-eXp">
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
+                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <size key="intercellSpacing" width="3" height="0.0"/>
+                                                    <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
@@ -155,14 +164,14 @@
                                     </scrollView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="wZ6-vL-Uzd" firstAttribute="top" secondItem="PtP-M6-YaE" secondAttribute="top" id="1Xp-O0-zYl"/>
-                                    <constraint firstAttribute="trailing" secondItem="wZ6-vL-Uzd" secondAttribute="trailing" id="IwP-cs-gXg"/>
-                                    <constraint firstItem="wZ6-vL-Uzd" firstAttribute="leading" secondItem="PtP-M6-YaE" secondAttribute="leading" id="YVa-Ns-1fK"/>
-                                    <constraint firstAttribute="bottom" secondItem="wZ6-vL-Uzd" secondAttribute="bottom" id="bPz-Xm-JhT"/>
+                                    <constraint firstItem="wZ6-vL-Uzd" firstAttribute="centerX" secondItem="AGP-6P-RXs" secondAttribute="centerX" id="F37-ZD-IjW"/>
+                                    <constraint firstAttribute="bottom" secondItem="wZ6-vL-Uzd" secondAttribute="bottom" id="Gra-eX-qwp"/>
+                                    <constraint firstItem="wZ6-vL-Uzd" firstAttribute="leading" secondItem="AGP-6P-RXs" secondAttribute="leading" id="T2H-8h-eOf"/>
+                                    <constraint firstItem="wZ6-vL-Uzd" firstAttribute="top" secondItem="AGP-6P-RXs" secondAttribute="top" id="uac-oh-8JH"/>
                                 </constraints>
                             </customView>
-                            <customView id="juK-Db-zcZ">
-                                <rect key="frame" x="224" y="0.0" width="556" height="425"/>
+                            <customView id="WKf-Uh-4Be">
+                                <rect key="frame" x="223" y="0.0" width="557" height="425"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <subviews>
                                     <tabView drawsBackground="NO" type="noTabsNoBorder" translatesAutoresizingMaskIntoConstraints="NO" id="TY8-oi-GLc">
@@ -171,14 +180,22 @@
                                         <tabViewItems>
                                             <tabViewItem label="Authentication" identifier="1" id="IJU-SS-EaY">
                                                 <view key="view" id="XNc-se-Hwl" customClass="FPView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="556" height="425"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <subviews>
-                                                        <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="p6g-Rm-qo3">
-                                                            <rect key="frame" x="215" y="195" width="126" height="32"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="114" id="SCh-Eb-UOc"/>
-                                                            </constraints>
+                                                        <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zju-94-OEh">
+                                                            <rect key="frame" x="262" y="-147" width="32" height="32"/>
+                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSCaution" id="ehV-eU-BOD"/>
+                                                        </imageView>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qfp-eQ-5Bw">
+                                                            <rect key="frame" x="166" y="-172" width="224" height="17"/>
+                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This source requires authentication." id="BYx-Ih-qbo">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p6g-Rm-qo3">
+                                                            <rect key="frame" x="215" y="-230" width="126" height="32"/>
                                                             <buttonCell key="cell" type="push" title="Authenticate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="YKx-PO-dWg">
                                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                 <font key="font" metaFont="system"/>
@@ -187,29 +204,7 @@
                                                                 <action selector="login:" target="fX3-UZ-gXh" id="6F7-3b-cSV"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView translatesAutoresizingMaskIntoConstraints="NO" id="zju-94-OEh">
-                                                            <rect key="frame" x="262" y="278" width="32" height="32"/>
-                                                            <imageCell key="cell" refusesFirstResponder="YES" alignment="left" animates="YES" imageScaling="proportionallyDown" image="NSCaution" id="ehV-eU-BOD"/>
-                                                        </imageView>
-                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qfp-eQ-5Bw">
-                                                            <rect key="frame" x="163" y="253" width="230" height="17"/>
-                                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="This source requires authentication." id="BYx-Ih-qbo">
-                                                                <font key="font" metaFont="system"/>
-                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                            </textFieldCell>
-                                                        </textField>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="p6g-Rm-qo3" firstAttribute="top" secondItem="qfp-eQ-5Bw" secondAttribute="bottom" constant="30" id="EcM-cB-LEB"/>
-                                                        <constraint firstItem="qfp-eQ-5Bw" firstAttribute="centerX" secondItem="p6g-Rm-qo3" secondAttribute="centerX" id="GTU-XC-2T0"/>
-                                                        <constraint firstAttribute="centerX" secondItem="p6g-Rm-qo3" secondAttribute="centerX" id="NP6-Sq-HND"/>
-                                                        <constraint firstItem="zju-94-OEh" firstAttribute="centerX" secondItem="qfp-eQ-5Bw" secondAttribute="centerX" id="Zl5-YL-vk8"/>
-                                                        <constraint firstItem="qfp-eQ-5Bw" firstAttribute="top" secondItem="zju-94-OEh" secondAttribute="bottom" constant="8" symbolic="YES" id="j9I-Q9-IAt"/>
-                                                        <constraint firstItem="zju-94-OEh" firstAttribute="top" secondItem="XNc-se-Hwl" secondAttribute="top" constant="115" id="pGy-Ci-fd9"/>
-                                                        <constraint firstItem="qfp-eQ-5Bw" firstAttribute="centerX" secondItem="XNc-se-Hwl" secondAttribute="centerX" id="v4l-SQ-y9v"/>
-                                                        <constraint firstAttribute="centerY" secondItem="p6g-Rm-qo3" secondAttribute="centerY" id="vJg-aj-HVx"/>
-                                                    </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="backgroundColor">
                                                             <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -228,19 +223,20 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
-                                                                        <rect key="frame" x="0.0" y="-82" width="516" height="420"/>
-                                                                        <subviews>
-                                                                            <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
-                                                                                <rect key="frame" x="242" y="194" width="32" height="32"/>
-                                                                            </progressIndicator>
-                                                                        </subviews>
+                                                                    <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="556" height="425"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="BAy-wr-0sS"/>
                                                                             <outlet property="delegate" destination="uiA-OB-dvu" id="2lH-eR-c6T"/>
                                                                         </connections>
                                                                     </view>
                                                                 </subviews>
+                                                                <constraints>
+                                                                    <constraint firstItem="DIS-ff-gbj" firstAttribute="leading" secondItem="7y9-NY-6zL" secondAttribute="leading" id="3vc-Py-x3P"/>
+                                                                    <constraint firstItem="DIS-ff-gbj" firstAttribute="top" secondItem="7y9-NY-6zL" secondAttribute="top" id="A3b-fN-owG"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="DIS-ff-gbj" secondAttribute="bottom" id="uOP-nM-tGr"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="DIS-ff-gbj" secondAttribute="trailing" id="zBk-d1-hje"/>
+                                                                </constraints>
                                                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                             </clipView>
                                                             <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="eYX-9Y-fgv">
@@ -252,11 +248,16 @@
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
                                                         </scrollView>
+                                                        <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="StE-he-IMG">
+                                                            <rect key="frame" x="262" y="197" width="32" height="32"/>
+                                                        </progressIndicator>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="dLe-0S-vnq" firstAttribute="top" secondItem="e42-Ic-Ais" secondAttribute="top" id="Ced-0D-4z3"/>
                                                         <constraint firstAttribute="bottom" secondItem="dLe-0S-vnq" secondAttribute="bottom" id="Sp1-nQ-Izs"/>
+                                                        <constraint firstAttribute="centerX" secondItem="StE-he-IMG" secondAttribute="centerX" id="o0H-0F-pbt"/>
                                                         <constraint firstAttribute="trailing" secondItem="dLe-0S-vnq" secondAttribute="trailing" id="sGc-YX-Bco"/>
+                                                        <constraint firstAttribute="centerY" secondItem="StE-he-IMG" secondAttribute="centerY" id="uYh-O1-Dze"/>
                                                         <constraint firstItem="dLe-0S-vnq" firstAttribute="leading" secondItem="e42-Ic-Ais" secondAttribute="leading" id="wew-DJ-ehO"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
@@ -276,10 +277,10 @@
                                     </tabView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="TY8-oi-GLc" firstAttribute="leading" secondItem="juK-Db-zcZ" secondAttribute="leading" id="dhD-52-gGI"/>
-                                    <constraint firstItem="TY8-oi-GLc" firstAttribute="top" secondItem="juK-Db-zcZ" secondAttribute="top" id="pAf-kc-XyM"/>
-                                    <constraint firstAttribute="trailing" secondItem="TY8-oi-GLc" secondAttribute="trailing" id="qEc-0y-qs0"/>
-                                    <constraint firstAttribute="bottom" secondItem="TY8-oi-GLc" secondAttribute="bottom" id="uJ3-1f-dw3"/>
+                                    <constraint firstItem="TY8-oi-GLc" firstAttribute="centerX" secondItem="WKf-Uh-4Be" secondAttribute="centerX" id="FEb-i5-iGw"/>
+                                    <constraint firstItem="TY8-oi-GLc" firstAttribute="top" secondItem="WKf-Uh-4Be" secondAttribute="top" id="MJw-Yh-TfX"/>
+                                    <constraint firstItem="TY8-oi-GLc" firstAttribute="leading" secondItem="WKf-Uh-4Be" secondAttribute="leading" id="q3B-pD-3la"/>
+                                    <constraint firstAttribute="bottom" secondItem="TY8-oi-GLc" secondAttribute="bottom" id="zxZ-et-NDD"/>
                                 </constraints>
                             </customView>
                         </subviews>
@@ -288,14 +289,14 @@
                             <real value="250"/>
                         </holdingPriorities>
                         <connections>
-                            <outlet property="delegate" destination="-2" id="Rzx-K8-xwa"/>
+                            <outlet property="delegate" destination="-2" id="Gtb-Da-yRe"/>
                         </connections>
                     </splitView>
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="xpB-py-Xod" customClass="FPBorderView">
                         <rect key="frame" x="0.0" y="0.0" width="780" height="60"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kka-Yt-opL">
-                                <rect key="frame" x="697" y="12" width="69" height="34"/>
+                                <rect key="frame" x="695" y="12" width="71" height="33"/>
                                 <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Wdk-XC-BSS">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -304,11 +305,11 @@ DQ
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="saveFile:" target="-2" id="SLA-WY-R2i"/>
+                                    <action selector="performAction:" target="-2" id="7l1-7D-IsO"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="34p-Ng-Pxt">
-                                <rect key="frame" x="615" y="12" width="82" height="32"/>
+                                <rect key="frame" x="612" y="12" width="83" height="32"/>
                                 <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="HFN-8G-OOn">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -317,17 +318,16 @@ Gw
 </string>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="close:" target="-2" id="vLt-7f-Fwd"/>
+                                    <action selector="cancelAction:" target="-2" id="en1-m4-loE"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="kka-Yt-opL" firstAttribute="centerY" secondItem="xpB-py-Xod" secondAttribute="centerY" id="Lra-jZ-sn8"/>
-                            <constraint firstAttribute="bottom" secondItem="34p-Ng-Pxt" secondAttribute="bottom" constant="19" id="OyM-dM-u6j"/>
+                            <constraint firstItem="kka-Yt-opL" firstAttribute="centerY" secondItem="xpB-py-Xod" secondAttribute="centerY" id="7e1-XH-sNf"/>
+                            <constraint firstItem="kka-Yt-opL" firstAttribute="top" secondItem="xpB-py-Xod" secondAttribute="top" constant="19" id="ZAx-NR-FCo"/>
                             <constraint firstItem="34p-Ng-Pxt" firstAttribute="baseline" secondItem="kka-Yt-opL" secondAttribute="baseline" id="dzD-X7-uza"/>
                             <constraint firstItem="kka-Yt-opL" firstAttribute="leading" secondItem="34p-Ng-Pxt" secondAttribute="trailing" constant="12" symbolic="YES" id="i0l-hC-Ek0"/>
-                            <constraint firstItem="34p-Ng-Pxt" firstAttribute="top" secondItem="xpB-py-Xod" secondAttribute="top" constant="20" symbolic="YES" id="pQ9-mb-rZH"/>
-                            <constraint firstAttribute="trailing" secondItem="kka-Yt-opL" secondAttribute="trailing" constant="20" symbolic="YES" id="szY-lh-5cU"/>
+                            <constraint firstAttribute="trailing" secondItem="kka-Yt-opL" secondAttribute="trailing" constant="20" symbolic="YES" id="kwj-E5-mGE"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="borderStyle">
@@ -337,18 +337,18 @@ Gw
                     </customView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="xpB-py-Xod" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="7sW-T7-oDg"/>
-                    <constraint firstItem="J1M-vV-REc" firstAttribute="leading" secondItem="xpB-py-Xod" secondAttribute="leading" id="Bdh-yt-mod"/>
-                    <constraint firstAttribute="bottom" secondItem="J1M-vV-REc" secondAttribute="bottom" constant="60" id="G6o-hP-Cmb"/>
-                    <constraint firstItem="J1M-vV-REc" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="48" id="JOj-OW-McT"/>
-                    <constraint firstItem="ScC-LW-v0k" firstAttribute="trailing" secondItem="J1M-vV-REc" secondAttribute="trailing" id="KLx-BS-S0r"/>
+                    <constraint firstItem="X4y-iR-KoS" firstAttribute="leading" secondItem="ScC-LW-v0k" secondAttribute="leading" id="0Ri-ki-MYv"/>
+                    <constraint firstItem="xpB-py-Xod" firstAttribute="leading" secondItem="X4y-iR-KoS" secondAttribute="leading" id="5ms-Pu-tS2"/>
+                    <constraint firstItem="X4y-iR-KoS" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="48" id="C1T-fS-GNY"/>
+                    <constraint firstItem="xpB-py-Xod" firstAttribute="trailing" secondItem="X4y-iR-KoS" secondAttribute="trailing" id="Dfi-Mu-FJG"/>
+                    <constraint firstItem="xpB-py-Xod" firstAttribute="top" secondItem="X4y-iR-KoS" secondAttribute="bottom" id="HUC-F4-fbd"/>
                     <constraint firstAttribute="trailing" secondItem="ScC-LW-v0k" secondAttribute="trailing" id="L5E-6c-Z36"/>
-                    <constraint firstAttribute="bottom" secondItem="xpB-py-Xod" secondAttribute="bottom" id="OsD-Wr-A3K"/>
                     <constraint firstItem="ScC-LW-v0k" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" id="Phf-ap-97l"/>
-                    <constraint firstItem="xpB-py-Xod" firstAttribute="top" secondItem="J1M-vV-REc" secondAttribute="bottom" id="Uyc-Au-mGf"/>
-                    <constraint firstItem="J1M-vV-REc" firstAttribute="trailing" secondItem="xpB-py-Xod" secondAttribute="trailing" id="gs6-3s-xfe"/>
-                    <constraint firstItem="ScC-LW-v0k" firstAttribute="leading" secondItem="J1M-vV-REc" secondAttribute="leading" id="jdK-A5-Gt9"/>
-                    <constraint firstItem="J1M-vV-REc" firstAttribute="top" secondItem="ScC-LW-v0k" secondAttribute="bottom" id="weK-UA-RGO"/>
+                    <constraint firstAttribute="bottom" secondItem="X4y-iR-KoS" secondAttribute="bottom" constant="60" id="YXT-jo-43w"/>
+                    <constraint firstItem="xpB-py-Xod" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" id="dgU-eQ-RvY"/>
+                    <constraint firstItem="X4y-iR-KoS" firstAttribute="top" secondItem="ScC-LW-v0k" secondAttribute="bottom" id="njS-LB-fnP"/>
+                    <constraint firstAttribute="bottom" secondItem="xpB-py-Xod" secondAttribute="bottom" id="pqG-W1-LNn"/>
+                    <constraint firstItem="X4y-iR-KoS" firstAttribute="trailing" secondItem="ScC-LW-v0k" secondAttribute="trailing" id="tIO-TA-RNp"/>
                 </constraints>
             </view>
             <toolbar key="toolbar" implicitIdentifier="2795E3CB-2DBB-456D-B9BB-3984D4E95B58" autosavesConfiguration="NO" allowsUserCustomization="NO" displayMode="iconOnly" sizeMode="regular" id="SdX-t9-b3u">
@@ -401,12 +401,12 @@ Gw
                             <constraints>
                                 <constraint firstAttribute="width" constant="245" id="rXR-rO-DJJ"/>
                             </constraints>
-                            <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="yRD-DE-nqb">
+                            <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" autoenablesItems="NO" id="yRD-DE-nqb">
                                 <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
                                 <font key="font" metaFont="menu"/>
                                 <menu key="menu" autoenablesItems="NO" id="L9g-IC-Bxr">
                                     <items>
-                                        <menuItem title="Item 1" state="on" id="3kj-vl-MML"/>
+                                        <menuItem title="Item 1" id="3kj-vl-MML"/>
                                         <menuItem title="Item 2" id="aXS-27-ZtQ"/>
                                         <menuItem title="Item 3" id="FH8-FL-BEC"/>
                                     </items>
@@ -432,7 +432,7 @@ Gw
                         <nil key="toolTip"/>
                         <size key="minSize" width="250" height="22"/>
                         <size key="maxSize" width="250" height="22"/>
-                        <searchField key="view" verticalHuggingPriority="750" id="o9X-mh-VVe">
+                        <searchField key="view" wantsLayer="YES" verticalHuggingPriority="750" id="o9X-mh-VVe">
                             <rect key="frame" x="20" y="430" width="250" height="22"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <searchFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" borderStyle="bezel" placeholderString="Enter Your Search Here" usesSingleLineMode="YES" bezelStyle="round" sendsWholeSearchString="YES" id="a9Y-3T-MaN">
@@ -451,6 +451,9 @@ Gw
                     <toolbarItem reference="foc-wr-l13"/>
                     <toolbarItem reference="5YE-j7-dUh"/>
                 </defaultToolbarItems>
+                <connections>
+                    <outlet property="delegate" destination="-2" id="SeC-zp-Ucx"/>
+                </connections>
             </toolbar>
             <connections>
                 <outlet property="delegate" destination="-2" id="XDh-28-d1X"/>
@@ -462,7 +465,7 @@ Gw
             <windowStyleMask key="styleMask" titled="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="139" y="81" width="640" height="540"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="878"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <view key="contentView" id="hu1-WR-NgY">
                 <rect key="frame" x="0.0" y="0.0" width="640" height="540"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -481,7 +484,7 @@ Gw
                         </connections>
                     </webView>
                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qTx-QQ-Ldl">
-                        <rect key="frame" x="544" y="13" width="82" height="32"/>
+                        <rect key="frame" x="543" y="13" width="83" height="32"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p49-N0-ihN">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
@@ -517,7 +520,7 @@ Gw
         </customObject>
         <viewController id="OSU-pt-Ydv" customClass="FPSourceListController">
             <connections>
-                <outlet property="delegate" destination="7Ee-Cz-fim" id="Q2M-lF-nmo"/>
+                <outlet property="delegate" destination="-2" id="wW9-xz-eqg"/>
                 <outlet property="outlineView" destination="snl-Pl-MXb" id="2GJ-2h-WM4"/>
                 <outlet property="view" destination="snl-Pl-MXb" id="cee-Rz-Iqf"/>
             </connections>
@@ -525,19 +528,18 @@ Gw
         <viewController id="fX3-UZ-gXh" customClass="FPSourceViewController">
             <connections>
                 <outlet property="authController" destination="n1b-SP-myf" id="rhY-Vy-oBz"/>
-                <outlet property="delegate" destination="7Ee-Cz-fim" id="pAD-ve-bnV"/>
+                <outlet property="delegate" destination="-2" id="3oa-qL-cm7"/>
                 <outlet property="loginButton" destination="p6g-Rm-qo3" id="yS1-5P-HF6"/>
                 <outlet property="progressIndicator" destination="StE-he-IMG" id="vFf-Ln-Jdf"/>
                 <outlet property="scrollView" destination="dLe-0S-vnq" id="hib-kR-DoF"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
                 <outlet property="tabView" destination="TY8-oi-GLc" id="CrP-35-6f1"/>
-                <outlet property="view" destination="juK-Db-zcZ" id="9dT-G1-9pG"/>
             </connections>
         </viewController>
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">
             <connections>
                 <outlet property="currentDirectoryPopupButton" destination="Dxy-fv-hrj" id="3CR-af-3u5"/>
-                <outlet property="delegate" destination="7Ee-Cz-fim" id="GSr-0u-xXx"/>
+                <outlet property="delegate" destination="-2" id="jDd-gJ-u0k"/>
             </connections>
         </viewController>
         <viewController nibName="" id="n1b-SP-myf" customClass="FPAuthController">
@@ -547,28 +549,14 @@ Gw
                 <outlet property="webView" destination="g2y-dV-G5Y" id="JMS-nk-Rcn"/>
             </connections>
         </viewController>
-        <customObject id="7Ee-Cz-fim" customClass="FPDialogController">
-            <connections>
-                <outlet property="currentDirectoryDropdownToolbarItem" destination="Rg1-Bx-SmA" id="0UK-Vk-MfD"/>
-                <outlet property="displayStyleSegmentedControl" destination="Qx3-mb-k8Q" id="Tk9-uZ-OKM"/>
-                <outlet property="fpLogo" destination="7C6-CW-DB6" id="feX-Vp-PqD"/>
-                <outlet property="navigationController" destination="MaS-US-3o9" id="Mr3-tb-j0a"/>
-                <outlet property="saveFilenameTextField" destination="73m-E4-0Ob" id="oji-d2-Zlu"/>
-                <outlet property="searchField" destination="o9X-mh-VVe" id="K3f-H4-M94"/>
-                <outlet property="searchFieldToolbarItem" destination="74e-cf-tuh" id="qTJ-Tz-TfD"/>
-                <outlet property="sourceListController" destination="OSU-pt-Ydv" id="WBG-n3-iTv"/>
-                <outlet property="sourceViewController" destination="fX3-UZ-gXh" id="ADh-mE-Iy8"/>
-                <outlet property="toolbar" destination="SdX-t9-b3u" id="ffz-hR-WKQ"/>
-            </connections>
-        </customObject>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
         <image name="NSCaution" width="32" height="32"/>
-        <image name="NSGoLeftTemplate" width="9" height="9"/>
-        <image name="NSGoRightTemplate" width="9" height="9"/>
-        <image name="NSIconViewTemplate" width="11" height="10"/>
-        <image name="NSListViewTemplate" width="11" height="10"/>
+        <image name="NSGoLeftTemplate" width="9" height="12"/>
+        <image name="NSGoRightTemplate" width="9" height="12"/>
+        <image name="NSIconViewTemplate" width="10" height="10"/>
+        <image name="NSListViewTemplate" width="14" height="10"/>
         <image name="NSStopProgressTemplate" width="11" height="11"/>
         <image name="logo_small" width="249" height="89"/>
     </resources>

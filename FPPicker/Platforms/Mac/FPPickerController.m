@@ -11,57 +11,85 @@
 #import "FPDialogController.h"
 #import "FPFileDownloadController.h"
 
-@interface FPPickerController () <NSWindowDelegate,
+@interface FPPickerController () <FPDialogControllerDelegate,
                                   FPFileTransferControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet FPDialogController *dialogController;
-@property (nonatomic, assign) NSModalSession modalSession;
+@property (nonatomic, strong) FPDialogController *dialogController;
 
 @end
 
 @implementation FPPickerController
 
-#pragma mark - Public Methods
+#pragma mark - Accessors
 
-- (instancetype)init
+- (FPDialogController *)dialogController
 {
-    self = [super init];
-
-    if (self)
+    if (!_dialogController)
     {
-        self = [[self.class alloc] initWithWindowNibName:@"FPPickerController"];
+        _dialogController = [[FPDialogController alloc] initWithWindowNibName:@"FPPickerController"];
 
-        self.shouldDownload = YES;
+        _dialogController.delegate = self;
     }
 
-    return self;
+    return _dialogController;
 }
+
+#pragma mark - Public Methods
 
 - (void)open
 {
-    self.modalSession = [NSApp beginModalSessionForWindow:self.window];
-
-    [NSApp runModalSession:self.modalSession];
+    [self.dialogController open];
 }
 
-#pragma mark - NSWindowController Methods
+#pragma mark - FPDialogControllerDelegate Methods
 
-- (void)windowDidLoad
+- (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController
 {
-    [super windowDidLoad];
-
     [self.dialogController setupSourceListWithSourceNames:self.sourceNames
                                              andDataTypes:self.dataTypes];
 }
 
-#pragma mark - NSWindowDelegate Methods
-
-- (void)windowWillClose:(NSNotification *)notification
+- (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController
 {
-    if (self.modalSession)
+    // Validate selection by looking for directories
+
+    NSArray *selectedItems = [self.dialogController selectedItems];
+
+    if (!selectedItems)
     {
-        [NSApp endModalSession:self.modalSession];
+        return;
     }
+
+    for (NSDictionary *item in selectedItems)
+    {
+        if ([item[@"is_dir"] boolValue])
+        {
+            // Display alert with error
+
+            NSError *error = [FPUtils errorWithCode:200
+                              andLocalizedDescription:@"Selection must not contain any directories."];
+
+            [FPUtils presentError:error
+                  withMessageText:@"Selection error"];
+
+            return;
+        }
+    }
+
+    [self.dialogController close];
+
+    FPFileDownloadController *fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems];
+
+    fileDownloadController.delegate = self;
+    fileDownloadController.sourceController = [self.dialogController selectedSourceController];
+    fileDownloadController.shouldDownloadData = self.shouldDownload;
+
+    [fileDownloadController process];
+}
+
+- (void)dialogControllerPressedCancelButton:(FPDialogController *)dialogController
+{
+    [self.dialogController close];
 }
 
 #pragma mark - FPFileTransferControllerDelegate Methods
@@ -90,53 +118,6 @@
     {
         [self.delegate FPPickerControllerDidCancel:self];
     }
-}
-
-#pragma mark - Actions
-
-- (IBAction)openFiles:(id)sender
-{
-    // Validate selection by looking for directories
-
-    NSArray *selectedItems = [self.dialogController selectedItems];
-    FPBaseSourceController *sourceController = [self.dialogController selectedSourceController];
-
-    if (!selectedItems)
-    {
-        return;
-    }
-
-    for (NSDictionary *item in selectedItems)
-    {
-        if ([item[@"is_dir"] boolValue])
-        {
-            // Display alert with error
-
-            NSError *error = [FPUtils errorWithCode:200
-                              andLocalizedDescription:@"Selection must not contain any directories."];
-
-            [FPUtils presentError:error
-                  withMessageText:@"Selection error"];
-
-            return;
-        }
-    }
-
-    FPFileDownloadController *fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems];
-
-    fileDownloadController.delegate = self;
-    fileDownloadController.sourceController = sourceController;
-    fileDownloadController.shouldDownloadData = self.shouldDownload;
-
-    [fileDownloadController process];
-
-    [self.window close];
-}
-
-- (IBAction)close:(id)sender
-{
-    [self.dialogController cancelAllOperations];
-    [self.window close];
 }
 
 @end

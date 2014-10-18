@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "FPExternalHeaders.h"
 
-@interface FPSaveController : NSWindowController
+@interface FPSaveController : NSObject
 
 @property (nonatomic, weak) id<FPSaveDelegate> delegate;
 
