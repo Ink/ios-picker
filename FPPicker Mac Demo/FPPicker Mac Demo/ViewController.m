@@ -73,11 +73,33 @@
         FPSourceFlickr
                                       ];
 
-    self.saveController.data = [NSData data];
-    self.saveController.dataType = @"image/jpeg";
-    self.saveController.proposedFilename = @"default.jpg";
 
-    [self.saveController open];
+    if (self.imageView.image)
+    {
+        CGImageRef CGImage = [self.imageView.image CGImageForProposedRect:nil
+                                                                  context:nil
+                                                                    hints:nil];
+        NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage:CGImage];
+
+        NSData *bitmapData = [bitmapRep representationUsingType:NSJPEGFileType
+                                                     properties:nil];
+
+        self.saveController.data = bitmapData;
+        self.saveController.dataType = @"image/jpeg";
+        self.saveController.proposedFilename = @"default.jpg";
+
+        [self.saveController open];
+    }
+    else
+    {
+        NSAlert *alert = [NSAlert alertWithMessageText:@"Image missing"
+                                         defaultButton:@"OK"
+                                       alternateButton:nil
+                                           otherButton:nil
+                             informativeTextWithFormat:@"The image view must contain an image."];
+
+        [alert runModal];
+    }
 }
 
 #pragma mark - FPPickerDelegate Methods
@@ -109,6 +131,14 @@
     didFinishSavingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"Saved media: %@", info);
+
+    NSAlert *alert = [NSAlert alertWithMessageText:@"Image saved"
+                                     defaultButton:@"OK"
+                                   alternateButton:nil
+                                       otherButton:nil
+                         informativeTextWithFormat:@"The image was successfully saved!"];
+
+    [alert runModal];
 }
 
 - (void)FPSaveController:(FPSaveController *)saveController
