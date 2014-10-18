@@ -15,8 +15,6 @@
 
 @property (readonly, assign) BOOL wasProcessCancelled;
 
-- (IBAction)cancel:(id)sender;
-
 @end
 
 @interface FPFileUploadController ()

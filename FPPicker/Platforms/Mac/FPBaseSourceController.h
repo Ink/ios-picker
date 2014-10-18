@@ -36,4 +36,6 @@
                        failure:(FPFetchObjectFailureBlock)failure
                       progress:(FPFetchObjectProgressBlock)progress;
 
+- (void)cancelAllOperations;
+
 @end

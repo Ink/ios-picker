@@ -164,7 +164,7 @@
 - (IBAction)cancel:(id)sender
 {
     [super cancel:sender];
-    [self.sourceController.representedSource cancelAllOperations];
+    [self.sourceController cancelAllOperations];
 }
 
 @end

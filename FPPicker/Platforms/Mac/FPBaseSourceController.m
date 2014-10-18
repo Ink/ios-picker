@@ -16,6 +16,17 @@
 
 @implementation FPBaseSourceController
 
+#pragma mark - Accessors
+
+- (void)setRepresentedSource:(FPRepresentedSource *)representedSource
+{
+    [representedSource cancelAllOperations];
+
+    _representedSource = representedSource;
+}
+
+#pragma mark - Public Methods
+
 - (void)fpLoadContentAtPath:(BOOL)force
 {
     NSAssert(NO, @"This method must be implemented by subclasses.");
@@ -43,11 +54,9 @@
     }
 }
 
-- (void)setRepresentedSource:(FPRepresentedSource *)representedSource
+- (void)cancelAllOperations
 {
-    [representedSource cancelAllOperations];
-
-    _representedSource = representedSource;
+    [self.representedSource cancelAllOperations];
 }
 
 #pragma mark - Private Methods
