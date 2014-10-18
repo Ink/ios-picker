@@ -25,6 +25,8 @@
 
 @interface FPDialogController : NSWindowController
 
+@property (nonatomic, assign) CGFloat minSplitPaneWidth;
+@property (nonatomic, assign) CGFloat maxSplitPaneWidth;
 @property (nonatomic, weak) id <FPDialogControllerDelegate> delegate;
 
 - (void)open;

@@ -36,6 +36,28 @@
 
 @implementation FPDialogController
 
+#pragma mark - Accessors
+
+- (CGFloat)minSplitPaneWidth
+{
+    if (!_minSplitPaneWidth)
+    {
+        _minSplitPaneWidth = 150;
+    }
+
+    return _minSplitPaneWidth;
+}
+
+- (CGFloat)maxSplitPaneWidth
+{
+    if (!_maxSplitPaneWidth)
+    {
+        _maxSplitPaneWidth = 225;
+    }
+
+    return _maxSplitPaneWidth;
+}
+
 #pragma mark - Public Methods
 
 - (void)awakeFromNib
@@ -223,9 +245,9 @@
     constrainMinCoordinate:(CGFloat)proposedMinimumPosition
                ofSubviewAt:(NSInteger)dividerIndex
 {
-    if (proposedMinimumPosition < 150)
+    if (proposedMinimumPosition < self.minSplitPaneWidth)
     {
-        proposedMinimumPosition = 150;
+        proposedMinimumPosition = self.minSplitPaneWidth;
     }
 
     return proposedMinimumPosition;
@@ -235,9 +257,9 @@
     constrainMaxCoordinate:(CGFloat)proposedMinimumPosition
                ofSubviewAt:(NSInteger)dividerIndex
 {
-    if (proposedMinimumPosition > 225)
+    if (proposedMinimumPosition > self.maxSplitPaneWidth)
     {
-        proposedMinimumPosition = 225;
+        proposedMinimumPosition = self.maxSplitPaneWidth;
     }
 
     return proposedMinimumPosition;
