@@ -199,8 +199,6 @@ const NSString *FPSourceGroupRemote = @"Remote";
             [[result.button cell] setRepresentedObject:nil];
         }
 
-        DLog(@"representedSource: %@", representedSource);
-
         return result;
     }
 }

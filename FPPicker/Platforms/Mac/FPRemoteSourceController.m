@@ -39,7 +39,7 @@
                                             byAppending:@""
                                             cachePolicy:policy];
 
-    NSLog(@"Loading Contents from URL: %@", request.URL);
+    DLog(@"Loading Contents from URL: %@", request.URL);
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
@@ -165,18 +165,25 @@
 
         if (self.nextPage)
         {
+            // Recursively load next pages...
+
             [self fpLoadNextPage];
         }
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        DLog(@"Error: %@", error);
-
         self.nextPage = nil;
 
-        [self.delegate sourceController:self
-            didFailContentLoadWithError:error];
+        if (self.delegate)
+        {
+            [self.delegate sourceController:self
+                didFailContentLoadWithError:error];
+        }
+        else
+        {
+            DLog(@"Error when performing operation %@: %@", operation, error);
+        }
     };
 
     AFHTTPRequestOperation *operation;

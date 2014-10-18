@@ -7,7 +7,6 @@
 //
 
 #import "FPBaseSourceController.h"
-#import "FPSource.h"
 #import "FPInternalHeaders.h"
 
 @interface FPBaseSourceController ()
@@ -70,12 +69,8 @@
                                           withFormat:@"fpurl"
                                          cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
-    DLog(@"request = %@", request);
-
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSLog(@"result: %@", responseObject);
-
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
         mediaInfo.remoteURL = [NSURL URLWithString:responseObject[@"url"]];
@@ -166,8 +161,6 @@
     [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
                                            long long totalBytesRead,
                                            long long totalBytesExpectedToRead) {
-        //DLog(@"Getting %ld of %ld bytes", (long)totalBytesRead, (long)totalBytesExpectedToRead);
-
         if (progress && totalBytesExpectedToRead > 0)
         {
             progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
