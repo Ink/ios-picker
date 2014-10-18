@@ -12,7 +12,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ {name: %@, identifier: %@, icon: %@, rootUrl: %@, open_mimetypes: %@, save_mimetypes: %@, mimetypes: %@, externalDomains: %@, overwritePossible: %@, requiresAuth: %@}",
+    return [NSString stringWithFormat:@"%@ {\n\tname = %@\n\tidentifier = %@\n\ticon = %@\n\trootUrl = %@\n\topen_mimetypes = %@\n\tsave_mimetypes = %@\n\tmimetypes = %@\n\texternalDomains = %@\n\toverwritePossible = %@\n\trequiresAuth = %@\n}",
             super.description,
             self.name,
             self.identifier,

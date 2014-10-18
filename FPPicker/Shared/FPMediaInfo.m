@@ -8,6 +8,7 @@
 
 #import "FPMediaInfo.h"
 #import "FPUtils.h"
+#import "FPSource.h"
 
 @implementation FPMediaInfo
 
@@ -37,15 +38,15 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ {mediaType: %@, mediaURL: %@, remoteURL: %@, filename: %@, filesize: %@, key: %@, source: %@, originalAsset: %@, thumbnailImage: %@, containsImageAtMediaURL: %@, containsVideoAtMediaURL: %@}",
-            [super description],
+    return [NSString stringWithFormat:@"%@ {\n\tmediaType = %@\n\tmediaURL = %@\n\tremoteURL = %@\n\tfilename = %@\n\tfilesize = %@\n\tkey = %@\n\tsource = %@\n\toriginalAsset = %@\n\tthumbnailImage = %@\n\tcontainsImageAtMediaURL = %@\n\tcontainsVideoAtMediaURL = %@\n}",
+            super.description,
             self.mediaType,
             self.mediaURL,
             self.remoteURL,
             self.filename,
             self.filesize,
             self.key,
-            self.source,
+            self.source.identifier,
             self.originalAsset,
             self.thumbnailImage,
             self.containsImageAtMediaURL ? @"YES":@"NO",

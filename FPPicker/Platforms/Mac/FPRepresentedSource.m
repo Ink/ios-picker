@@ -41,10 +41,14 @@
 
 - (void)cancelAllOperations
 {
-    DLog(@"Cancelling all operations on %@", self);
+    if (self.serialOperationQueue.operationCount > 0 ||
+        self.parallelOperationQueue.operationCount > 0)
+    {
+        DLog(@"Cancelling all operations on %@", self);
 
-    [self.serialOperationQueue cancelAllOperations];
-    [self.parallelOperationQueue cancelAllOperations];
+        [self.serialOperationQueue cancelAllOperations];
+        [self.parallelOperationQueue cancelAllOperations];
+    }
 }
 
 #pragma mark - Public Methods
@@ -65,10 +69,13 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ (currentPath: %@, isLoggedIn: %@",
-            [super description],
+    return [NSString stringWithFormat:@"%@ {\n\tcurrentPath = %@\n\tisLoggedIn = %@\n\tpending operations = {s: %ld p: %ld}\n\tsource = %@\n}",
+            super.description,
             self.currentPath,
-            self.isLoggedIn ? @"YES" :@"NO"];
+            self.isLoggedIn ? @"YES" :@"NO",
+            (unsigned long)self.serialOperationQueue.operationCount,
+            (unsigned long)self.parallelOperationQueue.operationCount,
+            self.source.identifier];
 }
 
 @end
