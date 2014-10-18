@@ -106,6 +106,11 @@
     return self.sourceViewController.sourceController;
 }
 
+- (FPRepresentedSource *)selectedRepresentedSource
+{
+    return self.selectedSourceController.representedSource;
+}
+
 - (void)cancelAllOperations
 {
     [self.sourceListController cancelAllOperations];

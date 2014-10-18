@@ -9,6 +9,9 @@
 #import "FPSaveController.h"
 #import "FPDialogController.h"
 #import "FPFileUploadController.h"
+#import "FPRepresentedSource.h"
+#import "FPMediaInfo.h"
+#import "FPUtils.h"
 
 @interface FPSaveController () <FPDialogControllerDelegate,
                                 FPFileTransferControllerDelegate>
@@ -98,8 +101,39 @@
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
     {
+        FPMediaInfo *mediaInfo = info;
+
+        mediaInfo.source = self.dialogController.selectedRepresentedSource.source;
+        mediaInfo.mediaURL = self.dataURL;
+        mediaInfo.mediaType = [FPUtils UTIForMimetype:self.dataType];
+
+        if (self.data)
+        {
+            mediaInfo.filesize = @(self.data.length);
+        }
+        else if (self.dataURL)
+        {
+            NSNumber *fileSizeValue = nil;
+            NSError *fileSizeError = nil;
+
+            [self.dataURL getResourceValue:&fileSizeValue
+                                    forKey:NSURLFileSizeKey
+                                     error:&fileSizeError];
+
+            if (fileSizeValue)
+            {
+                mediaInfo.filesize = fileSizeValue;
+            }
+            else
+            {
+                DLog(@"Error getting size for URL %@: %@",
+                     self.dataURL,
+                     fileSizeError);
+            }
+        }
+
         [self.delegate FPSaveController:self
-           didFinishSavingMediaWithInfo:info];
+           didFinishSavingMediaWithInfo:mediaInfo];
     }
     else
     {

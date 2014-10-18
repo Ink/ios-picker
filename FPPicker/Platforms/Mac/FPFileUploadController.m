@@ -78,8 +78,6 @@
     // Callbacks
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        DLog(@"Upload returned: %@", JSON);
-
         [self.progressIndicator stopAnimation:self];
         [self.window close];
 
@@ -102,13 +100,15 @@
                 [self.delegate FPFileTransferControllerDidFinish:self
                                                             info:mediaInfo];
             }
+            else
+            {
+                DLog(@"Upload succeeded with response: %@", JSON);
+            }
         }
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
                                                id JSON) {
-        DLog(@"Error saving %@, %@", error, JSON);
-
         [self.progressIndicator stopAnimation:self];
         [self.window close];
 
@@ -116,6 +116,10 @@
         {
             [self.delegate FPFileTransferControllerDidFail:self
                                                      error:error];
+        }
+        else
+        {
+            DLog(@"Error saving %@, %@", error, JSON);
         }
     };
 

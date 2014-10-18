@@ -42,5 +42,6 @@
 - (NSString *)currentPath;
 - (NSArray *)selectedItems;
 - (FPBaseSourceController *)selectedSourceController;
+- (FPRepresentedSource *)selectedRepresentedSource;
 
 @end
