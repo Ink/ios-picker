@@ -76,7 +76,7 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
+                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +223,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
+                                                                    <view translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="556" height="425"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="BAy-wr-0sS"/>
@@ -534,6 +534,7 @@ Gw
                 <outlet property="scrollView" destination="dLe-0S-vnq" id="hib-kR-DoF"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
                 <outlet property="tabView" destination="TY8-oi-GLc" id="CrP-35-6f1"/>
+                <outlet property="view" destination="WKf-Uh-4Be" id="nIm-eW-oM0"/>
             </connections>
         </viewController>
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">

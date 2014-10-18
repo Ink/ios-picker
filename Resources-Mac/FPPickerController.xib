@@ -43,7 +43,7 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="HcP-CF-Pto" id="Ile-O7-gdc">
+                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="HcP-CF-Pto" id="Ile-O7-gdc">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -519,6 +519,7 @@ Gw
                 <outlet property="scrollView" destination="qSr-P7-Dc7" id="d72-3I-twy"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
                 <outlet property="tabView" destination="YvJ-dM-pxF" id="Y2c-qu-Ezm"/>
+                <outlet property="view" destination="VGS-dN-e0j" id="nFV-6X-ciI"/>
             </connections>
         </viewController>
         <viewController id="MaS-US-3o9" customClass="FPNavigationController">
@@ -535,17 +536,6 @@ Gw
                 <outlet property="webView" destination="g2y-dV-G5Y" id="JMS-nk-Rcn"/>
             </connections>
         </viewController>
-        <customView translatesAutoresizingMaskIntoConstraints="NO" id="xnW-NG-Q2n" customClass="FPBorderView">
-            <rect key="frame" x="0.0" y="0.0" width="780" height="48"/>
-            <constraints>
-                <constraint firstAttribute="height" constant="48" id="LdO-i8-iqL"/>
-            </constraints>
-            <userDefinedRuntimeAttributes>
-                <userDefinedRuntimeAttribute type="number" keyPath="borderStyle">
-                    <integer key="value" value="2"/>
-                </userDefinedRuntimeAttribute>
-            </userDefinedRuntimeAttributes>
-        </customView>
     </objects>
     <resources>
         <image name="NSActionTemplate" width="14" height="14"/>
