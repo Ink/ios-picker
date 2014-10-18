@@ -71,12 +71,7 @@
 {
     __block BOOL hasStarted = NO;
 
-    // Validate arguments
-
-    if (![self validateArguments])
-    {
-        return;
-    }
+    [self validateArguments];
 
     // Call super
 
@@ -168,40 +163,32 @@
 
 #pragma mark - Private Methods
 
-- (BOOL)validateArguments
+- (void)validateArguments
 {
-    BOOL valid = YES;
-
     if (!self.filename)
     {
-        DLog(@"No filename given.");
-
-        valid = NO;
+        [NSException raise:NSInvalidArgumentException
+                    format:@"filename must be present."];
     }
 
     if (!self.targetPath)
     {
-        DLog(@"No target path given.");
-
-        valid = NO;
+        [NSException raise:NSInvalidArgumentException
+                    format:@"targetPath must be present."];
     }
 
     if (!self.mimetype)
     {
-        DLog(@"No mimetype given.");
-
-        valid = NO;
+        [NSException raise:NSInvalidArgumentException
+                    format:@"mimetype must be present."];
     }
 
     if (!self.data &
         !self.dataURL)
     {
-        DLog(@"Either data or dataURL must be present.");
-
-        valid = NO;
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Either data or dataURL must be present."];
     }
-
-    return valid;
 }
 
 @end

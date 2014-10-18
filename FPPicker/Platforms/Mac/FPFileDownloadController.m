@@ -57,8 +57,8 @@
 
     if (!self.delegate)
     {
-        [NSException raise:@"Delegate is missing"
-                    format:@"FPFileTransferWindowController needs a delegate."];
+        [NSException raise:NSInvalidArgumentException
+                    format:@"Delegate must be present."];
 
         return;
     }
@@ -67,8 +67,8 @@
 
     if (!self.sourceController)
     {
-        [NSException raise:@"Source controller is missing"
-                    format:@"FPFileTransferWindowController needs a source controller."];
+        [NSException raise:NSInvalidArgumentException
+                    format:@"FPSourceController must be present."];
 
         return;
     }

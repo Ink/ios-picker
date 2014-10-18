@@ -198,7 +198,7 @@
     }
     else
     {
-        [NSException raise:@"Unsupported item identifier"
+        [NSException raise:NSInternalInconsistencyException
                     format:@"%@ is not a supported item identifier", itemIdentifier];
     }
 
