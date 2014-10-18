@@ -75,7 +75,7 @@
 
     self.saveController.data = [NSData data];
     self.saveController.dataType = @"image/jpeg";
-    self.saveController.proposedFilename = @"foobar.jpg";
+    self.saveController.proposedFilename = @"default.jpg";
 
     [self.saveController open];
 }
@@ -87,6 +87,8 @@
 {
     for (FPMediaInfo *info in results)
     {
+        NSLog(@"Got media: %@", info);
+
         if (info.containsImageAtMediaURL)
         {
             NSImage *image = [[NSImage alloc] initWithContentsOfURL:info.mediaURL];
