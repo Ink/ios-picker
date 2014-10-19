@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "FPSource.h"
+#import "FPSourcePath.h"
 
 @interface FPRepresentedSource : NSObject
 
@@ -39,6 +40,11 @@
  */
 @property (readonly, strong) FPSource *source;
 
+/*!
+   The FPSourcePath being represented.
+ */
+@property (readonly, nonatomic, strong) FPSourcePath *sourcePath;
+
 /**
    Please use the designated initializer instead.
  */
@@ -46,5 +52,7 @@
 
 - (id)initWithSource:(FPSource *)source;
 - (void)cancelAllOperations;
+- (NSString *)rootPath;
+- (NSString *)parentPath;
 
 @end

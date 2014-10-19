@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FPRepresentedSource;
+
 @protocol FPNavigationControllerDelegate <NSObject>
 
 @optional
@@ -21,6 +23,8 @@
 @property (nonatomic, weak) IBOutlet id <FPNavigationControllerDelegate> delegate;
 
 @property (nonatomic, assign) BOOL shouldEnableControls;
-@property (nonatomic, strong) NSString *currentPath;
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
+
+-(void)refreshDirectoriesPopup;
 
 @end

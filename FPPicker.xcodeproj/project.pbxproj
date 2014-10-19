@@ -214,6 +214,8 @@
 		458B1FED1949D726008360E9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		458B200D1949D7C1008360E9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 458B20021949D7C1008360E9 /* InfoPlist.strings */; };
 		458B20101949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 458B200A1949D7C1008360E9 /* OHHTTPStubs+ConveniencyMethods.m */; };
+		45936F9819F4729400ACEE97 /* FPSourcePath.h in Headers */ = {isa = PBXBuildFile; fileRef = 45936F9619F4729400ACEE97 /* FPSourcePath.h */; };
+		45936F9919F4729400ACEE97 /* FPSourcePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 45936F9719F4729400ACEE97 /* FPSourcePath.m */; };
 		45AB16D219EC404A00BF97E0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A030E515A89C9D0085E186 /* Foundation.framework */; };
 		45AB16D519EC406300BF97E0 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031B615A8EEC40085E186 /* MobileCoreServices.framework */; };
 		45ADBF7D1951BBA100EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF7C1951BBA100EB2215 /* SystemConfiguration.framework */; };
@@ -416,6 +418,8 @@
 		45920DDD194A0D2E007003C1 /* FPMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMacros.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		45920DDE194A0D8A007003C1 /* FPConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		45920DDF194A0D8A007003C1 /* FPConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPConfig.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		45936F9619F4729400ACEE97 /* FPSourcePath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourcePath.h; sourceTree = "<group>"; };
+		45936F9719F4729400ACEE97 /* FPSourcePath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourcePath.m; sourceTree = "<group>"; };
 		45A2C34A197438B4009D436D /* NSData+FPHexString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+FPHexString.h"; sourceTree = "<group>"; };
 		45A2C34B197438B4009D436D /* NSData+FPHexString.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+FPHexString.m"; sourceTree = "<group>"; };
 		45ADBF6E1951A44000EB2215 /* FPAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPAPIClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -649,6 +653,8 @@
 			children = (
 				4504082719F1326700DB26AF /* FPRepresentedSource.h */,
 				4504082819F1326700DB26AF /* FPRepresentedSource.m */,
+				45936F9619F4729400ACEE97 /* FPSourcePath.h */,
+				45936F9719F4729400ACEE97 /* FPSourcePath.m */,
 				45808B5319B46A7D00ECBDA1 /* FPThumbnail.h */,
 				45808B5419B46A7D00ECBDA1 /* FPThumbnail.m */,
 			);
@@ -1160,6 +1166,7 @@
 				4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */,
 				453B7A4019DEA59F000D2841 /* FPExternalHeaders.h in Headers */,
 				4504082D19F1702F00DB26AF /* FPDialogController.h in Headers */,
+				45936F9819F4729400ACEE97 /* FPSourcePath.h in Headers */,
 				4579CF58199CEAF200E0BCB4 /* FPMediaInfo.h in Headers */,
 				456263D919EFEFBE00A34C29 /* FPFileUploadController.h in Headers */,
 				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
@@ -1695,6 +1702,7 @@
 				456263ED19F0234800A34C29 /* FPUtils+Mac.m in Sources */,
 				45066AAE19A204040069B062 /* FPRemoteSourceController.m in Sources */,
 				45E10AED19EE734200D34BC0 /* FPSaveController.m in Sources */,
+				45936F9919F4729400ACEE97 /* FPSourcePath.m in Sources */,
 				45066AA419A1F9B20069B062 /* FPUtils+ResourceHelpers.m in Sources */,
 				4579CF5B199CEAFC00E0BCB4 /* NSData+FPHexString.m in Sources */,
 				4578B08619E824BD00B188F3 /* FPFileTransferController.m in Sources */,

@@ -185,9 +185,11 @@ typedef enum : NSUInteger
 
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
 {
-    if (self.sourceController.representedSource.currentPath.pathComponents.count > 3)
+    FPRepresentedSource *representedSource = self.sourceController.representedSource;
+
+    if (![representedSource.currentPath isEqualToString:representedSource.parentPath])
     {
-        self.sourceController.representedSource.currentPath = [[self.sourceController.representedSource.currentPath stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+        representedSource.currentPath = representedSource.parentPath;
 
         [self loadCurrentPathAndInvalidateCache:NO];
     }

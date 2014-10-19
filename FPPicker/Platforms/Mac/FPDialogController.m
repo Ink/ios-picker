@@ -137,7 +137,9 @@
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController
                pathChangedTo:(NSString *)newPath
 {
-    self.navigationController.currentPath = newPath;
+    self.navigationController.representedSource = self.selectedRepresentedSource;
+
+    [self.navigationController refreshDirectoriesPopup];
 }
 
 - (void)    sourceViewController:(FPSourceViewController *)sourceViewController
@@ -190,13 +192,10 @@
         }
     }
 
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.navigationController.shouldEnableControls = !isImageSearch;
+    self.navigationController.shouldEnableControls = !isImageSearch;
+    self.searchField.stringValue = @"";
 
-        self.searchField.stringValue = @"";
-
-        [self.searchField setHidden:!isImageSearch];
-    });
+    [self.searchField setHidden:!isImageSearch];
 }
 
 - (void)sourceListController:(FPSourceListController *)sourceListController

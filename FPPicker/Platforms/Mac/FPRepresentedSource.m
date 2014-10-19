@@ -7,10 +7,12 @@
 //
 
 #import "FPRepresentedSource.h"
+#import "FPSourcePath.h"
 
 @interface FPRepresentedSource ()
 
-@property (readwrite, nonatomic) FPSource *source;
+@property (readwrite) FPSource *source;
+@property (readwrite) FPSourcePath *sourcePath;
 
 @end
 
@@ -51,6 +53,14 @@
     }
 }
 
+- (void)setCurrentPath:(NSString *)currentPath
+{
+    _currentPath = currentPath;
+
+    self.sourcePath = [[FPSourcePath alloc] initWithSource:self.source
+                                                   andPath:self.currentPath];
+}
+
 #pragma mark - Public Methods
 
 - (instancetype)initWithSource:(FPSource *)source
@@ -65,6 +75,16 @@
     }
 
     return self;
+}
+
+- (NSString *)rootPath
+{
+    return self.sourcePath.rootPath;
+}
+
+- (NSString *)parentPath
+{
+    return self.sourcePath.parentPath;
 }
 
 - (NSString *)description

@@ -7,6 +7,7 @@
 //
 
 #import "FPNavigationController.h"
+#import "FPRepresentedSource.h"
 
 @interface FPNavigationController ()
 
@@ -27,26 +28,21 @@
     [self.navigationSegmentedControl setEnabled:shouldEnableControls];
 }
 
-- (void)setCurrentPath:(NSString *)currentPath
-{
-    _currentPath = currentPath;
-
-    if (currentPath)
-    {
-        [self populateCurrentDirectoryPopupButton];
-    }
-}
-
 #pragma mark - Private Methods
 
-- (void)populateCurrentDirectoryPopupButton
+- (void)refreshDirectoriesPopup
 {
     [self.currentDirectoryPopupButton removeAllItems];
     self.currentDirectoryPopupButton.autoenablesItems = NO;
 
-    NSString *tmpPath = self.currentPath;
+    FPSourcePath *sourcePath = [self.representedSource.sourcePath copy];
 
-    while (tmpPath.pathComponents.count > 2)
+    if (!sourcePath)
+    {
+        return;
+    }
+
+    while (true)
     {
         NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
 
@@ -54,15 +50,20 @@
 
         NSMenuItem *menuItem = [NSMenuItem new];
 
-        menuItem.title = tmpPath.lastPathComponent.stringByRemovingPercentEncoding;
+        menuItem.title = sourcePath.path.lastPathComponent.stringByRemovingPercentEncoding;
         menuItem.image = icon;
-        menuItem.representedObject = tmpPath;
+        menuItem.representedObject = sourcePath.path;
         menuItem.target = self;
         menuItem.action = @selector(currentDirectoryPopupButtonSelectionChanged:);
 
         [self.currentDirectoryPopupButton.menu addItem:menuItem];
 
-        tmpPath = [tmpPath.stringByDeletingLastPathComponent stringByAppendingString:@"/"];
+        if ([sourcePath.parentPath isEqualToString:sourcePath.path])
+        {
+            break;
+        }
+
+        sourcePath.path = sourcePath.parentPath;
     }
 
     if (self.currentDirectoryPopupButton.itemArray.count > 0)
