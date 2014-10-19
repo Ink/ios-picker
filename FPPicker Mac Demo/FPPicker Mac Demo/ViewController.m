@@ -55,6 +55,10 @@
     self.pickerController.sourceNames = @[
         FPSourceDropbox,
         FPSourceFlickr,
+        FPSourceGithub,
+        FPSourceBox,
+        FPSourceGoogleDrive,
+        FPSourceGmail,
         FPSourceImagesearch
                                         ];
 
@@ -70,7 +74,9 @@
 {
     self.saveController.sourceNames = @[
         FPSourceDropbox,
-        FPSourceFlickr
+        FPSourceBox,
+        FPSourceGoogleDrive,
+        FPSourceSkydrive
                                       ];
 
 
