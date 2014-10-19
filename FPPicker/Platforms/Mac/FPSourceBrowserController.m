@@ -78,8 +78,6 @@
 {
     [super awakeFromNib];
 
-    DLog(@"How many times am I called? %@", self);
-
     self.browserView.constrainsToOriginalSize = YES;
     self.browserView.cellsStyleMask = IKCellsStyleTitled;
 
