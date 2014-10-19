@@ -84,7 +84,16 @@ typedef enum : NSUInteger
 
 - (void)loadCurrentPathAndInvalidateCache:(BOOL)shouldInvalidate
 {
+    // Use this oportunity to refresh the browser view with 'no' items.
+
+    self.sourceBrowserController.items = nil;
+    [self.sourceBrowserController.browserView reloadData];
+
+    // Ask the source controller for content
+
     [self.sourceController fpLoadContentAtPath:shouldInvalidate];
+
+    // Notify our delegate (if any) that the path has changed
 
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(sourceViewController:pathChangedTo:)])
@@ -199,6 +208,7 @@ typedef enum : NSUInteger
 
 - (void)sourceDidStartContentLoad:(FPBaseSourceController *)sender
 {
+    [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
     [self.progressIndicator startAnimation:self];
 }
 
@@ -208,7 +218,6 @@ typedef enum : NSUInteger
     self.sourceBrowserController.items = content;
     [self.sourceBrowserController.browserView reloadData];
 
-    [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
     [self.progressIndicator stopAnimation:self];
 
     FPSource *source = self.sourceController.representedSource.source;
