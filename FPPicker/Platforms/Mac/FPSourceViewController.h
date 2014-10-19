@@ -24,6 +24,8 @@
 
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController pathChangedTo:(NSString *)newPath;
 
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController doubleClickedOnItems:(NSArray *)items;
+
 @end
 
 @interface FPSourceViewController : NSViewController

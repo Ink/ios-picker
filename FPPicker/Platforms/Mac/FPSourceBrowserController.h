@@ -19,6 +19,7 @@
 
 @optional
 
+- (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController doubleClickedOnItems:(NSArray *)items;
 - (void)sourceBrowser:(FPSourceBrowserController *)sourceBrowserController wantsToEnterDirectoryAtPath:(NSString *)path;
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController;
 
@@ -26,8 +27,8 @@
 
 @interface FPSourceBrowserController : NSObject
 
-@property (nonatomic, weak) IBOutlet id<FPSourceBrowserControllerDelegate>delegate;
-@property (nonatomic, weak) IBOutlet FPImageBrowserView *thumbnailListView;
+@property (nonatomic, weak) IBOutlet id <FPSourceBrowserControllerDelegate> delegate;
+@property (nonatomic, weak) IBOutlet FPImageBrowserView *browserView;
 @property (nonatomic, strong) NSArray *items;
 @property (readonly, strong) NSArray *selectedItems;
 @property (nonatomic, assign) BOOL allowsFileSelection;

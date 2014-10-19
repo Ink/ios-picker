@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
         <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
     </dependencies>
@@ -76,7 +75,7 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
+                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -223,7 +222,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
+                                                                    <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DIS-ff-gbj" customClass="FPImageBrowserView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="556" height="425"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="BAy-wr-0sS"/>
@@ -514,8 +513,8 @@ Gw
         </window>
         <customObject id="uiA-OB-dvu" customClass="FPSourceBrowserController">
             <connections>
+                <outlet property="browserView" destination="DIS-ff-gbj" id="NOu-L2-CeD"/>
                 <outlet property="delegate" destination="fX3-UZ-gXh" id="zYs-XR-gTW"/>
-                <outlet property="thumbnailListView" destination="DIS-ff-gbj" id="mUv-NW-nEn"/>
             </connections>
         </customObject>
         <viewController id="OSU-pt-Ydv" customClass="FPSourceListController">
@@ -531,7 +530,6 @@ Gw
                 <outlet property="delegate" destination="-2" id="3oa-qL-cm7"/>
                 <outlet property="loginButton" destination="p6g-Rm-qo3" id="yS1-5P-HF6"/>
                 <outlet property="progressIndicator" destination="StE-he-IMG" id="vFf-Ln-Jdf"/>
-                <outlet property="scrollView" destination="dLe-0S-vnq" id="hib-kR-DoF"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
                 <outlet property="tabView" destination="TY8-oi-GLc" id="CrP-35-6f1"/>
                 <outlet property="view" destination="WKf-Uh-4Be" id="nIm-eW-oM0"/>

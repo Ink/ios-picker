@@ -189,11 +189,11 @@
                                                     <subviews>
                                                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSr-P7-Dc7">
                                                             <rect key="frame" x="0.0" y="0.0" width="556" height="472"/>
-                                                            <clipView key="contentView" id="BFE-ws-khY">
+                                                            <clipView key="contentView" copiesOnScroll="NO" id="BFE-ws-khY">
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view translatesAutoresizingMaskIntoConstraints="NO" id="F1u-id-MPy" customClass="FPImageBrowserView">
+                                                                    <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F1u-id-MPy" customClass="FPImageBrowserView">
                                                                         <rect key="frame" x="0.0" y="47" width="556" height="472"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="W32-0I-pM9"/>
@@ -498,8 +498,8 @@ Gw
         </window>
         <customObject id="uiA-OB-dvu" customClass="FPSourceBrowserController">
             <connections>
+                <outlet property="browserView" destination="F1u-id-MPy" id="PO2-dh-afZ"/>
                 <outlet property="delegate" destination="fX3-UZ-gXh" id="zYs-XR-gTW"/>
-                <outlet property="thumbnailListView" destination="F1u-id-MPy" id="0FQ-hr-ziE"/>
             </connections>
         </customObject>
         <viewController id="OSU-pt-Ydv" customClass="FPSourceListController">
@@ -516,7 +516,6 @@ Gw
                 <outlet property="delegate" destination="-2" id="qXo-fo-vy6"/>
                 <outlet property="loginButton" destination="vjc-G5-C8d" id="I1R-qz-oMV"/>
                 <outlet property="progressIndicator" destination="GQr-wp-880" id="Nsq-PX-5Il"/>
-                <outlet property="scrollView" destination="qSr-P7-Dc7" id="d72-3I-twy"/>
                 <outlet property="sourceBrowserController" destination="uiA-OB-dvu" id="VYM-0G-Eoa"/>
                 <outlet property="tabView" destination="YvJ-dM-pxF" id="Y2c-qu-Ezm"/>
                 <outlet property="view" destination="VGS-dN-e0j" id="nFV-6X-ciI"/>

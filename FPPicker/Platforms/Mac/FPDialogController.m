@@ -129,6 +129,12 @@
 #pragma mark - FPSourceViewControllerDelegate Methods
 
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController
+        doubleClickedOnItems:(NSArray *)items
+{
+    [self.delegate dialogControllerPressedActionButton:self];
+}
+
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController
                pathChangedTo:(NSString *)newPath
 {
     self.navigationController.currentPath = newPath;

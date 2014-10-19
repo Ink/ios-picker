@@ -25,7 +25,6 @@ typedef enum : NSUInteger
 @interface FPSourceViewController () <FPSourceBrowserControllerDelegate,
                                       FPRemoteSourceControllerDelegate>
 
-@property (nonatomic, weak) IBOutlet NSScrollView *scrollView;
 @property (readwrite, nonatomic) FPBaseSourceController *sourceController;
 
 @end
@@ -85,8 +84,6 @@ typedef enum : NSUInteger
 
 - (void)loadCurrentPathAndInvalidateCache:(BOOL)shouldInvalidate
 {
-    self.sourceBrowserController.items = nil;
-
     [self.sourceController fpLoadContentAtPath:shouldInvalidate];
 
     if (self.delegate &&
@@ -187,6 +184,17 @@ typedef enum : NSUInteger
     }
 }
 
+- (void)   sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+    doubleClickedOnItems:(NSArray *)items
+{
+    if (self.delegate &&
+        [self.delegate respondsToSelector:@selector(sourceViewController:doubleClickedOnItems:)])
+    {
+        [self.delegate sourceViewController:self
+                       doubleClickedOnItems:items];
+    }
+}
+
 #pragma mark - FPBaseSourceControllerDelegate Methods
 
 - (void)sourceDidStartContentLoad:(FPBaseSourceController *)sender
@@ -197,14 +205,9 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didFinishContentLoad:(id)content
 {
-    if (self.sourceBrowserController.items.count == 0)
-    {
-        [self scrollToTop];
-    }
-
     self.sourceBrowserController.items = content;
+    [self.sourceBrowserController.browserView reloadData];
 
-    [self.sourceBrowserController.thumbnailListView reloadData];
     [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
     [self.progressIndicator stopAnimation:self];
 
@@ -221,7 +224,7 @@ typedef enum : NSUInteger
 {
     self.sourceBrowserController.items = [self.sourceBrowserController.items arrayByAddingObjectsFromArray:content];
 
-    [self.sourceBrowserController.thumbnailListView reloadData];
+    [self.sourceBrowserController.browserView reloadData];
     [self.progressIndicator stopAnimation:self];
 }
 
@@ -304,15 +307,6 @@ typedef enum : NSUInteger
              representedSourceLoginStatusChanged:representedSource];
         }
     }
-}
-
-- (void)scrollToTop
-{
-    dispatch_async(dispatch_get_main_queue(), ^{
-        NSPoint pt = NSMakePoint(0.0, NSMaxY([self.scrollView.documentView bounds]));
-
-        [self.scrollView.documentView scrollPoint:pt];
-    });
 }
 
 @end

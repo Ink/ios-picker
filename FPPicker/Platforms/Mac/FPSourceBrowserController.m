@@ -56,7 +56,7 @@
 {
     _allowsFileSelection = allowsMultipleSelection;
 
-    self.thumbnailListView.allowsMultipleSelection = allowsMultipleSelection;
+    self.browserView.allowsMultipleSelection = allowsMultipleSelection;
 }
 
 #pragma mark - Public Methods
@@ -78,8 +78,10 @@
 {
     [super awakeFromNib];
 
-    self.thumbnailListView.constrainsToOriginalSize = YES;
-    self.thumbnailListView.cellsStyleMask = IKCellsStyleTitled;
+    DLog(@"How many times am I called? %@", self);
+
+    self.browserView.constrainsToOriginalSize = YES;
+    self.browserView.cellsStyleMask = IKCellsStyleTitled;
 
     NSDictionary *titleAttributes = @{
         NSFontAttributeName:[NSFont fontWithName:@"Helvetica" size:12],
@@ -91,16 +93,18 @@
         NSForegroundColorAttributeName:[NSColor whiteColor]
     };
 
-    [self.thumbnailListView setValue:titleAttributes
-                              forKey:IKImageBrowserCellsTitleAttributesKey];
+    [self.browserView setValue:titleAttributes
+                        forKey:IKImageBrowserCellsTitleAttributesKey];
 
-    [self.thumbnailListView setValue:highlightedTitleAttributes
-                              forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
+    [self.browserView setValue:highlightedTitleAttributes
+                        forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
 }
 
 - (void)dealloc
 {
     [self.thumbnailFetchingOperationQueue cancelAllOperations];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - IKImageBrowser delegate
@@ -266,21 +270,28 @@
 {
     NSArray *items = [self selectedItems];
 
-    if (items.count > 1)
+    // A directory was double-clicked
+
+    if ((items.count == 1) &&
+        [items[0][@"is_dir"] boolValue])
     {
+        if (self.delegate &&
+            [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToEnterDirectoryAtPath:)])
+        {
+            [self.delegate sourceBrowser:self
+             wantsToEnterDirectoryAtPath:items[0][@"link_path"]];
+        }
+
         return;
     }
 
-    if ((items.count == 1) && ![items[0][@"is_dir"] boolValue])
-    {
-        return;
-    }
+    // For any other cases let's inform our delegate...
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToEnterDirectoryAtPath:)])
+        [self.delegate respondsToSelector:@selector(sourceBrowser:doubleClickedOnItems:)])
     {
         [self.delegate sourceBrowser:self
-         wantsToEnterDirectoryAtPath:items[0][@"link_path"]];
+                doubleClickedOnItems:items];
     }
 }
 

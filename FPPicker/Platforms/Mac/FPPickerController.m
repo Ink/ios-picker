@@ -70,7 +70,7 @@
                               andLocalizedDescription:@"Selection must not contain any directories."];
 
             [FPUtils presentError:error
-                  withMessageText:@"Selection error"];
+                  withMessageText:@"Invalid selection"];
 
             return;
         }
