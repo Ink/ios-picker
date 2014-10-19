@@ -57,12 +57,12 @@
     }
     else
     {
-        NSString *parentPath = [[self.path stringByDeletingLastPathComponent] stringByAppendingString:@"/"];
+        NSString *parentPath = [self.path.stringByDeletingLastPathComponent stringByAppendingString:@"/"];
 
         // Special Github URL handling
         // /Github/someuser -> /Github
 
-        if ([[parentPath stringByDeletingLastPathComponent] isEqualToString:@"/Github"])
+        if ([parentPath.stringByDeletingLastPathComponent isEqualToString:@"/Github"])
         {
             parentPath = @"/Github/";
         }
