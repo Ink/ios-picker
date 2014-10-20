@@ -98,11 +98,6 @@
                         forKey:IKImageBrowserCellsHighlightedTitleAttributesKey];
 }
 
-- (void)dealloc
-{
-    [self.thumbnailFetchingOperationQueue cancelAllOperations];
-}
-
 #pragma mark - IKImageBrowser delegate
 
 - (void)imageBrowserSelectionDidChange:(FPImageBrowserView *)browser
@@ -254,7 +249,7 @@
 
         requestOperation.responseSerializer = [AFImageResponseSerializer serializer];
 
-        [requestOperation start];
+        [self.thumbnailFetchingOperationQueue addOperation:requestOperation];
     }
 
     return thumb;
