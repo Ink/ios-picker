@@ -34,7 +34,7 @@
         source.identifier = FPSourceCamera;
         source.name = @"Camera";
         source.icon = @"glyphicons_011_camera";
-        source.rootUrl = @"/Camera";
+        source.rootPath = @"/Camera";
         source.openMimetypes = @[@"video/quicktime", @"image/jpeg", @"image/png"];
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
@@ -50,7 +50,7 @@
         source.identifier = FPSourceCameraRoll;
         source.name = @"Albums";
         source.icon = @"glyphicons_008_film";
-        source.rootUrl = @"/Albums";
+        source.rootPath = @"/Albums";
         source.openMimetypes = @[@"image/jpeg", @"image/png", @"video/quicktime"];
         source.saveMimetypes = @[@"image/jpeg", @"image/png"];
         source.overwritePossible = NO;
@@ -75,7 +75,7 @@
         source.identifier = FPSourceFilesystem;
         source.name = @"Local File(s)";
         source.icon = @"glyphicons_020_home";
-        source.rootUrl = @"/computer";
+        source.rootPath = @"/computer";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
@@ -100,7 +100,7 @@
         source.identifier = FPSourceDropbox;
         source.name = @"Dropbox";
         source.icon = @"glyphicons_361_dropbox";
-        source.rootUrl = @"/Dropbox";
+        source.rootPath = @"/Dropbox";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
@@ -117,7 +117,7 @@
         source.identifier = FPSourceFacebook;
         source.name = @"Facebook";
         source.icon = @"glyphicons_390_facebook";
-        source.rootUrl = @"/Facebook";
+        source.rootPath = @"/Facebook";
         source.openMimetypes = @[@"image/jpeg"];
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = NO;
@@ -134,7 +134,7 @@
         source.identifier = FPSourceGmail;
         source.name = @"Gmail";
         source.icon = @"glyphicons_sb1_gmail";
-        source.rootUrl = @"/Gmail";
+        source.rootPath = @"/Gmail";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
@@ -151,7 +151,7 @@
         source.identifier = FPSourceBox;
         source.name = @"Box";
         source.icon = @"glyphicons_sb2_box";
-        source.rootUrl = @"/Box";
+        source.rootPath = @"/Box";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
@@ -168,7 +168,7 @@
         source.identifier = FPSourceGithub;
         source.name = @"Github";
         source.icon = @"glyphicons_381_github";
-        source.rootUrl = @"/Github";
+        source.rootPath = @"/Github";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[];
         source.overwritePossible = NO;
@@ -185,7 +185,7 @@
         source.identifier = FPSourceGoogleDrive;
         source.name = @"Google Drive";
         source.icon = @"GoogleDrive";
-        source.rootUrl = @"/GoogleDrive";
+        source.rootPath = @"/GoogleDrive";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = NO;
@@ -202,7 +202,7 @@
         source.identifier = FPSourceInstagram;
         source.name = @"Instagram";
         source.icon = @"Instagram";
-        source.rootUrl = @"/Instagram";
+        source.rootPath = @"/Instagram";
         source.openMimetypes = @[@"image/jpeg"];
         source.saveMimetypes = @[];
         source.overwritePossible = YES;
@@ -219,7 +219,7 @@
         source.identifier = FPSourceFlickr;
         source.name = @"Flickr";
         source.icon = @"glyphicons_395_flickr";
-        source.rootUrl = @"/Flickr";
+        source.rootPath = @"/Flickr";
         source.openMimetypes = @[@"image/*"];
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = NO;
@@ -236,7 +236,7 @@
         source.identifier = FPSourceEvernote;
         source.name = @"Evernote";
         source.icon = @"glyphicons_371_evernote";
-        source.rootUrl = @"/Evernote";
+        source.rootPath = @"/Evernote";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
@@ -253,7 +253,7 @@
         source.identifier = FPSourcePicasa;
         source.name = @"Picasa";
         source.icon = @"glyphicons_366_picasa";
-        source.rootUrl = @"/Picasa";
+        source.rootPath = @"/Picasa";
         source.openMimetypes = @[@"image/*"];
         source.saveMimetypes = @[@"image/*"];
         source.overwritePossible = YES;
@@ -270,7 +270,7 @@
         source.identifier = FPSourceSkydrive;
         source.name = @"OneDrive";
         source.icon = @"glyphicons_sb3_skydrive";
-        source.rootUrl = @"/OneDrive";
+        source.rootPath = @"/OneDrive";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
         source.overwritePossible = YES;
@@ -287,7 +287,7 @@
         source.identifier = FPSourceImagesearch;
         source.name = @"Web Images";
         source.icon = @"glyphicons_027_search";
-        source.rootUrl = @"/Imagesearch";
+        source.rootPath = @"/Imagesearch";
         source.openMimetypes = @[@"image/jpeg"];
         source.saveMimetypes = @[];
         source.overwritePossible = NO;

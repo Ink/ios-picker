@@ -12,7 +12,7 @@
 @interface FPSaveSourceController ()
 
 @property (strong) UITextField *textField;
-@property (strong) UIBarButtonItem* saveButton;
+@property (strong) UIBarButtonItem *saveButton;
 
 @end
 
@@ -45,7 +45,7 @@
 
     if ((self.sourceType.identifier == FPSourceFacebook ||
          self.sourceType.identifier == FPSourcePicasa) &&
-        [self.path isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootUrl]])
+        [self.path isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootPath]])
     {
         NSLog(@"SPECIAL");
 
@@ -280,8 +280,8 @@
 
         for (NSMutableDictionary *obj in self.contents)
         {
-            FPSaveController *saveC = (FPSaveController *) self.fpdelegate;
-            NSString* proposedName = [self.textField.text stringByAppendingString:[saveC getExtensionString]];
+            FPSaveController *saveC = (FPSaveController *)self.fpdelegate;
+            NSString *proposedName = [self.textField.text stringByAppendingString:[saveC getExtensionString]];
 
             if ([obj[@"filename"] isEqualToString:proposedName])
             {

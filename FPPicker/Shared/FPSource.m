@@ -17,7 +17,7 @@
             self.name,
             self.identifier,
             self.icon,
-            self.rootUrl,
+            self.rootPath,
             self.openMimetypes,
             self.saveMimetypes,
             self.mimetypes,

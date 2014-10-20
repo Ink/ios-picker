@@ -18,7 +18,7 @@
     _searchString = searchString;
 
     self.representedSource.currentPath = [NSString stringWithFormat:@"%@/%@",
-                                          self.representedSource.source.rootUrl,
+                                          self.representedSource.source.rootPath,
                                           [FPUtils urlEncodeString:searchString]];
 }
 

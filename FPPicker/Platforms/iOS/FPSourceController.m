@@ -87,7 +87,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if (!self.path)
     {
-        self.path = [NSString stringWithFormat:@"%@/", self.sourceType.rootUrl];
+        self.path = [NSString stringWithFormat:@"%@/", self.sourceType.rootPath];
     }
 
     if (![self.sourceType.identifier isEqualToString:FPSourceImagesearch])
@@ -827,7 +827,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
     else
     {
-        if ([loadpath isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootUrl]])
+        if ([loadpath isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootPath]])
         {
             //logout only on root level
             UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"

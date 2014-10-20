@@ -71,7 +71,7 @@
     {
         self.source = source;
         self.isLoggedIn = NO;
-        self.currentPath = [NSString stringWithFormat:@"%@/", source.rootUrl];
+        self.currentPath = [NSString stringWithFormat:@"%@/", source.rootPath];
     }
 
     return self;

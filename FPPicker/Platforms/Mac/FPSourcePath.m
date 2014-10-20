@@ -38,7 +38,7 @@
                     format:@"source must be present."];
     }
 
-    return [self.source.rootUrl stringByAppendingString:@"/"];
+    return [self.source.rootPath stringByAppendingString:@"/"];
 }
 
 - (NSString *)parentPath
