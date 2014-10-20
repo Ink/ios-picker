@@ -47,6 +47,8 @@
 
 - (void)setItems:(NSArray *)items
 {
+    // Cancel any pending thumbnail image requests before re-setting items
+
     [self.thumbnailFetchingOperationQueue cancelAllOperations];
 
     _items = items;
@@ -55,6 +57,8 @@
 - (void)setAllowsMultipleSelection:(BOOL)allowsMultipleSelection
 {
     _allowsFileSelection = allowsMultipleSelection;
+
+    // Sync browserView's allowsMultipleSelection
 
     self.browserView.allowsMultipleSelection = allowsMultipleSelection;
 }
@@ -119,10 +123,14 @@
 
         if (![item[@"is_dir"] boolValue])
         {
-            // Maintain previous selection
+            // User has selected a file, but file selection is not supported.
+
+            // ...let's maintain previous selection
 
             [browser setSelectionIndexes:self.selectionIndexes
                     byExtendingSelection:NO];
+
+            // ...and notify the delegate about it
 
             [self.delegate sourceBrowser:self
                 didMomentarilySelectItem:item];
@@ -261,7 +269,8 @@
 {
     NSArray *items = [self selectedItems];
 
-    // A directory was double-clicked
+    // User wants to enter a directory
+    // This can typically originate from a mouse double-click event or a Cmd+Down keyboard event.
 
     if ((items.count == 1) &&
         [items[0][@"is_dir"] boolValue])
@@ -276,7 +285,7 @@
         return;
     }
 
-    // For any other cases let's inform our delegate...
+    // User wants to perform an action on selected items...
 
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(sourceBrowser:doubleClickedOnItems:)])
