@@ -193,7 +193,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="900" height="502"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <view misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F1u-id-MPy" customClass="FPImageBrowserView">
+                                                                    <view translatesAutoresizingMaskIntoConstraints="NO" id="F1u-id-MPy" customClass="FPImageBrowserView">
                                                                         <rect key="frame" x="0.0" y="47" width="556" height="472"/>
                                                                         <connections>
                                                                             <outlet property="dataSource" destination="uiA-OB-dvu" id="W32-0I-pM9"/>

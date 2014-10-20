@@ -101,8 +101,6 @@
 - (void)dealloc
 {
     [self.thumbnailFetchingOperationQueue cancelAllOperations];
-
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - IKImageBrowser delegate
