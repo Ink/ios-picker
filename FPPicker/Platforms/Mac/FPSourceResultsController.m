@@ -338,9 +338,9 @@
 
 - (void)performActionOnSelection
 {
-    // Users wants to perform an action on current selection.
+    // User wants to perform an action on current selection.
     // This can typically originate from a mouse double-click event or a Cmd+Down keyboard event.
-    // It can also be triggered by the user triggering the action button (i.e., 'Save' or 'Open')
+    // It can also originally from triggering the action button (i.e., 'Save' or 'Open' on the dialog)
 
     NSArray *items = [self selectedItems];
 
