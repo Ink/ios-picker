@@ -411,6 +411,19 @@
 
 - (void)preloadThumbnailsForItems:(NSArray *)items
 {
+    // If thumbnail preload request fails, we may want to retry a few times
+
+    NSInteger maxRetries = 2;
+
+    [self preloadThumbnailsForItems:items
+                         maxRetries:maxRetries
+                        retriesLeft:maxRetries];
+}
+
+- (void)preloadThumbnailsForItems:(NSArray *)items
+                       maxRetries:(NSInteger)maxRetries
+                      retriesLeft:(NSInteger)retriesLeft
+{
     [items enumerateObjectsUsingBlock: ^(id obj,
                                          NSUInteger idx,
                                          BOOL *stop) {
@@ -479,7 +492,24 @@
 
                 AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                                          NSError *error) {
-                    DLog(@"Thumbnail image %@ load error: %@", itemUID, error);
+                    DLog(@"Thumbnail image %@ load error: %@", itemUID, error.localizedDescription);
+
+                    if (retriesLeft > 1)
+                    {
+                        NSInteger currentRetries = maxRetries - (retriesLeft - 1);
+
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * currentRetries * NSEC_PER_SEC)),
+                                       dispatch_get_main_queue(), ^{
+                            DLog(@"Retrying thumbnail download of %@ [%ld/%ld]",
+                                 iconURL,
+                                 currentRetries,
+                                 maxRetries);
+
+                            [self preloadThumbnailsForItems:@[item]
+                                                 maxRetries:maxRetries
+                                                retriesLeft:retriesLeft - 1];
+                        });
+                    }
                 };
 
                 [requestOperation setCompletionBlockWithSuccess:successOperationBlock
