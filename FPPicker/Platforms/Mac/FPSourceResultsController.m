@@ -322,7 +322,7 @@
         cellView.textField.stringValue = filesizeAsString;
         cellView.textField.toolTip = filesizeAsString;
 
-        if (isDirectory || (!isDirectory && !self.allowsFileSelection))
+        if ([filesizeAsString isEqualToString:@"N/A"] || (!isDirectory && !self.allowsFileSelection))
         {
             cellView.textField.textColor = [NSColor disabledControlTextColor];
         }
@@ -341,17 +341,12 @@
         if (lastModified.length == 0)
         {
             lastModified = @"N/A";
-            cellView.textField.textColor = [NSColor disabledControlTextColor];
-        }
-        else
-        {
-            cellView.textField.textColor = [NSColor controlTextColor];;
         }
 
         cellView.textField.stringValue = lastModified;
         cellView.textField.toolTip = lastModified;
 
-        if (!isDirectory && !self.allowsFileSelection)
+        if ([lastModified isEqualToString:@"N/A"] || (!isDirectory && !self.allowsFileSelection))
         {
             cellView.textField.textColor = [NSColor disabledControlTextColor];
         }
