@@ -38,47 +38,44 @@
 {
     [super drawRect:dirtyRect];
 
-    if (NSEqualRects(dirtyRect, self.bounds))
+    // Drawing code here.
+
+    NSShadow *shadow = [NSShadow new];
+
+    [shadow setShadowColor:self.borderShadowColor];
+    [shadow setShadowBlurRadius:0];
+
+    [self.borderColor setStroke];
+
+    NSBezierPath *bezierPath = [NSBezierPath bezierPath];
+
+    [bezierPath setLineWidth:2.0];
+
+    if (self.borderStyle & FPBorderTop)
     {
-        // Drawing code here.
+        [shadow setShadowOffset:NSMakeSize(0.1, -1.1)];
+        [shadow set];
 
-        NSShadow *shadow = [NSShadow new];
+        CGPoint topLPoint = NSMakePoint(NSMinX(self.bounds), NSMaxY(self.bounds));
+        CGPoint topRPoint = NSMakePoint(NSMaxX(self.bounds), topLPoint.y);
 
-        [shadow setShadowColor:self.borderShadowColor];
-        [shadow setShadowBlurRadius:0];
+        [bezierPath moveToPoint:topLPoint];
+        [bezierPath lineToPoint:topRPoint];
+        [bezierPath stroke];
+    }
 
-        [self.borderColor setStroke];
+    if (self.borderStyle & FPBorderBottom)
+    {
+        [shadow setShadowOffset:NSMakeSize(0.1, 1.1)];
+        [shadow set];
 
-        NSBezierPath *bezierPath = [NSBezierPath bezierPath];
+        CGPoint bottomLPoint = NSMakePoint(NSMinX(self.bounds), NSMinY(self.bounds));
+        CGPoint bottomRPoint = NSMakePoint(NSMaxX(self.bounds), bottomLPoint.y);
 
-        [bezierPath setLineWidth:2.0];
-
-        if (self.borderStyle & FPBorderTop)
-        {
-            [shadow setShadowOffset:NSMakeSize(0.1, -1.1)];
-            [shadow set];
-
-            CGPoint topLPoint = NSMakePoint(NSMinX(dirtyRect), NSMaxY(dirtyRect));
-            CGPoint topRPoint = NSMakePoint(NSMaxX(dirtyRect), topLPoint.y);
-
-            [bezierPath moveToPoint:topLPoint];
-            [bezierPath lineToPoint:topRPoint];
-            [bezierPath stroke];
-        }
-
-        if (self.borderStyle & FPBorderBottom)
-        {
-            [shadow setShadowOffset:NSMakeSize(0.1, 1.1)];
-            [shadow set];
-
-            CGPoint bottomLPoint = NSMakePoint(NSMinX(dirtyRect), NSMinY(dirtyRect));
-            CGPoint bottomRPoint = NSMakePoint(NSMaxX(dirtyRect), bottomLPoint.y);
-
-            [bezierPath removeAllPoints];
-            [bezierPath moveToPoint:bottomLPoint];
-            [bezierPath lineToPoint:bottomRPoint];
-            [bezierPath stroke];
-        }
+        [bezierPath removeAllPoints];
+        [bezierPath moveToPoint:bottomLPoint];
+        [bezierPath lineToPoint:bottomRPoint];
+        [bezierPath stroke];
     }
 }
 
