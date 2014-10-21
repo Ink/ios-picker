@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FPSourceBrowserController;
+@class FPSourceResultsController;
 @class FPAuthController;
 @class FPBaseSourceController;
 @class FPSourceViewController;
@@ -30,7 +30,7 @@
 
 @interface FPSourceViewController : NSViewController
 
-@property (nonatomic, weak) IBOutlet FPSourceBrowserController *sourceBrowserController;
+@property (nonatomic, weak) IBOutlet FPSourceResultsController *sourceResultsController;
 @property (nonatomic, weak) IBOutlet FPAuthController *authController;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;

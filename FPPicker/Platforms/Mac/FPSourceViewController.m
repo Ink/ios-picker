@@ -8,7 +8,7 @@
 
 #import "FPSourceViewController.h"
 #import "FPSourceListController.h"
-#import "FPSourceBrowserController.h"
+#import "FPSourceResultsController.h"
 #import "FPRemoteSourceController.h"
 #import "FPImageSearchSourceController.h"
 #import "FPNavigationController.h"
@@ -23,7 +23,7 @@ typedef enum : NSUInteger
 } FPSourceTabView;
 
 
-@interface FPSourceViewController () <FPSourceBrowserControllerDelegate,
+@interface FPSourceViewController () <FPSourceResultsControllerDelegate,
                                       FPRemoteSourceControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
@@ -41,7 +41,7 @@ typedef enum : NSUInteger
 {
     _allowsFileSelection = allowsFileSelection;
 
-    self.sourceBrowserController.allowsFileSelection = allowsFileSelection;
+    self.sourceResultsController.allowsFileSelection = allowsFileSelection;
 
     [self.currentSelectionTextField setHidden:!allowsFileSelection];
 }
@@ -50,7 +50,7 @@ typedef enum : NSUInteger
 {
     _allowsMultipleSelection = allowsMultipleSelection;
 
-    self.sourceBrowserController.allowsMultipleSelection = allowsMultipleSelection;
+    self.sourceResultsController.allowsMultipleSelection = allowsMultipleSelection;
 }
 
 - (void)setRepresentedSource:(FPRepresentedSource *)representedSource
@@ -92,7 +92,7 @@ typedef enum : NSUInteger
 {
     // Use this oportunity to refresh the browser view with 'no' items.
 
-    self.sourceBrowserController.items = nil;
+    self.sourceResultsController.items = nil;
 
     // Ask the source controller for content
 
@@ -128,7 +128,7 @@ typedef enum : NSUInteger
 
 - (NSArray *)selectedItems
 {
-    return self.sourceBrowserController.selectedItems;
+    return self.sourceResultsController.selectedItems;
 }
 
 - (void)cancelAllOperations
@@ -136,9 +136,9 @@ typedef enum : NSUInteger
     [self.sourceController.representedSource cancelAllOperations];
 }
 
-#pragma mark - FPSourceBrowserControllerDelegate Methods
+#pragma mark - FPSourceResultsControllerDelegate Methods
 
-- (void)       sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+- (void)       sourceResults:(FPSourceResultsController *)sourceResultsController
     didMomentarilySelectItem:(NSDictionary *)item
 {
     FPSource *source = self.sourceController.representedSource.source;
@@ -156,7 +156,7 @@ typedef enum : NSUInteger
     }
 }
 
-- (void) sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+- (void) sourceResults:(FPSourceResultsController *)sourceResultsController
     selectionDidChange:(NSArray *)selectedItems
 {
     if (self.currentSelectionTextField)
@@ -186,13 +186,13 @@ typedef enum : NSUInteger
     }
 }
 
-- (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+- (void)          sourceResults:(FPSourceResultsController *)sourceResultsController
     wantsToEnterDirectoryAtPath:(NSString *)path
 {
     [self loadPath:path];
 }
 
-- (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
+- (void)sourceResultsWantsToGoUpOneDirectory:(FPSourceResultsController *)sourceResultsController
 {
     FPRepresentedSource *representedSource = self.sourceController.representedSource;
 
@@ -202,7 +202,7 @@ typedef enum : NSUInteger
     }
 }
 
-- (void)   sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
+- (void)   sourceResults:(FPSourceResultsController *)sourceResultsController
     doubleClickedOnItems:(NSArray *)items
 {
     if (self.delegate &&
@@ -226,7 +226,7 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didFinishContentLoad:(id)content
 {
-    self.sourceBrowserController.items = content;
+    self.sourceResultsController.items = content;
 
     [self.progressIndicator stopAnimation:self];
 
@@ -241,7 +241,7 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didReceiveNewContent:(id)content
 {
-    [self.sourceBrowserController appendItems:content];
+    [self.sourceResultsController appendItems:content];
 
     [self.progressIndicator stopAnimation:self];
 }

@@ -1,17 +1,17 @@
 //
-//  FPSourceBrowserController.m
+//  FPSourceResultsController.m
 //  FPPicker
 //
 //  Created by Ruben Nine on 01/09/14.
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
-#import "FPSourceBrowserController.h"
+#import "FPSourceResultsController.h"
 #import "FPInternalHeaders.h"
 #import "FPThumbnail.h"
 #import "FPTableView.h"
 
-@interface FPSourceBrowserController () <FPTableViewDelegate,
+@interface FPSourceResultsController () <FPTableViewDelegate,
                                          NSTableViewDelegate,
                                          NSTableViewDataSource>
 
@@ -25,7 +25,7 @@
 
 @end
 
-@implementation FPSourceBrowserController
+@implementation FPSourceResultsController
 
 #pragma mark - Accessors
 
@@ -171,9 +171,9 @@
             // Cmd+Up pressed
 
             if (self.delegate &&
-                [self.delegate respondsToSelector:@selector(sourceBrowserWantsToGoUpOneDirectory:)])
+                [self.delegate respondsToSelector:@selector(sourceResultsWantsToGoUpOneDirectory:)])
             {
-                [self.delegate sourceBrowserWantsToGoUpOneDirectory:self];
+                [self.delegate sourceResultsWantsToGoUpOneDirectory:self];
             }
 
             return NO;
@@ -223,9 +223,9 @@
             // Cmd+Up pressed
 
             if (self.delegate &&
-                [self.delegate respondsToSelector:@selector(sourceBrowserWantsToGoUpOneDirectory:)])
+                [self.delegate respondsToSelector:@selector(sourceResultsWantsToGoUpOneDirectory:)])
             {
-                [self.delegate sourceBrowserWantsToGoUpOneDirectory:self];
+                [self.delegate sourceResultsWantsToGoUpOneDirectory:self];
             }
 
             return NO;
@@ -338,18 +338,21 @@
 
 - (void)performActionOnSelection
 {
+    // Users wants to perform an action on current selection.
+    // This can typically originate from a mouse double-click event or a Cmd+Down keyboard event.
+    // It can also be triggered by the user triggering the action button (i.e., 'Save' or 'Open')
+
     NSArray *items = [self selectedItems];
 
     // User wants to enter a directory
-    // This can typically originate from a mouse double-click event or a Cmd+Down keyboard event.
 
     if ((items.count == 1) &&
         [items[0][@"is_dir"] boolValue])
     {
         if (self.delegate &&
-            [self.delegate respondsToSelector:@selector(sourceBrowser:wantsToEnterDirectoryAtPath:)])
+            [self.delegate respondsToSelector:@selector(sourceResults:wantsToEnterDirectoryAtPath:)])
         {
-            [self.delegate sourceBrowser:self
+            [self.delegate sourceResults:self
              wantsToEnterDirectoryAtPath:items[0][@"link_path"]];
         }
 
@@ -359,9 +362,9 @@
     // User wants to perform an action on selected items...
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(sourceBrowser:doubleClickedOnItems:)])
+        [self.delegate respondsToSelector:@selector(sourceResults:doubleClickedOnItems:)])
     {
-        [self.delegate sourceBrowser:self
+        [self.delegate sourceResults:self
                 doubleClickedOnItems:items];
     }
 }
@@ -500,7 +503,7 @@
 
             // ...and notify the delegate about it
 
-            [self.delegate sourceBrowser:self
+            [self.delegate sourceResults:self
                 didMomentarilySelectItem:item];
 
             return;
@@ -509,7 +512,7 @@
 
     self.selectedItems = [items copy];
 
-    [self.delegate sourceBrowser:self
+    [self.delegate sourceResults:self
               selectionDidChange:self.selectedItems];
 
     self.selectionIndexes = selectedIndexes;
