@@ -288,7 +288,7 @@
 
         BOOL isDirectory = [item[@"is_dir"] boolValue];
 
-        NSString *filesizeAsString = isDirectory ? @"N/A" : item[@"size"];
+        NSString *filesizeAsString = (([item[@"size"] length] == 0) || isDirectory) ? @"N/A" : item[@"size"];
 
         cellView.textField.stringValue = filesizeAsString;
         cellView.textField.toolTip = filesizeAsString;

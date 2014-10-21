@@ -258,6 +258,7 @@ typedef enum : NSUInteger
 
 - (void)remoteSourceRequiresAuthentication:(FPRemoteSourceController *)sender
 {
+    [self.progressIndicator stopAnimation:self];
     [self.tabView selectTabViewItemAtIndex:FPAuthenticationTabView];
     [self updateLoggedInStateInRepresentedSource:NO];
 
