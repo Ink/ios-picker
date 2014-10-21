@@ -493,7 +493,7 @@
                     {
                         NSInteger currentRetries = maxRetries - (retriesLeft - 1);
 
-                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * currentRetries * NSEC_PER_SEC)),
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * currentRetries * NSEC_PER_SEC)),
                                        dispatch_get_main_queue(), ^{
                             DLog(@"Retrying thumbnail download of %@ [%ld/%ld]",
                                  iconURL,
