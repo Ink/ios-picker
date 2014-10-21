@@ -59,6 +59,9 @@
 
     _items = items;
 
+    self.selectionIndexes = [NSIndexSet indexSetWithIndex:-1];
+    self.selectedItems = nil;
+
     [self preloadThumbnailsForItems:_items];
     [self reloadData];
 }

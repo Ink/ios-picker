@@ -45,6 +45,7 @@
 
 - (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController
 {
+    [self.dialogController setupDialogForOpening];
     [self.dialogController setupSourceListWithSourceNames:self.sourceNames
                                              andDataTypes:self.dataTypes];
 }

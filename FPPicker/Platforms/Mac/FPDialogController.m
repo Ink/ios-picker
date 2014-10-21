@@ -88,6 +88,12 @@
     [self.sourceListController loadAndExpandSourceListIfRequired];
 }
 
+- (void)setupDialogForOpening
+{
+    self.sourceViewController.allowsFileSelection = YES;
+    self.sourceViewController.allowsMultipleSelection = YES;
+}
+
 - (void)setupDialogForSavingWithDefaultFileName:(NSString *)filename
 {
     self.saveFilenameTextField.stringValue = filename;

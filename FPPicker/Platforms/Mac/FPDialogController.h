@@ -36,6 +36,7 @@
                           andDataTypes:(NSArray *)dataTypes;
 
 - (void)cancelAllOperations;
+- (void)setupDialogForOpening;
 - (void)setupDialogForSavingWithDefaultFileName:(NSString *)filename;
 
 - (NSString *)filenameFromSaveTextField;
