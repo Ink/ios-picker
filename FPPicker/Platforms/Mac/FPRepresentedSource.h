@@ -16,13 +16,23 @@
    Parallel operation queue.
    This operation queue supports unlimited simultaneous operations.
  */
-@property (nonatomic, strong) NSOperationQueue *parallelOperationQueue;
+@property (readonly, nonatomic, strong) NSOperationQueue *parallelOperationQueue;
 
 /*!
    Serial operation queue.
    This operation queue is limited to 1 simultaneous operation.
  */
-@property (nonatomic, strong) NSOperationQueue *serialOperationQueue;
+@property (readonly, nonatomic, strong) NSOperationQueue *serialOperationQueue;
+
+/*!
+   The FPSource being represented.
+ */
+@property (readonly, nonatomic, strong) FPSource *source;
+
+/*!
+   The FPSourcePath being represented.
+ */
+@property (readonly, nonatomic, strong) FPSourcePath *sourcePath;
 
 /*!
    Represents the current path.
@@ -35,22 +45,12 @@
  */
 @property (nonatomic, assign) BOOL isLoggedIn;
 
-/*!
-   The FPSource being represented.
- */
-@property (readonly, strong) FPSource *source;
-
-/*!
-   The FPSourcePath being represented.
- */
-@property (readonly, nonatomic, strong) FPSourcePath *sourcePath;
-
 /**
    Please use the designated initializer instead.
  */
 - (id)init __unavailable;
 
-- (id)initWithSource:(FPSource *)source;
+- (id)initWithSource:(FPSource *)source NS_DESIGNATED_INITIALIZER;
 - (void)cancelAllOperations;
 - (NSString *)rootPath;
 - (NSString *)parentPath;

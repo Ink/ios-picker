@@ -752,10 +752,10 @@
 				4572914719CAFE2900447FAB /* FPImageBrowserView.m */,
 				4504082319F12B0400DB26AF /* FPTableCellView.h */,
 				4504082419F12B0400DB26AF /* FPTableCellView.m */,
-				45E1A41419A5FC8000287419 /* FPView.h */,
-				45E1A41519A5FC8000287419 /* FPView.m */,
 				4533A3F219F6661400FE9738 /* FPTableView.h */,
 				4533A3F319F6661400FE9738 /* FPTableView.m */,
+				45E1A41419A5FC8000287419 /* FPView.h */,
+				45E1A41519A5FC8000287419 /* FPView.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -865,10 +865,10 @@
 				45066AAA19A204040069B062 /* FPRemoteSourceController.m */,
 				45E10AEA19EE734200D34BC0 /* FPSaveController.h */,
 				45E10AEB19EE734200D34BC0 /* FPSaveController.m */,
-				45808B5719B4726D00ECBDA1 /* FPSourceResultsController.h */,
-				45808B5819B4726D00ECBDA1 /* FPSourceResultsController.m */,
 				45765FCE19A4A0C50018E2EC /* FPSourceListController.h */,
 				45765FCF19A4A0C50018E2EC /* FPSourceListController.m */,
+				45808B5719B4726D00ECBDA1 /* FPSourceResultsController.h */,
+				45808B5819B4726D00ECBDA1 /* FPSourceResultsController.m */,
 				45C7179819D418C500727129 /* FPSourceViewController.h */,
 				45C7179919D418C500727129 /* FPSourceViewController.m */,
 				45C13B73199CEA93002DE7D3 /* Supporting Files */,

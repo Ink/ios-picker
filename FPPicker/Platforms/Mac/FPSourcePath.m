@@ -11,7 +11,6 @@
 
 @interface FPSourcePath () <NSCopying>
 
-
 @end
 
 @implementation FPSourcePath

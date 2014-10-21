@@ -22,7 +22,7 @@
  */
 - (instancetype)initWithLocalURL:(NSURL *)localURL
                         filename:(NSString *)filename
-                     andMimetype:(NSString *)mimetype;
+                     andMimetype:(NSString *)mimetype NS_DESIGNATED_INITIALIZER;
 
 /**
    Initiates the file upload.

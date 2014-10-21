@@ -12,8 +12,13 @@
 
 @interface FPSourcePath : NSObject
 
+/**
+   Please use the designated initializer instead.
+ */
+- (id)init __unavailable;
+
 - (instancetype)initWithSource:(FPSource *)source
-                       andPath:(NSString *)path;
+                       andPath:(NSString *)path NS_DESIGNATED_INITIALIZER;
 
 @property (nonatomic, strong) NSString *path;
 @property (nonatomic, strong) FPSource *source;

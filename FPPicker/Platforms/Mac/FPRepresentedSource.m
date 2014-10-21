@@ -7,10 +7,11 @@
 //
 
 #import "FPRepresentedSource.h"
-#import "FPSourcePath.h"
 
 @interface FPRepresentedSource ()
 
+@property (readwrite) NSOperationQueue *parallelOperationQueue;
+@property (readwrite) NSOperationQueue *serialOperationQueue;
 @property (readwrite) FPSource *source;
 @property (readwrite) FPSourcePath *sourcePath;
 
