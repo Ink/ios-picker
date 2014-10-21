@@ -18,12 +18,15 @@
 typedef enum : NSUInteger
 {
     FPAuthenticationTabView = 0,
-    FPResultsTabView = 1
+    FPBrowserViewTabView = 1,
+    FPTableViewTabView = 2
 } FPSourceTabView;
 
 
 @interface FPSourceViewController () <FPSourceBrowserControllerDelegate,
                                       FPRemoteSourceControllerDelegate>
+
+@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
 
 @property (readwrite, nonatomic) FPBaseSourceController *sourceController;
 
@@ -52,25 +55,28 @@ typedef enum : NSUInteger
 
 - (void)setRepresentedSource:(FPRepresentedSource *)representedSource
 {
-    _representedSource = representedSource;
-
-    [self cancelAllOperations];
-
-    FPSource *source = representedSource.source;
-
-    if ([source.identifier isEqualToString:@"imagesearch"])
+    if (representedSource != _representedSource)
     {
-        self.sourceController = [FPImageSearchSourceController new];
-    }
-    else
-    {
-        self.sourceController = [FPRemoteSourceController new];
-    }
+        _representedSource = representedSource;
 
-    self.sourceController.representedSource = representedSource;
-    self.sourceController.delegate = self;
+        [self cancelAllOperations];
 
-    [self loadCurrentPathAndInvalidateCache:YES];
+        FPSource *source = representedSource.source;
+
+        if ([source.identifier isEqualToString:@"imagesearch"])
+        {
+            self.sourceController = [FPImageSearchSourceController new];
+        }
+        else
+        {
+            self.sourceController = [FPRemoteSourceController new];
+        }
+
+        self.sourceController.representedSource = representedSource;
+        self.sourceController.delegate = self;
+
+        [self loadCurrentPathAndInvalidateCache:YES];
+    }
 }
 
 #pragma mark - Public Methods
@@ -87,7 +93,6 @@ typedef enum : NSUInteger
     // Use this oportunity to refresh the browser view with 'no' items.
 
     self.sourceBrowserController.items = nil;
-    [self.sourceBrowserController.browserView reloadData];
 
     // Ask the source controller for content
 
@@ -105,9 +110,15 @@ typedef enum : NSUInteger
 
 - (void)loadPath:(NSString *)path
 {
+    [self loadPath:path andInvalidateCache:YES];
+}
+
+- (void)      loadPath:(NSString *)path
+    andInvalidateCache:(BOOL)shouldInvalidateCache
+{
     self.sourceController.representedSource.currentPath = path;
 
-    [self loadCurrentPathAndInvalidateCache:YES];
+    [self loadCurrentPathAndInvalidateCache:shouldInvalidateCache];
 }
 
 - (NSString *)currentPath
@@ -178,9 +189,7 @@ typedef enum : NSUInteger
 - (void)          sourceBrowser:(FPSourceBrowserController *)sourceBrowserController
     wantsToEnterDirectoryAtPath:(NSString *)path
 {
-    self.sourceController.representedSource.currentPath = path;
-
-    [self loadCurrentPathAndInvalidateCache:NO];
+    [self loadPath:path];
 }
 
 - (void)sourceBrowserWantsToGoUpOneDirectory:(FPSourceBrowserController *)sourceBrowserController
@@ -189,9 +198,7 @@ typedef enum : NSUInteger
 
     if (![representedSource.currentPath isEqualToString:representedSource.parentPath])
     {
-        representedSource.currentPath = representedSource.parentPath;
-
-        [self loadCurrentPathAndInvalidateCache:NO];
+        [self loadPath:representedSource.parentPath];
     }
 }
 
@@ -210,7 +217,9 @@ typedef enum : NSUInteger
 
 - (void)sourceDidStartContentLoad:(FPBaseSourceController *)sender
 {
-    [self.tabView selectTabViewItemAtIndex:FPResultsTabView];
+    FPSourceTabView sourceTabView = self.displayStyleSegmentedControl.selectedSegment + 1;
+
+    [self.tabView selectTabViewItemAtIndex:sourceTabView];
     [self.progressIndicator startAnimation:self];
 }
 
@@ -218,7 +227,6 @@ typedef enum : NSUInteger
     didFinishContentLoad:(id)content
 {
     self.sourceBrowserController.items = content;
-    [self.sourceBrowserController.browserView reloadData];
 
     [self.progressIndicator stopAnimation:self];
 
@@ -233,9 +241,8 @@ typedef enum : NSUInteger
 - (void)          source:(FPBaseSourceController *)sender
     didReceiveNewContent:(id)content
 {
-    self.sourceBrowserController.items = [self.sourceBrowserController.items arrayByAddingObjectsFromArray:content];
+    [self.sourceBrowserController appendItems:content];
 
-    [self.sourceBrowserController.browserView reloadData];
     [self.progressIndicator stopAnimation:self];
 }
 
@@ -292,6 +299,13 @@ typedef enum : NSUInteger
 
         [self loadCurrentPathAndInvalidateCache:YES];
     }
+}
+
+- (IBAction)changeDisplayStyle:(id)sender
+{
+    FPSourceTabView sourceTabView = self.displayStyleSegmentedControl.selectedSegment + 1;
+
+    [self.tabView selectTabViewItemAtIndex:sourceTabView];
 }
 
 #pragma mark - Private Methods

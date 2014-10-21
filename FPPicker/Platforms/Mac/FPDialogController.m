@@ -23,7 +23,6 @@
 @property (nonatomic, weak) IBOutlet NSToolbar *toolbar;
 @property (nonatomic, weak) IBOutlet NSToolbarItem *searchFieldToolbarItem;
 @property (nonatomic, weak) IBOutlet NSToolbarItem *currentDirectoryDropdownToolbarItem;
-@property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
 @property (nonatomic, weak) IBOutlet FPSourceViewController *sourceViewController;
 @property (nonatomic, weak) IBOutlet FPSourceListController *sourceListController;
 @property (nonatomic, weak) IBOutlet FPNavigationController *navigationController;

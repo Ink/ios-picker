@@ -28,10 +28,13 @@
 @interface FPSourceBrowserController : NSObject
 
 @property (nonatomic, weak) IBOutlet id <FPSourceBrowserControllerDelegate> delegate;
-@property (nonatomic, weak) IBOutlet FPImageBrowserView *browserView;
+
 @property (nonatomic, strong) NSArray *items;
 @property (readonly, strong) NSArray *selectedItems;
 @property (nonatomic, assign) BOOL allowsFileSelection;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
+
+- (void)reloadData;
+- (void)appendItems:(NSArray *)items;
 
 @end

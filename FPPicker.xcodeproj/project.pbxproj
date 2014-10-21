@@ -91,6 +91,8 @@
 		453144D419EC3FC9003230F5 /* FPSourceListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315415A89E050085E186 /* FPSourceListController.m */; };
 		453144D519EC3FCF003230F5 /* FPInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031DD15AA14820085E186 /* FPInternalHeaders.h */; };
 		453144D619EC3FD2003230F5 /* FPiOSMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FCE70C199B74B600D86B40 /* FPiOSMacros.h */; };
+		4533A3F419F6661400FE9738 /* FPTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4533A3F219F6661400FE9738 /* FPTableView.h */; };
+		4533A3F519F6661400FE9738 /* FPTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4533A3F319F6661400FE9738 /* FPTableView.m */; };
 		453B7A4019DEA59F000D2841 /* FPExternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 453B7A3E19DEA59F000D2841 /* FPExternalHeaders.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4546C12819EC4BCC00477C9B /* glyphicons_sb1_gmail@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AD5199CDF74002DE7D3 /* glyphicons_sb1_gmail@2x.png */; };
 		4546C12919EC4BCC00477C9B /* glyphicons_366_picasa.png in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AC8199CDF74002DE7D3 /* glyphicons_366_picasa.png */; };
@@ -364,6 +366,8 @@
 		4531447D19EC3DB5003230F5 /* FPPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4531448019EC3DB5003230F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4531448119EC3DB5003230F5 /* FPPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker.h; sourceTree = "<group>"; };
+		4533A3F219F6661400FE9738 /* FPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTableView.h; sourceTree = "<group>"; };
+		4533A3F319F6661400FE9738 /* FPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTableView.m; sourceTree = "<group>"; };
 		453B7A3E19DEA59F000D2841 /* FPExternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExternalHeaders.h; sourceTree = "<group>"; };
 		4546386F19825A0500102885 /* FPPrivateConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPPrivateConfig.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4546C16119EC4BCC00477C9B /* FPPicker.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FPPicker.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -750,6 +754,8 @@
 				4504082419F12B0400DB26AF /* FPTableCellView.m */,
 				45E1A41419A5FC8000287419 /* FPView.h */,
 				45E1A41519A5FC8000287419 /* FPView.m */,
+				4533A3F219F6661400FE9738 /* FPTableView.h */,
+				4533A3F319F6661400FE9738 /* FPTableView.m */,
 			);
 			name = "Custom Controls";
 			sourceTree = "<group>";
@@ -1202,6 +1208,7 @@
 				45C13B98199CEA93002DE7D3 /* FPInternalHeaders.h in Headers */,
 				45C7179E19D44AF400727129 /* FPImageSearchSourceController.h in Headers */,
 				4579CF5A199CEAFC00E0BCB4 /* NSData+FPHexString.h in Headers */,
+				4533A3F419F6661400FE9738 /* FPTableView.h in Headers */,
 				4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1663,6 +1670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4579CF59199CEAF200E0BCB4 /* FPMediaInfo.m in Sources */,
+				4533A3F519F6661400FE9738 /* FPTableView.m in Sources */,
 				45D0396D19A20CC300983134 /* FPPickerController.m in Sources */,
 				4579CF62199CEB0100E0BCB4 /* FPConfig.m in Sources */,
 				4504082619F12B0400DB26AF /* FPTableCellView.m in Sources */,
