@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NSOperationQueue *thumbnailFetchingOperationQueue;
 @property (nonatomic, strong) NSCache *thumbnailCache;
 @property (readwrite, nonatomic, strong) NSArray *selectedItems;
-@property (nonatomic, strong) NSIndexSet *selectionIndexes;
+@property (nonatomic, strong) NSIndexSet *lastSelectionIndexes;
 
 @end
 
@@ -59,7 +59,7 @@
 
     _items = items;
 
-    self.selectionIndexes = [NSIndexSet indexSetWithIndex:-1];
+    self.lastSelectionIndexes = [NSIndexSet indexSetWithIndex:-1];
     self.selectedItems = nil;
 
     [self preloadThumbnailsForItems:_items];
@@ -141,6 +141,7 @@
 
 - (IBAction)doubleClickedOnTable:(id)sender
 {
+    [self selectionInViewDidChange:self.tableView];
     [self performActionOnSelection];
 }
 
@@ -258,17 +259,39 @@
 
 #pragma mark - NSTableViewDelegate Methods
 
+- (BOOL)  tableView:(NSTableView *)tableView
+    shouldSelectRow:(NSInteger)row
+{
+    NSEvent *currentEvent = [NSApplication sharedApplication].currentEvent;
+
+    NSDictionary *item = self.items[row];
+    BOOL isDirectory = [item[@"is_dir"] boolValue];
+
+    if (!isDirectory && !self.allowsFileSelection)
+    {
+        if (currentEvent.type == NSLeftMouseDown)
+        {
+            [self.delegate sourceResults:self
+                didMomentarilySelectItem:item];
+        }
+
+        return NO;
+    }
+
+    return YES;
+}
+
 - (NSView *) tableView:(NSTableView *)tableView
     viewForTableColumn:(NSTableColumn *)tableColumn
                    row:(NSInteger)row
 {
     NSString *identifier = tableColumn.identifier;
     NSDictionary *item = self.items[row];
+    BOOL isDirectory = [item[@"is_dir"] boolValue];
+    NSTableCellView *cellView;
 
     if ([identifier isEqualToString:@"Filename"])
     {
-        NSTableCellView *cellView;
-
         cellView = [tableView makeViewWithIdentifier:identifier
                                                owner:tableView];
 
@@ -280,33 +303,36 @@
         cellView.textField.stringValue = itemTitle;
         cellView.textField.toolTip = itemTitle;
 
-        return cellView;
+        if (!isDirectory && !self.allowsFileSelection)
+        {
+            cellView.textField.textColor = [NSColor disabledControlTextColor];;
+        }
+        else
+        {
+            cellView.textField.textColor = [NSColor controlTextColor];;
+        }
     }
     else if ([identifier isEqualToString:@"Size"])
     {
-        NSTableCellView *cellView;
-
         cellView = [tableView makeViewWithIdentifier:identifier
                                                owner:tableView];
-
-        BOOL isDirectory = [item[@"is_dir"] boolValue];
 
         NSString *filesizeAsString = (([item[@"size"] length] == 0) || isDirectory) ? @"N/A" : item[@"size"];
 
         cellView.textField.stringValue = filesizeAsString;
         cellView.textField.toolTip = filesizeAsString;
 
-        if (isDirectory)
+        if (isDirectory || (!isDirectory && !self.allowsFileSelection))
         {
             cellView.textField.textColor = [NSColor disabledControlTextColor];
         }
-
-        return cellView;
+        else
+        {
+            cellView.textField.textColor = [NSColor controlTextColor];;
+        }
     }
     else if ([identifier isEqualToString:@"Last Modified"])
     {
-        NSTableCellView *cellView;
-
         cellView = [tableView makeViewWithIdentifier:identifier
                                                owner:tableView];
 
@@ -317,11 +343,22 @@
             lastModified = @"N/A";
             cellView.textField.textColor = [NSColor disabledControlTextColor];
         }
+        else
+        {
+            cellView.textField.textColor = [NSColor controlTextColor];;
+        }
 
         cellView.textField.stringValue = lastModified;
         cellView.textField.toolTip = lastModified;
 
-        return cellView;
+        if (!isDirectory && !self.allowsFileSelection)
+        {
+            cellView.textField.textColor = [NSColor disabledControlTextColor];
+        }
+        else
+        {
+            cellView.textField.textColor = [NSColor controlTextColor];;
+        }
     }
     else
     {
@@ -329,7 +366,7 @@
                     format:@"Tablecolumn: %@ not handled", tableColumn];
     }
 
-    return nil;
+    return cellView;
 }
 
 - (void)tableViewSelectionDidChange:(NSNotification *)notification
@@ -345,7 +382,7 @@
     // This can typically originate from a mouse double-click event or a Cmd+Down keyboard event.
     // It can also originally from triggering the action button (i.e., 'Save' or 'Open' on the dialog)
 
-    NSArray *items = [self selectedItems];
+    NSArray *items = self.selectedItems;
 
     // User wants to enter a directory
 
@@ -482,43 +519,41 @@
         [items addObject:item];
     }];
 
-    if (items.count == 1 &&
-        !self.allowsMultipleSelection &&
-        !self.allowsFileSelection)
+    if (view == self.browserView)
     {
-        NSDictionary *item = items[0];
-
-        if (![item[@"is_dir"] boolValue])
+        if (items.count == 1 &&
+            !self.allowsFileSelection)
         {
-            // User has selected a file, but file selection is not supported.
-            // ...let's maintain previous selection
+            NSEvent *currentEvent = [NSApplication sharedApplication].currentEvent;
+            NSDictionary *item = items[0];
 
-            if (view == self.tableView)
+            if (![item[@"is_dir"] boolValue])
             {
-                [self.tableView selectRowIndexes:self.selectionIndexes
-                            byExtendingSelection:NO];
-            }
-            else if (view == self.browserView)
-            {
-                [self.browserView setSelectionIndexes:self.selectionIndexes
+                // User has selected a file on the browser, but file selection is not supported.
+                // ...let's maintain previous selection
+
+                [self.browserView setSelectionIndexes:self.lastSelectionIndexes
                                  byExtendingSelection:NO];
+
+                // ...and notify the delegate about it
+
+                if (currentEvent.type == NSLeftMouseDown)
+                {
+                    [self.delegate sourceResults:self
+                        didMomentarilySelectItem:item];
+                }
+
+                return;
             }
-
-            // ...and notify the delegate about it
-
-            [self.delegate sourceResults:self
-                didMomentarilySelectItem:item];
-
-            return;
         }
+
+        self.lastSelectionIndexes = selectedIndexes;
     }
 
     self.selectedItems = [items copy];
 
     [self.delegate sourceResults:self
               selectionDidChange:self.selectedItems];
-
-    self.selectionIndexes = selectedIndexes;
 }
 
 @end
