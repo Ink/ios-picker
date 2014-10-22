@@ -176,25 +176,26 @@
 
     BOOL isImageSearch = [representedSource.source.identifier isEqualToString:FPSourceImagesearch];
 
+    NSToolbarItem *toolbarItemToRemove;
+    NSToolbarItem *toolbarItemToInsert;
+
     if (isImageSearch)
     {
-        if ([item.itemIdentifier isEqualToString:self.currentDirectoryDropdownToolbarItem.itemIdentifier])
-        {
-            [self.toolbar removeItemAtIndex:itemIdx];
-
-            [self.toolbar insertItemWithItemIdentifier:self.searchFieldToolbarItem.itemIdentifier
-                                               atIndex:itemIdx];
-        }
+        toolbarItemToRemove = self.currentDirectoryDropdownToolbarItem;
+        toolbarItemToInsert = self.searchFieldToolbarItem;
     }
     else
     {
-        if ([item.itemIdentifier isEqualToString:self.searchFieldToolbarItem.itemIdentifier])
-        {
-            [self.toolbar removeItemAtIndex:itemIdx];
+        toolbarItemToRemove = self.searchFieldToolbarItem;
+        toolbarItemToInsert = self.currentDirectoryDropdownToolbarItem;
+    }
 
-            [self.toolbar insertItemWithItemIdentifier:self.currentDirectoryDropdownToolbarItem.itemIdentifier
-                                               atIndex:itemIdx];
-        }
+    if ([item.itemIdentifier isEqualToString:toolbarItemToRemove.itemIdentifier])
+    {
+        [self.toolbar removeItemAtIndex:itemIdx];
+
+        [self.toolbar insertItemWithItemIdentifier:toolbarItemToInsert.itemIdentifier
+                                           atIndex:itemIdx];
     }
 
     self.searchField.stringValue = @"";
@@ -205,7 +206,7 @@
 - (void)sourceListController:(FPSourceListController *)sourceListController
          didLogoutFromSource:(FPRepresentedSource *)representedSource
 {
-    if ([self.sourceViewController.sourceController.representedSource isEqualTo:representedSource])
+    if ([self.sourceViewController.representedSource isEqualTo:representedSource])
     {
         [self.sourceViewController.sourceController fpLoadContentAtPath:YES];
     }
