@@ -54,7 +54,7 @@
 {
     // Validate selection by looking for directories
 
-    NSArray *selectedItems = [self.dialogController selectedItems];
+    NSArray *selectedItems = [dialogController selectedItems];
 
     if (!selectedItems)
     {
@@ -77,12 +77,16 @@
         }
     }
 
-    [self.dialogController close];
+    [dialogController close];
 
-    FPFileDownloadController *fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems];
+    FPRepresentedSource *representedSource = [dialogController selectedRepresentedSource];
+
+    FPFileDownloadController *fileDownloadController;
+
+    fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems
+                                                        andRepresentedSource:representedSource];
 
     fileDownloadController.delegate = self;
-    fileDownloadController.sourceController = [self.dialogController selectedSourceController];
     fileDownloadController.shouldDownloadData = self.shouldDownload;
 
     [fileDownloadController process];
@@ -90,7 +94,7 @@
 
 - (void)dialogControllerPressedCancelButton:(FPDialogController *)dialogController
 {
-    [self.dialogController close];
+    [dialogController close];
 }
 
 #pragma mark - FPFileTransferControllerDelegate Methods

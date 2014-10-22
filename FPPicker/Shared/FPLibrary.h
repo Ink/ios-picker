@@ -8,7 +8,17 @@
 
 #import "FPTypedefs.h"
 
+@class FPSource;
+
 @interface FPLibrary : NSObject
+
++ (void)requestObjectMediaInfo:(NSDictionary *)obj
+                    withSource:(FPSource *)source
+           usingOperationQueue:(NSOperationQueue *)operationQueue
+                shouldDownload:(BOOL)shouldDownload
+                       success:(FPFetchObjectSuccessBlock)success
+                       failure:(FPFetchObjectFailureBlock)failure
+                      progress:(FPFetchObjectProgressBlock)progress;
 
 + (void)uploadData:(NSData*)filedata
              named:(NSString *)filename

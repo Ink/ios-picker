@@ -81,7 +81,7 @@
         return;
     }
 
-    [self.dialogController close];
+    [dialogController close];
 
     self.uploadController.delegate = self;
 
@@ -90,7 +90,7 @@
 
 - (void)dialogControllerPressedCancelButton:(FPDialogController *)dialogController
 {
-    [self.dialogController close];
+    [dialogController close];
 }
 
 #pragma mark - FPFileTransferControllerDelegate Methods

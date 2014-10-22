@@ -8,13 +8,13 @@
 
 #import "FPFileTransferController.h"
 
-@class FPBaseSourceController;
+@class FPRepresentedSource;
 
 @interface FPFileDownloadController : FPFileTransferController
 
 @property (nonatomic, assign) BOOL shouldDownloadData;
-@property (nonatomic, weak) FPBaseSourceController *sourceController;
 
-- (instancetype)initWithItems:(NSArray *)items;
+- (instancetype)initWithItems:(NSArray *)items
+         andRepresentedSource:(FPRepresentedSource *)representedSource;
 
 @end

@@ -9,6 +9,12 @@
 #import "FPImageSearchSourceController.h"
 #import "FPInternalHeaders.h"
 
+@interface FPImageSearchSourceController ()
+
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
+
+@end
+
 @implementation FPImageSearchSourceController
 
 #pragma mark - Accessors

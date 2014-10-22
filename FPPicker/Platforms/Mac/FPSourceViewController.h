@@ -13,6 +13,7 @@
 @class FPBaseSourceController;
 @class FPSourceViewController;
 @class FPRepresentedSource;
+@class FPSourcePath;
 
 @protocol FPSourceViewControllerDelegate <NSObject>
 
@@ -22,7 +23,7 @@
 
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController didMomentarilySelectFilename:(NSString *)filename;
 
-- (void)sourceViewController:(FPSourceViewController *)sourceViewController pathChangedTo:(NSString *)newPath;
+- (void)sourceViewController:(FPSourceViewController *)sourceViewController sourcePathChanged:(FPSourcePath *)sourcePath;
 
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController doubleClickedOnItems:(NSArray *)items;
 

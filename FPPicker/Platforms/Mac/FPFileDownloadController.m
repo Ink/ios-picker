@@ -11,6 +11,7 @@
 #import "FPInternalHeaders.h"
 #import "FPBaseSourceController.h"
 #import "FPProgressTracker.h"
+#import "FPLibrary.h"
 
 @interface FPFileTransferController ()
 
@@ -24,12 +25,14 @@
 
 @property (readwrite, nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) FPProgressTracker *progressTracker;
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
 
 @end
 
 @implementation FPFileDownloadController
 
 - (instancetype)initWithItems:(NSArray *)items
+         andRepresentedSource:(FPRepresentedSource *)representedSource
 {
     self = [super init];
 
@@ -37,6 +40,7 @@
     {
         self.shouldDownloadData = YES;
         self.items = items;
+        self.representedSource = representedSource;
     }
 
     return self;
@@ -63,12 +67,12 @@
         return;
     }
 
-    // Check there's a sourceController
+    // Check there's a represented source
 
-    if (!self.sourceController)
+    if (!self.representedSource)
     {
         [NSException raise:NSInvalidArgumentException
-                    format:@"FPSourceController must be present."];
+                    format:@"Represented source must be present."];
 
         return;
     }
@@ -151,11 +155,13 @@
 
         // Request items
 
-        [self.sourceController requestObjectMediaInfo:item
-                                       shouldDownload:self.shouldDownloadData
-                                              success:successBlock
-                                              failure:failureBlock
-                                             progress:progressBlock];
+        [FPLibrary requestObjectMediaInfo:item
+                               withSource:self.representedSource.source
+                      usingOperationQueue:self.representedSource.parallelOperationQueue
+                           shouldDownload:self.shouldDownloadData
+                                  success:successBlock
+                                  failure:failureBlock
+                                 progress:progressBlock];
     });
 }
 
@@ -164,7 +170,7 @@
 - (IBAction)cancel:(id)sender
 {
     [super cancel:sender];
-    [self.sourceController cancelAllOperations];
+    [self.representedSource cancelAllOperations];
 }
 
 @end

@@ -23,19 +23,15 @@
 
 @interface FPBaseSourceController : NSObject
 
-@property (nonatomic, strong) FPRepresentedSource *representedSource;
-@property (nonatomic, strong) NSString *nextPage;
-
 @property (nonatomic, weak) id <FPBaseSourceControllerDelegate> delegate;
 
-- (void)fpLoadContentAtPath:(BOOL)force;
+/**
+   Please use the designated initializer instead.
+ */
+- (id)init __unavailable;
 
-- (void)requestObjectMediaInfo:(NSDictionary *)obj
-                shouldDownload:(BOOL)shouldDownload
-                       success:(FPFetchObjectSuccessBlock)success
-                       failure:(FPFetchObjectFailureBlock)failure
-                      progress:(FPFetchObjectProgressBlock)progress;
+- (instancetype)initWithRepresentedSource:(FPRepresentedSource *)representedSource NS_DESIGNATED_INITIALIZER;
 
-- (void)cancelAllOperations;
+- (void)loadContentsAtPathInvalidatingCache:(BOOL)invalidateCache;
 
 @end

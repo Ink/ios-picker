@@ -106,14 +106,9 @@
     return self.sourceViewController.selectedItems;
 }
 
-- (FPBaseSourceController *)selectedSourceController
-{
-    return self.sourceViewController.sourceController;
-}
-
 - (FPRepresentedSource *)selectedRepresentedSource
 {
-    return self.selectedSourceController.representedSource;
+    return self.sourceViewController.representedSource;
 }
 
 - (void)cancelAllOperations
@@ -140,9 +135,9 @@
 }
 
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController
-               pathChangedTo:(NSString *)newPath
+           sourcePathChanged:(FPSourcePath *)sourcePath
 {
-    self.navigationController.sourcePath = self.selectedRepresentedSource.sourcePath;
+    self.navigationController.sourcePath = sourcePath;
 
     [self.navigationController refreshDirectoriesPopup];
 }
@@ -208,7 +203,7 @@
 {
     if ([self.sourceViewController.representedSource isEqualTo:representedSource])
     {
-        [self.sourceViewController.sourceController fpLoadContentAtPath:YES];
+        [self.sourceViewController.sourceController loadContentsAtPathInvalidatingCache:YES];
     }
 }
 

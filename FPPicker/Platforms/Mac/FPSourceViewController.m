@@ -65,17 +65,16 @@ typedef enum : NSUInteger
 
         if ([source.identifier isEqualToString:FPSourceImagesearch])
         {
-            self.sourceController = [FPImageSearchSourceController new];
+            self.sourceController = [[FPImageSearchSourceController alloc] initWithRepresentedSource:representedSource];
         }
         else
         {
-            self.sourceController = [FPRemoteSourceController new];
+            self.sourceController = [[FPRemoteSourceController alloc] initWithRepresentedSource:representedSource];
         }
 
-        self.sourceController.representedSource = representedSource;
         self.sourceController.delegate = self;
 
-        [self loadCurrentPathAndInvalidateCache:YES];
+        [self loadContentsAtPathInvalidatingCache:YES];
     }
 }
 
@@ -88,7 +87,7 @@ typedef enum : NSUInteger
     self.loginButton.enabled = NO;
 }
 
-- (void)loadCurrentPathAndInvalidateCache:(BOOL)shouldInvalidate
+- (void)loadContentsAtPathInvalidatingCache:(BOOL)shouldInvalidate
 {
     // Use this oportunity to refresh the browser view with 'no' items.
 
@@ -96,15 +95,15 @@ typedef enum : NSUInteger
 
     // Ask the source controller for content
 
-    [self.sourceController fpLoadContentAtPath:shouldInvalidate];
+    [self.sourceController loadContentsAtPathInvalidatingCache:shouldInvalidate];
 
     // Notify our delegate (if any) that the path has changed
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(sourceViewController:pathChangedTo:)])
+        [self.delegate respondsToSelector:@selector(sourceViewController:sourcePathChanged:)])
     {
         [self.delegate sourceViewController:self
-                              pathChangedTo:self.representedSource.currentPath];
+                          sourcePathChanged:self.representedSource.sourcePath];
     }
 }
 
@@ -118,7 +117,7 @@ typedef enum : NSUInteger
 {
     self.representedSource.currentPath = path;
 
-    [self loadCurrentPathAndInvalidateCache:shouldInvalidateCache];
+    [self loadContentsAtPathInvalidatingCache:shouldInvalidateCache];
 }
 
 - (NSString *)currentPath
@@ -272,7 +271,7 @@ typedef enum : NSUInteger
     FPAuthSuccessBlock successBlock = ^{
         self.loginButton.enabled = NO;
 
-        [self loadCurrentPathAndInvalidateCache:YES];
+        [self loadContentsAtPathInvalidatingCache:YES];
     };
 
     FPAuthFailureBlock failureBlock = ^(NSError *error) {
@@ -298,7 +297,7 @@ typedef enum : NSUInteger
 
         imageSearchSourceController.searchString = [sender stringValue];
 
-        [self loadCurrentPathAndInvalidateCache:YES];
+        [self loadContentsAtPathInvalidatingCache:YES];
     }
 }
 

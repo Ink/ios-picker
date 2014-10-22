@@ -366,8 +366,6 @@
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		4531447D19EC3DB5003230F5 /* FPPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		4531448019EC3DB5003230F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4531448119EC3DB5003230F5 /* FPPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FPPicker.h; sourceTree = "<group>"; };
 		4533A3F219F6661400FE9738 /* FPTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTableView.h; sourceTree = "<group>"; };
 		4533A3F319F6661400FE9738 /* FPTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTableView.m; sourceTree = "<group>"; };
 		453B7A3E19DEA59F000D2841 /* FPExternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPExternalHeaders.h; sourceTree = "<group>"; };
@@ -626,23 +624,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4531447E19EC3DB5003230F5 /* FPPicker */ = {
-			isa = PBXGroup;
-			children = (
-				4531448119EC3DB5003230F5 /* FPPicker.h */,
-				4531447F19EC3DB5003230F5 /* Supporting Files */,
-			);
-			path = FPPicker;
-			sourceTree = "<group>";
-		};
-		4531447F19EC3DB5003230F5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4531448019EC3DB5003230F5 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		456263E919F0233800A34C29 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
@@ -766,7 +747,7 @@
 			name = "Custom Controls";
 			sourceTree = "<group>";
 		};
-		45C13AB1199CDF74002DE7D3 /* Resources */ = {
+		45C13AB1199CDF74002DE7D3 /* Resources Bundle */ = {
 			isa = PBXGroup;
 			children = (
 				45C13AB2199CDF74002DE7D3 /* allowedUrlPrefix.plist */,
@@ -823,7 +804,7 @@
 				45C13AE6199CDF74002DE7D3 /* SelectOverlayiOS7@2x.png */,
 				45066A9A19A1F5920069B062 /* xui-2.3.2.min.js */,
 			);
-			name = Resources;
+			name = "Resources Bundle";
 			path = "Resources-Shared";
 			sourceTree = SOURCE_ROOT;
 		};
@@ -1013,8 +994,7 @@
 				45FCE709199B68C900D86B40 /* Shared */,
 				45C13B75199CEA93002DE7D3 /* Mac */,
 				83A030E715A89C9D0085E186 /* iOS */,
-				83A0317715A8A2A40085E186 /* Resources Bundle */,
-				4531447E19EC3DB5003230F5 /* FPPicker */,
+				45C13AB1199CDF74002DE7D3 /* Resources Bundle */,
 				83A030E415A89C9D0085E186 /* Frameworks */,
 				83A030E315A89C9D0085E186 /* Products */,
 				458B1FE31949D624008360E9 /* Tests */,
@@ -1090,15 +1070,6 @@
 			);
 			name = "Misc Classes";
 			path = Platforms/iOS;
-			sourceTree = "<group>";
-		};
-		83A0317715A8A2A40085E186 /* Resources Bundle */ = {
-			isa = PBXGroup;
-			children = (
-				45C13AB1199CDF74002DE7D3 /* Resources */,
-			);
-			name = "Resources Bundle";
-			path = "FPPicker Resources";
 			sourceTree = "<group>";
 		};
 		C540F91D0D53B70661996F30 /* Pods */ = {

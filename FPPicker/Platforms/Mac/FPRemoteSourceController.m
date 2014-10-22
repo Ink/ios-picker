@@ -12,15 +12,18 @@
 
 @interface FPRemoteSourceController ()
 
+@property (nonatomic, strong) NSString *nextPage;
+@property (nonatomic, strong) FPRepresentedSource *representedSource;
+
 @end
 
 @implementation FPRemoteSourceController
 
 #pragma mark - Public Methods
 
-- (void)fpLoadContentAtPath:(BOOL)force
+- (void)loadContentsAtPathInvalidatingCache:(BOOL)invalidateCache
 {
-    NSURLRequestCachePolicy cachePolicy = force ? NSURLRequestReloadRevalidatingCacheData : NSURLRequestReturnCacheDataElseLoad;
+    NSURLRequestCachePolicy cachePolicy = invalidateCache ? NSURLRequestReloadRevalidatingCacheData : NSURLRequestReturnCacheDataElseLoad;
 
     [self fpLoadContents:self.representedSource.currentPath
              cachePolicy:cachePolicy];
