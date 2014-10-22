@@ -116,11 +116,6 @@
     [self.sourceListController cancelAllOperations];
 }
 
-- (NSString *)currentPath
-{
-    return self.sourceViewController.representedSource.currentPath;
-}
-
 - (NSString *)filenameFromSaveTextField
 {
     return self.saveFilenameTextField.stringValue;

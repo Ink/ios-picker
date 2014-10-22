@@ -40,7 +40,6 @@
 - (void)setupDialogForSavingWithDefaultFileName:(NSString *)filename;
 
 - (NSString *)filenameFromSaveTextField;
-- (NSString *)currentPath;
 - (NSArray *)selectedItems;
 - (FPRepresentedSource *)selectedRepresentedSource;
 

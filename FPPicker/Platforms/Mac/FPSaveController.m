@@ -57,7 +57,7 @@
 - (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController
 {
     NSString *filename = [self.dialogController filenameFromSaveTextField];
-    NSString *path = [self.dialogController currentPath];
+    NSString *path = self.dialogController.selectedRepresentedSource.currentPath;
 
     if (self.data)
     {
