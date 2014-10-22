@@ -90,9 +90,10 @@ typedef enum : NSUInteger
     [self refreshNavigationControls];
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(navigationChanged:)])
+        [self.delegate respondsToSelector:@selector(navigationController:selectedSourcePath:)])
     {
-        [self.delegate navigationChanged:[self.navigationHistory currentItem]];
+        [self.delegate navigationController:self
+                         selectedSourcePath:[self.navigationHistory currentItem]];
     }
 }
 
@@ -101,9 +102,10 @@ typedef enum : NSUInteger
     FPSourcePath *sourcePath = [sender representedObject];
 
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(navigationChanged:)])
+        [self.delegate respondsToSelector:@selector(navigationController:selectedSourcePath:)])
     {
-        [self.delegate navigationChanged:sourcePath];
+        [self.delegate navigationController:self
+                         selectedSourcePath:sourcePath];
     }
 }
 

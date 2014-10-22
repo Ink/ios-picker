@@ -8,13 +8,14 @@
 
 #import <Cocoa/Cocoa.h>
 
+@class FPNavigationController;
 @class FPSourcePath;
 
 @protocol FPNavigationControllerDelegate <NSObject>
 
 @optional
 
-- (void)navigationChanged:(FPSourcePath *)sourcePath;
+- (void)navigationController:(FPNavigationController *)navigationController selectedSourcePath:(FPSourcePath *)sourcePath;
 
 @end
 

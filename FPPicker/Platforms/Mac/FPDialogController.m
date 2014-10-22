@@ -209,7 +209,8 @@
 
 #pragma mark - FPNavigationControllerDelegate Methods
 
-- (void)navigationChanged:(FPSourcePath *)sourcePath
+- (void)navigationController:(FPNavigationController *)navigationController
+          selectedSourcePath:(FPSourcePath *)sourcePath
 {
     if (![sourcePath.source isEqual:[self.sourceListController selectedSource]])
     {
