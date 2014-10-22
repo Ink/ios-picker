@@ -78,6 +78,16 @@
             self.path];
 }
 
+- (NSUInteger)hash
+{
+    return self.source.hash ^ self.path.hash;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    return [self hash] == [object hash];
+}
+
 #pragma mark - NSCopying Methods
 
 - (id)copyWithZone:(NSZone *)zone

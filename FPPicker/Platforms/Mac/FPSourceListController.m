@@ -39,6 +39,22 @@ const NSString *FPSourceGroupRemote = @"Remote";
     return self;
 }
 
+- (FPSource *)selectedSource
+{
+    FPRepresentedSource *representedSource = [self.outlineView itemAtRow:self.outlineView.selectedRow];
+
+    return representedSource.source;
+}
+
+- (void)selectSource:(FPSource *)source
+{
+    NSInteger rowIndex = [self rowIndexForSource:source];
+    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:rowIndex];
+
+    [self.outlineView selectRowIndexes:indexSet
+                  byExtendingSelection:NO];
+}
+
 #pragma mark - Accessors
 
 - (NSArray *)topLevelItems
@@ -131,12 +147,9 @@ const NSString *FPSourceGroupRemote = @"Remote";
 
         // Set initial selection
 
-        FPSource *firstRemoteSource = self.childrenItems[FPSourceGroupRemote][0];
-        NSInteger row = [self.outlineView rowForItem:firstRemoteSource];
-        NSIndexSet *rowIndex = [NSIndexSet indexSetWithIndex:row];
+        FPRepresentedSource *firstRemoteRepresentedSource = self.childrenItems[FPSourceGroupRemote][0];
 
-        [self.outlineView selectRowIndexes:rowIndex
-                      byExtendingSelection:NO];
+        [self selectSource:firstRemoteRepresentedSource.source];
 
         self.isSourceListLoaded = YES;
     }
@@ -341,22 +354,6 @@ const NSString *FPSourceGroupRemote = @"Remote";
 
 #pragma mark - Private Methods
 
-- (NSArray *)childrenForItem:(id)item
-{
-    NSArray *children;
-
-    if (!item)
-    {
-        children = self.topLevelItems;
-    }
-    else
-    {
-        children = self.childrenItems[item];
-    }
-
-    return children;
-}
-
 - (void)initializeOutlineView
 {
     [self.outlineView sizeLastColumnToFit];
@@ -374,6 +371,47 @@ const NSString *FPSourceGroupRemote = @"Remote";
                       expandChildren:YES];
     }
     [NSAnimationContext endGrouping];
+}
+
+- (NSArray *)childrenForItem:(id)item
+{
+    NSArray *children;
+
+    if (!item)
+    {
+        children = self.topLevelItems;
+    }
+    else
+    {
+        children = self.childrenItems[item];
+    }
+
+    return children;
+}
+
+- (NSInteger)rowIndexForSource:(FPSource *)source
+{
+    NSInteger rowIndex = -1;
+
+    for (id topLevelItem in self.topLevelItems)
+    {
+        for (FPRepresentedSource *item in self.childrenItems[topLevelItem])
+        {
+            if ([item.source isEqual:source])
+            {
+                rowIndex = [self.outlineView rowForItem:item];
+
+                break;
+            }
+        }
+
+        if (rowIndex != -1)
+        {
+            break;
+        }
+    }
+
+    return rowIndex;
 }
 
 @end

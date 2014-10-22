@@ -519,6 +519,9 @@ Gw
                                     <segment image="NSGoRightTemplate" width="24" tag="1"/>
                                 </segments>
                             </segmentedCell>
+                            <connections>
+                                <action selector="navigate:" target="MaS-US-3o9" id="gXZ-Zy-nol"/>
+                            </connections>
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="93ED45F4-6AE3-4125-A562-34CC624D79FC" label="List Style" paletteLabel="List Style" id="vVQ-Tv-v2P">
@@ -695,6 +698,7 @@ Gw
             <connections>
                 <outlet property="currentDirectoryPopupButton" destination="Dxy-fv-hrj" id="3CR-af-3u5"/>
                 <outlet property="delegate" destination="-2" id="jDd-gJ-u0k"/>
+                <outlet property="navigationSegmentedControl" destination="d4N-uK-5Qv" id="g9f-yE-7In"/>
             </connections>
         </viewController>
         <viewController nibName="" id="n1b-SP-myf" customClass="FPAuthController">

@@ -497,17 +497,24 @@ Gw
                     <toolbarItem implicitItemIdentifier="271023CD-091D-4175-B248-6894453F37E7" label="History Navigation" paletteLabel="History Navigation" id="KIN-YF-nzz">
                         <nil key="toolTip"/>
                         <size key="minSize" width="51" height="25"/>
-                        <size key="maxSize" width="51" height="25"/>
+                        <size key="maxSize" width="51" height="28"/>
                         <segmentedControl key="view" verticalHuggingPriority="750" id="CaL-At-3i8">
-                            <rect key="frame" x="9" y="11" width="51" height="25"/>
+                            <rect key="frame" x="27" y="14" width="51" height="28"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <segmentedCell key="cell" borderStyle="border" alignment="left" style="texturedSquare" trackingMode="momentary" id="R8f-eG-UXH">
                                 <font key="font" metaFont="system"/>
                                 <segments>
-                                    <segment image="NSGoLeftTemplate" width="24"/>
-                                    <segment image="NSGoRightTemplate" width="24" tag="1"/>
+                                    <segment image="NSGoLeftTemplate" width="24">
+                                        <nil key="label"/>
+                                    </segment>
+                                    <segment image="NSGoRightTemplate" width="24" tag="1">
+                                        <nil key="label"/>
+                                    </segment>
                                 </segments>
                             </segmentedCell>
+                            <connections>
+                                <action selector="navigate:" target="MaS-US-3o9" id="soN-Pi-uya"/>
+                            </connections>
                         </segmentedControl>
                     </toolbarItem>
                     <toolbarItem implicitItemIdentifier="93ED45F4-6AE3-4125-A562-34CC624D79FC" label="List Style" paletteLabel="List Style" id="abX-WY-KVF">

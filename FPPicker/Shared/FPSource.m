@@ -10,6 +10,16 @@
 
 @implementation FPSource
 
+- (NSUInteger)hash
+{
+    return self.identifier.hash;
+}
+
+- (BOOL)isEqual:(id)object
+{
+    return [self hash] == [object hash];
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:@"%@ {\n\tname = %@\n\tidentifier = %@\n\ticon = %@\n\trootUrl = %@\n\topen_mimetypes = %@\n\tsave_mimetypes = %@\n\tmimetypes = %@\n\texternalDomains = %@\n\toverwritePossible = %@\n\trequiresAuth = %@\n}",

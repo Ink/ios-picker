@@ -10,6 +10,7 @@
 
 @class FPRepresentedSource;
 @class FPSourceListController;
+@class FPSource;
 
 @protocol FPSourceListControllerDelegate <NSObject>
 
@@ -33,5 +34,7 @@
 - (void)loadAndExpandSourceListIfRequired;
 - (void)refreshOutline;
 - (void)cancelAllOperations;
+- (void)selectSource:(FPSource *)source;
+- (FPSource *)selectedSource;
 
 @end

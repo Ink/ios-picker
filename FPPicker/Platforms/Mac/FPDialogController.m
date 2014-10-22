@@ -142,7 +142,7 @@
 - (void)sourceViewController:(FPSourceViewController *)sourceViewController
                pathChangedTo:(NSString *)newPath
 {
-    self.navigationController.representedSource = self.selectedRepresentedSource;
+    self.navigationController.sourcePath = self.selectedRepresentedSource.sourcePath;
 
     [self.navigationController refreshDirectoriesPopup];
 }
@@ -197,7 +197,6 @@
         }
     }
 
-    self.navigationController.shouldEnableControls = !isImageSearch;
     self.searchField.stringValue = @"";
 
     [self.searchField setHidden:!isImageSearch];
@@ -214,9 +213,20 @@
 
 #pragma mark - FPNavigationControllerDelegate Methods
 
-- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath
+- (void)navigationChanged:(FPSourcePath *)sourcePath
 {
-    [self.sourceViewController loadPath:newPath];
+    if (![sourcePath.source isEqual:[self.sourceListController selectedSource]])
+    {
+        // Select new source on source list
+
+        [self.sourceListController selectSource:sourcePath.source];
+    }
+    else
+    {
+        // Load path on existing source
+
+        [self.sourceViewController loadPath:sourcePath.path];
+    }
 }
 
 #pragma mark - NSToolbarDelegate Methods

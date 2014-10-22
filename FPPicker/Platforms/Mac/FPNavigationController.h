@@ -8,13 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class FPRepresentedSource;
+@class FPSourcePath;
 
 @protocol FPNavigationControllerDelegate <NSObject>
 
 @optional
 
-- (void)currentDirectoryPopupButtonSelectionChanged:(NSString *)newPath;
+- (void)navigationChanged:(FPSourcePath *)sourcePath;
 
 @end
 
@@ -22,9 +22,8 @@
 
 @property (nonatomic, weak) IBOutlet id <FPNavigationControllerDelegate> delegate;
 
-@property (nonatomic, assign) BOOL shouldEnableControls;
-@property (nonatomic, strong) FPRepresentedSource *representedSource;
+@property (nonatomic, strong) FPSourcePath *sourcePath;
 
--(void)refreshDirectoriesPopup;
+- (void)refreshDirectoriesPopup;
 
 @end
