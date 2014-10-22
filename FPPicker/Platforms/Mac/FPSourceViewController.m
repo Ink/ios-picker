@@ -63,7 +63,7 @@ typedef enum : NSUInteger
 
         FPSource *source = representedSource.source;
 
-        if ([source.identifier isEqualToString:@"imagesearch"])
+        if ([source.identifier isEqualToString:FPSourceImagesearch])
         {
             self.sourceController = [FPImageSearchSourceController new];
         }
@@ -104,7 +104,7 @@ typedef enum : NSUInteger
         [self.delegate respondsToSelector:@selector(sourceViewController:pathChangedTo:)])
     {
         [self.delegate sourceViewController:self
-                              pathChangedTo:self.sourceController.representedSource.currentPath];
+                              pathChangedTo:self.representedSource.currentPath];
     }
 }
 
@@ -116,14 +116,14 @@ typedef enum : NSUInteger
 - (void)      loadPath:(NSString *)path
     andInvalidateCache:(BOOL)shouldInvalidateCache
 {
-    self.sourceController.representedSource.currentPath = path;
+    self.representedSource.currentPath = path;
 
     [self loadCurrentPathAndInvalidateCache:shouldInvalidateCache];
 }
 
 - (NSString *)currentPath
 {
-    return self.sourceController.representedSource.currentPath;
+    return self.representedSource.currentPath;
 }
 
 - (NSArray *)selectedItems
@@ -133,7 +133,7 @@ typedef enum : NSUInteger
 
 - (void)cancelAllOperations
 {
-    [self.sourceController.representedSource cancelAllOperations];
+    [self.representedSource cancelAllOperations];
 }
 
 #pragma mark - FPSourceResultsControllerDelegate Methods
@@ -141,7 +141,7 @@ typedef enum : NSUInteger
 - (void)       sourceResults:(FPSourceResultsController *)sourceResultsController
     didMomentarilySelectItem:(NSDictionary *)item
 {
-    FPSource *source = self.sourceController.representedSource.source;
+    FPSource *source = self.representedSource.source;
 
     if (source.overwritePossible)
     {
@@ -194,7 +194,7 @@ typedef enum : NSUInteger
 
 - (void)sourceResultsWantsToGoUpOneDirectory:(FPSourceResultsController *)sourceResultsController
 {
-    FPRepresentedSource *representedSource = self.sourceController.representedSource;
+    FPRepresentedSource *representedSource = self.representedSource;
 
     if (![representedSource.currentPath isEqualToString:representedSource.parentPath])
     {
@@ -230,7 +230,7 @@ typedef enum : NSUInteger
 
     [self.progressIndicator stopAnimation:self];
 
-    FPSource *source = self.sourceController.representedSource.source;
+    FPSource *source = self.representedSource.source;
 
     if (source.requiresAuth)
     {
@@ -282,7 +282,7 @@ typedef enum : NSUInteger
               withMessageText:@"Response error"];
     };
 
-    [self.authController displayAuthSheetWithSource:self.sourceController.representedSource.source
+    [self.authController displayAuthSheetWithSource:self.representedSource.source
                                       inModalWindow:self.view.window
                                       modalDelegate:self
                                      didEndSelector:@selector(authSheetDidEnd:returnCode:contextInfo:)
@@ -320,7 +320,7 @@ typedef enum : NSUInteger
 
 - (void)updateLoggedInStateInRepresentedSource:(BOOL)isLoggedIn
 {
-    FPRepresentedSource *representedSource = self.sourceController.representedSource;
+    FPRepresentedSource *representedSource = self.representedSource;
 
     if (isLoggedIn != representedSource.isLoggedIn)
     {

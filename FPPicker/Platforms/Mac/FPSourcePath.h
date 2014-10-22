@@ -20,8 +20,8 @@
 - (instancetype)initWithSource:(FPSource *)source
                        andPath:(NSString *)path NS_DESIGNATED_INITIALIZER;
 
-@property (nonatomic, strong) NSString *path;
 @property (nonatomic, strong) FPSource *source;
+@property (nonatomic, strong) NSString *path;
 
 - (NSString *)rootPath;
 - (NSString *)parentPath;

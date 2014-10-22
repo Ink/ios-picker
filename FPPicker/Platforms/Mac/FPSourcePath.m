@@ -59,7 +59,7 @@
         NSString *parentPath = [self.path.stringByDeletingLastPathComponent stringByAppendingString:@"/"];
 
         // Special Github URL handling
-        // /Github/someuser -> /Github
+        // /Github/someuser/ -> /Github/
 
         if ([parentPath.stringByDeletingLastPathComponent isEqualToString:@"/Github"])
         {
@@ -77,6 +77,8 @@
             self.source,
             self.path];
 }
+
+#pragma mark - NSObject Comparison Methods
 
 - (NSUInteger)hash
 {

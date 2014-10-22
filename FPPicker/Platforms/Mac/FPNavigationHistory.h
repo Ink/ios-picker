@@ -10,9 +10,9 @@
 
 @interface FPNavigationHistory : NSObject
 
-- (void)addNavigationItem:(id)item;
-- (void)clearNavigation;
-- (id)currentNavigationItem;
+- (void)addItem:(id)item;
+- (void)clear;
+- (id)currentItem;
 - (BOOL)canNavigateBack;
 - (BOOL)canNavigateForward;
 - (BOOL)navigateBack;

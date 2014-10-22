@@ -11,7 +11,7 @@
 @interface FPNavigationHistory ()
 
 @property (nonatomic, strong) NSMutableOrderedSet *items;
-@property (nonatomic, assign) NSInteger currentNavIndex;
+@property (nonatomic, assign) NSInteger currentItemIndex;
 
 @end
 
@@ -37,7 +37,7 @@
 
     if (self)
     {
-        self.currentNavIndex = -1;
+        self.currentItemIndex = -1;
     }
 
     return self;
@@ -45,7 +45,7 @@
 
 - (BOOL)canNavigateBack
 {
-    if (self.currentNavIndex > 0)
+    if (self.currentItemIndex > 0)
     {
         return YES;
     }
@@ -55,7 +55,7 @@
 
 - (BOOL)canNavigateForward
 {
-    if (self.currentNavIndex < self.items.count - 1)
+    if (self.currentItemIndex < self.items.count - 1)
     {
         return YES;
     }
@@ -67,7 +67,7 @@
 {
     if ([self canNavigateBack])
     {
-        self.currentNavIndex--;
+        self.currentItemIndex--;
 
         return YES;
     }
@@ -79,7 +79,7 @@
 {
     if ([self canNavigateForward])
     {
-        self.currentNavIndex++;
+        self.currentItemIndex++;
 
         return YES;
     }
@@ -87,16 +87,16 @@
     return NO;
 }
 
-- (void)addNavigationItem:(id)item
+- (void)addItem:(id)item
 {
     @synchronized(self.items)
     {
-        self.currentNavIndex++;
+        self.currentItemIndex++;
 
-        if (self.items.count > self.currentNavIndex)
+        if (self.items.count > self.currentItemIndex)
         {
-            NSRange deleteRange = NSMakeRange(self.currentNavIndex,
-                                              self.items.count - self.currentNavIndex);
+            NSRange deleteRange = NSMakeRange(self.currentItemIndex,
+                                              self.items.count - self.currentItemIndex);
 
             NSIndexSet *indexset = [NSIndexSet indexSetWithIndexesInRange:deleteRange];
 
@@ -107,21 +107,21 @@
     }
 }
 
-- (void)clearNavigation
+- (void)clear
 {
     @synchronized(self.items)
     {
-        self.currentNavIndex = -1;
+        self.currentItemIndex = -1;
         [self.items removeAllObjects];
     }
 }
 
-- (id)currentNavigationItem
+- (id)currentItem
 {
-    if (self.currentNavIndex >= 0 &&
-        self.currentNavIndex < self.items.count)
+    if (self.currentItemIndex >= 0 &&
+        self.currentItemIndex < self.items.count)
     {
-        return self.items[self.currentNavIndex];
+        return self.items[self.currentItemIndex];
     }
     else
     {
@@ -136,7 +136,7 @@
     return [NSString stringWithFormat:@"%@ {\n\titems: %@\n\tcurrent Index: %ld",
             super.description,
             self.items,
-            (unsigned long)self.currentNavIndex];
+            (unsigned long)self.currentItemIndex];
 }
 
 @end

@@ -43,9 +43,9 @@ typedef enum : NSUInteger
 {
     _sourcePath = sourcePath;
 
-    if (![self.navigationHistory.currentNavigationItem isEqual:sourcePath])
+    if (![self.navigationHistory.currentItem isEqual:sourcePath])
     {
-        [self.navigationHistory addNavigationItem:sourcePath];
+        [self.navigationHistory addItem:sourcePath];
         [self refreshNavigationControls];
     }
 }
@@ -60,7 +60,7 @@ typedef enum : NSUInteger
 
 - (void)clearNavigation
 {
-    [self.navigationHistory clearNavigation];
+    [self.navigationHistory clear];
     [self refreshNavigationControls];
 }
 
@@ -77,10 +77,12 @@ typedef enum : NSUInteger
             [self.navigationHistory navigateBack];
 
             break;
+
         case FPNavigateForwardDirection:
             [self.navigationHistory navigateForward];
 
             break;
+
         default:
             break;
     }
@@ -90,7 +92,7 @@ typedef enum : NSUInteger
     if (self.delegate &&
         [self.delegate respondsToSelector:@selector(navigationChanged:)])
     {
-        [self.delegate navigationChanged:[self.navigationHistory currentNavigationItem]];
+        [self.delegate navigationChanged:[self.navigationHistory currentItem]];
     }
 }
 
@@ -109,15 +111,17 @@ typedef enum : NSUInteger
 
 - (void)refreshDirectoriesPopup
 {
+    if (!self.sourcePath)
+    {
+        // Without a sourcePath there is nothing we can do.
+
+        return;
+    }
+
     [self.currentDirectoryPopupButton removeAllItems];
     self.currentDirectoryPopupButton.autoenablesItems = NO;
 
     FPSourcePath *tmpSourcePath = [self.sourcePath copy];
-
-    if (!tmpSourcePath)
-    {
-        return;
-    }
 
     while (true)
     {

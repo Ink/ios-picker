@@ -19,8 +19,6 @@
 
 - (void)setRepresentedSource:(FPRepresentedSource *)representedSource
 {
-    [representedSource cancelAllOperations];
-
     _representedSource = representedSource;
 }
 
