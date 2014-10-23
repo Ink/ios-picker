@@ -41,7 +41,7 @@
                                                                   target:nil
                                                                   action:nil];
 
-    NSLog(@"Source: %@ Path: %@ %@", self.sourceType.identifier, self.path, [NSString stringWithFormat:@"%@/", self.sourceType.rootUrl]);
+    NSLog(@"Source: %@ Path: %@ %@", self.sourceType.identifier, self.path, [NSString stringWithFormat:@"%@/", self.sourceType.rootPath]);
 
     if ((self.sourceType.identifier == FPSourceFacebook ||
          self.sourceType.identifier == FPSourcePicasa) &&
