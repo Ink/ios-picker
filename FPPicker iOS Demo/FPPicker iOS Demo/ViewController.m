@@ -205,14 +205,6 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
-- (BOOL) FPPickerController:(FPPickerController *)pickerController
-    shouldPickMediaWithInfo:(FPMediaInfo *)info
-{
-    // Add your custom logic here
-
-    return YES;
-}
-
 - (void)FPPickerController:(FPPickerController *)pickerController
       didPickMediaWithInfo:(FPMediaInfo *)info
 {
