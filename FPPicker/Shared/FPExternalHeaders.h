@@ -32,14 +32,3 @@
 - (void)FPSaveControllerDidCancel:(FPSaveController *)saveController;
 
 @end
-
-@class FPSourceController;
-
-@protocol FPSourcePickerDelegate <NSObject>
-
-- (void)FPSourceController:(FPSourceController *)sourceController didPickMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSourceController:(FPSourceController *)sourceController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
-- (void)FPSourceController:(FPSourceController *)sourceController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
-- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController;
-
-@end

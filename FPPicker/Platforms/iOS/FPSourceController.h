@@ -17,7 +17,7 @@
 @property (nonatomic, strong) NSString *viewType;
 @property (nonatomic, strong) NSString *nextPage;
 @property (nonatomic, strong) UIActivityIndicatorView *nextPageSpinner;
-@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourceControllerDelegate> fpdelegate;
 
 - (void)fpLoadContents:(NSString *)loadpath;
 - (void)afterReload;

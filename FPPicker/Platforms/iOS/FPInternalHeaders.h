@@ -16,3 +16,15 @@
 #import "FPSourceListController.h"
 #import "FPTableWithUploadButtonViewController.h"
 #import "MBProgressHUD.h"
+
+@class FPSourceController;
+@class FPMediaInfo;
+
+@protocol FPSourceControllerDelegate <NSObject>
+
+- (void)sourceController:(FPSourceController *)sourceController didPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)sourceController:(FPSourceController *)sourceController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
+- (void)sourceController:(FPSourceController *)sourceController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
+- (void)sourceControllerDidCancel:(FPSourceController *)sourceController;
+
+@end

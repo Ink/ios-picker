@@ -213,8 +213,8 @@
 
 - (void)saveAction:(id)sender
 {
-    [self.fpdelegate FPSourceController:self
-                   didPickMediaWithInfo:nil];
+    [self.fpdelegate sourceController:self
+                 didPickMediaWithInfo:nil];
 
     NSLog(@"Path %@", self.path);
 

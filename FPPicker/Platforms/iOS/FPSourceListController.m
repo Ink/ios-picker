@@ -8,7 +8,6 @@
 
 #import "FPSourceListController.h"
 #import "FPInternalHeaders.h"
-#import "FPUtils.h"
 #import "FPLocalAlbumController.h"
 #import "FPSourceController.h"
 #import "FPSaveSourceController.h"
@@ -277,7 +276,7 @@
 
 - (IBAction)cancel:(id)sender
 {
-    [self.fpdelegate FPSourceControllerDidCancel:nil];
+    [self.fpdelegate sourceControllerDidCancel:nil];
 }
 
 - (IBAction)displayInfo:(id)sender

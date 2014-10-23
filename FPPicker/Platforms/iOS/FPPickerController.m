@@ -12,7 +12,7 @@
 
 @interface FPPickerController () <UIImagePickerControllerDelegate,
                                   UINavigationControllerDelegate,
-                                  FPSourcePickerDelegate>
+                                  FPSourceControllerDelegate>
 
 @property (nonatomic, assign) BOOL hasStatusBar;
 
@@ -306,8 +306,8 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (void)FPSourceController:(FPSourceController *)sourceController
-      didPickMediaWithInfo:(FPMediaInfo *)info
+- (void)sourceController:(FPSourceController *)sourceController
+    didPickMediaWithInfo:(FPMediaInfo *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
@@ -316,7 +316,7 @@
     }
 }
 
-- (void)       FPSourceController:(FPSourceController *)sourceController
+- (void)         sourceController:(FPSourceController *)sourceController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     // The user chose a file from the cloud or camera roll.
@@ -327,7 +327,7 @@
           didFinishPickingMediaWithInfo:info];
 }
 
-- (void)                  FPSourceController:(FPSourceController *)sourceController
+- (void)                    sourceController:(FPSourceController *)sourceController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     // The user chose a file from the cloud or camera roll.
@@ -341,7 +341,7 @@
     }
 }
 
-- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController
+- (void)sourceControllerDidCancel:(FPSourceController *)sourceController
 {
     // The user chose to cancel when using the cloud or camera roll.
 

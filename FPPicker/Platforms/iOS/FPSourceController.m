@@ -1094,8 +1094,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
                 [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                          animated:YES];
 
-                [self.fpdelegate FPSourceController:self
-                      didFinishPickingMediaWithInfo:mediaInfo];
+                [self.fpdelegate sourceController:self
+                    didFinishPickingMediaWithInfo:mediaInfo];
             });
         };
 
@@ -1123,7 +1123,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
                 [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                          animated:YES];
 
-                [self.fpdelegate FPSourceControllerDidCancel:self];
+                [self.fpdelegate sourceControllerDidCancel:self];
             });
         };
 
@@ -1154,7 +1154,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                  animated:YES];
 
-        [self.fpdelegate FPSourceController:nil
+        [self.fpdelegate sourceController:nil
          didFinishPickingMultipleMediaWithResults:results];
     });
 }
@@ -1180,8 +1180,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        [self.fpdelegate FPSourceController:self
-                       didPickMediaWithInfo:mediaInfo];
+        [self.fpdelegate sourceController:self
+                     didPickMediaWithInfo:mediaInfo];
 
         self.view.userInteractionEnabled = NO;
     });

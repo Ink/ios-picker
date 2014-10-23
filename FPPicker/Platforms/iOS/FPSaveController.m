@@ -11,7 +11,7 @@
 
 @interface FPSaveController () <UINavigationControllerDelegate,
                                 UIPopoverControllerDelegate,
-                                FPSourcePickerDelegate>
+                                FPSourceControllerDelegate>
 
 @end
 
@@ -37,7 +37,7 @@
         [fpAPIKEY isEqualToString:@""] ||
         [fpAPIKEY isEqualToString:@"SET_FILEPICKER.IO_APIKEY_HERE"])
     {
-        NSException* apikeyException = [NSException
+        NSException *apikeyException = [NSException
                                         exceptionWithName:@"Filepicker Configuration Error"
                                                    reason:@"APIKEY not set. You can get one at https://www.filepicker.io and insert it into your project's info.plist as 'Filepicker API Key'"
                                                  userInfo:nil];
@@ -169,13 +169,13 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (void)FPSourceController:(FPSourceController *)sourceController
-      didPickMediaWithInfo:(FPMediaInfo *)info
+- (void)sourceController:(FPSourceController *)sourceController
+    didPickMediaWithInfo:(FPMediaInfo *)info
 {
     // NO-OP
 }
 
-- (void)       FPSourceController:(FPSourceController *)sourceController
+- (void)         sourceController:(FPSourceController *)sourceController
     didFinishPickingMediaWithInfo:(FPMediaInfo *)info
 {
     // The user saved a file to the cloud or camera roll.
@@ -188,13 +188,13 @@
     self.fpdelegate = nil;
 }
 
-- (void)                  FPSourceController:(FPSourceController *)sourceController
+- (void)                    sourceController:(FPSourceController *)sourceController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
 {
     // NO-OP
 }
 
-- (void)FPSourceControllerDidCancel:(FPSourceController *)sourceController
+- (void)sourceControllerDidCancel:(FPSourceController *)sourceController
 {
     //The user chose to cancel when saving to the cloud or camera roll.
 
@@ -234,14 +234,14 @@
     }
     else if (self.dataType)
     {
-        CFStringRef mimeType = (__bridge CFStringRef) self.dataType;
+        CFStringRef mimeType = (__bridge CFStringRef)self.dataType;
         CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
         CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
         CFRelease(uti);
 
         if (extension)
         {
-            return [NSString stringWithFormat:@".%@", (__bridge_transfer NSString*) extension];
+            return [NSString stringWithFormat:@".%@", (__bridge_transfer NSString *)extension];
         }
         else
         {

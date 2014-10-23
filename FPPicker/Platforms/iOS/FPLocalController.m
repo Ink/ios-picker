@@ -355,8 +355,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                 [MBProgressHUD hideAllHUDsForView:self.view
                                          animated:YES];
 
-                [self.fpdelegate FPSourceController:nil
-                      didFinishPickingMediaWithInfo:info];
+                [self.fpdelegate sourceController:nil
+                    didFinishPickingMediaWithInfo:info];
             });
         };
 
@@ -370,12 +370,12 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
                 if (!info)
                 {
-                    [self.fpdelegate FPSourceControllerDidCancel:nil];
+                    [self.fpdelegate sourceControllerDidCancel:nil];
                 }
                 else
                 {
-                    [self.fpdelegate FPSourceController:nil
-                          didFinishPickingMediaWithInfo:info];
+                    [self.fpdelegate sourceController:nil
+                        didFinishPickingMediaWithInfo:info];
                 }
             });
         };
@@ -543,7 +543,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         [MBProgressHUD hideAllHUDsForView:self.view
                                  animated:YES];
 
-        [self.fpdelegate FPSourceController:nil
+        [self.fpdelegate sourceController:nil
          didFinishPickingMultipleMediaWithResults:results];
     });
 }
@@ -558,8 +558,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
         mediaInfo.thumbnailImage = [UIImage imageWithCGImage:asset.thumbnail];
 
-        [self.fpdelegate FPSourceController:nil
-                       didPickMediaWithInfo:mediaInfo];
+        [self.fpdelegate sourceController:nil
+                     didPickMediaWithInfo:mediaInfo];
     });
 
     NSLog(@"Asset: %@", asset);

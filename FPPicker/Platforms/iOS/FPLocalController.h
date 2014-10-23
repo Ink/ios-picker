@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) FPSource *source;
-@property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSourceControllerDelegate> fpdelegate;
 @property (nonatomic, retain) ALAssetsGroup *assetGroup;
 
 @end
