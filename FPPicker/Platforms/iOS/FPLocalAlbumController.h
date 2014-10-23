@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSArray *albums;
 @property (nonatomic, weak) id <FPSourcePickerDelegate> fpdelegate;
-@property (nonatomic, strong) FPSource *sourceType;
+@property (nonatomic, strong) FPSource *source;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic) BOOL selectMultiple;
 @property (nonatomic) NSInteger maxFiles;

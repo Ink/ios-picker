@@ -11,6 +11,6 @@
 
 @interface FPImagePickerController : UIImagePickerController
 
-@property (nonatomic, strong) FPSource *fpSourcetype;
+@property (nonatomic, strong) FPSource *source;
 
 @end

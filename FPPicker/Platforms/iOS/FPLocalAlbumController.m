@@ -35,7 +35,7 @@
     self.tableView.delegate = self;
 
     [self.view addSubview:self.tableView];
-    self.title = _sourceType.name;
+    self.title = _source.name;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -51,7 +51,7 @@
     BOOL showImages;
     BOOL showVideos;
 
-    NSArray *requestedTypes = _sourceType.mimetypes;
+    NSArray *requestedTypes = _source.mimetypes;
 
     NSLog(@"Requested %@", requestedTypes);
 
@@ -180,7 +180,7 @@
     }
 
     // Get count
-    ALAssetsGroup *g = (ALAssetsGroup*)self.albums[indexPath.row];
+    ALAssetsGroup *g = (ALAssetsGroup *)self.albums[indexPath.row];
 
     UIImage *albumImage = [UIImage imageWithCGImage:((ALAssetsGroup *)self.albums[indexPath.row]).posterImage];
 
@@ -197,11 +197,11 @@
 {
     FPLocalController *sView = [FPLocalController new];
 
-    sView.assetGroup = (ALAssetsGroup*)self.albums[indexPath.row];
+    sView.assetGroup = (ALAssetsGroup *)self.albums[indexPath.row];
     sView.fpdelegate = self.fpdelegate;
     sView.selectMultiple = self.selectMultiple;
     sView.maxFiles = self.maxFiles;
-    sView.sourceType = self.sourceType;
+    sView.source = self.source;
 
     [self.navigationController pushViewController:sView
                                          animated:YES];

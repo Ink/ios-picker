@@ -13,7 +13,7 @@
 
 @property (nonatomic, strong) NSMutableArray *contents;
 @property (nonatomic, strong) NSString *path;
-@property (nonatomic, strong) FPSource *sourceType;
+@property (nonatomic, strong) FPSource *source;
 @property (nonatomic, strong) NSString *viewType;
 @property (nonatomic, strong) NSString *nextPage;
 @property (nonatomic, strong) UIActivityIndicatorView *nextPageSpinner;

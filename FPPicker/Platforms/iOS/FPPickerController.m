@@ -214,7 +214,7 @@
             mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
             mediaInfo.filename = data[@"filename"];
             mediaInfo.key = data[@"key"];
-            mediaInfo.source = picker.fpSourcetype;
+            mediaInfo.source = picker.source;
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideHUDForView:picker.view

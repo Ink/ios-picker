@@ -80,17 +80,17 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     // Make sure that we have a service
 
-    if (!self.sourceType)
+    if (!self.source)
     {
         return;
     }
 
     if (!self.path)
     {
-        self.path = [NSString stringWithFormat:@"%@/", self.sourceType.rootPath];
+        self.path = [NSString stringWithFormat:@"%@/", self.source.rootPath];
     }
 
-    if (![self.sourceType.identifier isEqualToString:FPSourceImagesearch])
+    if (![self.source.identifier isEqualToString:FPSourceImagesearch])
     {
         // For Image Search, loading root is useless
 
@@ -98,7 +98,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
                  cachePolicy:NSURLRequestReloadRevalidatingCacheData];
     }
 
-    [self setTitle:self.sourceType.name];
+    [self setTitle:self.source.name];
 
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
@@ -120,7 +120,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     self.contents = nil;
     self.path = nil;
-    self.sourceType = nil;
+    self.source = nil;
     self.fpdelegate = nil;
 }
 
@@ -756,7 +756,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
-                                             andMimetypes:self.sourceType.mimetypes
+                                             andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -828,7 +828,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
     else
     {
-        if ([loadpath isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootPath]])
+        if ([loadpath isEqualToString:[NSString stringWithFormat:@"%@/", self.source.rootPath]])
         {
             //logout only on root level
             UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Logout"
@@ -840,7 +840,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
 
         if ([JSON[@"contents"] count] == 0 &&
-            (self.sourceType.identifier != FPSourceImagesearch))
+            (self.source.identifier != FPSourceImagesearch))
         {
             [self setupEmptyView];
         }
@@ -917,7 +917,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
-                                             andMimetypes:self.sourceType.mimetypes
+                                             andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
     AFHTTPRequestOperation *operation;
@@ -939,7 +939,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     NSURLRequest *request = [FPLibrary requestForLoadPath:self.path
                                                withFormat:@"info"
-                                             andMimetypes:self.sourceType.mimetypes
+                                             andMimetypes:self.source.mimetypes
                                               cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1035,7 +1035,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         FPSourceController *subController = [FPSourceController new];
 
         subController.path = obj[@"link_path"];
-        subController.sourceType = self.sourceType;
+        subController.source = self.source;
         subController.fpdelegate = self.fpdelegate;
         subController.selectMultiple = self.selectMultiple;
         subController.maxFiles = self.maxFiles;
@@ -1172,7 +1172,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     mediaInfo.filename = obj[@"filename"];
     mediaInfo.mediaType = [FPUtils UTIForMimetype:obj[@"mimetype"]];
     mediaInfo.filesize = obj[@"bytes"];
-    mediaInfo.source = self.sourceType;
+    mediaInfo.source = self.source;
 
     if (thumbnail)
     {
@@ -1210,7 +1210,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
 
     [FPLibrary requestObjectMediaInfo:obj
-                           withSource:self.sourceType
+                           withSource:self.source
                   usingOperationQueue:self.contentPreloadOperationQueue
                        shouldDownload:shouldDownload
                               success:success
@@ -1229,7 +1229,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
 - (void)logout:(NSObject *)button
 {
-    NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth", fpBASE_URL, self.sourceType.identifier];
+    NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth", fpBASE_URL, self.source.identifier];
 
     NSLog(@"Logout: %@", urlString);
 
@@ -1255,7 +1255,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSLog(@"%@", cookie.domain);
         }
 
-        for (NSString *urlString in self.sourceType.externalDomains)
+        for (NSString *urlString in self.source.externalDomains)
         {
             NSArray *siteCookies;
             siteCookies = [cookieStorage cookiesForURL:[NSURL URLWithString:urlString]];
@@ -1332,8 +1332,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                object:nil];
 
     FPAuthController *authView = [FPAuthController new];
-    authView.service = self.sourceType.identifier;
-    authView.title = self.sourceType.name;
+    authView.service = self.source.identifier;
+    authView.title = self.source.name;
 
     [self.navigationController pushViewController:authView
                                          animated:NO];

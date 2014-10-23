@@ -95,7 +95,7 @@
     shouldReloadTableForSearchString:(NSString *)searchString
 {
     self.path = [NSString stringWithFormat:@"%@/%@",
-                 self.sourceType.rootPath,
+                 self.source.rootPath,
                  [FPUtils urlEncodeString:searchString]];
 
     [self fpLoadContents:self.path];

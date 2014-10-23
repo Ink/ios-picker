@@ -142,7 +142,7 @@
 
             imgPicker.delegate = self.imageDelegate;
             imgPicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-            imgPicker.fpSourcetype = source;
+            imgPicker.source = source;
 
             if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
             {
@@ -224,7 +224,7 @@
         {
             FPLocalAlbumController *sView = [FPLocalAlbumController new];
 
-            sView.sourceType = source;
+            sView.source = source;
             sView.fpdelegate = self.fpdelegate;
             sView.selectMultiple = self.selectMultiple;
             sView.maxFiles = self.maxFiles;
@@ -237,7 +237,7 @@
     {
         FPSearchController *sView = [FPSearchController new];
 
-        sView.sourceType = source;
+        sView.source = source;
         sView.fpdelegate = self.fpdelegate;
         sView.selectMultiple = self.selectMultiple;
         sView.maxFiles = self.maxFiles;
@@ -258,7 +258,7 @@
             sView = [FPSourceController new];
         }
 
-        sView.sourceType = source;
+        sView.source = source;
         sView.fpdelegate = self.fpdelegate;
         sView.selectMultiple = self.selectMultiple;
         sView.maxFiles = self.maxFiles;

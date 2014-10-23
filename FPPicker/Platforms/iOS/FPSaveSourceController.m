@@ -41,11 +41,9 @@
                                                                   target:nil
                                                                   action:nil];
 
-    NSLog(@"Source: %@ Path: %@ %@", self.sourceType.identifier, self.path, [NSString stringWithFormat:@"%@/", self.sourceType.rootPath]);
-
-    if ((self.sourceType.identifier == FPSourceFacebook ||
-         self.sourceType.identifier == FPSourcePicasa) &&
-        [self.path isEqualToString:[NSString stringWithFormat:@"%@/", self.sourceType.rootPath]])
+    if ((self.source.identifier == FPSourceFacebook ||
+         self.source.identifier == FPSourcePicasa) &&
+        [self.path isEqualToString:[NSString stringWithFormat:@"%@/", self.source.rootPath]])
     {
         NSLog(@"SPECIAL");
 
@@ -235,7 +233,7 @@
         FPSaveSourceController *subController = [FPSaveSourceController new];
 
         subController.path = obj[@"link_path"];
-        subController.sourceType = self.sourceType;
+        subController.source = self.source;
         subController.fpdelegate = self.fpdelegate;
 
         [self.navigationController pushViewController:subController
@@ -274,7 +272,7 @@
 
 - (void)updateTextFieldButton
 {
-    if (self.sourceType.overwritePossible)
+    if (self.source.overwritePossible)
     {
         // If it can overwite, warn the user.
 
