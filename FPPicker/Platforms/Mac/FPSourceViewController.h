@@ -48,6 +48,5 @@
 - (NSArray *)selectedItems;
 
 - (void)loadPath:(NSString *)path;
-- (void)cancelAllOperations;
 
 @end

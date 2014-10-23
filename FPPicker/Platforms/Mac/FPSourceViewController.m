@@ -57,9 +57,9 @@ typedef enum : NSUInteger
 {
     if (representedSource != _representedSource)
     {
-        _representedSource = representedSource;
+        [_representedSource cancelAllOperations];
 
-        [self cancelAllOperations];
+        _representedSource = representedSource;
 
         FPSource *source = representedSource.source;
 
@@ -128,11 +128,6 @@ typedef enum : NSUInteger
 - (NSArray *)selectedItems
 {
     return self.sourceResultsController.selectedItems;
-}
-
-- (void)cancelAllOperations
-{
-    [self.representedSource cancelAllOperations];
 }
 
 #pragma mark - FPSourceResultsControllerDelegate Methods
