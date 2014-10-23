@@ -303,9 +303,15 @@ typedef enum : NSUInteger
 
 - (IBAction)changeDisplayStyle:(id)sender
 {
-    FPSourceTabView sourceTabView = self.displayStyleSegmentedControl.selectedSegment + 1;
+    BOOL sourceRequiresAuth = self.representedSource.source.requiresAuth;
 
-    [self.tabView selectTabViewItemAtIndex:sourceTabView];
+    if (!sourceRequiresAuth ||
+        (sourceRequiresAuth && self.representedSource.isLoggedIn))
+    {
+        FPSourceTabView sourceTabView = self.displayStyleSegmentedControl.selectedSegment + 1;
+
+        [self.tabView selectTabViewItemAtIndex:sourceTabView];
+    }
 }
 
 #pragma mark - Private Methods
