@@ -10,8 +10,8 @@
 
 @import FPPicker;
 
-@interface ViewController () <FPPickerDelegate,
-                              FPSaveDelegate>
+@interface ViewController () <FPPickerControllerDelegate,
+                              FPSaveControllerDelegate>
 
 @property (nonatomic, retain) FPSaveController *fpSave;
 

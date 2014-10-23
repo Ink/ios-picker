@@ -10,8 +10,8 @@
 
 @import FPPickerMac;
 
-@interface ViewController () <FPPickerDelegate,
-                              FPSaveDelegate>
+@interface ViewController () <FPPickerControllerDelegate,
+                              FPSaveControllerDelegate>
 
 @property (nonatomic, strong) FPPickerController *pickerController;
 @property (nonatomic, strong) FPSaveController *saveController;
@@ -108,7 +108,7 @@
     }
 }
 
-#pragma mark - FPPickerDelegate Methods
+#pragma mark - FPPickerControllerDelegate Methods
 
 - (void)                  FPPickerController:(FPPickerController *)pickerController
     didFinishPickingMultipleMediaWithResults:(NSArray *)results
@@ -131,7 +131,7 @@
     NSLog(@"Picker was cancelled.");
 }
 
-#pragma mark - FPSaveDelegate Methods
+#pragma mark - FPSaveControllerDelegate Methods
 
 - (void)        FPSaveController:(FPSaveController *)saveController
     didFinishSavingMediaWithInfo:(FPMediaInfo *)info

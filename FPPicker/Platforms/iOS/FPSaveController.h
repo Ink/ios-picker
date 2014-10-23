@@ -11,7 +11,7 @@
 
 @interface FPSaveController : UINavigationController
 
-@property (nonatomic, weak) id <FPSaveDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPSaveControllerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 
 @property (nonatomic, strong) NSData *data;

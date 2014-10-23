@@ -11,7 +11,7 @@
 
 @interface FPPickerController : UINavigationController
 
-@property (nonatomic, weak) id <FPPickerDelegate> fpdelegate;
+@property (nonatomic, weak) id <FPPickerControllerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 

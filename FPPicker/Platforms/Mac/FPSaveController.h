@@ -11,7 +11,7 @@
 
 @interface FPSaveController : NSObject
 
-@property (nonatomic, weak) id<FPSaveDelegate> delegate;
+@property (nonatomic, weak) id<FPSaveControllerDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSData *data;

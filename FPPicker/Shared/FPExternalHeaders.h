@@ -12,7 +12,7 @@
 @class FPSaveController;
 @class FPMediaInfo;
 
-@protocol FPPickerDelegate <NSObject>
+@protocol FPPickerControllerDelegate <NSObject>
 
 @optional
 
@@ -23,7 +23,7 @@
 
 @end
 
-@protocol FPSaveDelegate <NSObject>
+@protocol FPSaveControllerDelegate <NSObject>
 
 @optional
 

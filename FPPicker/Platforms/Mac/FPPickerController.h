@@ -11,7 +11,7 @@
 
 @interface FPPickerController : NSObject
 
-@property (nonatomic, weak) id<FPPickerDelegate> delegate;
+@property (nonatomic, weak) id<FPPickerControllerDelegate> delegate;
 
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
