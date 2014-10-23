@@ -20,6 +20,17 @@
                        failure:(FPFetchObjectFailureBlock)failure
                       progress:(FPFetchObjectProgressBlock)progress;
 
++ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
+                          withFormat:(NSString *)type
+                        andMimetypes:(NSArray *)mimetypes
+                         cachePolicy:(NSURLRequestCachePolicy)policy;
+
++ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
+                          withFormat:(NSString *)type
+                        andMimetypes:(NSArray *)mimetypes
+                         byAppending:(NSString *)additionalString
+                         cachePolicy:(NSURLRequestCachePolicy)policy;
+
 + (void)uploadData:(NSData*)filedata
              named:(NSString *)filename
             toPath:(NSString*)path
