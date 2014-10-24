@@ -1,4 +1,5 @@
-v 3.2.9 - ??/??/2014
+v 3.2.9 - 10/24/2014
+- Added the ability to perform user-definable image and video preprocessing.
 - Added AFNetworkingOperationFailingURLResponseDataErrorKey symbol renaming to avoid conflicts with AFNetworking 2.4.1.
 - Added https://login.yahoo.com/ and https://edit.yahoo.com/ to allowedUrlPrefix.plist
 
