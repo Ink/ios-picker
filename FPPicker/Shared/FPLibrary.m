@@ -233,17 +233,21 @@
     // Do upload
 
     FPUploader *fileUploader;
-    size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
 
-    if (fileSize <= fpMaxChunkSize)
-    {
-        DLog(@"Uploading singlepart");
+    // NOTE: Singlepart uploads are currently not working on the server side (?)
 
-        fileUploader = [[FPSinglepartUploader alloc] initWithLocalURL:localURL
-                                                             filename:filename
-                                                          andMimetype:mimetype];
-    }
-    else
+//    size_t fileSize = [FPUtils fileSizeForLocalURL:localURL];
+//
+//
+//    if (fileSize <= fpMaxChunkSize)
+//    {
+//        DLog(@"Uploading singlepart");
+//
+//        fileUploader = [[FPSinglepartUploader alloc] initWithLocalURL:localURL
+//                                                             filename:filename
+//                                                          andMimetype:mimetype];
+//    }
+//    else
     {
         DLog(@"Uploading multipart");
 
