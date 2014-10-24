@@ -400,7 +400,7 @@
 		45765FCF19A4A0C50018E2EC /* FPSourceListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSourceListController.m; sourceTree = "<group>"; };
 		4578B08219E824BD00B188F3 /* FPFileTransferController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPFileTransferController.h; sourceTree = "<group>"; };
 		4578B08319E824BD00B188F3 /* FPFileTransferController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPFileTransferController.m; sourceTree = "<group>"; };
-		4578B08419E824BD00B188F3 /* FPFileTransferController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FPFileTransferController.xib; path = ../FPPicker/Platforms/Mac/FPFileTransferController.xib; sourceTree = "<group>"; };
+		4578B08419E824BD00B188F3 /* FPFileTransferController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FPFileTransferController.xib; sourceTree = "<group>"; };
 		45808B5319B46A7D00ECBDA1 /* FPThumbnail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPThumbnail.h; sourceTree = "<group>"; };
 		45808B5419B46A7D00ECBDA1 /* FPThumbnail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPThumbnail.m; sourceTree = "<group>"; };
 		45808B5719B4726D00ECBDA1 /* FPSourceResultsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSourceResultsController.h; sourceTree = "<group>"; };
