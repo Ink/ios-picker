@@ -152,13 +152,13 @@
         FPSourceGithub,
         FPSourceBox,
         FPSourceGoogleDrive,
+        FPSourceSkydrive,
         FPSourceGmail,
         FPSourceImagesearch
                                         ];
 
     self.pickerController.dataTypes = @[
-        @"image/*",
-        @"video/quicktime"
+        @"image/*"
                                       ];
 
     [self.pickerController open];
