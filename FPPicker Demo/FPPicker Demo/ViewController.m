@@ -204,13 +204,6 @@
 
 #pragma mark - FPPickerControllerDelegate Methods
 
-- (BOOL)FPPickerController:(FPPickerController *)picker shouldPickMediaWithInfo:(NSDictionary *)info
-{
-    // Add your custom logic here
-
-    return YES;
-}
-
 - (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info
 {
 }

@@ -1204,25 +1204,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
         mediaInfo.thumbnailImage = thumbnail;
     }
 
-    NSDictionary *mediaInfoDict = [mediaInfo dictionary];
-
-    if (![self.fpdelegate FPSourceController:self
-                     shouldPickMediaWithInfo:mediaInfoDict])
-    {
-        NSDictionary *failureErrorUserInfo = @{
-            NSLocalizedDescriptionKey:@"Media can not be picked"
-        };
-
-        failure([NSError errorWithDomain:@"iOS-picker"
-                                    code:200
-                                userInfo:failureErrorUserInfo]);
-
-        return;
-    }
-
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.fpdelegate FPSourceController:self
-                       didPickMediaWithInfo:mediaInfoDict];
+                       didPickMediaWithInfo:[mediaInfo dictionary]];
 
         self.view.userInteractionEnabled = NO;
     });

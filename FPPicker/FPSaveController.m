@@ -168,11 +168,6 @@
 
 #pragma mark FPSourcePickerDelegate Methods
 
-- (BOOL)FPSourceController:(FPSourceController *)picker shouldPickMediaWithInfo:(NSDictionary *)info
-{
-    return YES;
-}
-
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *)info
 {
     if ([self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidSave:)])
