@@ -454,7 +454,6 @@
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;
 			};
@@ -470,7 +469,6 @@
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;
 			};
