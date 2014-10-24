@@ -24,8 +24,8 @@ Pod::Spec.new do |s|
   s.ios.prefix_header_file  = 'Resources-iOS/FPPicker-Prefix.pch'
   s.osx.prefix_header_file  = 'Resources-Mac/FPPicker-Mac-Prefix.pch'
 
-  s.ios.public_header_files = 'FPPicker/Platforms/iOS/FPPicker.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/iOS/FPPickerController.h', 'FPPicker/Platforms/iOS/', 'FPSaveController.h'
-  s.osx.public_header_files = 'FPPicker/Platforms/Mac/FPPickerMac.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/Mac/FPPickerController.h', 'FPPicker/Platforms/Mac/', 'FPSaveController.h'
+  s.ios.public_header_files = 'FPPicker/Platforms/iOS/FPPicker.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/iOS/FPPickerController.h', 'FPPicker/Platforms/iOS/FPSaveController.h'
+  s.osx.public_header_files = 'FPPicker/Platforms/Mac/FPPickerMac.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/Mac/FPPickerController.h', 'FPPicker/Platforms/Mac/FPSaveController.h'
 
   s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
   s.osx.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/Mac/*.{h,m}'
@@ -34,6 +34,7 @@ Pod::Spec.new do |s|
   s.osx.frameworks   = 'WebKit', 'Quartz'
 
   s.dependency 'AFNetworking', '~> 2.4.1'
+  s.ios.dependency 'MBProgressHUD', '~> 0.9'
 
   s.requires_arc = true
 
