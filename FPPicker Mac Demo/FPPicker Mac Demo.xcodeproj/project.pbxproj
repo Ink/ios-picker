@@ -22,7 +22,6 @@
 		45CFCEC019FA4E2C009381C5 /* glossy.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBD19FA4E2C009381C5 /* glossy.png */; };
 		45CFCEC119FA4E2C009381C5 /* metal_background.tif in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBE19FA4E2C009381C5 /* metal_background.tif */; };
 		45CFCEC219FA4E2C009381C5 /* pin.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBF19FA4E2C009381C5 /* pin.tiff */; };
-		45CFCEC519FA4F29009381C5 /* ImageBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */; };
 		45CFCEC919FA5523009381C5 /* ImageBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEC819FA5523009381C5 /* ImageBrowserItem.m */; };
 		45CFCECB19FA57B2009381C5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CFCECA19FA57B2009381C5 /* Quartz.framework */; };
 		45D0397A19A21DB800983134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397919A21DB800983134 /* ViewController.m */; };
@@ -113,8 +112,6 @@
 		45CFCEBD19FA4E2C009381C5 /* glossy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glossy.png; path = Resources/glossy.png; sourceTree = "<group>"; };
 		45CFCEBE19FA4E2C009381C5 /* metal_background.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = metal_background.tif; path = Resources/metal_background.tif; sourceTree = "<group>"; };
 		45CFCEBF19FA4E2C009381C5 /* pin.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pin.tiff; path = Resources/pin.tiff; sourceTree = "<group>"; };
-		45CFCEC319FA4F29009381C5 /* ImageBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserController.h; sourceTree = "<group>"; };
-		45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserController.m; sourceTree = "<group>"; };
 		45CFCEC719FA5523009381C5 /* ImageBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserItem.h; sourceTree = "<group>"; };
 		45CFCEC819FA5523009381C5 /* ImageBrowserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserItem.m; sourceTree = "<group>"; };
 		45CFCECA19FA57B2009381C5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
@@ -181,8 +178,6 @@
 				45CFCEC619FA54E7009381C5 /* Models */,
 				45CFCEAF19FA4C8D009381C5 /* ImageBrowserBackgroundLayer.h */,
 				45CFCEB019FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m */,
-				45CFCEC319FA4F29009381C5 /* ImageBrowserController.h */,
-				45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */,
 				45CFCEB119FA4C8D009381C5 /* ImageBrowserCell.h */,
 				45CFCEB219FA4C8D009381C5 /* ImageBrowserCell.m */,
 				45CFCEB319FA4C8D009381C5 /* ImageBrowserView.h */,
@@ -359,7 +354,6 @@
 			files = (
 				45CFCEB519FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m in Sources */,
 				45CFCEB719FA4C8D009381C5 /* ImageBrowserView.m in Sources */,
-				45CFCEC519FA4F29009381C5 /* ImageBrowserController.m in Sources */,
 				45D0397A19A21DB800983134 /* ViewController.m in Sources */,
 				45718BC7199CFEC100C27324 /* AppDelegate.m in Sources */,
 				45CFCEC919FA5523009381C5 /* ImageBrowserItem.m in Sources */,
