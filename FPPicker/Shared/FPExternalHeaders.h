@@ -33,7 +33,7 @@
 #endif
 
 /*!
-   Called after Filepicker finishing picking multiple media.
+   Called after Filepicker finished picking multiple media.
    At this point the associated media file for each item should be present at info.mediaURL.
  */
 - (void)FPPickerController:(FPPickerController *)pickerController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
