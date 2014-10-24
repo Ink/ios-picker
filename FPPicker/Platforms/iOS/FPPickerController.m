@@ -179,7 +179,8 @@
     }
     UIGraphicsEndImageContext();
 
-    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             FPMediaInfo *mediaInfo = [FPMediaInfo new];
@@ -298,7 +299,6 @@
     }
 
     // The user chose to cancel when using the camera.
-    NSLog(@"Canceled something from local camera");
 
     [picker dismissViewControllerAnimated:YES
                                completion:nil];
@@ -309,7 +309,8 @@
 - (void)sourceController:(FPSourceController *)sourceController
     didPickMediaWithInfo:(FPMediaInfo *)info
 {
-    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
     {
         [self.fpdelegate FPPickerController:self
                        didPickMediaWithInfo:info];
@@ -321,10 +322,12 @@
 {
     // The user chose a file from the cloud or camera roll.
 
-    DLog(@"Picked something from a source: %@", info);
-
-    [self.fpdelegate FPPickerController:self
-          didFinishPickingMediaWithInfo:info];
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMediaWithInfo:)])
+    {
+        [self.fpdelegate FPPickerController:self
+              didFinishPickingMediaWithInfo:info];
+    }
 }
 
 - (void)                    sourceController:(FPSourceController *)sourceController
@@ -332,9 +335,8 @@
 {
     // The user chose a file from the cloud or camera roll.
 
-    DLog(@"Picked multiple files from a source: %@", results);
-
-    if ([self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
         [self.fpdelegate FPPickerController:self
          didFinishPickingMultipleMediaWithResults:results];
@@ -345,9 +347,8 @@
 {
     // The user chose to cancel when using the cloud or camera roll.
 
-    DLog(@"FP Canceled.");
-
-    if ([self.fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
     {
         [self.fpdelegate FPPickerControllerDidCancel:self];
     }

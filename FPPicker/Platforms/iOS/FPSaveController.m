@@ -101,8 +101,12 @@
         [MBProgressHUD hideAllHUDsForView:self.view
                                  animated:YES];
 
-        [self.fpdelegate FPSaveController:self
-             didFinishSavingMediaWithInfo:nil];
+        if (self.fpdelegate &&
+            [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+        {
+            [self.fpdelegate FPSaveController:self
+                 didFinishSavingMediaWithInfo:nil];
+        }
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
@@ -110,7 +114,8 @@
         [MBProgressHUD hideAllHUDsForView:self.view
                                  animated:YES];
 
-        if ([self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
+        if (self.fpdelegate &&
+            [self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
         {
             [self.fpdelegate FPSaveController:self
                                      didError:error];
@@ -163,8 +168,12 @@
         UIImageWriteToSavedPhotosAlbum([UIImage imageWithData:self.data], nil, nil, nil);
     }
 
-    [self.fpdelegate FPSaveController:self
-         didFinishSavingMediaWithInfo:nil];
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+    {
+        [self.fpdelegate FPSaveController:self
+             didFinishSavingMediaWithInfo:nil];
+    }
 }
 
 #pragma mark FPSourcePickerDelegate Methods
@@ -180,12 +189,12 @@
 {
     // The user saved a file to the cloud or camera roll.
 
-    DLog(@"Saved something to a source: %@", info);
-
-    [self.fpdelegate FPSaveController:self
-         didFinishSavingMediaWithInfo:info];
-
-    self.fpdelegate = nil;
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+    {
+        [self.fpdelegate FPSaveController:self
+             didFinishSavingMediaWithInfo:nil];
+    }
 }
 
 - (void)                    sourceController:(FPSourceController *)sourceController
@@ -198,11 +207,11 @@
 {
     //The user chose to cancel when saving to the cloud or camera roll.
 
-    DLog(@"FP Save Canceled.");
-
-    [self.fpdelegate FPSaveControllerDidCancel:self];
-
-    self.fpdelegate = nil;
+    if (self.fpdelegate &&
+        [self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidCancel:)])
+    {
+        [self.fpdelegate FPSaveControllerDidCancel:self];
+    }
 }
 
 #pragma mark UIPopoverControllerDelegate Methods
@@ -210,8 +219,6 @@
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
     [self.fpdelegate FPSaveControllerDidCancel:self];
-
-    self.fpdelegate = nil;
 }
 
 #pragma mark UINavigationControllerDelegate Methods
