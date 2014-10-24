@@ -1,5 +1,4 @@
-# Ink Filepicker iOS Library
-
+# Ink Filepicker iOS / Mac OS X Library
 
 The easiest way to import content into your application.
 [http://filepicker.io](http://filepicker.io)
@@ -8,17 +7,14 @@ The easiest way to import content into your application.
 
 ## Requirements
 
-  - iOS 6.0 or later
-  - Xcode 5
-  - [CocoaPods](http://cocoapods.org) (optional)
-
-  - Other Linked Libraries (you don't need to download these. Already installed.)
-    - [AFNetworking 2.x](https://github.com/AFNetworking/AFNetworking/)
-    - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+  - iOS 8.0 or later
+  - Mac OS X 10.9 or later
+  - Xcode 6
+  - [CocoaPods](http://cocoapods.org)
 
 ## Installation
 
-  Filepicker can be integrated into your iOS app by using [CocoaPods](http://cocoapods.org/) or, alternatively, including our prebuilt `FPPicker.framework` + `FPPicker.bundle`.
+  Filepicker can be easily integrated into your iOS app by using [CocoaPods](http://cocoapods.org/).
 
   To learn more, please check our [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation).
 
