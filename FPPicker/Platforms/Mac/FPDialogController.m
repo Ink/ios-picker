@@ -85,7 +85,7 @@
     self.sourceListController.sourceNames = sourceNames;
     self.sourceListController.dataTypes = dataTypes;
 
-    [self.sourceListController loadAndExpandSourceListIfRequired];
+    [self.sourceListController loadAndExpandSourceList];
 }
 
 - (void)setupDialogForOpening

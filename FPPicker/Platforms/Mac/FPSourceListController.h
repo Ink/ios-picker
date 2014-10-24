@@ -31,7 +31,7 @@
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 
-- (void)loadAndExpandSourceListIfRequired;
+- (void)loadAndExpandSourceList;
 - (void)refreshOutline;
 - (void)cancelAllOperations;
 - (void)selectSource:(FPSource *)source;

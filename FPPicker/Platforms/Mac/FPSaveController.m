@@ -44,6 +44,35 @@
     [self.dialogController open];
 }
 
+- (void)setProposedFilename:(NSString *)proposedFilename
+{
+    _proposedFilename = proposedFilename;
+
+    [self.dialogController setupDialogForSavingWithDefaultFileName:proposedFilename];
+}
+
+- (void)setSourceNames:(NSArray *)sourceNames
+{
+    _sourceNames = sourceNames;
+
+    if (self.dataType && self.sourceNames)
+    {
+        [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                                 andDataTypes:@[self.dataType]];
+    }
+}
+
+- (void)setDataType:(NSString *)dataType
+{
+    _dataType = dataType;
+
+    if (self.dataType && self.sourceNames)
+    {
+        [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                                 andDataTypes:@[self.dataType]];
+    }
+}
+
 #pragma mark - FPDialogControllerDelegate Methods
 
 - (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController

@@ -34,6 +34,22 @@
     return _dialogController;
 }
 
+- (void)setSourceNames:(NSArray *)sourceNames
+{
+    _sourceNames = sourceNames;
+
+    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                             andDataTypes:self.dataTypes];
+}
+
+- (void)setDataTypes:(NSArray *)dataTypes
+{
+    _dataTypes = dataTypes;
+
+    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                             andDataTypes:self.dataTypes];
+}
+
 #pragma mark - Public Methods
 
 - (void)open

@@ -19,25 +19,12 @@ const NSString *FPSourceGroupRemote = @"Remote";
 
 @property (nonatomic, strong) NSArray *topLevelItems;
 @property (nonatomic, strong) NSMutableDictionary *childrenItems;
-@property (nonatomic, assign) BOOL isSourceListLoaded;
 
 @end
 
 @implementation FPSourceListController
 
 #pragma mark - Initializer Methods
-
-- (instancetype)init
-{
-    self = [super init];
-
-    if (self)
-    {
-        self.isSourceListLoaded = NO;
-    }
-
-    return self;
-}
 
 - (FPSource *)selectedSource
 {
@@ -56,6 +43,20 @@ const NSString *FPSourceGroupRemote = @"Remote";
 }
 
 #pragma mark - Accessors
+
+- (void)setSourceNames:(NSArray *)sourceNames
+{
+    _sourceNames = sourceNames;
+
+    self.childrenItems = nil;
+}
+
+- (void)setDataTypes:(NSArray *)dataTypes
+{
+    _dataTypes = dataTypes;
+
+    self.childrenItems = nil;
+}
 
 - (NSArray *)topLevelItems
 {
@@ -128,31 +129,15 @@ const NSString *FPSourceGroupRemote = @"Remote";
     }];
 }
 
-- (void)loadAndExpandSourceListIfRequired
+- (void)loadAndExpandSourceList
 {
-    // NOTE: We could inherit from NSViewController and use -viewDidAppear
-    // rather than calling this method manually, but, unfortunately,
-    // all the -view(Did|Will)* methods were introduced in 10.10 APIs.
+    [self initializeOutlineView];
 
-    @synchronized(self)
-    {
-        // We only load them once.
+    // Set initial selection
 
-        if (self.isSourceListLoaded)
-        {
-            return;
-        }
+    FPRepresentedSource *firstRemoteRepresentedSource = self.childrenItems[FPSourceGroupRemote][0];
 
-        [self initializeOutlineView];
-
-        // Set initial selection
-
-        FPRepresentedSource *firstRemoteRepresentedSource = self.childrenItems[FPSourceGroupRemote][0];
-
-        [self selectSource:firstRemoteRepresentedSource.source];
-
-        self.isSourceListLoaded = YES;
-    }
+    [self selectSource:firstRemoteRepresentedSource.source];
 }
 
 - (void)refreshOutline
