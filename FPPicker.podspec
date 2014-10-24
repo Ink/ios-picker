@@ -24,8 +24,24 @@ Pod::Spec.new do |s|
   s.ios.prefix_header_file  = 'Resources-iOS/FPPicker-Prefix.pch'
   s.osx.prefix_header_file  = 'Resources-Mac/FPPicker-Mac-Prefix.pch'
 
-  s.ios.public_header_files = 'FPPicker/Platforms/iOS/FPPicker.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/iOS/FPPickerController.h', 'FPPicker/Platforms/iOS/FPSaveController.h'
-  s.osx.public_header_files = 'FPPicker/Platforms/Mac/FPPickerMac.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/Mac/FPPickerController.h', 'FPPicker/Platforms/Mac/FPSaveController.h'
+  shared_public_header_files = %w(
+    FPPicker/Shared/FPExternalHeaders.h
+    FPPicker/Shared/FPConfig.h
+    FPPicker/Shared/FPConstants.h
+    FPPicker/Shared/FPMediaInfo.h
+  )
+
+  s.ios.public_header_files = %w(
+    FPPicker/Platforms/iOS/FPPicker.h
+    FPPicker/Platforms/iOS/FPPickerController.h
+    FPPicker/Platforms/iOS/FPSaveController.h
+  ).concat(shared_public_header_files)
+
+  s.osx.public_header_files = %w(
+    FPPicker/Platforms/Mac/FPPickerMac.h
+    FPPicker/Platforms/Mac/FPPickerController.h
+    FPPicker/Platforms/Mac/FPSaveController.h
+  ).concat(shared_public_header_files)
 
   s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
   s.osx.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/Mac/*.{h,m}'
