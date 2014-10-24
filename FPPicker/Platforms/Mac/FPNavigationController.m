@@ -64,6 +64,50 @@ typedef enum : NSUInteger
     [self refreshNavigationControls];
 }
 
+- (void)refreshDirectoriesPopup
+{
+    if (!self.sourcePath)
+    {
+        // Without a sourcePath there is nothing we can do.
+
+        return;
+    }
+
+    [self.currentDirectoryPopupButton removeAllItems];
+    self.currentDirectoryPopupButton.autoenablesItems = NO;
+
+    FPSourcePath *tmpSourcePath = [self.sourcePath copy];
+
+    while (true)
+    {
+        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
+
+        icon.size = NSMakeSize(16, 16);
+
+        NSMenuItem *menuItem = [NSMenuItem new];
+
+        menuItem.title = tmpSourcePath.path.lastPathComponent.stringByRemovingPercentEncoding;
+        menuItem.image = icon;
+        menuItem.representedObject = tmpSourcePath;
+        menuItem.target = self;
+        menuItem.action = @selector(currentDirectoryPopupButtonSelectionChanged:);
+
+        [self.currentDirectoryPopupButton.menu addItem:menuItem];
+
+        if ([tmpSourcePath.parentPath isEqualToString:tmpSourcePath.path])
+        {
+            break;
+        }
+
+        tmpSourcePath.path = tmpSourcePath.parentPath;
+    }
+
+    if (self.currentDirectoryPopupButton.itemArray.count > 0)
+    {
+        [self.currentDirectoryPopupButton selectItemAtIndex:0];
+    }
+}
+
 #pragma mark - Actions
 
 - (IBAction)navigate:(id)sender
@@ -110,50 +154,6 @@ typedef enum : NSUInteger
 }
 
 #pragma mark - Private Methods
-
-- (void)refreshDirectoriesPopup
-{
-    if (!self.sourcePath)
-    {
-        // Without a sourcePath there is nothing we can do.
-
-        return;
-    }
-
-    [self.currentDirectoryPopupButton removeAllItems];
-    self.currentDirectoryPopupButton.autoenablesItems = NO;
-
-    FPSourcePath *tmpSourcePath = [self.sourcePath copy];
-
-    while (true)
-    {
-        NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFileType:NSFileTypeForHFSTypeCode(kGenericFolderIcon)];
-
-        icon.size = NSMakeSize(16, 16);
-
-        NSMenuItem *menuItem = [NSMenuItem new];
-
-        menuItem.title = tmpSourcePath.path.lastPathComponent.stringByRemovingPercentEncoding;
-        menuItem.image = icon;
-        menuItem.representedObject = tmpSourcePath;
-        menuItem.target = self;
-        menuItem.action = @selector(currentDirectoryPopupButtonSelectionChanged:);
-
-        [self.currentDirectoryPopupButton.menu addItem:menuItem];
-
-        if ([tmpSourcePath.parentPath isEqualToString:tmpSourcePath.path])
-        {
-            break;
-        }
-
-        tmpSourcePath.path = tmpSourcePath.parentPath;
-    }
-
-    if (self.currentDirectoryPopupButton.itemArray.count > 0)
-    {
-        [self.currentDirectoryPopupButton selectItemAtIndex:0];
-    }
-}
 
 - (void)refreshNavigationControls
 {

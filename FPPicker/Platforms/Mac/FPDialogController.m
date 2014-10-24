@@ -108,6 +108,8 @@
 - (void)setupSourceListWithSourceNames:(NSArray *)sourceNames
                           andDataTypes:(NSArray *)dataTypes
 {
+    [self.navigationController clearNavigation];
+
     self.sourceListController.sourceNames = sourceNames;
     self.sourceListController.dataTypes = dataTypes;
 

@@ -38,16 +38,22 @@
 {
     _sourceNames = sourceNames;
 
-    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
-                                             andDataTypes:self.dataTypes];
+    if (self.dataTypes && self.sourceNames)
+    {
+        [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                                 andDataTypes:self.dataTypes];
+    }
 }
 
 - (void)setDataTypes:(NSArray *)dataTypes
 {
     _dataTypes = dataTypes;
 
-    [self.dialogController setupSourceListWithSourceNames:self.sourceNames
-                                             andDataTypes:self.dataTypes];
+    if (self.dataTypes && self.sourceNames)
+    {
+        [self.dialogController setupSourceListWithSourceNames:self.sourceNames
+                                                 andDataTypes:self.dataTypes];
+    }
 }
 
 #pragma mark - Public Methods
@@ -62,6 +68,7 @@
 - (void)dialogControllerDidLoadWindow:(FPDialogController *)dialogController
 {
     [self.dialogController setupDialogForOpening];
+
     [self.dialogController setupSourceListWithSourceNames:self.sourceNames
                                              andDataTypes:self.dataTypes];
 }

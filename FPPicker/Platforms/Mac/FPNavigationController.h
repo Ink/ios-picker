@@ -26,5 +26,6 @@
 @property (nonatomic, strong) FPSourcePath *sourcePath;
 
 - (void)refreshDirectoriesPopup;
+- (void)clearNavigation;
 
 @end
