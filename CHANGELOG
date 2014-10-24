@@ -1,3 +1,41 @@
+v 4.0.0 - Major Release - ??/??/2014
+- Library now targets iOS 8 and/or Mac OS X 10.9 and requires Xcode 6 or later.
+- Introducing support for Mac OS X — check our wiki for more information (https://github.com/Ink/ios-picker/wiki)
+- Updating FPPickerController and FPSaveController delegates (check FPExternalHeaders.h to learn about the new protocols.)
+
+v 3.2.9 - 10/24/2014
+- Added the ability to perform user-definable image and video preprocessing.
+- Added AFNetworkingOperationFailingURLResponseDataErrorKey symbol renaming to avoid conflicts with AFNetworking 2.4.1.
+- Added https://login.yahoo.com/ and https://edit.yahoo.com/ to allowedUrlPrefix.plist
+
+v 3.2.8 - 09/23/2014
+- Fixed an UI reflow issue when rotating the device using a local source (FPLocalController).
+- Fixed a bug in FPPickerController that was preventing the delegate from being called in certain conditions.
+- Fixed a bug that was causing the upload button not to be visible in landscape mode when using a version of iOS between 7.1 and 8.0 (both non inclusive.)
+- Improved iPhone support on included iOS demo app.
+- FPPickerControllerSource is now returned when using either camera roll and camera sources.
+- FPPickerControllerRemoteURL is now consistently returned as a NSURL with any source.
+
+v 3.2.7 - 09/17/2014
+- Updated AFNetworking dependency to 2.4.1.
+- Fixed another case where FPPickerControllerRemoteURL was missing.
+
+v 3.2.6 - 09/16/2014
+- Fixed an UI locking issue during authentication when targetting iOS 8.
+
+v 3.2.5 - 09/15/2014
+- Fixed missing FPPickerControllerRemoteURL bug introduced in v3.2.4.
+
+v 3.2.4 - 09/12/2014
+- Remote sources now return the associated FPSource used in FPPickerControllerSource.
+- Local sources now return the associated ALAsset used in FPPickerControllerOriginalAsset.
+- Greatly reduced memory usage by returning a compressed version of the image in FPPickerControllerOriginalImage (this is particularly relevant when uploading a large number of images.)
+- Fixed a glitch in cell selection that could lead to a crash.
+- Fixed a minor UI glitch in iOS 8.
+
+v 3.2.3 - 08/28/2014
+- Improving compatibility with Instagram (issue #56 — @nickhart).
+
 v 3.2.2 - 08/12/2014
 - Added https://login.yahoo.com/ylc to allowedUrlPrefix.plist
 - Ensure FPPickerControllerKey is returned when key (i.e. S3 filename) is available
