@@ -940,6 +940,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     NSURLRequest *request = [FPLibrary requestForLoadPath:self.path
                                                withFormat:@"info"
                                              andMimetypes:self.source.mimetypes
+                                              byAppending:nextPageParam
                                               cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
