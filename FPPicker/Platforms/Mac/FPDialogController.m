@@ -59,6 +59,32 @@
 
 #pragma mark - Public Methods
 
+- (instancetype)initWithWindowNibName:(NSString *)windowNibName
+                                owner:(id)owner
+{
+    NSBundle *bundle;
+
+    NSURL *bundleURL = [[NSBundle mainBundle] URLForResource:@"FPPickerMac"
+                                               withExtension:@"bundle"];
+
+    if (bundleURL)
+    {
+        bundle = [NSBundle bundleWithURL:bundleURL];
+    }
+    else
+    {
+        bundle = [NSBundle bundleForClass:self.class];
+    }
+
+    NSURL *nibURL = [bundle URLForResource:windowNibName
+                             withExtension:@"nib"];
+
+    self = [self initWithWindowNibPath:nibURL.path
+                                 owner:owner];
+
+    return self;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
