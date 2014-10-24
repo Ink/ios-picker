@@ -13,30 +13,26 @@
 @interface ViewController () <FPPickerControllerDelegate,
                               FPSaveControllerDelegate>
 
-@property (nonatomic, retain) FPSaveController *fpSave;
-
+@property (nonatomic, strong) FPSaveController *fpSave;
+@property (nonatomic, strong) UIPopoverController *myPopoverController;
+@property (nonatomic, strong) NSMutableArray *displayedImages;
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
+#pragma mark - Accessors
 
-    // Do any additional setup after loading the view, typically from a nib.
+- (NSMutableArray *)displayedImages
+{
+    if (!_displayedImages)
+    {
+        _displayedImages = [NSMutableArray array];
+    }
+
+    return _displayedImages;
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-    {
-        return interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
-    }
-    else
-    {
-        return YES;
-    }
-}
+#pragma mark - Actions
 
 - (IBAction)pickerAction:(id)sender
 {
@@ -54,7 +50,6 @@
      * Ask for specific data types. (Optional) Default is all files.
      */
     fpController.dataTypes = @[@"image/*"];
-    //fpController.dataTypes = @[@"image/*", @"video/quicktime"];
 
     /*
      * Select and order the sources (Optional) Default is all sources
@@ -101,14 +96,16 @@
      * Ask for specific data types. (Optional) Default is all files.
      */
     fpController.dataTypes = @[@"image/*"];
-    //fpController.dataTypes = [NSArray arrayWithObjects:@"image/*", @"video/quicktime", nil];
 
+    /*
+     * Should file be uploaded? Default is YES.
+     */
     fpController.shouldUpload = YES;
 
     /*
      * Select and order the sources (Optional) Default is all sources
      */
-    //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
+    //fpController.sourceNames = @[FPSourceImagesearch];
 
     /*
      * Enable multselect (Optional) Default is single select
@@ -130,10 +127,7 @@
 
 - (IBAction)savingAction:(id)sender
 {
-    UIImage *firstImage;
-
-    if (!self.imageView.image &&
-        !self.imageView.animationImages)
+    if (self.displayedImages.count == 0)
     {
         UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Nothing to Save"
                                                           message:@"Select an image first."
@@ -146,17 +140,7 @@
         return;
     }
 
-    if (self.imageView.image)
-    {
-        firstImage = self.imageView.image;
-    }
-    else if (self.imageView.animationImages)
-    {
-        // For the purposes of our demo, we will simply use the first image
-
-        firstImage = self.imageView.animationImages[0];
-    }
-
+    UIImage *firstImage = self.displayedImages[0];
     NSData *imgData = UIImagePNGRepresentation(firstImage);
 
     /*
@@ -203,6 +187,31 @@
     }
 }
 
+#pragma mark - UIViewController Methods
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+
+    // Do any additional setup after loading the view, typically from a nib.
+
+    self.imageView.frame = self.view.bounds;
+    self.imageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+}
+
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+    {
+        return interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown;
+    }
+    else
+    {
+        return YES;
+    }
+}
+
 #pragma mark - FPPickerControllerDelegate Methods
 
 - (void)FPPickerController:(FPPickerController *)pickerController
@@ -219,7 +228,12 @@
     {
         if (info.containsImageAtMediaURL)
         {
-            self.imageView.image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
+            UIImage *image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
+
+            [self.displayedImages removeAllObjects];
+            [self.displayedImages addObject:image];
+
+            self.imageView.image = image;
         }
 
         if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
@@ -258,7 +272,7 @@
 
     // Making a little carousel effect with the images
 
-    NSMutableArray *images = [NSMutableArray arrayWithCapacity:results.count];
+    [self.displayedImages removeAllObjects];
 
     for (FPMediaInfo *info in results)
     {
@@ -268,13 +282,13 @@
         {
             UIImage *image = [UIImage imageWithContentsOfFile:info.mediaURL.path];
 
-            [images addObject:image];
+            [self.displayedImages addObject:image];
         }
     }
 
-    self.imageView.animationImages = images;
+    self.imageView.animationImages = self.displayedImages;
     self.imageView.animationRepeatCount = 100.f;
-    self.imageView.animationDuration = 2.f * images.count; // 2 seconds per image
+    self.imageView.animationDuration = 2.f * self.displayedImages.count; // 2 seconds per image
 
     [self.imageView startAnimating];
 }

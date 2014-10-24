@@ -10,7 +10,6 @@
 
 @interface ViewController : UIViewController <UIPopoverControllerDelegate>
 
-@property (nonatomic, retain) IBOutlet UIImageView *imageView;
-@property (nonatomic, retain) UIPopoverController *myPopoverController;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end
