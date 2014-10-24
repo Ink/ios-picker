@@ -13,11 +13,10 @@
 + (void)presentError:(NSError *)error
      withMessageText:(NSString *)messageText
 {
-    NSAlert *alert = [NSAlert alertWithMessageText:messageText
-                                     defaultButton:@"OK"
-                                   alternateButton:nil
-                                       otherButton:nil
-                         informativeTextWithFormat:@"%@", error.localizedDescription];
+    NSAlert *alert = [NSAlert new];
+
+    alert.messageText = messageText;
+    alert.informativeText = error.localizedDescription;
 
     [alert runModal];
 }
