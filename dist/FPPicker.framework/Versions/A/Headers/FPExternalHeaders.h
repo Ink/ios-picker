@@ -20,7 +20,6 @@ typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimety
 - (void)FPPickerControllerDidCancel:(FPPickerController *)picker;
 
 @optional
-- (BOOL)FPPickerController:(FPPickerController *)picker shouldPickMediaWithInfo:(NSDictionary *)info;
 - (void)FPPickerController:(FPPickerController *)picker didPickMediaWithInfo:(NSDictionary *)info;
 - (void)FPPickerController:(FPPickerController *)picker didFinishPickingMultipleMediaWithResults:(NSArray *)results;
 
@@ -41,7 +40,6 @@ typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimety
 
 @protocol FPSourcePickerDelegate <NSObject>
 
-- (BOOL)FPSourceController:(FPSourceController *)picker shouldPickMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceController:(FPSourceController *)picker didPickMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceController:(FPSourceController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info;
 - (void)FPSourceControllerDidCancel:(FPSourceController *)picker;
