@@ -276,7 +276,7 @@
 		45C13B1B199CDF74002DE7D3 /* SelectOverlayiOS7@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 45C13AE6199CDF74002DE7D3 /* SelectOverlayiOS7@2x.png */; };
 		45C13B94199CEA93002DE7D3 /* FPPickerMac.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C13B6E199CEA93002DE7D3 /* FPPickerMac.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45C13B96199CEA93002DE7D3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 45C13B71199CEA93002DE7D3 /* InfoPlist.strings */; };
-		45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 45C13B72199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch */; };
+		45C13B97199CEA93002DE7D3 /* FPPicker-Mac-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 45C13B72199CEA93002DE7D3 /* FPPicker-Mac-Prefix.pch */; };
 		45C13B98199CEA93002DE7D3 /* FPInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45C13B74199CEA93002DE7D3 /* FPInternalHeaders.h */; };
 		45C14A06194F19AE008C633A /* NSDictionary+FPMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */; };
 		45C14A08194F3388008C633A /* FPUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C14A07194F3388008C633A /* FPUtilsTests.m */; };
@@ -490,7 +490,7 @@
 		45C13B6E199CEA93002DE7D3 /* FPPickerMac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPickerMac.h; sourceTree = "<group>"; };
 		45C13B6F199CEA93002DE7D3 /* FPPicker Mac-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FPPicker Mac-Info.plist"; sourceTree = "<group>"; };
 		45C13B70199CEA93002DE7D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		45C13B72199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker Mac-Prefix.pch"; sourceTree = "<group>"; };
+		45C13B72199CEA93002DE7D3 /* FPPicker-Mac-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPPicker-Mac-Prefix.pch"; sourceTree = "<group>"; };
 		45C13B74199CEA93002DE7D3 /* FPInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPInternalHeaders.h; sourceTree = "<group>"; };
 		45C14A04194F19AE008C633A /* NSDictionary+FPMerge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+FPMerge.h"; sourceTree = "<group>"; };
 		45C14A05194F19AE008C633A /* NSDictionary+FPMerge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+FPMerge.m"; sourceTree = "<group>"; };
@@ -813,7 +813,7 @@
 			children = (
 				45C13B6F199CEA93002DE7D3 /* FPPicker Mac-Info.plist */,
 				45C13B71199CEA93002DE7D3 /* InfoPlist.strings */,
-				45C13B72199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch */,
+				45C13B72199CEA93002DE7D3 /* FPPicker-Mac-Prefix.pch */,
 				45066AA519A203190069B062 /* FPPickerController.xib */,
 				45E10AEE19EE754D00D34BC0 /* FPSaveController.xib */,
 				4578B08419E824BD00B188F3 /* FPFileTransferController.xib */,
@@ -1162,7 +1162,7 @@
 				45E1A41619A5FC8000287419 /* FPView.h in Headers */,
 				45C7179619D4182400727129 /* FPBaseSourceController.h in Headers */,
 				4579CF66199CEB0100E0BCB4 /* FPMultipartUploader.h in Headers */,
-				45C13B97199CEA93002DE7D3 /* FPPicker Mac-Prefix.pch in Headers */,
+				45C13B97199CEA93002DE7D3 /* FPPicker-Mac-Prefix.pch in Headers */,
 				4579CF5F199CEB0100E0BCB4 /* FPAPIClient.h in Headers */,
 				4579CF70199CEB0600E0BCB4 /* FPProgressTracker.h in Headers */,
 				45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */,
@@ -1926,7 +1926,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker Mac-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker-Mac-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Resources-Mac/FPPicker Mac-Info.plist";
@@ -2009,7 +2009,7 @@
 				FRAMEWORK_VERSION = A;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker Mac-Prefix.pch";
+				GCC_PREFIX_HEADER = "Resources-Mac/FPPicker-Mac-Prefix.pch";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Resources-Mac/FPPicker Mac-Info.plist";
