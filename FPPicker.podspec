@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '3.2.2'
+  s.version      = '4.0'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
@@ -11,26 +11,32 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/Ink/ios-picker/'
   s.screenshots  = 'https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker_ios.png'
   s.license      = { :type => 'MIT', :file => 'LICENSE.md' }
-
   s.author       = { 'Filepicker.io' => 'contact@filepicker.io' }
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
-    :tag => 'v3.2.2'
+    :tag => 'v4.0'
   }
 
-  s.platforms    = { :ios => '6.0' }
+  s.ios.deployment_target = '8.0'
+  s.osx.deployment_target = '10.9'
 
-  s.prefix_header_file  = 'FPPicker/FPPicker-Prefix.pch'
+  s.ios.prefix_header_file  = 'Resources-iOS/FPPicker-Prefix.pch'
+  s.osx.prefix_header_file  = 'Resources-Mac/FPPicker-Mac-Prefix.pch'
 
-  s.public_header_files = 'FPPicker/FPConfig.h', 'FPPicker/FPConstants.h', 'FPPicker/FPPicker.h', 'FPPicker/FPPickerController.h', 'FPPicker/FPSaveController.h', 'FPPicker/FPExternalHeaders.h'
-  s.source_files = 'FPPicker/*.{h,m}'
+  s.ios.public_header_files = 'FPPicker/Platforms/iOS/FPPicker.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/iOS/FPPickerController.h', 'FPPicker/Platforms/iOS/', 'FPSaveController.h'
+  s.osx.public_header_files = 'FPPicker/Platforms/Mac/FPPickerMac.h', 'FPPicker/Shared/FPExternalHeaders.h', 'FPPicker/Shared/FPConfig.h', 'FPPicker/Shared/FPConstants.h', 'FPPicker/Shared/FPMediaInfo.h', 'FPPicker/Platforms/Mac/FPPickerController.h', 'FPPicker/Platforms/Mac/', 'FPSaveController.h'
 
-  s.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'Foundation', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
+  s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
+  s.osx.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/Mac/*.{h,m}'
+
+  s.ios.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
+  s.osx.frameworks   = 'WebKit', 'Quartz'
 
   s.dependency 'AFNetworking', '~> 2.4.1'
 
   s.requires_arc = true
 
-  s.resource_bundle = { 'FPPicker' => 'FPPicker Resources/Assets/*.*' }
+  s.ios.resource_bundle = { 'FPPicker' => 'Resources-Shared/*.*' }
+  s.osx.resource_bundle = { 'FPPicker' => 'Resources-Shared/*.*', 'FPPickerMac' => 'Resources-Mac/*.*' }
 end
