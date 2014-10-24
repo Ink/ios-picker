@@ -16,6 +16,15 @@
 		45718BCA199CFEC100C27324 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45718BC8199CFEC100C27324 /* MainMenu.xib */; };
 		45718BCC199CFEC100C27324 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45718BCB199CFEC100C27324 /* Images.xcassets */; };
 		45718C00199CFF1600C27324 /* FPPickerMac.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 45718BF3199CFEDD00C27324 /* FPPickerMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		45CFCEB519FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEB019FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m */; };
+		45CFCEB619FA4C8D009381C5 /* ImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEB219FA4C8D009381C5 /* ImageBrowserCell.m */; };
+		45CFCEB719FA4C8D009381C5 /* ImageBrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEB419FA4C8D009381C5 /* ImageBrowserView.m */; };
+		45CFCEC019FA4E2C009381C5 /* glossy.png in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBD19FA4E2C009381C5 /* glossy.png */; };
+		45CFCEC119FA4E2C009381C5 /* metal_background.tif in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBE19FA4E2C009381C5 /* metal_background.tif */; };
+		45CFCEC219FA4E2C009381C5 /* pin.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 45CFCEBF19FA4E2C009381C5 /* pin.tiff */; };
+		45CFCEC519FA4F29009381C5 /* ImageBrowserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */; };
+		45CFCEC919FA5523009381C5 /* ImageBrowserItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CFCEC819FA5523009381C5 /* ImageBrowserItem.m */; };
+		45CFCECB19FA57B2009381C5 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45CFCECA19FA57B2009381C5 /* Quartz.framework */; };
 		45D0397A19A21DB800983134 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397919A21DB800983134 /* ViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -95,6 +104,20 @@
 		45718BCB199CFEC100C27324 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		45718BD2199CFEC200C27324 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		45718BE7199CFEDC00C27324 /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
+		45CFCEAF19FA4C8D009381C5 /* ImageBrowserBackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserBackgroundLayer.h; sourceTree = "<group>"; };
+		45CFCEB019FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserBackgroundLayer.m; sourceTree = "<group>"; };
+		45CFCEB119FA4C8D009381C5 /* ImageBrowserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserCell.h; sourceTree = "<group>"; };
+		45CFCEB219FA4C8D009381C5 /* ImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserCell.m; sourceTree = "<group>"; };
+		45CFCEB319FA4C8D009381C5 /* ImageBrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserView.h; sourceTree = "<group>"; };
+		45CFCEB419FA4C8D009381C5 /* ImageBrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserView.m; sourceTree = "<group>"; };
+		45CFCEBD19FA4E2C009381C5 /* glossy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = glossy.png; path = Resources/glossy.png; sourceTree = "<group>"; };
+		45CFCEBE19FA4E2C009381C5 /* metal_background.tif */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = metal_background.tif; path = Resources/metal_background.tif; sourceTree = "<group>"; };
+		45CFCEBF19FA4E2C009381C5 /* pin.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; name = pin.tiff; path = Resources/pin.tiff; sourceTree = "<group>"; };
+		45CFCEC319FA4F29009381C5 /* ImageBrowserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserController.h; sourceTree = "<group>"; };
+		45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserController.m; sourceTree = "<group>"; };
+		45CFCEC719FA5523009381C5 /* ImageBrowserItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageBrowserItem.h; sourceTree = "<group>"; };
+		45CFCEC819FA5523009381C5 /* ImageBrowserItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageBrowserItem.m; sourceTree = "<group>"; };
+		45CFCECA19FA57B2009381C5 /* Quartz.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Quartz.framework; path = System/Library/Frameworks/Quartz.framework; sourceTree = SDKROOT; };
 		45D0397819A21DB800983134 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		45D0397919A21DB800983134 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +127,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45CFCECB19FA57B2009381C5 /* Quartz.framework in Frameworks */,
 				4546C16E19EC4E6B00477C9B /* FPPickerMac.framework in Frameworks */,
 				45718BB4199CFEC100C27324 /* Cocoa.framework in Frameworks */,
 			);
@@ -133,6 +157,7 @@
 		45718BB2199CFEC100C27324 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				45CFCECA19FA57B2009381C5 /* Quartz.framework */,
 				45718BB3199CFEC100C27324 /* Cocoa.framework */,
 				45718BD2199CFEC200C27324 /* XCTest.framework */,
 				45718BB5199CFEC100C27324 /* Other Frameworks */,
@@ -153,12 +178,22 @@
 		45718BB9199CFEC100C27324 /* FPPicker Mac Demo */ = {
 			isa = PBXGroup;
 			children = (
+				45CFCEC619FA54E7009381C5 /* Models */,
+				45CFCEAF19FA4C8D009381C5 /* ImageBrowserBackgroundLayer.h */,
+				45CFCEB019FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m */,
+				45CFCEC319FA4F29009381C5 /* ImageBrowserController.h */,
+				45CFCEC419FA4F29009381C5 /* ImageBrowserController.m */,
+				45CFCEB119FA4C8D009381C5 /* ImageBrowserCell.h */,
+				45CFCEB219FA4C8D009381C5 /* ImageBrowserCell.m */,
+				45CFCEB319FA4C8D009381C5 /* ImageBrowserView.h */,
+				45CFCEB419FA4C8D009381C5 /* ImageBrowserView.m */,
 				45718BC5199CFEC100C27324 /* AppDelegate.h */,
 				45718BC6199CFEC100C27324 /* AppDelegate.m */,
 				45D0397819A21DB800983134 /* ViewController.h */,
 				45D0397919A21DB800983134 /* ViewController.m */,
 				45718BC8199CFEC100C27324 /* MainMenu.xib */,
 				45718BCB199CFEC100C27324 /* Images.xcassets */,
+				45CFCEBC19FA4E25009381C5 /* Resources */,
 				45718BBA199CFEC100C27324 /* Supporting Files */,
 			);
 			path = "FPPicker Mac Demo";
@@ -186,6 +221,25 @@
 				45718BF7199CFEDD00C27324 /* FPPicker Functional Tests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		45CFCEBC19FA4E25009381C5 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				45CFCEBD19FA4E2C009381C5 /* glossy.png */,
+				45CFCEBE19FA4E2C009381C5 /* metal_background.tif */,
+				45CFCEBF19FA4E2C009381C5 /* pin.tiff */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		45CFCEC619FA54E7009381C5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				45CFCEC719FA5523009381C5 /* ImageBrowserItem.h */,
+				45CFCEC819FA5523009381C5 /* ImageBrowserItem.m */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -287,9 +341,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				45718BBE199CFEC100C27324 /* InfoPlist.strings in Resources */,
+				45CFCEC219FA4E2C009381C5 /* pin.tiff in Resources */,
 				45718BCC199CFEC100C27324 /* Images.xcassets in Resources */,
+				45CFCEC019FA4E2C009381C5 /* glossy.png in Resources */,
 				45718BC4199CFEC100C27324 /* Credits.rtf in Resources */,
 				45718BCA199CFEC100C27324 /* MainMenu.xib in Resources */,
+				45CFCEC119FA4E2C009381C5 /* metal_background.tif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,8 +357,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45CFCEB519FA4C8D009381C5 /* ImageBrowserBackgroundLayer.m in Sources */,
+				45CFCEB719FA4C8D009381C5 /* ImageBrowserView.m in Sources */,
+				45CFCEC519FA4F29009381C5 /* ImageBrowserController.m in Sources */,
 				45D0397A19A21DB800983134 /* ViewController.m in Sources */,
 				45718BC7199CFEC100C27324 /* AppDelegate.m in Sources */,
+				45CFCEC919FA5523009381C5 /* ImageBrowserItem.m in Sources */,
+				45CFCEB619FA4C8D009381C5 /* ImageBrowserCell.m in Sources */,
 				45718BC0199CFEC100C27324 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

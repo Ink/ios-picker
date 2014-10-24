@@ -7,9 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <Quartz/Quartz.h>
 
 @interface ViewController : NSViewController
 
-@property (nonatomic, retain) IBOutlet NSImageView *imageView;
+@property (nonatomic, weak) IBOutlet IKImageBrowserView *imageBrowser;
 
 @end
