@@ -16,6 +16,7 @@
 @property (nonatomic, strong) FPSaveController *fpSave;
 @property (nonatomic, strong) UIPopoverController *myPopoverController;
 @property (nonatomic, strong) NSMutableArray *displayedImages;
+
 @end
 
 @implementation ViewController
