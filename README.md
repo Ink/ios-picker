@@ -14,7 +14,7 @@ The easiest way to import content into your application.
 
 ## Installation
 
-  Filepicker can be easily integrated into your iOS app by using [CocoaPods](http://cocoapods.org/).
+  Filepicker can be easily integrated into your iOS or Mac OS X app by using [CocoaPods](http://cocoapods.org/).
 
   To learn more, please check our [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation).
 
