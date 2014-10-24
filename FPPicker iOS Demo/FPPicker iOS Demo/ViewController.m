@@ -294,8 +294,8 @@
 
 #pragma mark - FPSaveControllerDelegate Methods
 
-- (void)         FPSaveController:(FPSaveController *)saveController
-    didFinishPickingMediaWithInfo:(FPMediaInfo *)info
+- (void)        FPSaveController:(FPSaveController *)saveController
+    didFinishSavingMediaWithInfo:(FPMediaInfo *)info
 {
     NSLog(@"FP finished saving with info %@", info);
 
