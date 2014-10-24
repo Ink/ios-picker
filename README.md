@@ -3,7 +3,7 @@
 The easiest way to import content into your application.
 [http://filepicker.io](http://filepicker.io)
 
-<img src="https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker_ios.png" class="center">
+<img src="https://github.com/Ink/ios-picker/raw/combined-library/Docs/filepicker.png" class="center">
 
 ## Requirements
 
@@ -28,4 +28,4 @@ The easiest way to import content into your application.
 
 ## License
 
-See [LICENSE.md](https://github.com/Ink/ios-picker/blob/develop/LICENSE.md)
+See [LICENSE.md](https://github.com/Ink/ios-picker/blob/combined-library/LICENSE.md)
