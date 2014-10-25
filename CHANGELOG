@@ -1,6 +1,6 @@
 v 4.0.0 - Major Release - ??/??/2014
-- Library now targets iOS 8 and/or OS X 10.9 and requires Xcode 6 or later.
-- CocoaPods is now the recommended method for integrating our library into other apps.
+- Library now targets iOS 8 and OS X 10.9 and requires Xcode 6 or later.
+- CocoaPods is now the recommended method for integrating our library into your app.
 - Introducing support for OS X — check our wiki for more information (https://github.com/Ink/ios-picker/wiki)
 - Updating FPPickerController and FPSaveController delegates (check FPExternalHeaders.h to learn about the new protocols.)
 
