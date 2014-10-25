@@ -1,24 +1,22 @@
-# Ink Filepicker iOS Library
-
+# Ink Filepicker iOS / OS X Library
 
 The easiest way to import content into your application.
 [http://filepicker.io](http://filepicker.io)
 
-<img src="https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker_ios.png" class="center">
+<img src="https://github.com/Ink/ios-picker/raw/combined-library/Docs/filepicker.png" class="center">
 
 ## Requirements
 
-  - iOS 6.0 or later
-  - Xcode 5
-  - [CocoaPods](http://cocoapods.org) (optional)
+  - iOS 8.0 or later
+  - OS X 10.9 or later
+  - Xcode 6
+  - [CocoaPods](http://cocoapods.org)
 
-  - Other Linked Libraries (you don't need to download these. Already installed.)
-    - [AFNetworking 2.x](https://github.com/AFNetworking/AFNetworking/)
-    - [MBProgressHUD](https://github.com/jdg/MBProgressHUD)
+##### NOTE: If you want to continue developing for iOS 6 and 7, please use the 3.x branch.
 
 ## Installation
 
-  Filepicker can be integrated into your iOS app by using [CocoaPods](http://cocoapods.org/) or, alternatively, including our prebuilt `FPPicker.framework` + `FPPicker.bundle`.
+  Filepicker can be easily integrated into your iOS or OS X app by using [CocoaPods](http://cocoapods.org/).
 
   To learn more, please check our [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation).
 
@@ -32,4 +30,4 @@ The easiest way to import content into your application.
 
 ## License
 
-See [LICENSE.md](https://github.com/Ink/ios-picker/blob/develop/LICENSE.md)
+See [LICENSE.md](https://github.com/Ink/ios-picker/blob/combined-library/LICENSE.md)
