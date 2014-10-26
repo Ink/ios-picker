@@ -3,7 +3,7 @@
 The easiest way to import content into your application.
 [http://filepicker.io](http://filepicker.io)
 
-<img src="https://github.com/Ink/ios-picker/raw/combined-library/Docs/filepicker.png" class="center">
+<img src="https://github.com/Ink/ios-picker/raw/develop/Docs/filepicker.png" class="center">
 
 ## Requirements
 
@@ -22,12 +22,11 @@ The easiest way to import content into your application.
 
 ## Wiki Pages
 
-  1. [Installation Instructions](https://github.com/Ink/ios-picker/wiki/1.-Installation)
-  2. [Usage Instructions](https://github.com/Ink/ios-picker/wiki/2.-Usage-instructions)
-  3. [Demo](https://github.com/Ink/ios-picker/wiki/3.-Demo)
-  4. [Advanced Configuration](https://github.com/Ink/ios-picker/wiki/4.-Advanced-Configuration)
-  5. [Common Tips](https://github.com/Ink/ios-picker/wiki/5.-Common-Tips)
+  1. [Installation](https://github.com/Ink/ios-picker/wiki/1.-Installation)
+  2. [Usage](https://github.com/Ink/ios-picker/wiki/2.-Usage)
+  3. [Demo Projects](https://github.com/Ink/ios-picker/wiki/3.-Demo-Projects)
+  4. [Common Tips](https://github.com/Ink/ios-picker/wiki/5.-Common-Tips)
 
 ## License
 
-See [LICENSE.md](https://github.com/Ink/ios-picker/blob/combined-library/LICENSE.md)
+See [LICENSE.md](https://github.com/Ink/ios-picker/blob/develop/LICENSE.md)
