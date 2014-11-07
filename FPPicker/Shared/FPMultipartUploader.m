@@ -94,10 +94,14 @@
         @"js_session":self.js_sessionString
     };
 
-    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
+    AFHTTPRequestOperation *startOperation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
                           parameters:params
                              success:successOperationBlock
                              failure:failureOperationBlock];
+
+    [startOperation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
+    
+    
 }
 
 - (void)setup
@@ -232,6 +236,7 @@
                                                constructingBodyWithBlock:constructingBodyBlock
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
+    [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
 
     [operation setUploadProgressBlock: ^(NSUInteger bytesWritten,
                                          long long totalBytesWritten,
@@ -286,10 +291,12 @@
         @"js_session":self.js_sessionString
     };
 
-    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
+    AFHTTPRequestOperation *endOperation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
                           parameters:params
                              success:successOperationBlock
                              failure:failureOperationBlock];
+    
+    [endOperation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
 }
 
 - (void)finishWithError:(NSError *)error

@@ -185,10 +185,16 @@
         failure(error, nil);
     };
 
-    [[FPAPIClient sharedClient] POST:savePath
-                          parameters:params
-                             success:successOperationBlock
-                             failure:failureOperationBlock];
+    
+
+    AFHTTPRequestOperation *operation =  [[FPAPIClient sharedClient] POST:savePath
+                                                               parameters:params
+                                                                  success:successOperationBlock
+                                                                  failure:failureOperationBlock];
+    
+    
+    [operation setShouldExecuteAsBackgroundTaskWithExpirationHandler:nil];
+    
 }
 
 + (void)uploadLocalURLToFilepicker:(NSURL *)localURL
