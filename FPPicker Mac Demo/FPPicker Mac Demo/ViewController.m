@@ -154,7 +154,8 @@
         FPSourceGoogleDrive,
         FPSourceSkydrive,
         FPSourceGmail,
-        FPSourceImagesearch
+        FPSourceImagesearch,
+        FPSourceCloudDrive
                                         ];
 
     self.pickerController.dataTypes = @[
@@ -170,7 +171,8 @@
         FPSourceDropbox,
         FPSourceBox,
         FPSourceGoogleDrive,
-        FPSourceSkydrive
+        FPSourceSkydrive,
+        FPSourceCloudDrive
                                       ];
 
     NSUInteger selectedIndex = self.imageBrowser.selectionIndexes.firstIndex;
