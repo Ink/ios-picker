@@ -24,3 +24,4 @@ NSString *const FPSourceFlickr = @"flickr";
 NSString *const FPSourcePicasa = @"picasa";
 NSString *const FPSourceSkydrive = @"skydrive";
 NSString *const FPSourceEvernote = @"evernote";
+NSString *const FPSourceCloudDrive = @"clouddrive";

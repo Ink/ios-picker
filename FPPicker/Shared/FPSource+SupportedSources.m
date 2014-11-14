@@ -280,6 +280,23 @@
         [sources addObject:source];
     }
 
+    // Amazon Cloud Drive
+    {
+        source = [FPSource new];
+        
+        source.identifier = FPSourceCloudDrive;
+        source.name = @"Amazon Cloud Drive";
+        source.icon = @"glyphicons_sb3_skydrive";
+        source.rootPath = @"/Clouddrive";
+        source.openMimetypes = @[@"*/*"];
+        source.saveMimetypes = @[@"*/*"];
+        source.overwritePossible = YES;
+        source.externalDomains = @[@"https://www.amazon.com/clouddrive"];
+        source.requiresAuth = YES;
+        
+        [sources addObject:source];
+    }
+
     // Web image search
     {
         source = [FPSource new];

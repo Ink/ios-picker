@@ -24,3 +24,4 @@ FOUNDATION_EXPORT NSString * const FPSourceFlickr;
 FOUNDATION_EXPORT NSString * const FPSourcePicasa;
 FOUNDATION_EXPORT NSString * const FPSourceSkydrive;
 FOUNDATION_EXPORT NSString * const FPSourceEvernote;
+FOUNDATION_EXPORT NSString * const FPSourceCloudDrive;

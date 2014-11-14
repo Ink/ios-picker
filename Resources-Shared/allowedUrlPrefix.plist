@@ -75,5 +75,7 @@
 	<string>https://www.flickr.com/ms/signin/yahoo/</string>
 	<string>https://s-static.ak.facebook.com/connect/xd_arbiter/</string>
 	<string>https://www.facebook.com/connect/ping</string>
+	<string>https://www.amazon.com/ap/oa</string>
+	<string>https://www.amazon.com/ap/signin</string>
 </array>
 </plist>
