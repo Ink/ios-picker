@@ -1,3 +1,6 @@
+v 4.0.1
+- Added support for Amazon Cloud Drive
+
 v 4.0.0 - Major Release - ??/??/2014
 - Library now targets iOS 8 and OS X 10.9 and requires Xcode 6 or later.
 - CocoaPods is now the recommended method for integrating our library into your app.
