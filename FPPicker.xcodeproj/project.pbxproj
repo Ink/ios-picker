@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D6D00E81A16567D0042025E /* CloudDrive.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D6D00E41A1655250042025E /* CloudDrive.png */; };
+		2D6D00E91A16567D0042025E /* CloudDrive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D6D00E51A1655250042025E /* CloudDrive@2x.png */; };
+		2D6D00EA1A1656B40042025E /* CloudDrive.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D6D00E41A1655250042025E /* CloudDrive.png */; };
+		2D6D00EB1A1656B40042025E /* CloudDrive@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D6D00E51A1655250042025E /* CloudDrive@2x.png */; };
 		4504082519F12B0400DB26AF /* FPTableCellView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4504082319F12B0400DB26AF /* FPTableCellView.h */; };
 		4504082619F12B0400DB26AF /* FPTableCellView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4504082419F12B0400DB26AF /* FPTableCellView.m */; };
 		4504082919F1326700DB26AF /* FPRepresentedSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4504082719F1326700DB26AF /* FPRepresentedSource.h */; };
@@ -344,6 +348,8 @@
 		02C136A91856794000D6940E /* FPProgressTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPProgressTracker.m; sourceTree = "<group>"; };
 		1C52EAE1ADDE4DC994F5D596 /* libPods-FPPicker Integration Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FPPicker Integration Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DD629DAC49B68C7A544DC77 /* Pods-FPPicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FPPicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-FPPicker/Pods-FPPicker.release.xcconfig"; sourceTree = "<group>"; };
+		2D6D00E41A1655250042025E /* CloudDrive.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CloudDrive.png; sourceTree = "<group>"; };
+		2D6D00E51A1655250042025E /* CloudDrive@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CloudDrive@2x.png"; sourceTree = "<group>"; };
 		4504082319F12B0400DB26AF /* FPTableCellView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTableCellView.h; sourceTree = "<group>"; };
 		4504082419F12B0400DB26AF /* FPTableCellView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTableCellView.m; sourceTree = "<group>"; };
 		4504082719F1326700DB26AF /* FPRepresentedSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPRepresentedSource.h; sourceTree = "<group>"; };
@@ -750,6 +756,8 @@
 		45C13AB1199CDF74002DE7D3 /* Resources Bundle */ = {
 			isa = PBXGroup;
 			children = (
+				2D6D00E41A1655250042025E /* CloudDrive.png */,
+				2D6D00E51A1655250042025E /* CloudDrive@2x.png */,
 				45C13AB2199CDF74002DE7D3 /* allowedUrlPrefix.plist */,
 				45C13AB4199CDF74002DE7D3 /* disallowedUrlPrefix.plist */,
 				45C13AB5199CDF74002DE7D3 /* FilepickerSettings.plist */,
@@ -1342,6 +1350,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6D00EA1A1656B40042025E /* CloudDrive.png in Resources */,
+				2D6D00EB1A1656B40042025E /* CloudDrive@2x.png in Resources */,
 				4546C12819EC4BCC00477C9B /* glyphicons_sb1_gmail@2x.png in Resources */,
 				4546C12919EC4BCC00477C9B /* glyphicons_366_picasa.png in Resources */,
 				4546C12A19EC4BCC00477C9B /* FilepickerSettings.plist in Resources */,
@@ -1429,6 +1439,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D6D00E81A16567D0042025E /* CloudDrive.png in Resources */,
+				2D6D00E91A16567D0042025E /* CloudDrive@2x.png in Resources */,
 				45C13B0A199CDF74002DE7D3 /* glyphicons_sb1_gmail@2x.png in Resources */,
 				45C13AFD199CDF74002DE7D3 /* glyphicons_366_picasa.png in Resources */,
 				45C13AEA199CDF74002DE7D3 /* FilepickerSettings.plist in Resources */,
@@ -1880,7 +1892,7 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				COPY_PHASE_STRIP = YES;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;

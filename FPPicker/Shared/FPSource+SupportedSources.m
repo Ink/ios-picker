@@ -286,7 +286,7 @@
         
         source.identifier = FPSourceCloudDrive;
         source.name = @"Amazon Cloud Drive";
-        source.icon = @"glyphicons_sb3_skydrive";
+        source.icon = @"CloudDrive";
         source.rootPath = @"/Clouddrive";
         source.openMimetypes = @[@"*/*"];
         source.saveMimetypes = @[@"*/*"];
