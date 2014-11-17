@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+
 #import "FPLibrary.h"
 
 @class ALAsset;
@@ -39,4 +40,11 @@
             failure:(FPUploadAssetFailureWithLocalURLBlock)failure
            progress:(FPUploadAssetProgressBlock)progress;
 
+
++(void)uploadLocalFileData:(NSData*)fileData
+                   uttType:(CFStringRef)kUTType
+               withOptions:(NSDictionary*)options
+                   success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                   failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+                  progress:(FPUploadAssetProgressBlock)progress;
 @end

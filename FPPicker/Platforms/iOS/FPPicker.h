@@ -22,3 +22,8 @@ FOUNDATION_EXPORT const unsigned char FPPickerVersionString[];
 #import "FPPickerController.h"
 #import "FPSaveController.h"
 #import "FPMediaInfo.h"
+#import "FPTypedefs.h"
+#import "FPLibrary.h"
+#import "FPLibrary+iOS.h"
+
+

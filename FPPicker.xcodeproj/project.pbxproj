@@ -64,7 +64,7 @@
 		453144B519EC3F99003230F5 /* FPUploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B71DE019768B68006B5DAF /* FPUploader.m */; };
 		453144B619EC3F99003230F5 /* FPUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 453096E4194738A6001D970C /* FPUtils.h */; };
 		453144B719EC3F99003230F5 /* FPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 453096E5194738A6001D970C /* FPUtils.m */; };
-		453144B819EC3F99003230F5 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD2718199CCB9A0048B483 /* FPTypedefs.h */; };
+		453144B819EC3F99003230F5 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD2718199CCB9A0048B483 /* FPTypedefs.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453144B919EC3FA4003230F5 /* FPUtils+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FCE703199B665800D86B40 /* FPUtils+iOS.h */; };
 		453144BA19EC3FA4003230F5 /* FPUtils+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCE704199B665800D86B40 /* FPUtils+iOS.m */; };
 		453144BB19EC3FA4003230F5 /* UIApplication+FPAppDimensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */; };
@@ -159,11 +159,11 @@
 		456263D619EFE72700A34C29 /* FPFileDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263D419EFE72700A34C29 /* FPFileDownloadController.m */; };
 		456263D919EFEFBE00A34C29 /* FPFileUploadController.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263D719EFEFBE00A34C29 /* FPFileUploadController.h */; };
 		456263DA19EFEFBE00A34C29 /* FPFileUploadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263D819EFEFBE00A34C29 /* FPFileUploadController.m */; };
-		456263DD19EFF6F700A34C29 /* FPLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263DB19EFF6F700A34C29 /* FPLibrary.h */; };
+		456263DD19EFF6F700A34C29 /* FPLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263DB19EFF6F700A34C29 /* FPLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		456263DE19EFF6F700A34C29 /* FPLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263DB19EFF6F700A34C29 /* FPLibrary.h */; };
 		456263DF19EFF6F700A34C29 /* FPLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263DC19EFF6F700A34C29 /* FPLibrary.m */; };
 		456263E019EFF6F700A34C29 /* FPLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263DC19EFF6F700A34C29 /* FPLibrary.m */; };
-		456263E719EFFC5200A34C29 /* FPLibrary+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263E519EFFC5200A34C29 /* FPLibrary+iOS.h */; };
+		456263E719EFFC5200A34C29 /* FPLibrary+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263E519EFFC5200A34C29 /* FPLibrary+iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		456263E819EFFC5200A34C29 /* FPLibrary+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263E619EFFC5200A34C29 /* FPLibrary+iOS.m */; };
 		456263EC19F0234800A34C29 /* FPUtils+Mac.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263EA19F0234800A34C29 /* FPUtils+Mac.h */; };
 		456263ED19F0234800A34C29 /* FPUtils+Mac.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263EB19F0234800A34C29 /* FPUtils+Mac.m */; };
@@ -1107,10 +1107,10 @@
 				453144B119EC3F95003230F5 /* FPSharedInternalHeaders.h in Headers */,
 				453144BB19EC3FA4003230F5 /* UIApplication+FPAppDimensions.h in Headers */,
 				4531449319EC3ED0003230F5 /* FPPicker.h in Headers */,
+				456263DD19EFF6F700A34C29 /* FPLibrary.h in Headers */,
 				4531449D19EC3F46003230F5 /* NSData+FPHexString.h in Headers */,
 				4531449E19EC3F46003230F5 /* FPSession+ConvenienceMethods.h in Headers */,
 				453144C219EC3FB8003230F5 /* FPImagePickerController.h in Headers */,
-				456263DD19EFF6F700A34C29 /* FPLibrary.h in Headers */,
 				453144D519EC3FCF003230F5 /* FPInternalHeaders.h in Headers */,
 				453144BD19EC3FA8003230F5 /* FPThumbCell.h in Headers */,
 				453144B019EC3F92003230F5 /* FPPrivateConfig.h in Headers */,

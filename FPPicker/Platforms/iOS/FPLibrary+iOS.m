@@ -9,6 +9,7 @@
 #import "FPLibrary+iOS.h"
 #import "FPInternalHeaders.h"
 #import <AssetsLibrary/AssetsLibrary.h>
+#import <MobileCoreServices/MobileCoreServices.h>
 
 @interface FPLibrary ()
 
@@ -149,6 +150,42 @@
                                         named:filename
                                    ofMimetype:mimetype
                                  shouldUpload:shouldUpload
+                                      success:successBlock
+                                      failure:failureBlock
+                                     progress:progress];
+    });
+}
+
++(void)uploadLocalFileData:(NSData*)fileData
+               uttType:(CFStringRef)kUTType
+         withOptions:(NSDictionary*)options
+             success:(FPUploadAssetSuccessWithLocalURLBlock)success
+             failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+            progress:(FPUploadAssetProgressBlock)progress
+{
+    dispatch_sync([self upload_processing_queue], ^{
+        NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
+        NSString *fileName = [FPUtils genRandStringLength:20];
+
+        NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(kUTType,
+                                                                                           kUTTagClassMIMEType);
+        [fileData writeToURL:tempURL
+              atomically:YES];
+        
+        FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+            success(JSON, tempURL);
+        };
+        
+        FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+            DLog(@"File upload failed with %@, response was: %@", error, JSON);
+            
+            failure(error, JSON, tempURL);
+        };
+
+        [FPLibrary uploadLocalURLToFilepicker:tempURL
+                                        named:fileName
+                                   ofMimetype:mimetype
+                                 shouldUpload:YES
                                       success:successBlock
                                       failure:failureBlock
                                      progress:progress];
