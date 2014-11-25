@@ -358,12 +358,19 @@
     NSMutableArray *localSources = [NSMutableArray array];
     NSMutableArray *remoteSources = [NSMutableArray array];
 
-    NSArray *allSources = [FPSource allMobileSources];
+    NSArray *activeSources = [FPSource allMobileSources];
+    
+    if (self.sourceNames)
+    {
+        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"identifier IN %@", self.sourceNames];
+        
+        activeSources = [activeSources filteredArrayUsingPredicate:filterPredicate];
+    }
 
-    for (FPSource *source in allSources)
+    for (FPSource *source in activeSources)
     {
         NSArray *sourceMimetypes;
-
+        
         if ([self.fpdelegate isKindOfClass:[FPSaveController class]])
         {
             sourceMimetypes = source.saveMimetypes;
@@ -388,19 +395,6 @@
                 [remoteSources addObject:source];
             }
         }
-    }
-
-    if (!self.sourceNames)
-    {
-        NSMutableArray *mSourceNames = [NSMutableArray arrayWithCapacity:allSources.count];
-
-        [allSources enumerateObjectsUsingBlock: ^(id obj, NSUInteger idx, BOOL *stop) {
-            FPSource *source = obj;
-
-            [mSourceNames addObject:source.identifier];
-        }];
-
-        self.sourceNames = [mSourceNames copy];
     }
 
     if (!self.dataTypes)
@@ -433,7 +427,7 @@
 
     self.sources = [mSources copy];
 
-    if (localSources.count + localSources.count == 0)
+    if (localSources.count + remoteSources.count == 0)
     {
         //No services
 
