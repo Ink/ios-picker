@@ -1,3 +1,7 @@
+v 4.0.2
+- Fixed filtering sources on iOS 
+- Data type "video/*" is now sufficient to capture videos using FilePicker ( earlier version require data type: "video/quicktime" )
+
 v 4.0.1
 - Added support for Amazon Cloud Drive
 
