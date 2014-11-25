@@ -175,7 +175,9 @@
                 {
                     NSLog(@"CAN DO VIDEO");
 
-                    if ([self.dataTypes containsObject:(NSString *)@"video/quicktime"])
+                    NSArray *videos = @[@"video/quicktime"];
+                    if ([self mimetypeCheck:videos
+                                    against:self.dataTypes])
                     {
                         NSLog(@"SHOULD DO VIDEO");
                         [wantedMediaTypes addObject:(NSString *)kUTTypeMovie];
