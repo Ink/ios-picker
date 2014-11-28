@@ -37,7 +37,7 @@ Pod::Spec.new do |s|
     FPPicker/Platforms/iOS/FPPicker.h
     FPPicker/Platforms/iOS/FPPickerController.h
     FPPicker/Platforms/iOS/FPSaveController.h
-    FPPicker/Platforms/iOS/Categories/FPLibrary+iOS.h    
+    FPPicker/Platforms/iOS/FPLibrary+iOS.h    
 
   ).concat(shared_public_header_files)
 
