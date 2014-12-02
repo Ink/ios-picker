@@ -16,6 +16,7 @@
 
 @property (nonatomic, strong) NSData *data;
 @property (nonatomic, strong) NSURL *dataurl;
+@property (nonatomic, strong) NSURL *filepickerurl;
 
 @property (nonatomic, strong) NSString *dataType;
 @property (nonatomic, strong) NSString *dataExtension;

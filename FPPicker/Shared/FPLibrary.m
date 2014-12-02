@@ -138,6 +138,21 @@
                                  progress:progress];
 }
 
++ (void)uploadFilepickerURL:(NSString* )filepickerurl
+                      named:(NSString* )filename
+                     toPath:(NSString * )path
+                    success:(FPUploadAssetSuccessBlock)success
+                    failure:(FPUploadAssetFailureBlock)failure
+{
+    [FPLibrary uploadDataHelper_saveAs:filepickerurl
+                                toPath:[NSString stringWithFormat:@"%@%@", path, filename]
+                            ofMimetype:@""
+                           withOptions:nil
+                               success:success
+                               failure:failure];
+}
+
+
 #pragma mark - Private Methods
 
 + (void)uploadDataHelper_saveAs:(NSString *)fileLocation

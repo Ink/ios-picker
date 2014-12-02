@@ -49,4 +49,10 @@
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress;
 
++ (void)uploadFilepickerURL:(NSString* )filepickerurl
+                      named:(NSString* )filename
+                     toPath:(NSString * )path
+                    success:(FPUploadAssetSuccessBlock)success
+                    failure:(FPUploadAssetFailureBlock)failure;
+
 @end

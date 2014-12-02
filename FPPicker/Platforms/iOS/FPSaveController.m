@@ -45,7 +45,8 @@
     }
 
     if (!self.data &&
-        !self.dataurl)
+        !self.dataurl &&
+        !self.filepickerurl)
     {
         NSLog(@"WARNING: No data specified. Continuing but saving blank file.");
         self.data = [@"" dataUsingEncoding : NSUTF8StringEncoding];
@@ -129,6 +130,15 @@
     FPUploadAssetProgressBlock progressBlock = ^(float progress) {
         hud.progress = progress;
     };
+    
+    if (self.filepickerurl){
+        [FPLibrary uploadFilepickerURL:[self.filepickerurl absoluteString]
+                                 named:filename
+                                toPath:path
+                               success:successBlock
+                               failure:failureBlock];
+        return;
+    }
 
     if (self.dataurl)
     {
