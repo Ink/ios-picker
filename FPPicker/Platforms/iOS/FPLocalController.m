@@ -623,6 +623,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
+        mediaInfo.filesize = data[@"size"];
 
         success(mediaInfo);
     };
@@ -665,6 +666,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"data"][0][@"url"]];
         mediaInfo.filename = data[@"filename"];
         mediaInfo.key = data[@"key"];
+        mediaInfo.filesize = data[@"size"];
 
         success(mediaInfo);
     };
