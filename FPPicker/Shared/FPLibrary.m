@@ -365,6 +365,9 @@
         mediaInfo.mediaURL = tempURL;
         mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
         mediaInfo.source = source;
+        
+        NSString *sizeString = headers[@"X-File-Size"];
+        mediaInfo.filesize = [NSNumber numberWithInteger:[sizeString integerValue]];
 
         if (headers[@"X-Data-Key"])
         {
