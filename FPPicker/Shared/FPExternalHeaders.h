@@ -19,7 +19,7 @@
 /*!
    Called after Filepicker picked a media.
  */
-- (void)FPPickerController:(FPPickerController *)pickerController didPickMediaWithInfo:(FPMediaInfo *)info;
+- (void)fpPickerController:(FPPickerController *)pickerController didPickMediaWithInfo:(FPMediaInfo *)info;
 
 #if TARGET_OS_IPHONE
 
@@ -28,7 +28,7 @@
    At this point the associated media file should be present at info.mediaURL.
    @note: iOS only.
  */
-- (void)FPPickerController:(FPPickerController *)pickerController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
+- (void)fpPickerController:(FPPickerController *)pickerController didFinishPickingMediaWithInfo:(FPMediaInfo *)info;
 
 #endif
 
@@ -36,12 +36,12 @@
    Called after Filepicker finished picking multiple media.
    At this point the associated media file for each item should be present at info.mediaURL.
  */
-- (void)FPPickerController:(FPPickerController *)pickerController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
+- (void)fpPickerController:(FPPickerController *)pickerController didFinishPickingMultipleMediaWithResults:(NSArray *)results;
 
 /*!
    Typically called when the picking process is cancelled or a file can't be handled.
  */
-- (void)FPPickerControllerDidCancel:(FPPickerController *)pickerController;
+- (void)fpPickerControllerDidCancel:(FPPickerController *)pickerController;
 
 @end
 
@@ -52,16 +52,16 @@
 /*!
    Called after Filepicker finished saving a media.
  */
-- (void)FPSaveController:(FPSaveController *)saveController didFinishSavingMediaWithInfo:(FPMediaInfo *)info;
+- (void)fpSaveController:(FPSaveController *)saveController didFinishSavingMediaWithInfo:(FPMediaInfo *)info;
 
 /*!
    Called when Filepicker failed saving a media.
  */
-- (void)FPSaveController:(FPSaveController *)saveController didError:(NSError *)error;
+- (void)fpSaveController:(FPSaveController *)saveController didError:(NSError *)error;
 
 /*!
    Typically called when the save process is cancelled or a file can't be handled.
  */
-- (void)FPSaveControllerDidCancel:(FPSaveController *)saveController;
+- (void)fpSaveControllerDidCancel:(FPSaveController *)saveController;
 
 @end

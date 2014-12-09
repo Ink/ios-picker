@@ -102,9 +102,9 @@
                                  animated:YES];
 
         if (self.fpdelegate &&
-            [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+            [self.fpdelegate respondsToSelector:@selector(fpSaveController:didFinishSavingMediaWithInfo:)])
         {
-            [self.fpdelegate FPSaveController:self
+            [self.fpdelegate fpSaveController:self
                  didFinishSavingMediaWithInfo:nil];
         }
     };
@@ -115,14 +115,14 @@
                                  animated:YES];
 
         if (self.fpdelegate &&
-            [self.fpdelegate respondsToSelector:@selector(FPSaveController:didError:)])
+            [self.fpdelegate respondsToSelector:@selector(fpSaveController:didError:)])
         {
-            [self.fpdelegate FPSaveController:self
+            [self.fpdelegate fpSaveController:self
                                      didError:error];
         }
         else
         {
-            [self.fpdelegate FPSaveControllerDidCancel:self];
+            [self.fpdelegate fpSaveControllerDidCancel:self];
         }
     };
 
@@ -169,9 +169,9 @@
     }
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+        [self.fpdelegate respondsToSelector:@selector(fpSaveController:didFinishSavingMediaWithInfo:)])
     {
-        [self.fpdelegate FPSaveController:self
+        [self.fpdelegate fpSaveController:self
              didFinishSavingMediaWithInfo:nil];
     }
 }
@@ -190,9 +190,9 @@
     // The user saved a file to the cloud or camera roll.
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+        [self.fpdelegate respondsToSelector:@selector(fpSaveController:didFinishSavingMediaWithInfo:)])
     {
-        [self.fpdelegate FPSaveController:self
+        [self.fpdelegate fpSaveController:self
              didFinishSavingMediaWithInfo:nil];
     }
 }
@@ -208,9 +208,9 @@
     //The user chose to cancel when saving to the cloud or camera roll.
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPSaveControllerDidCancel:)])
+        [self.fpdelegate respondsToSelector:@selector(fpSaveControllerDidCancel:)])
     {
-        [self.fpdelegate FPSaveControllerDidCancel:self];
+        [self.fpdelegate fpSaveControllerDidCancel:self];
     }
 }
 
@@ -218,7 +218,7 @@
 
 - (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
 {
-    [self.fpdelegate FPSaveControllerDidCancel:self];
+    [self.fpdelegate fpSaveControllerDidCancel:self];
 }
 
 #pragma mark UINavigationControllerDelegate Methods
