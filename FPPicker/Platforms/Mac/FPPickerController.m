@@ -126,9 +126,9 @@
                                      info:(id)info
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+        [self.delegate respondsToSelector:@selector(fpPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
-        [self.delegate FPPickerController:self
+        [self.delegate fpPickerController:self
          didFinishPickingMultipleMediaWithResults:info];
     }
 }
@@ -142,9 +142,9 @@
 - (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+        [self.delegate respondsToSelector:@selector(fpPickerControllerDidCancel:)])
     {
-        [self.delegate FPPickerControllerDidCancel:self];
+        [self.delegate fpPickerControllerDidCancel:self];
     }
 }
 
