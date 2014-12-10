@@ -301,4 +301,29 @@
     return error;
 }
 
++ (NSString *)getExtensionStringForMimetype:(NSString*)mimetype
+{
+
+    if (mimetype)
+    {
+        CFStringRef mimeType = (__bridge CFStringRef)mimetype;
+        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
+        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
+        CFRelease(uti);
+        
+        if (extension)
+        {
+            return [NSString stringWithFormat:@".%@", (__bridge_transfer NSString *)extension];
+        }
+        else
+        {
+            return @"";
+        }
+    }
+    else
+    {
+        return @"";
+    }
+}
+
 @end

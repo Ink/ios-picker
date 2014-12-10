@@ -251,19 +251,7 @@
     }
     else if (self.dataType)
     {
-        CFStringRef mimeType = (__bridge CFStringRef)self.dataType;
-        CFStringRef uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, mimeType, NULL);
-        CFStringRef extension = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassFilenameExtension);
-        CFRelease(uti);
-
-        if (extension)
-        {
-            return [NSString stringWithFormat:@".%@", (__bridge_transfer NSString *)extension];
-        }
-        else
-        {
-            return @"";
-        }
+        return [FPUtils getExtensionStringForMimetype:self.dataType];
     }
     else
     {

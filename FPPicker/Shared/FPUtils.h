@@ -134,4 +134,6 @@
 + (NSError *) errorWithCode:(NSInteger)code
     andLocalizedDescription:(NSString *)localizedDescription;
 
+
++ (NSString *)getExtensionStringForMimetype:(NSString*)mimetype;
 @end

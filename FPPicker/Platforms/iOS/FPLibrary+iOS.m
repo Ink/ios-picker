@@ -157,18 +157,26 @@
 }
 
 +(void)uploadLocalFileData:(NSData*)fileData
-               uttType:(CFStringRef)kUTType
-         withOptions:(NSDictionary*)options
-             success:(FPUploadAssetSuccessWithLocalURLBlock)success
-             failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-            progress:(FPUploadAssetProgressBlock)progress
+                  mimetype:(NSString*)mimetype
+                  filename:(NSString*)filename
+               withOptions:(NSDictionary*)options
+                   success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                   failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+                  progress:(FPUploadAssetProgressBlock)progress
 {
+    __block NSString *blockFilename = filename;
+    
     dispatch_sync([self upload_processing_queue], ^{
-        NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
-        NSString *fileName = [FPUtils genRandStringLength:20];
+        
+        if( blockFilename == nil )
+        {
+            NSString *name = [FPUtils genRandStringLength:20];
+            NSString *extesnion = [FPUtils getExtensionStringForMimetype:mimetype];
 
-        NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(kUTType,
-                                                                                           kUTTagClassMIMEType);
+            blockFilename = [NSString stringWithFormat:@"%@.%@", name, extesnion];
+        }
+        
+        NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
         [fileData writeToURL:tempURL
               atomically:YES];
         
@@ -183,7 +191,7 @@
         };
 
         [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                        named:fileName
+                                        named:filename
                                    ofMimetype:mimetype
                                  shouldUpload:YES
                                       success:successBlock

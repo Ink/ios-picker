@@ -42,7 +42,8 @@
 
 
 +(void)uploadLocalFileData:(NSData*)fileData
-                   uttType:(CFStringRef)kUTType
+                  mimetype:(NSString*)mimetype
+                  filename:(NSString*)filename
                withOptions:(NSDictionary*)options
                    success:(FPUploadAssetSuccessWithLocalURLBlock)success
                    failure:(FPUploadAssetFailureWithLocalURLBlock)failure
