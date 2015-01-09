@@ -12,7 +12,7 @@ The easiest way to import content into your application.
   - Xcode 6
   - [CocoaPods](http://cocoapods.org)
 
-##### NOTE: If you want to continue developing for iOS 6 and 7, please use the 3.x branch.
+##### NOTE: If you want to continue developing for iOS 6 and 7, please use the 3.x version (tag v3.2.9).
 
 ## Installation
 
