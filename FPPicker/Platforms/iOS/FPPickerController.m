@@ -180,14 +180,14 @@
     UIGraphicsEndImageContext();
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+        [self.fpdelegate respondsToSelector:@selector(fpPickerController:didPickMediaWithInfo:)])
     {
         dispatch_async(dispatch_get_main_queue(), ^{
             FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
             mediaInfo.thumbnailImage = thumbImage;
 
-            [self.fpdelegate FPPickerController:self
+            [self.fpdelegate fpPickerController:self
                            didPickMediaWithInfo:mediaInfo];
         });
     }
@@ -224,7 +224,7 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [self.fpdelegate FPPickerController:self
+                    [self.fpdelegate fpPickerController:self
                           didFinishPickingMediaWithInfo:mediaInfo];
                 }];
             });
@@ -241,7 +241,7 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [self.fpdelegate FPPickerController:self
+                    [self.fpdelegate fpPickerController:self
                           didFinishPickingMediaWithInfo:mediaInfo];
                 }];
             });
@@ -285,7 +285,7 @@
 
                 [picker dismissViewControllerAnimated:NO
                                            completion: ^{
-                    [self.fpdelegate FPPickerControllerDidCancel:self];
+                    [self.fpdelegate fpPickerControllerDidCancel:self];
                 }];
             });
         }
@@ -311,9 +311,9 @@
     didPickMediaWithInfo:(FPMediaInfo *)info
 {
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didPickMediaWithInfo:)])
+        [self.fpdelegate respondsToSelector:@selector(fpPickerController:didPickMediaWithInfo:)])
     {
-        [self.fpdelegate FPPickerController:self
+        [self.fpdelegate fpPickerController:self
                        didPickMediaWithInfo:info];
     }
 }
@@ -324,9 +324,9 @@
     // The user chose a file from the cloud or camera roll.
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMediaWithInfo:)])
+        [self.fpdelegate respondsToSelector:@selector(fpPickerController:didFinishPickingMediaWithInfo:)])
     {
-        [self.fpdelegate FPPickerController:self
+        [self.fpdelegate fpPickerController:self
               didFinishPickingMediaWithInfo:info];
     }
 }
@@ -337,9 +337,9 @@
     // The user chose a file from the cloud or camera roll.
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPPickerController:didFinishPickingMultipleMediaWithResults:)])
+        [self.fpdelegate respondsToSelector:@selector(fpPickerController:didFinishPickingMultipleMediaWithResults:)])
     {
-        [self.fpdelegate FPPickerController:self
+        [self.fpdelegate fpPickerController:self
          didFinishPickingMultipleMediaWithResults:results];
     }
 }
@@ -349,9 +349,9 @@
     // The user chose to cancel when using the cloud or camera roll.
 
     if (self.fpdelegate &&
-        [self.fpdelegate respondsToSelector:@selector(FPPickerControllerDidCancel:)])
+        [self.fpdelegate respondsToSelector:@selector(fpPickerControllerDidCancel:)])
     {
-        [self.fpdelegate FPPickerControllerDidCancel:self];
+        [self.fpdelegate fpPickerControllerDidCancel:self];
     }
 }
 

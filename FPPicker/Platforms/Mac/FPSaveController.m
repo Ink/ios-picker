@@ -128,7 +128,7 @@
                                      info:(id)info
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPSaveController:didFinishSavingMediaWithInfo:)])
+        [self.delegate respondsToSelector:@selector(fpSaveController:didFinishSavingMediaWithInfo:)])
     {
         FPMediaInfo *mediaInfo = info;
 
@@ -161,7 +161,7 @@
             }
         }
 
-        [self.delegate FPSaveController:self
+        [self.delegate fpSaveController:self
            didFinishSavingMediaWithInfo:mediaInfo];
     }
     else
@@ -174,9 +174,9 @@
                                   error:(NSError *)error
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPSaveController:didError:)])
+        [self.delegate respondsToSelector:@selector(fpSaveController:didError:)])
     {
-        [self.delegate FPSaveController:self
+        [self.delegate fpSaveController:self
                                didError:error];
     }
     else
@@ -188,9 +188,9 @@
 - (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController
 {
     if (self.delegate &&
-        [self.delegate respondsToSelector:@selector(FPSaveControllerDidCancel:)])
+        [self.delegate respondsToSelector:@selector(fpSaveControllerDidCancel:)])
     {
-        [self.delegate FPSaveControllerDidCancel:self];
+        [self.delegate fpSaveControllerDidCancel:self];
     }
     else
     {
