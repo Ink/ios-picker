@@ -1,3 +1,6 @@
+v 4.1.1
+- All request to filepicker api has now header User-Agent 
+
 v 4.1.0
 - Fixed problem with method and class names conflict in Swift. Changed method names in protocols: FPPickerControllerDelegate and FPSaveControllerDelegate
 
