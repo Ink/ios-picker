@@ -99,6 +99,13 @@
     }
 }
 
+-(void)fileSelectedAtIndex:(NSInteger)index
+                   forView:(UIView*)view
+             withThumbnail:(UIImage *)thumbnail
+{
+    //do nothing - user can select only directory
+}
+
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -313,6 +320,19 @@
 {
     [self updateTextFieldButton];
     [super afterReload];
+}
+
+- (void)pushDirectoryControllerForPath:(NSString*)path{
+    FPSaveSourceController *subController = [FPSaveSourceController new];
+    
+    subController.path = path;
+    subController.source = self.source;
+    subController.fpdelegate = self.fpdelegate;
+    subController.selectMultiple = self.selectMultiple;
+    subController.maxFiles = self.maxFiles;
+    
+    [self.navigationController pushViewController:subController
+                                         animated:YES];
 }
 
 @end

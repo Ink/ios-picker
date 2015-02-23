@@ -9,6 +9,7 @@
 #import "FPSourceController.h"
 #import "FPThumbCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "FPSaveSourceController.h"
 
 @interface FPSourceController ()
 
@@ -1033,20 +1034,33 @@ static const CGFloat ROW_HEIGHT = 44.0;
     }
     else if (isDir)
     {
-        FPSourceController *subController = [FPSourceController new];
-
-        subController.path = obj[@"link_path"];
-        subController.source = self.source;
-        subController.fpdelegate = self.fpdelegate;
-        subController.selectMultiple = self.selectMultiple;
-        subController.maxFiles = self.maxFiles;
-
-        [self.navigationController pushViewController:subController
-                                             animated:YES];
+        [self pushDirectoryControllerForPath:obj[@"link_path"]];
 
         return;
+    }else
+    {
+        [self fileSelectedAtIndex:index forView:view withThumbnail:thumbnail];
     }
+}
 
+- (void)pushDirectoryControllerForPath:(NSString*)path{
+    FPSourceController *subController = [FPSourceController new];
+    
+    subController.path = path;
+    subController.source = self.source;
+    subController.fpdelegate = self.fpdelegate;
+    subController.selectMultiple = self.selectMultiple;
+    subController.maxFiles = self.maxFiles;
+    
+    [self.navigationController pushViewController:subController
+                                         animated:YES];
+}
+
+- (void)fileSelectedAtIndex:(NSInteger)index
+                   forView:(UIView*)view
+             withThumbnail:(UIImage *)thumbnail{
+
+    NSDictionary *obj = self.contents[index];
 
     if (self.selectMultiple)
     {
