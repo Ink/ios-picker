@@ -35,52 +35,6 @@
 
 #pragma mark - Actions
 
-- (IBAction)pickerAction:(id)sender
-{
-    /*
-     * Create the object
-     */
-    FPPickerController *fpController = [FPPickerController new];
-
-    /*
-     * Set the delegate
-     */
-    fpController.fpdelegate = self;
-
-    /*
-     * Ask for specific data types. (Optional) Default is all files.
-     */
-    fpController.dataTypes = @[@"image/*"];
-
-    /*
-     * Select and order the sources (Optional) Default is all sources
-     */
-    //fpController.sourceNames = [[NSArray alloc] initWithObjects: FPSourceImagesearch, nil];
-
-    /*
-     * Enable multselect (Optional) Default is single select
-     */
-    fpController.selectMultiple = YES;
-
-    /*
-     * Specify the maximum number of files (Optional) Default is 0, no limit
-     */
-    fpController.maxFiles = 5;
-
-    /*
-     * Display it.
-     */
-    UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:fpController];
-
-    self.myPopoverController = popoverController;
-    self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
-
-    [self.myPopoverController presentPopoverFromRect:[sender frame]
-                                              inView:self.view
-                            permittedArrowDirections:UIPopoverArrowDirectionAny
-                                            animated:YES];
-}
-
 - (IBAction)pickerModalAction:(id)sender
 {
     /*
@@ -118,25 +72,25 @@
      */
     fpController.maxFiles = 10;
     
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:fpController];
 
-    fpController.modalPresentationStyle = UIModalPresentationPopover;
-    
-    /*
-     * If controller will show in popover set popover size (iPad)
-     */
-    fpController.preferredContentSize = CGSizeMake(400, 500);
+        self.myPopoverController = popoverController;
+        self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
+        
+        [self.myPopoverController presentPopoverFromRect:[sender frame]
+                                                  inView:self.view
+                                permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                animated:YES];
+    }
+    else
+    {
+        [self presentViewController:self.fpSave
+                           animated:YES
+                         completion:nil];
+    }
 
-    UIPopoverPresentationController *presentationController = fpController.popoverPresentationController;
-    presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    presentationController.sourceView = sender;
-    presentationController.sourceRect = [sender bounds];
-
-    /*
-     * Display it.
-     */
-    [self presentViewController:fpController
-                       animated:YES
-                     completion:nil];
 }
 
 - (IBAction)savingAction:(id)sender
@@ -178,24 +132,28 @@
     self.fpSave.data = imgData;
     self.fpSave.dataType = @"image/png";
 
-    self.fpSave.modalPresentationStyle = UIModalPresentationPopover;
-    
-    /*
-     * If controller will show in popover set popover size (iPad)
-     */
-    self.fpSave.preferredContentSize = CGSizeMake(400, 500);
-    
-    UIPopoverPresentationController *presentationController = self.fpSave.popoverPresentationController;
-    presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-    presentationController.sourceView = sender;
-    presentationController.sourceRect = [sender bounds];
-
     /*
      * Display it.
      */
-    [self presentViewController:self.fpSave
-                       animated:YES
-                     completion:nil];
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:self.fpSave];
+        
+        self.myPopoverController = popoverController;
+        self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
+        
+        [self.myPopoverController presentPopoverFromRect:[sender frame]
+                                                  inView:self.view
+                                permittedArrowDirections:UIPopoverArrowDirectionAny
+                                                animated:YES];
+    }
+    else
+    {
+        [self presentViewController:self.fpSave
+                           animated:YES
+                         completion:nil];
+    }
+
 }
 
 #pragma mark - UIViewController Methods
@@ -268,6 +226,11 @@
         return;
     }
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        [self.myPopoverController dismissPopoverAnimated:YES];
+    }
+    
     [self dismissViewControllerAnimated:YES
                              completion:nil];
 
@@ -298,6 +261,11 @@
 {
     NSLog(@"FP Cancelled Open");
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        [self.myPopoverController dismissPopoverAnimated:YES];
+    }
+    
     [self dismissViewControllerAnimated:YES
                              completion:nil];
     
@@ -310,15 +278,24 @@
 {
     NSLog(@"FP finished saving with info %@", info);
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        [self.myPopoverController dismissPopoverAnimated:YES];
+    }
+    
     [self.fpSave dismissViewControllerAnimated:YES
                                     completion:nil];
-
 }
 
 - (void)fpSaveControllerDidCancel:(FPSaveController *)saveController
 {
     NSLog(@"FP Cancelled Save");
 
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+    {
+        [self.myPopoverController dismissPopoverAnimated:YES];
+    }
+    
     [self.fpSave dismissViewControllerAnimated:YES
                                     completion:nil];
 }
