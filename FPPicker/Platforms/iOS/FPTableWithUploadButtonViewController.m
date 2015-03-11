@@ -11,14 +11,11 @@
 
 @interface FPTableWithUploadButtonViewController ()
 
-@property (nonatomic, strong) UIButton *uploadButton;
-@property (nonatomic, strong) UIView *uploadButtonContainer;
+@property (nonatomic, strong) UIBarButtonItem *uploadBarButton;
 
 @end
 
 @implementation FPTableWithUploadButtonViewController
-
-static const CGFloat UPLOAD_BUTTON_CONTAINER_HEIGHT = 45.f;
 
 // For displaying the uploading text, number of files
 static UIColor *HAPPY_COLOR;
@@ -60,53 +57,36 @@ static UIColor *ANGRY_COLOR;
     {
         // Adding a button on the bottom that allows you to finish your upload
 
-        CGRect bounds = self.view.bounds;
+        UIBarButtonItem *flexibleSpace;
+        
+        flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                                                      target:nil
+                                                                      action:nil];
+        
+        self.navigationController.toolbarHidden = YES;
+        
+        self.uploadBarButton = [[UIBarButtonItem alloc]initWithTitle:@""
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(uploadButtonTapped:)];
 
-        // Pinned to the bottom
-
-        self.uploadButtonContainer = [[UIView alloc] initWithFrame:CGRectMake(0,
-                                                                              bounds.size.height - UPLOAD_BUTTON_CONTAINER_HEIGHT,
-                                                                              bounds.size.width,
-                                                                              UPLOAD_BUTTON_CONTAINER_HEIGHT)];
-        self.uploadButtonContainer.hidden = YES;
-
-        //#F7F7F7
-        UIColor *uploadButtonBackgroundColor = [UIColor colorWithHue:0
-                                                          saturation:0
-                                                          brightness:.97f
-                                                               alpha:0.98f];
-
-        self.uploadButtonContainer.backgroundColor = uploadButtonBackgroundColor;
-        self.uploadButtonContainer.opaque = NO;
-        self.uploadButtonContainer.autoresizingMask = UIViewAutoresizingFlexibleTopMargin |
-                                                      UIViewAutoresizingFlexibleWidth;
-
-        self.uploadButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-
-        self.uploadButton.frame = CGRectMake(0,
-                                             0,
-                                             bounds.size.width,
-                                             UPLOAD_BUTTON_CONTAINER_HEIGHT);
-
-        self.uploadButton.autoresizingMask = UIViewAutoresizingFlexibleWidth |
-                                             UIViewAutoresizingFlexibleHeight;
-
-        [self.uploadButton addTarget:self
-                              action:@selector(uploadButtonTapped:)
-                    forControlEvents:UIControlEventTouchUpInside];
-
-        [self.uploadButton setTintColor:HAPPY_COLOR];
-
-        [self.uploadButtonContainer addSubview:self.uploadButton];
-        [self.navigationController.view addSubview:self.uploadButtonContainer];
+        self.toolbarItems = @[flexibleSpace, self.uploadBarButton, flexibleSpace];
+        [self setUploadButtonColor:HAPPY_COLOR];
     }
+}
+
+-(void)setUploadButtonColor:(UIColor*)color{
+    NSDictionary *colorAttribute  = [NSDictionary dictionaryWithObject: color
+                                                                     forKey: NSForegroundColorAttributeName];
+    
+    [self.uploadBarButton setTitleTextAttributes:colorAttribute forState:UIControlStateNormal];
+    [self.uploadBarButton setTitleTextAttributes:colorAttribute forState:UIControlStateDisabled];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
-    [self.uploadButtonContainer removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning
@@ -119,40 +99,33 @@ static UIColor *ANGRY_COLOR;
 {
     if (count == 0)
     {
-        if (self.uploadButtonContainer.hidden)
+        if (self.navigationController.toolbarHidden)
         {
             // No-op
         }
         else
         {
             // Hide the upload button - slide out from bottom
-
             [UIView animateWithDuration:0.2f
-                             animations: ^{
-                [self moveUploadButtonContainerOffscreen:YES];
-            } completion: ^(BOOL finished) {
-                if (finished)
-                {
-                    self.uploadButtonContainer.hidden = YES;
-                }
+                             animations: ^
+            {
+                self.navigationController.toolbarHidden = YES;
             }];
         }
     }
     else
     {
-        if (self.uploadButtonContainer.hidden)
+        if (self.navigationController.toolbarHidden)
         {
             // Show thyself - slide up from bottom
             // Ensure we're on top of all our various children
 
-            [self.navigationController.view addSubview:self.uploadButtonContainer];
-            [self moveUploadButtonContainerOffscreen:YES];
-
-            self.uploadButtonContainer.hidden = NO;
+            self.navigationController.toolbarHidden = YES;
 
             [UIView animateWithDuration:0.2f
-                             animations: ^{
-                [self moveUploadButtonContainerOffscreen:NO];
+                             animations: ^
+            {
+                 self.navigationController.toolbarHidden = NO;
             }];
         }
 
@@ -160,7 +133,7 @@ static UIColor *ANGRY_COLOR;
         {
             NSString *title;
 
-            [self.uploadButton setEnabled:NO];
+            [self.uploadBarButton setEnabled:NO];
 
             if (self.maxFiles == 1)
             {
@@ -171,17 +144,16 @@ static UIColor *ANGRY_COLOR;
                 title = [NSString stringWithFormat:@"Maximum %ld files", (long)self.maxFiles];
             }
 
-            [self.uploadButton setTitle:title
-                               forState:UIControlStateDisabled];
 
-            [self.uploadButton setTitleColor:ANGRY_COLOR
-                                    forState:UIControlStateDisabled];
+            [self.uploadBarButton setTitle:title];
+            [self setUploadButtonColor:ANGRY_COLOR];
+
         }
         else
         {
             NSString *title;
 
-            [self.uploadButton setEnabled:YES];
+            [self.uploadBarButton setEnabled:YES];
 
             if (count == 1)
             {
@@ -192,21 +164,19 @@ static UIColor *ANGRY_COLOR;
                 title = [NSString stringWithFormat:@"Upload %ld files", (long)count];
             }
 
-            [self.uploadButton setTitle:title
-                               forState:UIControlStateNormal];
+            [self.uploadBarButton setTitle:title];
+            [self setUploadButtonColor:HAPPY_COLOR];
         }
     }
 }
 
 - (void)uploadButtonTapped:(id)sender
 {
-    [self.uploadButton setEnabled:NO];
+    [self.uploadBarButton setEnabled:NO];
+    
+    [self setUploadButtonColor:HAPPY_COLOR];
 
-    [self.uploadButton setTitleColor:HAPPY_COLOR
-                            forState:UIControlStateDisabled];
-
-    [self.uploadButton setTitle:@"Uploading files"
-                       forState:UIControlStateDisabled];
+    [self.uploadBarButton setTitle:@"Uploading files"];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -224,24 +194,4 @@ static UIColor *ANGRY_COLOR;
 
     return nil;
 }
-
-#pragma mark - Private Methods
-
-- (void)moveUploadButtonContainerOffscreen:(BOOL)shouldHide
-{
-    CGSize screenSize = [UIApplication FPCurrentSize];
-
-    CGRect frame = CGRectMake(0,
-                              screenSize.height,
-                              screenSize.width,
-                              UPLOAD_BUTTON_CONTAINER_HEIGHT);
-
-    if (!shouldHide)
-    {
-        frame.origin.y -= UPLOAD_BUTTON_CONTAINER_HEIGHT;
-    }
-
-    self.uploadButtonContainer.frame = frame;
-}
-
 @end

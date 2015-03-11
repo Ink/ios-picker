@@ -19,7 +19,14 @@
 @property (nonatomic, strong) UIActivityIndicatorView *nextPageSpinner;
 @property (nonatomic, weak) id <FPSourceControllerDelegate> fpdelegate;
 
+
 - (void)fpLoadContents:(NSString *)loadpath;
+
 - (void)afterReload;
 
+- (void)fileSelectedAtIndex:(NSInteger)index
+                   forView:(UIView*)view
+             withThumbnail:(UIImage *)thumbnail;
+
+- (void)pushDirectoryControllerForPath:(NSString*)path;
 @end

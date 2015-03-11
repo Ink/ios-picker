@@ -117,6 +117,19 @@
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
     fpController.maxFiles = 10;
+    
+
+    fpController.modalPresentationStyle = UIModalPresentationPopover;
+    
+    /*
+     * If controller will show in popover set popover size (iPad)
+     */
+    fpController.preferredContentSize = CGSizeMake(400, 500);
+
+    UIPopoverPresentationController *presentationController = fpController.popoverPresentationController;
+    presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    presentationController.sourceView = sender;
+    presentationController.sourceRect = [sender bounds];
 
     /*
      * Display it.
@@ -165,27 +178,24 @@
     self.fpSave.data = imgData;
     self.fpSave.dataType = @"image/png";
 
+    self.fpSave.modalPresentationStyle = UIModalPresentationPopover;
+    
+    /*
+     * If controller will show in popover set popover size (iPad)
+     */
+    self.fpSave.preferredContentSize = CGSizeMake(400, 500);
+    
+    UIPopoverPresentationController *presentationController = self.fpSave.popoverPresentationController;
+    presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+    presentationController.sourceView = sender;
+    presentationController.sourceRect = [sender bounds];
+
     /*
      * Display it.
      */
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
-        UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:self.fpSave];
-
-        self.myPopoverController = popoverController;
-        self.myPopoverController.popoverContentSize = CGSizeMake(320, 520);
-
-        [self.myPopoverController presentPopoverFromRect:[sender frame]
-                                                  inView:self.view
-                                permittedArrowDirections:UIPopoverArrowDirectionAny
-                                                animated:YES];
-    }
-    else
-    {
-        [self presentViewController:self.fpSave
-                           animated:YES
-                         completion:nil];
-    }
+    [self presentViewController:self.fpSave
+                       animated:YES
+                     completion:nil];
 }
 
 #pragma mark - UIViewController Methods
@@ -237,11 +247,6 @@
             self.imageView.image = image;
         }
 
-        if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-        {
-            [self.myPopoverController dismissPopoverAnimated:YES];
-        }
-
         [self dismissViewControllerAnimated:YES
                                  completion:nil];
     }
@@ -261,11 +266,6 @@
         NSLog(@"Nothing was picked.");
 
         return;
-    }
-
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
-        [self.myPopoverController dismissPopoverAnimated:YES];
     }
 
     [self dismissViewControllerAnimated:YES
@@ -298,13 +298,9 @@
 {
     NSLog(@"FP Cancelled Open");
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
-        [self.myPopoverController dismissPopoverAnimated:YES];
-    }
-
     [self dismissViewControllerAnimated:YES
                              completion:nil];
+    
 }
 
 #pragma mark - FPSaveControllerDelegate Methods
@@ -314,30 +310,17 @@
 {
     NSLog(@"FP finished saving with info %@", info);
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
-        [self.myPopoverController dismissPopoverAnimated:YES];
-    }
-    else
-    {
-        [self.fpSave dismissViewControllerAnimated:YES
-                                        completion:nil];
-    }
+    [self.fpSave dismissViewControllerAnimated:YES
+                                    completion:nil];
+
 }
 
 - (void)fpSaveControllerDidCancel:(FPSaveController *)saveController
 {
     NSLog(@"FP Cancelled Save");
 
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
-    {
-        [self.myPopoverController dismissPopoverAnimated:YES];
-    }
-    else
-    {
-        [self.fpSave dismissViewControllerAnimated:YES
-                                        completion:nil];
-    }
+    [self.fpSave dismissViewControllerAnimated:YES
+                                    completion:nil];
 }
 
 - (void)fpSaveController:(FPSaveController *)saveController

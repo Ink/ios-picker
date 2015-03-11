@@ -10,3 +10,4 @@ project.xcworkspace/
 xcuserdata/
 Pods/
 API_KEY
+*.xccheckout
