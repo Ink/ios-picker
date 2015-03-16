@@ -452,4 +452,34 @@
     return mRequest;
 }
 
+
++(void)downloadFileWithFilpickerURL:(NSURL*)filepickerURL
+                       successBlock:(void(^)(NSString *localFilePath))success
+                       failureBlock:(void(^)(NSError* error))failure
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:filepickerURL];
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
+
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        success(tempPath);
+    };
+    
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        failure(error);
+    };
+    
+    AFHTTPRequestOperation *operation;
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+    
+
+    operation.outputStream = [NSOutputStream outputStreamToFileAtPath:tempPath append:NO];
+    
+    [operation start];
+    
+}
+
 @end

@@ -8,6 +8,8 @@
 
 #import "FPSaveController.h"
 #import "FPInternalHeaders.h"
+#import "FPLibrary+iOS.h"
+
 
 @interface FPSaveController () <UINavigationControllerDelegate,
                                 UIPopoverControllerDelegate,
@@ -168,7 +170,21 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view
                          animated:YES];
+    
+    if(self.dataurl == nil && self.data == nil && self.filepickerurl != nil){
+        [FPLibrary downloadFileWithFilpickerURL:self.filepickerurl successBlock:^(NSString* localUrlStr){
+            self.dataurl = [NSURL URLWithString:localUrlStr];
+            [self saveFileToPhotosAlbum];
+        }failureBlock:^(NSError *error){
+            NSLog(@"There was an error while downloading file from filepicker: %@", [error localizedDescription]);
+            return;
+        }];
+    }else{
+        [self saveFileToPhotosAlbum];
+    }
+}
 
+-(void)saveFileToPhotosAlbum{
     if (self.dataurl)
     {
         UIImageWriteToSavedPhotosAlbum([UIImage imageWithContentsOfFile:[self.dataurl absoluteString]], nil, nil, nil);
@@ -177,7 +193,7 @@
     {
         UIImageWriteToSavedPhotosAlbum([UIImage imageWithData:self.data], nil, nil, nil);
     }
-
+    
     if (self.fpdelegate &&
         [self.fpdelegate respondsToSelector:@selector(fpSaveController:didFinishSavingMediaWithInfo:)])
     {

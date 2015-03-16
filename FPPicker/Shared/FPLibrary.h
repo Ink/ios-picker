@@ -55,4 +55,9 @@
                     success:(FPUploadAssetSuccessBlock)success
                     failure:(FPUploadAssetFailureBlock)failure;
 
++(void)downloadFileWithFilpickerURL:(NSURL*)filepickerURL
+                       successBlock:(void(^)(NSString *localFilePath))success
+                       failureBlock:(void(^)(NSError* error))failure;
+
+
 @end
