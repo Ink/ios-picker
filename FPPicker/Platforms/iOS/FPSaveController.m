@@ -175,9 +175,13 @@
         [FPLibrary downloadFileWithFilpickerURL:self.filepickerurl successBlock:^(NSString* localUrlStr){
             self.dataurl = [NSURL URLWithString:localUrlStr];
             [self saveFileToPhotosAlbum];
-        }failureBlock:^(NSError *error){
-            NSLog(@"There was an error while downloading file from filepicker: %@", [error localizedDescription]);
-            return;
+            
+        }failureBlock:^(NSError *saveError){
+            if (self.fpdelegate &&
+                [self.fpdelegate respondsToSelector:@selector(fpSaveController:didError:)])
+            {
+                [self.fpdelegate fpSaveController:self didError:saveError];
+            }
         }];
     }else{
         [self saveFileToPhotosAlbum];
