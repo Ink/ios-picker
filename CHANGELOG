@@ -1,3 +1,6 @@
+v 4.2.0 
+- Updated AFNetworking dependency to 2.5.1.
+
 v 4.1.2
 - Fixed bug with missing upload button when FPPickerController is showing in popover
 - Added ability to saving files on directory in cloud services
