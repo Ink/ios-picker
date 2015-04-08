@@ -360,13 +360,18 @@
     NSMutableArray *localSources = [NSMutableArray array];
     NSMutableArray *remoteSources = [NSMutableArray array];
 
-    NSArray *activeSources = [FPSource allMobileSources];
+    NSArray *allSources = [FPSource allMobileSources];
+    NSMutableArray *activeSources = [NSMutableArray new];
     
     if (self.sourceNames)
     {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"identifier IN %@", self.sourceNames];
-        
-        activeSources = [activeSources filteredArrayUsingPredicate:filterPredicate];
+        for (NSString* identifier in self.sourceNames) {
+            for (FPSource *source in allSources) {
+                if ([source.identifier isEqualToString:identifier]) {
+                    [activeSources addObject:source];
+                }
+            }
+        }
     }
 
     for (FPSource *source in activeSources)
