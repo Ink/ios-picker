@@ -11,6 +11,8 @@
 	<string>https://www.dropbox.com/verify_code</string>
 	<string>http://www.facebook.com/dialog/oauth</string>
 	<string>https://www.facebook.com/dialog/oauth</string>
+	<string>https://m.facebook.com/v2.0/dialog/oauth</string>
+	<string>https://facebook.com/v2.0/dialog/oauth</string>
 	<string>http://m.facebook.com/login.php</string>
 	<string>https://m.facebook.com/login.php</string>
 	<string>https://m.facebook.com/dialog/</string>
