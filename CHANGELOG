@@ -1,3 +1,8 @@
+v 4.2.1
+- Fix for issue #75. Upload button doesn't hide if navigating back in popover 
+- Fix for issue #76. Source List not presenting sources in the order set.
+- Fix for bug with login to facebook
+
 v 4.2.0 
 - Updated AFNetworking dependency to 2.5.1.
 
