@@ -7,7 +7,7 @@ platform :ios, '7.1'
 
 target :'FPPicker' do
   pod 'MBProgressHUD', '~> 0.9'
-  pod 'AFNetworking', '~> 2.5.1'
+  pod 'AFNetworking', '~> 2.5.3'
 end
 
 target :'FPPicker Functional Tests' do
@@ -20,5 +20,5 @@ end
 
 target :'FPPickerMac' do
   platform :osx, '10.9'
-  pod 'AFNetworking', '~> 2.5.1'
+  pod 'AFNetworking', '~> 2.5.3'
 end
