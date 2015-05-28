@@ -1,3 +1,8 @@
+v 4.2.3
+- Fixed bug with missing progress indicator
+- Local source - albums without items are not shown
+- Dropbox view - small design changes
+
 v 4.2.2
 - Updated AFNetworking dependency to 2.5.3.
 
