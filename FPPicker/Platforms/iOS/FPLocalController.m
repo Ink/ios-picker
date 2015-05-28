@@ -418,8 +418,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (IBAction)uploadButtonTapped:(id)sender
 {
     [super uploadButtonTapped:sender];
-
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                               animated:YES];
 
     hud.mode = MBProgressHUDModeDeterminate;
