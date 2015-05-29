@@ -55,6 +55,8 @@
 	<string>https://instagram.com/oauth/authorize</string>
 	<string>http://instagram.com/accounts/</string>
 	<string>https://instagram.com/accounts/</string>
+	<string>https://api.instagram.com/accounts/login/</string>
+	<string>https://instagram.com/accounts/login/</string>
 	<string>http://www.flickr.com/services/oauth/authorize</string>
 	<string>https://www.flickr.com/services/oauth/authorize</string>
 	<string>http://www.flickr.com/services/oauth</string>
