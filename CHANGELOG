@@ -1,3 +1,6 @@
+v 4.2.4
+- Fixing problem with login to Instagram
+
 v 4.2.3
 - Fixed bug with missing progress indicator
 - Local source - albums without items are not shown
