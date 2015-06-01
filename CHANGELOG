@@ -1,3 +1,6 @@
+v 4.2.5
+- Fixed bug with missing progress indicator in local albums (for single selection)
+
 v 4.2.4
 - Fixing problem with login to Instagram
 
