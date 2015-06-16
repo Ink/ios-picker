@@ -343,7 +343,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         __block MBProgressHUD *hud;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            hud = [MBProgressHUD showHUDAddedTo:self.view
+            hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                        animated:YES];
 
             hud.labelText = @"Uploading file";
@@ -352,7 +352,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
         FPLocalUploadAssetSuccessBlock successBlock = ^(FPMediaInfo *info) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideAllHUDsForView:self.view
+                [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                          animated:YES];
 
                 [self.fpdelegate sourceController:nil
@@ -365,7 +365,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
             NSLog(@"Error %@:", error);
 
             dispatch_async(dispatch_get_main_queue(), ^{
-                [MBProgressHUD hideAllHUDsForView:self.view
+                [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                          animated:YES];
 
                 if (!info)
@@ -418,8 +418,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (IBAction)uploadButtonTapped:(id)sender
 {
     [super uploadButtonTapped:sender];
-
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                               animated:YES];
 
     hud.mode = MBProgressHUDModeDeterminate;
@@ -540,7 +540,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (void)finishMultipleUpload:(NSArray *)results
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [MBProgressHUD hideAllHUDsForView:self.view
+        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                  animated:YES];
 
         [self.fpdelegate sourceController:nil

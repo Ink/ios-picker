@@ -355,18 +355,38 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 }
 
+-(NSArray*) filterSourceList
+{
+    NSArray *allSources = [FPSource allMobileSources];
+    NSMutableArray *filteredSource = [NSMutableArray array];
+    
+    for (NSString* identifier in self.sourceNames)
+    {
+        for (FPSource *source in allSources)
+        {
+            if ([source.identifier isEqualToString:identifier])
+            {
+                [filteredSource addObject:source];
+            }
+        }
+    }
+    
+    return filteredSource;
+}
+
 - (void)setupSourceList
 {
     NSMutableArray *localSources = [NSMutableArray array];
     NSMutableArray *remoteSources = [NSMutableArray array];
 
-    NSArray *activeSources = [FPSource allMobileSources];
-    
+    NSArray *activeSources;
     if (self.sourceNames)
     {
-        NSPredicate *filterPredicate = [NSPredicate predicateWithFormat:@"identifier IN %@", self.sourceNames];
-        
-        activeSources = [activeSources filteredArrayUsingPredicate:filterPredicate];
+        activeSources = [self filterSourceList];
+    }
+    else
+    {
+        activeSources = [FPSource allMobileSources];
     }
 
     for (FPSource *source in activeSources)

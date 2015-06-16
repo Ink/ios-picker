@@ -406,7 +406,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
         else
         {
-            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.contentMode = UIViewContentModeScaleAspectFit;
         }
 
 
