@@ -1,3 +1,6 @@
+v 4.2.6 [18.06.2015]
+- Fix for crash - issue #85
+
 v 4.2.5
 - Fixed bug with missing progress indicator in local albums (for single selection)
 
