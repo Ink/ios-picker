@@ -7,6 +7,7 @@
 //
 
 #import "FPLocalController.h"
+#import "FPUtils.h"
 
 typedef void (^FPLocalUploadAssetSuccessBlock)(FPMediaInfo *info);
 typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, FPMediaInfo *info);
@@ -444,7 +445,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     for (ALAsset *asset in self.selectedAssets)
     {
-        NSURL *progressKey = asset.defaultRepresentation.url;
+        NSString *progressKey = [FPUtils uuidString];
 
         // We push all the uploads onto background threads. Now we have to be careful
         // as we're working in multi-threaded environment.
