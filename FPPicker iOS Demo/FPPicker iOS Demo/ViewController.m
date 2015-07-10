@@ -86,7 +86,7 @@
     }
     else
     {
-        [self presentViewController:self.fpSave
+        [self presentViewController:fpController
                            animated:YES
                          completion:nil];
     }
