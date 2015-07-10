@@ -1,3 +1,28 @@
+v 4.2.6 [18.06.2015]
+- Fix for crash - issue #85
+
+v 4.2.5
+- Fixed bug with missing progress indicator in local albums (for single selection)
+
+v 4.2.4
+- Fixing problem with login to Instagram
+
+v 4.2.3
+- Fixed bug with missing progress indicator
+- Local source - albums without items are not shown
+- Dropbox view - small design changes
+
+v 4.2.2
+- Updated AFNetworking dependency to 2.5.3.
+
+v 4.2.1
+- Fix for issue #75. Upload button doesn't hide if navigating back in popover 
+- Fix for issue #76. Source List not presenting sources in the order set.
+- Fix for bug with login to facebook
+
+v 4.2.0 
+- Updated AFNetworking dependency to 2.5.1.
+
 v 4.1.2
 - Fixed bug with missing upload button when FPPickerController is showing in popover
 - Added ability to saving files on directory in cloud services

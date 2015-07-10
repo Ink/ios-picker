@@ -134,4 +134,10 @@
 + (NSError *) errorWithCode:(NSInteger)code
     andLocalizedDescription:(NSString *)localizedDescription;
 
+/*!
+ Returns uniqe string
+ 
+ @returns NSString with uniqe stirng
+ */
++ (NSString *)uuidString;
 @end

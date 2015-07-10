@@ -23,7 +23,7 @@
 #define fpCellIdentifier            @"Filepicker_Cell"
 
 #define fpLocalThumbSize            75
-#define fpRemoteThumbSize           100
+#define fpRemoteThumbSize           95
 
 #define fpMaxChunkSize              262144 //.25mb
 #define fpNumRetries                10

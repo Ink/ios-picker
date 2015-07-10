@@ -104,6 +104,10 @@
             [group setAssetsFilter:[ALAssetsFilter allVideos]];
         }
 
+        if(group.numberOfAssets == 0){
+            return;
+        }
+        
         if ([[sGroupPropertyName lowercaseString] isEqualToString:@"camera roll"] &&
             nType == ALAssetsGroupSavedPhotos)
         {

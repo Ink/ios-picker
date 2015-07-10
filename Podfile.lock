@@ -1,23 +1,23 @@
 PODS:
-  - AFNetworking (2.4.1):
-    - AFNetworking/NSURLConnection (= 2.4.1)
-    - AFNetworking/NSURLSession (= 2.4.1)
-    - AFNetworking/Reachability (= 2.4.1)
-    - AFNetworking/Security (= 2.4.1)
-    - AFNetworking/Serialization (= 2.4.1)
-    - AFNetworking/UIKit (= 2.4.1)
-  - AFNetworking/NSURLConnection (2.4.1):
+  - AFNetworking (2.5.3):
+    - AFNetworking/NSURLConnection (= 2.5.3)
+    - AFNetworking/NSURLSession (= 2.5.3)
+    - AFNetworking/Reachability (= 2.5.3)
+    - AFNetworking/Security (= 2.5.3)
+    - AFNetworking/Serialization (= 2.5.3)
+    - AFNetworking/UIKit (= 2.5.3)
+  - AFNetworking/NSURLConnection (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/NSURLSession (2.4.1):
+  - AFNetworking/NSURLSession (2.5.3):
     - AFNetworking/Reachability
     - AFNetworking/Security
     - AFNetworking/Serialization
-  - AFNetworking/Reachability (2.4.1)
-  - AFNetworking/Security (2.4.1)
-  - AFNetworking/Serialization (2.4.1)
-  - AFNetworking/UIKit (2.4.1):
+  - AFNetworking/Reachability (2.5.3)
+  - AFNetworking/Security (2.5.3)
+  - AFNetworking/Serialization (2.5.3)
+  - AFNetworking/UIKit (2.5.3):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
   - MBProgressHUD (0.9)
@@ -27,15 +27,15 @@ PODS:
   - OHHTTPStubs/Core (3.1.10)
 
 DEPENDENCIES:
-  - AFNetworking (~> 2.4.1)
+  - AFNetworking (~> 2.5.3)
   - MBProgressHUD (~> 0.9)
   - OCMock (~> 3.0.2)
   - OHHTTPStubs (~> 3.1.2)
 
 SPEC CHECKSUMS:
-  AFNetworking: 0aabc6fae66d6e5d039eeb21c315843c7aae51ab
-  MBProgressHUD: 2038dbcf3dce73215abed6001657043d53aa79a8
-  OCMock: b9836ab89d8d5e66cbe6333f93857037c310ee62
-  OHHTTPStubs: 2038e929b6abb94881000524c1cb4aba0a1bb4a2
+  AFNetworking: e1d86c2a96bb5d2e7408da36149806706ee122fe
+  MBProgressHUD: d8e7ea388dc1549a42e0d219067cf5f2c898fb66
+  OCMock: 1f0871af0f397183f33e7552cca088bd2b485c25
+  OHHTTPStubs: 00152a63400246fcbc4b772a2a547ea34c97cbd6
 
 COCOAPODS: 0.35.0

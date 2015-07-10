@@ -87,6 +87,7 @@ static UIColor *ANGRY_COLOR;
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self hideUploadButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -105,12 +106,7 @@ static UIColor *ANGRY_COLOR;
         }
         else
         {
-            // Hide the upload button - slide out from bottom
-            [UIView animateWithDuration:0.2f
-                             animations: ^
-            {
-                self.navigationController.toolbarHidden = YES;
-            }];
+            [self hideUploadButton];
         }
     }
     else
@@ -177,6 +173,15 @@ static UIColor *ANGRY_COLOR;
     [self setUploadButtonColor:HAPPY_COLOR];
 
     [self.uploadBarButton setTitle:@"Uploading files"];
+}
+
+- (void)hideUploadButton
+{
+    [UIView animateWithDuration:0.2f
+                     animations: ^
+     {
+         self.navigationController.toolbarHidden = YES;
+     }];
 }
 
 #pragma mark - UITableViewDataSource Methods
