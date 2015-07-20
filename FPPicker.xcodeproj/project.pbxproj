@@ -39,7 +39,7 @@
 		4531449C19EC3F3E003230F5 /* FPMediaInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 45CD26D7199CB64C0048B483 /* FPMediaInfo.m */; };
 		4531449D19EC3F46003230F5 /* NSData+FPHexString.h in Headers */ = {isa = PBXBuildFile; fileRef = 45A2C34A197438B4009D436D /* NSData+FPHexString.h */; };
 		4531449E19EC3F46003230F5 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */; };
-		4531449F19EC3F46003230F5 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; };
+		4531449F19EC3F46003230F5 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453144A019EC3F46003230F5 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
 		453144A119EC3F46003230F5 /* FPUtils+RequestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */; };
 		453144A219EC3F4E003230F5 /* NSData+FPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A2C34B197438B4009D436D /* NSData+FPHexString.m */; };
@@ -85,7 +85,7 @@
 		453144CA19EC3FC4003230F5 /* FPSaveSourceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0ABD15AA6E460081004F /* FPSaveSourceController.m */; };
 		453144CB19EC3FC4003230F5 /* FPSearchController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314F15A89E040085E186 /* FPSearchController.h */; };
 		453144CC19EC3FC4003230F5 /* FPSearchController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0315015A89E040085E186 /* FPSearchController.m */; };
-		453144CD19EC3FC4003230F5 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314315A89E040085E186 /* FPAuthController.h */; };
+		453144CD19EC3FC4003230F5 /* FPAuthController.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A0314315A89E040085E186 /* FPAuthController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453144CE19EC3FC4003230F5 /* FPAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A0314415A89E040085E186 /* FPAuthController.m */; };
 		453144CF19EC3FC4003230F5 /* FPInfoViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 836A9D38169B5CF0006AC920 /* FPInfoViewController.h */; };
 		453144D019EC3FC4003230F5 /* FPInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 836A9D39169B5CF0006AC920 /* FPInfoViewController.m */; };
@@ -154,6 +154,7 @@
 		4546C16519EC4C3C00477C9B /* FPPicker.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4546C16119EC4BCC00477C9B /* FPPicker.bundle */; };
 		454D3A9219F80DF2009C53FE /* FPNavigationHistory.h in Headers */ = {isa = PBXBuildFile; fileRef = 454D3A9019F80DF2009C53FE /* FPNavigationHistory.h */; };
 		454D3A9319F80DF2009C53FE /* FPNavigationHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = 454D3A9119F80DF2009C53FE /* FPNavigationHistory.m */; };
+		455192581B5D122800DCC05A /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		455E5C9D1973DB8400CED98E /* FPSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C9C1973DB8400CED98E /* FPSessionTests.m */; };
 		456263D519EFE72700A34C29 /* FPFileDownloadController.h in Headers */ = {isa = PBXBuildFile; fileRef = 456263D319EFE72700A34C29 /* FPFileDownloadController.h */; };
 		456263D619EFE72700A34C29 /* FPFileDownloadController.m in Sources */ = {isa = PBXBuildFile; fileRef = 456263D419EFE72700A34C29 /* FPFileDownloadController.m */; };
@@ -180,7 +181,7 @@
 		4578B08519E824BD00B188F3 /* FPFileTransferController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4578B08219E824BD00B188F3 /* FPFileTransferController.h */; };
 		4578B08619E824BD00B188F3 /* FPFileTransferController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4578B08319E824BD00B188F3 /* FPFileTransferController.m */; };
 		4578B08719E824BD00B188F3 /* FPFileTransferController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4578B08419E824BD00B188F3 /* FPFileTransferController.xib */; };
-		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; };
+		4579CF54199CEAF200E0BCB4 /* FPSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 83A031A415A8A4AC0085E186 /* FPSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4579CF55199CEAF200E0BCB4 /* FPSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A031A515A8A4AC0085E186 /* FPSource.m */; };
 		4579CF56199CEAF200E0BCB4 /* FPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 455E5C981973CD3500CED98E /* FPSession.h */; };
 		4579CF57199CEAF200E0BCB4 /* FPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 455E5C991973CD3500CED98E /* FPSession.m */; };
@@ -212,7 +213,7 @@
 		45808B5619B46A7D00ECBDA1 /* FPThumbnail.m in Sources */ = {isa = PBXBuildFile; fileRef = 45808B5419B46A7D00ECBDA1 /* FPThumbnail.m */; };
 		45808B5919B4726D00ECBDA1 /* FPSourceResultsController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45808B5719B4726D00ECBDA1 /* FPSourceResultsController.h */; };
 		45808B5A19B4726D00ECBDA1 /* FPSourceResultsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45808B5819B4726D00ECBDA1 /* FPSourceResultsController.m */; };
-		4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; };
+		4587CB2719A4B31C00667D29 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4587CB2919A4B31C00667D29 /* FPSource+SupportedSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */; };
 		4587CB2C19A4CB2900667D29 /* glyphicons_020_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 4587CB2A19A4CB2900667D29 /* glyphicons_020_home.png */; };
 		4587CB2E19A4CB2900667D29 /* glyphicons_020_home@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4587CB2B19A4CB2900667D29 /* glyphicons_020_home@2x.png */; };
@@ -1131,6 +1132,7 @@
 				453144A719EC3F59003230F5 /* FPProgressTracker.h in Headers */,
 				453144B919EC3FA4003230F5 /* FPUtils+iOS.h in Headers */,
 				453144B219EC3F99003230F5 /* FPSinglepartUploader.h in Headers */,
+				455192581B5D122800DCC05A /* FPSource.h in Headers */,
 				453144AD19EC3F89003230F5 /* FPMacros.h in Headers */,
 				4531449519EC3F02003230F5 /* FPConfig.h in Headers */,
 				453144B619EC3F99003230F5 /* FPUtils.h in Headers */,

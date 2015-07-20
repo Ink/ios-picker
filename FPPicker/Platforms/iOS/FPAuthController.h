@@ -7,12 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FPInternalHeaders.h"
+@class FPSource;
 
 @interface FPAuthController : UIViewController <UIWebViewDelegate>
 
 @property (nonatomic, strong) IBOutlet UIWebView *webView;
 @property (nonatomic, strong) NSString *service;
 @property (nonatomic) BOOL alreadyReload;
+
+- (instancetype)initWithSource:(FPSource *)source NS_DESIGNATED_INITIALIZER;
 
 @end

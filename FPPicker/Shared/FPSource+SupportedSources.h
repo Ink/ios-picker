@@ -10,11 +10,15 @@
 
 @interface FPSource (SupportedSources)
 
++ (NSArray *)allSources;
 + (NSArray *)allMobileSources;
 + (NSArray *)allDesktopSources;
 
 + (NSArray *)localMobileSources;
 + (NSArray *)localDesktopSources;
 + (NSArray *)remoteSources;
+
+- (instancetype)initWithSourceIdentifier:(NSString *)identifier;
++ (FPSource *)sourceWithIdentifier:(NSString *)identifier;
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "FPAuthController.h"
+#import "FPInternalHeaders.h"
 #import "FPUtils+ResourceHelpers.h"
 
 // WebKit error constants are not exposed in iOS (they are in WebKit for Mac)
@@ -26,6 +27,24 @@
 
 @implementation FPAuthController
 
+- (instancetype)initWithSource:(FPSource *)source
+{
+    if (!source)
+    {
+        return nil;
+    }
+
+    self = [super init];
+
+    if (self)
+    {
+        self.service = source.identifier;
+        self.title = source.name;
+    }
+
+    return self;
+}
+
 #pragma mark - Accessors
 
 - (NSDictionary *)settings
@@ -39,15 +58,6 @@
 }
 
 #pragma mark - Other Methods
-
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
-
-    return self;
-}
 
 - (void)backToSourceList
 {
@@ -170,7 +180,7 @@
             }
 
             if ([FPUtils validateURL:normalizedString
-                   againstURLPattern:object])
+                   againstURLPattern     :object])
             {
                 NSForceLog(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
 
@@ -188,7 +198,7 @@
             }
 
             if ([FPUtils validateURL:normalizedString
-                   againstURLPattern:object])
+                   againstURLPattern     :object])
             {
                 return YES;
             }

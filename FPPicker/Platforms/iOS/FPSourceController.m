@@ -275,7 +275,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     if (!cell)
     {
         cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                  reuseIdentifier:cellIdentifier];
+                                  reuseIdentifier :cellIdentifier];
     }
     else
     {
@@ -1037,29 +1037,31 @@ static const CGFloat ROW_HEIGHT = 44.0;
         [self pushDirectoryControllerForPath:obj[@"link_path"]];
 
         return;
-    }else
+    }
+    else
     {
         [self fileSelectedAtIndex:index forView:view withThumbnail:thumbnail];
     }
 }
 
-- (void)pushDirectoryControllerForPath:(NSString*)path{
+- (void)pushDirectoryControllerForPath:(NSString*)path
+{
     FPSourceController *subController = [FPSourceController new];
-    
+
     subController.path = path;
     subController.source = self.source;
     subController.fpdelegate = self.fpdelegate;
     subController.selectMultiple = self.selectMultiple;
     subController.maxFiles = self.maxFiles;
-    
+
     [self.navigationController pushViewController:subController
                                          animated:YES];
 }
 
 - (void)fileSelectedAtIndex:(NSInteger)index
-                   forView:(UIView*)view
-             withThumbnail:(UIImage *)thumbnail{
-
+                    forView:(UIView*)view
+              withThumbnail:(UIImage *)thumbnail
+{
     NSDictionary *obj = self.contents[index];
 
     if (self.selectMultiple)
@@ -1332,9 +1334,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                  name:@"auth"
                                                object:nil];
 
-    FPAuthController *authView = [FPAuthController new];
-    authView.service = self.source.identifier;
-    authView.title = self.source.name;
+    FPAuthController *authView = [[FPAuthController alloc] initWithSource:self.source];
 
     [self.navigationController pushViewController:authView
                                          animated:NO];

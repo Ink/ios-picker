@@ -11,6 +11,43 @@
 
 @implementation FPSource (SupportedSources)
 
+- (instancetype)initWithSourceIdentifier:(NSString *)identifier
+{
+    self = [self init];
+
+    if (self)
+    {
+        NSArray *allSources = [FPSource allSources];
+
+        NSUInteger matchingIndex = [allSources indexOfObjectPassingTest: ^BOOL (id obj, NSUInteger idx, BOOL *stop) {
+            FPSource *source = (FPSource *)obj;
+
+            return source.identifier == identifier;
+        }];
+
+        if (matchingIndex != NSNotFound)
+        {
+            return allSources[matchingIndex];
+        }
+        else
+        {
+            return nil;
+        }
+    }
+
+    return self;
+}
+
++ (FPSource *)sourceWithIdentifier:(NSString *)identifier
+{
+    return [[FPSource new] initWithSourceIdentifier:identifier];
+}
+
++ (NSArray *)allSources
+{
+    return [self.allMobileSources arrayByAddingObjectsFromArray:self.localDesktopSources];
+}
+
 + (NSArray *)allMobileSources
 {
     return [[FPSource localMobileSources] arrayByAddingObjectsFromArray:[FPSource remoteSources]];
@@ -283,7 +320,7 @@
     // Amazon Cloud Drive
     {
         source = [FPSource new];
-        
+
         source.identifier = FPSourceCloudDrive;
         source.name = @"Amazon Cloud Drive";
         source.icon = @"CloudDrive";
@@ -293,7 +330,7 @@
         source.overwritePossible = YES;
         source.externalDomains = @[@"https://www.amazon.com/clouddrive"];
         source.requiresAuth = YES;
-        
+
         [sources addObject:source];
     }
 
