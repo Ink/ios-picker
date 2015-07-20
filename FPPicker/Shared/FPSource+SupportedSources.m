@@ -40,7 +40,7 @@
 
 + (FPSource *)sourceWithIdentifier:(NSString *)identifier
 {
-    return [[FPSource new] initWithSourceIdentifier:identifier];
+    return [[FPSource alloc] initWithSourceIdentifier:identifier];
 }
 
 + (NSArray *)allSources
