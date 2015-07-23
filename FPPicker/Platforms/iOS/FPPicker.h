@@ -24,3 +24,4 @@ FOUNDATION_EXPORT const unsigned char FPPickerVersionString[];
 #import "FPSource+SupportedSources.h"
 #import "FPSaveController.h"
 #import "FPMediaInfo.h"
+#import "FPSimpleAPI.h"

@@ -172,6 +172,14 @@
 		456D94E9194F0B3F00D0A34E /* FPConfigTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 456D94E8194F0B3F00D0A34E /* FPConfigTests.m */; };
 		456D94EB194F0BD500D0A34E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 456D9478194F010400D0A34E /* AssetsLibrary.framework */; };
 		456D94EC194F0C0000D0A34E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83A031B615A8EEC40085E186 /* MobileCoreServices.framework */; };
+		456FCB521B5E786500A43A82 /* FPSimpleAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 456FCB501B5E786500A43A82 /* FPSimpleAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		456FCB531B5E786500A43A82 /* FPSimpleAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 456FCB501B5E786500A43A82 /* FPSimpleAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		456FCB541B5E786500A43A82 /* FPSimpleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 456FCB511B5E786500A43A82 /* FPSimpleAPI.m */; };
+		456FCB551B5E786500A43A82 /* FPSimpleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 456FCB511B5E786500A43A82 /* FPSimpleAPI.m */; };
+		456FCB561B5E79F000A43A82 /* FPRepresentedSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4504082719F1326700DB26AF /* FPRepresentedSource.h */; };
+		456FCB571B5E79FD00A43A82 /* FPRepresentedSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4504082819F1326700DB26AF /* FPRepresentedSource.m */; };
+		456FCB581B5E7A0A00A43A82 /* FPSourcePath.h in Headers */ = {isa = PBXBuildFile; fileRef = 45936F9619F4729400ACEE97 /* FPSourcePath.h */; };
+		456FCB591B5E7A0D00A43A82 /* FPSourcePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 45936F9719F4729400ACEE97 /* FPSourcePath.m */; };
 		45718C0E199D14AA00C27324 /* FPSharedInternalHeaders.h in Headers */ = {isa = PBXBuildFile; fileRef = 45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */; };
 		4571E1F7199CF1030093E841 /* FPConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 45920DDE194A0D8A007003C1 /* FPConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4572914819CAFE2900447FAB /* FPImageBrowserView.h in Headers */ = {isa = PBXBuildFile; fileRef = 4572914619CAFE2900447FAB /* FPImageBrowserView.h */; };
@@ -398,6 +406,8 @@
 		4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+FPAppDimensions.m"; sourceTree = "<group>"; };
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
+		456FCB501B5E786500A43A82 /* FPSimpleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSimpleAPI.h; sourceTree = "<group>"; };
+		456FCB511B5E786500A43A82 /* FPSimpleAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPSimpleAPI.m; sourceTree = "<group>"; };
 		45718C0C199D14AA00C27324 /* FPSharedInternalHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSharedInternalHeaders.h; sourceTree = "<group>"; };
 		4572913519CAE6D900447FAB /* FPImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPImagePickerController.h; sourceTree = "<group>"; };
 		4572913619CAE6D900447FAB /* FPImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImagePickerController.m; sourceTree = "<group>"; };
@@ -969,6 +979,8 @@
 				45B71DE019768B68006B5DAF /* FPUploader.m */,
 				453096E4194738A6001D970C /* FPUtils.h */,
 				453096E5194738A6001D970C /* FPUtils.m */,
+				456FCB501B5E786500A43A82 /* FPSimpleAPI.h */,
+				456FCB511B5E786500A43A82 /* FPSimpleAPI.m */,
 			);
 			name = Shared;
 			path = FPPicker/Shared;
@@ -1102,7 +1114,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				453144D619EC3FD2003230F5 /* FPiOSMacros.h in Headers */,
+				456FCB521B5E786500A43A82 /* FPSimpleAPI.h in Headers */,
 				456263E719EFFC5200A34C29 /* FPLibrary+iOS.h in Headers */,
+				456FCB561B5E79F000A43A82 /* FPRepresentedSource.h in Headers */,
 				4531449819EC3F25003230F5 /* FPPickerController.h in Headers */,
 				453144CF19EC3FC4003230F5 /* FPInfoViewController.h in Headers */,
 				453144B119EC3F95003230F5 /* FPSharedInternalHeaders.h in Headers */,
@@ -1117,6 +1131,7 @@
 				453144B019EC3F92003230F5 /* FPPrivateConfig.h in Headers */,
 				453144C319EC3FC4003230F5 /* FPLocalController.h in Headers */,
 				4531449919EC3F25003230F5 /* FPSaveController.h in Headers */,
+				456FCB581B5E7A0A00A43A82 /* FPSourcePath.h in Headers */,
 				4531449719EC3F02003230F5 /* FPExternalHeaders.h in Headers */,
 				453144D119EC3FC4003230F5 /* FPTableWithUploadButtonViewController.h in Headers */,
 				453144C519EC3FC4003230F5 /* FPLocalAlbumController.h in Headers */,
@@ -1181,6 +1196,7 @@
 				4579CF6B199CEB0100E0BCB4 /* FPUploader.h in Headers */,
 				4579CF6D199CEB0100E0BCB4 /* FPUtils.h in Headers */,
 				4504082919F1326700DB26AF /* FPRepresentedSource.h in Headers */,
+				456FCB531B5E786500A43A82 /* FPSimpleAPI.h in Headers */,
 				4579CF69199CEB0100E0BCB4 /* FPSinglepartUploader.h in Headers */,
 				45B9888819A4F12300CE7DFC /* FPBorderView.h in Headers */,
 				4578B08519E824BD00B188F3 /* FPFileTransferController.h in Headers */,
@@ -1306,7 +1322,7 @@
 		83A030D915A89C9D0085E186 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = Filepicker.io;
 				TargetAttributes = {
 					4531447C19EC3DB5003230F5 = {
@@ -1605,8 +1621,10 @@
 				453144BF19EC3FAF003230F5 /* FPSaveController.m in Sources */,
 				456263DF19EFF6F700A34C29 /* FPLibrary.m in Sources */,
 				453144CC19EC3FC4003230F5 /* FPSearchController.m in Sources */,
+				456FCB571B5E79FD00A43A82 /* FPRepresentedSource.m in Sources */,
 				453144A819EC3F5C003230F5 /* FPProgressTracker.m in Sources */,
 				453144AF19EC3F90003230F5 /* FPMultipartUploader.m in Sources */,
+				456FCB591B5E7A0D00A43A82 /* FPSourcePath.m in Sources */,
 				453144D219EC3FC4003230F5 /* FPTableWithUploadButtonViewController.m in Sources */,
 				453144A319EC3F4E003230F5 /* FPSession+ConvenienceMethods.m in Sources */,
 				453144D419EC3FC9003230F5 /* FPSourceListController.m in Sources */,
@@ -1627,6 +1645,7 @@
 				453144BA19EC3FA4003230F5 /* FPUtils+iOS.m in Sources */,
 				453144C419EC3FC4003230F5 /* FPLocalController.m in Sources */,
 				453144B519EC3F99003230F5 /* FPUploader.m in Sources */,
+				456FCB541B5E786500A43A82 /* FPSimpleAPI.m in Sources */,
 				453144B319EC3F99003230F5 /* FPSinglepartUploader.m in Sources */,
 				453144A219EC3F4E003230F5 /* NSData+FPHexString.m in Sources */,
 				453144D019EC3FC4003230F5 /* FPInfoViewController.m in Sources */,
@@ -1681,6 +1700,7 @@
 				45E10AF319EE9E9400D34BC0 /* FPImageBrowserCell.m in Sources */,
 				4579CF71199CEB0600E0BCB4 /* FPProgressTracker.m in Sources */,
 				4504082A19F1326700DB26AF /* FPRepresentedSource.m in Sources */,
+				456FCB551B5E786500A43A82 /* FPSimpleAPI.m in Sources */,
 				4579CF67199CEB0100E0BCB4 /* FPMultipartUploader.m in Sources */,
 				45E1A41719A5FC8000287419 /* FPView.m in Sources */,
 				4579CF5D199CEAFC00E0BCB4 /* FPSession+ConvenienceMethods.m in Sources */,
@@ -1869,6 +1889,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -2054,6 +2075,7 @@
 				DEAD_CODE_STRIPPING = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

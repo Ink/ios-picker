@@ -21,6 +21,7 @@
 @interface FPAuthController ()
 
 @property (nonatomic, strong) NSDictionary *settings;
+@property (nonatomic, strong) FPSource *source;
 
 @end
 
@@ -38,6 +39,7 @@
 
     if (self)
     {
+        self.source = source;
         self.service = source.identifier;
         self.title = source.name;
     }
@@ -159,7 +161,7 @@
         //NSLog(@"Coookies: %@", fpCOOKIES);
 
         [[NSNotificationCenter defaultCenter] postNotificationName:@"auth"
-                                                            object:nil];
+                                                            object:self.source];
 
         [self.navigationController popViewControllerAnimated:NO];
 

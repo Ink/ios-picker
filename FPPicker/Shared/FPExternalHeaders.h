@@ -11,6 +11,14 @@
 @class FPPickerController;
 @class FPSaveController;
 @class FPMediaInfo;
+@class FPSimpleAPI;
+@class FPSource;
+
+@protocol FPSimpleAPIDelegate <NSObject>
+
+- (void)simpleAPI:(FPSimpleAPI *)simpleAPI requiresAuthenticationForSource:(FPSource *)source;
+
+@end
 
 @protocol FPPickerControllerDelegate <NSObject>
 
