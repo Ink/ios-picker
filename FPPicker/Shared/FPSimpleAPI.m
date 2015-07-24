@@ -47,19 +47,13 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 #pragma mark - Constructors / Destructors
 
-- (instancetype)initWithSource:(FPSource *)source
+- (instancetype)initWithSource:(nonnull FPSource *)source
 {
     self = [super init];
 
     if (self)
     {
         self.source = source;
-
-        if (!self.source)
-        {
-            return nil;
-        }
-
         [self registerForNotifications];
     }
 
@@ -78,7 +72,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     [self.operationQueue cancelAllOperations];
 }
 
-- (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaListAtPath:(nonnull NSString *)path success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure
 {
     [self getMediaListAtPath:path
              withCachePolicy:NSURLRequestReturnCacheDataElseLoad
@@ -86,7 +80,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                      failure:failure];
 }
 
-- (void)getMediaListAtPath:(NSString *)path withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaListAtPath:(nonnull NSString *)path withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure
 {
     NSString *sanitizedPath = [self sanitizeRelativePath:path];
     NSString *loadPath = [self.source.rootPath stringByAppendingString:sanitizedPath];
@@ -139,7 +133,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     [self.operationQueue addOperation:operation];
 }
 
-- (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)getMediaInfoAtPath:(nonnull NSString *)path success:(nullable FPSimpleAPIGetMediaSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress
 {
     FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
         success(mediaInfo);
@@ -164,7 +158,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                              progress:progressBlock];
 }
 
-- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)saveMediaAtLocalURL:(nonnull NSURL *)localURL named:(nonnull NSString *)name withMimeType:(nonnull NSString *)mimetype atPath:(nonnull NSString *)path success:(nullable FPSimpleAPISuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success();
@@ -191,7 +185,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                     progress:progressBlock];
 }
 
-- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)saveMediaRepresentedByData:(nonnull NSData *)data named:(nonnull NSString *)name withMimeType:(nonnull NSString *)mimetype atPath:(nonnull NSString *)path success:(nullable FPSimpleAPISuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         success();

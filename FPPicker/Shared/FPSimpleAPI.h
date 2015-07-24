@@ -29,27 +29,27 @@ typedef void (^FPSimpleAPIProgressBlock)(float progress);
 /*!
     Designated initializer.
  */
-- (instancetype)initWithSource:(FPSource *)source NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithSource:(nonnull FPSource *)source NS_DESIGNATED_INITIALIZER;
 
 /*!
     Requests a media list at a given path asynchronously.
  */
-- (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure;
+- (void)getMediaListAtPath:(nonnull NSString *)path success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;
 
 /*!
    Requests a media at a given path asynchronously.
  */
-- (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
+- (void)getMediaInfoAtPath:(nonnull NSString *)path success:(nullable FPSimpleAPIGetMediaSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Saves some media from a local URL to an existing path in the source asynchronously.
+   Saves some media from a local URL to a given path in the source asynchronously.
  */
-- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
+- (void)saveMediaAtLocalURL:(nonnull NSURL *)localURL named:(nonnull NSString *)name withMimeType:(nonnull NSString *)mimetype atPath:(nonnull NSString *)path success:(nullable FPSimpleAPISuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Saves some media represented as NSData to an existing path in the source asynchronously.
+   Saves some media represented as NSData to a given path in the source asynchronously.
  */
-- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
+- (void)saveMediaRepresentedByData:(nonnull NSData *)data named:(nonnull NSString *)name withMimeType:(nonnull NSString *)mimetype atPath:(nonnull NSString *)path success:(nullable FPSimpleAPISuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
    Cancels all the requests in the queue including those that are currently in progress.
