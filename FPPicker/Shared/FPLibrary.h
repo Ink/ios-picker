@@ -49,4 +49,19 @@
                          byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy;
 
+#ifdef FPLibrary_protected
+
++ (dispatch_queue_t)upload_processing_queue;
+
++ (void)uploadLocalURLToFilepicker:(NSURL *)localURL
+                             named:(NSString *)filename
+                        ofMimetype:(NSString *)mimetype
+                      shouldUpload:(BOOL)shouldUpload
+               usingOperationQueue:(NSOperationQueue *)operationQueue
+                           success:(FPUploadAssetSuccessBlock)success
+                           failure:(FPUploadAssetFailureBlock)failure
+                          progress:(FPUploadAssetProgressBlock)progress;
+
+#endif
+
 @end

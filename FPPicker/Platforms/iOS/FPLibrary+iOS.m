@@ -6,30 +6,11 @@
 //  Copyright (c) 2014 Filepicker.io. All rights reserved.
 //
 
+#define FPLibrary_protected
+
 #import "FPLibrary+iOS.h"
 #import "FPInternalHeaders.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-
-@interface FPLibrary ()
-
-+ (dispatch_queue_t)upload_processing_queue;
-
-+ (void)uploadDataHelper_saveAs:(NSString *)fileLocation
-                         toPath:(NSString *)saveLocation
-                     ofMimetype:(NSString *)mimetype
-                    withOptions:(NSDictionary *)options
-                        success:(FPUploadAssetSuccessBlock)success
-                        failure:(FPUploadAssetFailureBlock)failure;
-
-+ (void)uploadLocalURLToFilepicker:(NSURL *)localURL
-                             named:(NSString *)filename
-                        ofMimetype:(NSString *)mimetype
-                      shouldUpload:(BOOL)shouldUpload
-                           success:(FPUploadAssetSuccessBlock)success
-                           failure:(FPUploadAssetFailureBlock)failure
-                          progress:(FPUploadAssetProgressBlock)progress;
-
-@end
 
 @implementation FPLibrary (iOS)
 
@@ -80,6 +61,7 @@
                                     named:filename
                                ofMimetype:mimetype
                              shouldUpload:shouldUpload
+                      usingOperationQueue:nil
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progress];
@@ -109,6 +91,7 @@
                                     named:filename
                                ofMimetype:mimetype
                              shouldUpload:shouldUpload
+                      usingOperationQueue:nil
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progress];
@@ -149,6 +132,7 @@
                                         named:filename
                                    ofMimetype:mimetype
                                  shouldUpload:shouldUpload
+                          usingOperationQueue:nil
                                       success:successBlock
                                       failure:failureBlock
                                      progress:progress];
