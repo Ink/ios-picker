@@ -222,7 +222,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 - (void)registerForNotifications
 {
-    [[NSNotificationCenter defaultCenter] addObserverForName:@"auth"
+    [[NSNotificationCenter defaultCenter] addObserverForName:FPPickerDidAuthenticateAgainstSourceNotification
                                                       object:nil
                                                        queue:[NSOperationQueue mainQueue]
                                                   usingBlock: ^(NSNotification *note) {

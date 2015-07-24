@@ -1331,7 +1331,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fpAuthResponse)
-                                                 name:@"auth"
+                                                 name:FPPickerDidAuthenticateAgainstSourceNotification
                                                object:nil];
 
     FPAuthController *authView = [[FPAuthController alloc] initWithSource:self.source];

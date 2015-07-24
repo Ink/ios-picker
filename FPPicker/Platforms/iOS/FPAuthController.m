@@ -160,7 +160,7 @@
         //NSLog(@"HIT");
         //NSLog(@"Coookies: %@", fpCOOKIES);
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"auth"
+        [[NSNotificationCenter defaultCenter] postNotificationName:FPPickerDidAuthenticateAgainstSourceNotification
                                                             object:self.source];
 
         [self.navigationController popViewControllerAnimated:NO];
