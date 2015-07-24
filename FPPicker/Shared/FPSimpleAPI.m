@@ -11,6 +11,7 @@
 #import "FPSimpleAPI.h"
 #import "FPSharedInternalHeaders.h"
 #import "FPLibrary.h"
+#import "FPUtils.h"
 
 typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
@@ -135,24 +136,84 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [self.contentLoadOperationQueue cancelAllOperations];
     [self.contentLoadOperationQueue addOperation:operation];
 }
 
-/*!
-   TODO: Implement
- */
-- (void)getURLForMedia:(FPMediaInfo *)mediaInfo success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
-    return;
+    FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
+        success(mediaInfo);
+    };
+
+    FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
+        failure(error);
+    };
+
+    FPFetchObjectProgressBlock progressBlock = ^(float value) {
+        progress(value);
+    };
+
+    NSDictionary *obj = @{@"link_path":path};
+
+    [FPLibrary requestObjectMediaInfo:obj
+                           withSource:self.source
+                  usingOperationQueue:self.contentLoadOperationQueue
+                       shouldDownload:YES
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progressBlock];
 }
 
-/*!
-   TODO: Implement
- */
-- (void)saveMedia:(FPMediaInfo *)mediaInfo atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
-    return;
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        success();
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        failure(error);
+    };
+
+    FPUploadAssetProgressBlock progressBlock = ^(float value) {
+        progress(value);
+    };
+
+    NSString *sanitizedPath = [self sanitizeRelativePath:path];
+    NSString *fullPath = [NSString stringWithFormat:@"%@/%@/", self.source.rootPath, sanitizedPath];
+
+    [FPLibrary uploadDataURL:localURL
+                       named:name
+                      toPath:fullPath
+                  ofMimetype:mimetype
+                     success:successBlock
+                     failure:failureBlock
+                    progress:progressBlock];
+}
+
+- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        success();
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        failure(error);
+    };
+
+    FPUploadAssetProgressBlock progressBlock = ^(float value) {
+        progress(value);
+    };
+
+    NSString *sanitizedPath = [self sanitizeRelativePath:path];
+    NSString *fullPath = [NSString stringWithFormat:@"%@/%@/", self.source.rootPath, sanitizedPath];
+
+    [FPLibrary uploadData:data
+                    named:name
+                   toPath:fullPath
+               ofMimetype:mimetype
+                  success:successBlock
+                  failure:failureBlock
+                 progress:progressBlock];
 }
 
 #pragma mark - Private Methods
@@ -188,16 +249,19 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 - (NSString *)sanitizeRelativePath:(NSString *)relativePath
 {
-    NSString *sanitizedRelativePath;
+    NSString *tmpPath = [relativePath copy];
 
-    if ([relativePath characterAtIndex:0] == 47) // remove trailing slash if present
+    if ([tmpPath characterAtIndex:0] == 47) // remove trailing slash, if present
     {
-        sanitizedRelativePath = [relativePath substringFromIndex:1];
+        tmpPath = [tmpPath substringFromIndex:1];
     }
-    else
+
+    if ([tmpPath characterAtIndex:tmpPath.length - 1] == 47) // remove leading slash, if present
     {
-        sanitizedRelativePath = [relativePath copy];
+        tmpPath = [tmpPath substringToIndex:tmpPath.length - 1];
     }
+
+    NSString *sanitizedRelativePath = tmpPath;
 
     return sanitizedRelativePath;
 }

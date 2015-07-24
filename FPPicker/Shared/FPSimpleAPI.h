@@ -11,8 +11,9 @@
 @import Foundation;
 #import "FPExternalHeaders.h"
 
-typedef void (^FPSimpleAPISuccessBlock)();
 typedef void (^FPSimpleAPIGetMediaListSuccessBlock)(NSArray *mediaList);
+typedef void (^FPSimpleAPIGetMediaSuccessBlock)(FPMediaInfo *mediaInfo);
+typedef void (^FPSimpleAPISuccessBlock)();
 typedef void (^FPSimpleAPIFailureBlock)(NSError *error);
 typedef void (^FPSimpleAPIProgressBlock)(float progress);
 
@@ -38,12 +39,17 @@ typedef void (^FPSimpleAPIProgressBlock)(float progress);
 /*!
    Asynchronously requests a media at a given path.
  */
-- (void)getURLForMedia:(FPMediaInfo *)mediaInfo success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
+- (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Asynchronously saves a given local media to an existing path in the source.
+   Asynchronously saves some media from a local URL to an existing path in the source.
  */
-- (void)saveMedia:(FPMediaInfo *)mediaInfo atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure;
+- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
+
+/*!
+   Asynchronously saves some media represented as NSData to an existing path in the source.
+ */
+- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
 
 /*!
    Cancels any pending requests.
