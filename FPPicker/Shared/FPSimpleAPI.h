@@ -32,28 +32,28 @@ typedef void (^FPSimpleAPIProgressBlock)(float progress);
 - (instancetype)initWithSource:(FPSource *)source NS_DESIGNATED_INITIALIZER;
 
 /*!
-    Asynchronously requests a list of media at a given path.
+    Requests a media list at a given path asynchronously.
  */
 - (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure;
 
 /*!
-   Asynchronously requests a media at a given path.
+   Requests a media at a given path asynchronously.
  */
 - (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Asynchronously saves some media from a local URL to an existing path in the source.
+   Saves some media from a local URL to an existing path in the source asynchronously.
  */
 - (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Asynchronously saves some media represented as NSData to an existing path in the source.
+   Saves some media represented as NSData to an existing path in the source asynchronously.
  */
 - (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Cancels any pending requests.
+   Cancels all the requests in the queue including those that are currently in progress.
  */
-- (void)cancelPendingRequests;
+- (void)cancelAllRequests;
 
 @end

@@ -20,9 +20,9 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 @property (nonatomic, strong) FPSource *source;
 
 /*!
-   Operation queue for content load requests.
+   The operation queue to use for any requests to the REST API.
  */
-@property (nonatomic, strong) NSOperationQueue *contentLoadOperationQueue;
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 /*!
     Post authentication block.
@@ -35,14 +35,14 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 #pragma mark - Accessors
 
-- (NSOperationQueue *)contentLoadOperationQueue
+- (NSOperationQueue *)operationQueue
 {
-    if (!_contentLoadOperationQueue)
+    if (!_operationQueue)
     {
-        _contentLoadOperationQueue = [NSOperationQueue new];
+        _operationQueue = [NSOperationQueue new];
     }
 
-    return _contentLoadOperationQueue;
+    return _operationQueue;
 }
 
 #pragma mark - Constructors / Destructors
@@ -73,9 +73,9 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 #pragma mark - Public Methods
 
-- (void)cancelPendingRequests
+- (void)cancelAllRequests
 {
-    [self.contentLoadOperationQueue cancelAllOperations];
+    [self.operationQueue cancelAllOperations];
 }
 
 - (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
@@ -136,7 +136,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                                                                     success:successOperationBlock
                                                                     failure:failureOperationBlock];
 
-    [self.contentLoadOperationQueue addOperation:operation];
+    [self.operationQueue addOperation:operation];
 }
 
 - (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
@@ -157,7 +157,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
     [FPLibrary requestObjectMediaInfo:obj
                            withSource:self.source
-                  usingOperationQueue:self.contentLoadOperationQueue
+                  usingOperationQueue:self.operationQueue
                        shouldDownload:YES
                               success:successBlock
                               failure:failureBlock
@@ -185,7 +185,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                        named:name
                       toPath:fullPath
                   ofMimetype:mimetype
-         usingOperationQueue:self.contentLoadOperationQueue
+         usingOperationQueue:self.operationQueue
                      success:successBlock
                      failure:failureBlock
                     progress:progressBlock];
@@ -212,7 +212,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                     named:name
                    toPath:fullPath
                ofMimetype:mimetype
-      usingOperationQueue:self.contentLoadOperationQueue
+      usingOperationQueue:self.operationQueue
                   success:successBlock
                   failure:failureBlock
                  progress:progressBlock];
