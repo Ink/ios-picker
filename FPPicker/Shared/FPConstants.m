@@ -27,4 +27,4 @@ NSString *const FPSourceEvernote = @"evernote";
 NSString *const FPSourceCloudDrive = @"clouddrive";
 
 // Notifications
-NSString *const FPPickerDidAuthenticateAgainstSourceNotification = @"FPPickerAuthenticatedNotification";
+NSString *const FPPickerDidAuthenticateAgainstSourceNotification = @"FPPickerDidAuthenticateAgainstSourceNotification";
