@@ -31,20 +31,18 @@
                          byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy;
 
-+ (void)uploadData:(NSData*)filedata
++ (void)uploadData:(NSData *)filedata
              named:(NSString *)filename
-            toPath:(NSString*)path
-        ofMimetype:(NSString*)mimetype
-       withOptions:(NSDictionary*)options
+            toPath:(NSString *)path
+        ofMimetype:(NSString *)mimetype
            success:(FPUploadAssetSuccessBlock)success
            failure:(FPUploadAssetFailureBlock)failure
           progress:(FPUploadAssetProgressBlock)progress;
 
-+ (void)uploadDataURL:(NSURL*)filedataurl
++ (void)uploadDataURL:(NSURL *)localURL
                 named:(NSString *)filename
-               toPath:(NSString*)path
-           ofMimetype:(NSString*)mimetype
-          withOptions:(NSDictionary*)options
+               toPath:(NSString *)path
+           ofMimetype:(NSString *)mimetype
               success:(FPUploadAssetSuccessBlock)success
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress;

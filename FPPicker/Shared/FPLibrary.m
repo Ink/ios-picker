@@ -63,7 +63,6 @@
              named:(NSString *)filename
             toPath:(NSString *)path
         ofMimetype:(NSString *)mimetype
-       withOptions:(NSDictionary *)options
            success:(FPUploadAssetSuccessBlock)success
            failure:(FPUploadAssetFailureBlock)failure
           progress:(FPUploadAssetProgressBlock)progress
@@ -77,36 +76,34 @@
               atomically:YES];
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        NSString *filepickerURL = JSON[@"data"][0][@"url"];
+        // Clean up temporary file before returning the success response
+        NSError *error;
 
-        [FPLibrary uploadDataHelper_saveAs:filepickerURL
-                                    toPath:[NSString stringWithFormat:@"%@%@", path, filename]
-                                ofMimetype:mimetype
-                               withOptions:options
-                                   success:success
-                                   failure:failure];
+        [[NSFileManager defaultManager] removeItemAtURL:tempURL
+                                                  error:&error];
+
+        if (error)
+        {
+            DLog(@"Error deleting temporary file at %@: %@", tempURL, error);
+        }
+
+        // Return success response
+        success(JSON);
     };
 
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        DLog(@"File upload failed with %@, response was: %@", error, JSON);
-
-        failure(error, JSON);
-    };
-
-    [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                    named:filename
-                               ofMimetype:mimetype
-                             shouldUpload:YES
-                                  success:successBlock
-                                  failure:failureBlock
-                                 progress:progress];
+    [self uploadDataURL:tempURL
+                  named:filename
+                 toPath:path
+             ofMimetype:mimetype
+                success:successBlock
+                failure:failure
+               progress:progress];
 }
 
-+ (void)uploadDataURL:(NSURL *)filedataurl
++ (void)uploadDataURL:(NSURL *)localURL
                 named:(NSString *)filename
                toPath:(NSString *)path
            ofMimetype:(NSString *)mimetype
-          withOptions:(NSDictionary *)options
               success:(FPUploadAssetSuccessBlock)success
               failure:(FPUploadAssetFailureBlock)failure
              progress:(FPUploadAssetProgressBlock)progress
@@ -117,7 +114,6 @@
         [FPLibrary uploadDataHelper_saveAs:filepickerURL
                                     toPath:[NSString stringWithFormat:@"%@%@", path, filename]
                                 ofMimetype:mimetype
-                               withOptions:options
                                    success:success
                                    failure:failure];
     };
@@ -129,7 +125,7 @@
         failure(error, JSON);
     };
 
-    [FPLibrary uploadLocalURLToFilepicker:filedataurl
+    [FPLibrary uploadLocalURLToFilepicker:localURL
                                     named:filename
                                ofMimetype:mimetype
                              shouldUpload:YES
@@ -143,7 +139,6 @@
 + (void)uploadDataHelper_saveAs:(NSString *)fileLocation
                          toPath:(NSString *)saveLocation
                      ofMimetype:(NSString *)mimetype
-                    withOptions:(NSDictionary *)options
                         success:(FPUploadAssetSuccessBlock)success
                         failure:(FPUploadAssetFailureBlock)failure
 {
@@ -204,7 +199,7 @@
         DLog(@"Not uploading");
 
         NSError *error = [FPUtils errorWithCode:200
-                          andLocalizedDescription:@"Should upload flag is set to NO."];
+                        andLocalizedDescription         :@"Should upload flag is set to NO."];
 
         failure(error, nil);
 
@@ -344,7 +339,7 @@
         mediaInfo.mediaURL = tempURL;
         mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
         mediaInfo.source = source;
-        
+
         NSString *sizeString = headers[@"X-File-Size"];
         mediaInfo.filesize = [NSNumber numberWithInteger:[sizeString integerValue]];
 
@@ -407,7 +402,7 @@
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
 
-    NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
+    NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString:loadpath]]];
 
     if ([urlString rangeOfString:@"?"].location == NSNotFound)
     {

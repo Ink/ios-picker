@@ -48,7 +48,7 @@
         !self.dataurl)
     {
         NSLog(@"WARNING: No data specified. Continuing but saving blank file.");
-        self.data = [@"" dataUsingEncoding : NSUTF8StringEncoding];
+        self.data = [@"" dataUsingEncoding:NSUTF8StringEncoding];
     }
 
     if (!self.dataType &&
@@ -136,7 +136,6 @@
                            named:filename
                           toPath:path
                       ofMimetype:self.dataType
-                     withOptions:nil
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -147,7 +146,6 @@
                         named:filename
                        toPath:path
                    ofMimetype:self.dataType
-                  withOptions:nil
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];
