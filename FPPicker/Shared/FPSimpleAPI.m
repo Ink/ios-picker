@@ -185,6 +185,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                        named:name
                       toPath:fullPath
                   ofMimetype:mimetype
+         usingOperationQueue:self.contentLoadOperationQueue
                      success:successBlock
                      failure:failureBlock
                     progress:progressBlock];
@@ -211,6 +212,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                     named:name
                    toPath:fullPath
                ofMimetype:mimetype
+      usingOperationQueue:self.contentLoadOperationQueue
                   success:successBlock
                   failure:failureBlock
                  progress:progressBlock];

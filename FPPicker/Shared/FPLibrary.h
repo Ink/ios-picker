@@ -20,6 +20,24 @@
                        failure:(FPFetchObjectFailureBlock)failure
                       progress:(FPFetchObjectProgressBlock)progress;
 
++ (void)     uploadData:(NSData *)filedata
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
+
++ (void)  uploadDataURL:(NSURL *)localURL
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
+
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
                           withFormat:(NSString *)type
                         andMimetypes:(NSArray *)mimetypes
@@ -30,21 +48,5 @@
                         andMimetypes:(NSArray *)mimetypes
                          byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy;
-
-+ (void)uploadData:(NSData *)filedata
-             named:(NSString *)filename
-            toPath:(NSString *)path
-        ofMimetype:(NSString *)mimetype
-           success:(FPUploadAssetSuccessBlock)success
-           failure:(FPUploadAssetFailureBlock)failure
-          progress:(FPUploadAssetProgressBlock)progress;
-
-+ (void)uploadDataURL:(NSURL *)localURL
-                named:(NSString *)filename
-               toPath:(NSString *)path
-           ofMimetype:(NSString *)mimetype
-              success:(FPUploadAssetSuccessBlock)success
-              failure:(FPUploadAssetFailureBlock)failure
-             progress:(FPUploadAssetProgressBlock)progress;
 
 @end

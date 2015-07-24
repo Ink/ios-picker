@@ -59,13 +59,14 @@
 
 #pragma mark - Save As Methods
 
-+ (void)uploadData:(NSData *)filedata
-             named:(NSString *)filename
-            toPath:(NSString *)path
-        ofMimetype:(NSString *)mimetype
-           success:(FPUploadAssetSuccessBlock)success
-           failure:(FPUploadAssetFailureBlock)failure
-          progress:(FPUploadAssetProgressBlock)progress
++ (void)     uploadData:(NSData *)filedata
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress
 {
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
@@ -92,21 +93,23 @@
     };
 
     [self uploadDataURL:tempURL
-                  named:filename
-                 toPath:path
-             ofMimetype:mimetype
-                success:successBlock
-                failure:failure
-               progress:progress];
+                   named:filename
+                  toPath:path
+              ofMimetype:mimetype
+     usingOperationQueue:operationQueue
+                 success:successBlock
+                 failure:failure
+                progress:progress];
 }
 
-+ (void)uploadDataURL:(NSURL *)localURL
-                named:(NSString *)filename
-               toPath:(NSString *)path
-           ofMimetype:(NSString *)mimetype
-              success:(FPUploadAssetSuccessBlock)success
-              failure:(FPUploadAssetFailureBlock)failure
-             progress:(FPUploadAssetProgressBlock)progress
++ (void)  uploadDataURL:(NSURL *)localURL
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         NSString *filepickerURL = JSON[@"data"][0][@"url"];
@@ -114,6 +117,7 @@
         [FPLibrary uploadDataHelper_saveAs:filepickerURL
                                     toPath:[NSString stringWithFormat:@"%@%@", path, filename]
                                 ofMimetype:mimetype
+                       usingOperationQueue:operationQueue
                                    success:success
                                    failure:failure];
     };
@@ -129,6 +133,7 @@
                                     named:filename
                                ofMimetype:mimetype
                              shouldUpload:YES
+                      usingOperationQueue:operationQueue
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progress];
@@ -139,6 +144,7 @@
 + (void)uploadDataHelper_saveAs:(NSString *)fileLocation
                          toPath:(NSString *)saveLocation
                      ofMimetype:(NSString *)mimetype
+            usingOperationQueue:(NSOperationQueue *)operationQueue
                         success:(FPUploadAssetSuccessBlock)success
                         failure:(FPUploadAssetFailureBlock)failure
 {
@@ -182,6 +188,7 @@
 
     [[FPAPIClient sharedClient] POST:savePath
                           parameters:params
+                 usingOperationQueue:operationQueue
                              success:successOperationBlock
                              failure:failureOperationBlock];
 }
@@ -190,6 +197,7 @@
                              named:(NSString *)filename
                         ofMimetype:(NSString *)mimetype
                       shouldUpload:(BOOL)shouldUpload
+               usingOperationQueue:(NSOperationQueue *)operationQueue
                            success:(FPUploadAssetSuccessBlock)success
                            failure:(FPUploadAssetFailureBlock)failure
                           progress:(FPUploadAssetProgressBlock)progress
@@ -240,7 +248,8 @@
 //
 //        fileUploader = [[FPSinglepartUploader alloc] initWithLocalURL:localURL
 //                                                             filename:filename
-//                                                          andMimetype:mimetype];
+//                                                             mimetype:mimetype
+//                                                    andOperationQueue:operationQueue];
 //    }
 //    else
     {
@@ -248,7 +257,8 @@
 
         fileUploader = [[FPMultipartUploader alloc] initWithLocalURL:localURL
                                                             filename:filename
-                                                         andMimetype:mimetype];
+                                                            mimetype:mimetype
+                                                   andOperationQueue:operationQueue];
     }
 
     fileUploader.successBlock = success;

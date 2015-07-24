@@ -136,6 +136,7 @@
                            named:filename
                           toPath:path
                       ofMimetype:self.dataType
+             usingOperationQueue:nil
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -146,6 +147,7 @@
                         named:filename
                        toPath:path
                    ofMimetype:self.dataType
+          usingOperationQueue:nil
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];
