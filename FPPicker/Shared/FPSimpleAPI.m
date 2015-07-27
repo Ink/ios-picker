@@ -74,18 +74,33 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 - (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
 {
+    NSMutableArray *mediaList = [NSMutableArray array];
+
+    [self recursiveGetMediaListAtPath:path
+                       partialResults:mediaList
+                            startPage:0
+                              success:success
+                              failure:failure];
+}
+
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+{
     [self getMediaListAtPath:path
+                   startPage:startPage
              withCachePolicy:NSURLRequestReturnCacheDataElseLoad
                      success:success
                      failure:failure];
 }
 
-- (void)getMediaListAtPath:(NSString *)path withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
 {
     NSString *sanitizedPath = [self sanitizeRelativePath:path];
     NSString *loadPath = [self.source.rootPath stringByAppendingString:sanitizedPath];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:loadPath];
 
-    NSURLRequest *request = [FPLibrary requestForLoadPath:loadPath
+    urlComponents.query = [NSString stringWithFormat:@"start=%ld", startPage];
+
+    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.string
                                                withFormat:@"info"
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:cachePolicy];
@@ -100,6 +115,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
                 self.postAuthenticationActionBlock = ^() {
                     [weakSelf getMediaListAtPath:path
+                                       startPage:startPage
                                  withCachePolicy:NSURLRequestReloadIgnoringLocalCacheData
                                          success:success
                                          failure:failure];
@@ -116,7 +132,15 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
             return;
         }
 
-        success(responseObject[@"contents"]);
+        id nextObject = responseObject[@"next"];
+        NSUInteger nextPageNumber = 0;
+
+        if (nextObject && nextObject != [NSNull null])
+        {
+            nextPageNumber = [responseObject[@"next"] unsignedIntegerValue];
+        }
+
+        success(responseObject[@"contents"], nextPageNumber);
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -214,6 +238,28 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 #pragma mark - Private Methods
 
+- (void)recursiveGetMediaListAtPath:(NSString *)path partialResults:(NSMutableArray *)partialResults startPage:(NSUInteger)startPage success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+{
+    [self getMediaListAtPath:path
+                   startPage:startPage
+                     success: ^(NSArray * __nonnull mediaList, NSUInteger nextPage) {
+        [partialResults addObjectsFromArray:mediaList];
+
+        if (nextPage > 0)
+        {
+            [self recursiveGetMediaListAtPath:path
+                               partialResults:partialResults
+                                    startPage:nextPage
+                                      success:success
+                                      failure:failure];
+        }
+        else
+        {
+            success(partialResults, 0);
+        }
+    } failure:failure];
+}
+
 - (void)registerForNotifications
 {
     [[NSNotificationCenter defaultCenter] addObserverForName:FPPickerDidAuthenticateAgainstSourceNotification
@@ -252,7 +298,8 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         tmpPath = [tmpPath substringFromIndex:1];
     }
 
-    if ([tmpPath characterAtIndex:tmpPath.length - 1] == 47) // remove leading slash, if present
+    if (tmpPath.length > 0 &&
+        [tmpPath characterAtIndex:tmpPath.length - 1] == 47) // remove leading slash, if present
     {
         tmpPath = [tmpPath substringToIndex:tmpPath.length - 1];
     }

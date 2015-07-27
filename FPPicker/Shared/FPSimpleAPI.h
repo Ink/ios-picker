@@ -11,7 +11,7 @@
 @import Foundation;
 #import "FPExternalHeaders.h"
 
-typedef void (^FPSimpleAPIGetMediaListSuccessBlock)(NSArray * __nonnull mediaList);
+typedef void (^FPSimpleAPIGetMediaListSuccessBlock)(NSArray *__nonnull mediaList, NSUInteger nextPage);
 typedef void (^FPSimpleAPIGetMediaSuccessBlock)(FPMediaInfo *__nonnull mediaInfo);
 typedef void (^FPSimpleAPISuccessBlock)();
 typedef void (^FPSimpleAPIFailureBlock)(NSError *__nonnull error);
@@ -34,8 +34,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
     Requests a media list at a given path asynchronously.
+    Note: Results are NOT paginated. If you would prefer the results to be paginated, please use `getMediaListAtPath:startPage:success:failure:` instead.
  */
 - (void)getMediaListAtPath:(NSString *)path success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;
+
+/*!
+    Requests a media list at a given path asynchronously where the results are paginated.
+
+    Note: When there's more than one page of results, the success block will include a `nextPage` value greater than 0 that can be used as the `startPage` value for a subsequent call to this method.
+ */
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;
 
 /*!
    Requests a media at a given path asynchronously.
