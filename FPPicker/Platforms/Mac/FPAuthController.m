@@ -176,7 +176,8 @@
                               success:(FPAuthSuccessBlock)success
                               failure:(FPAuthFailureBlock)failure
 {
-    NSRect initialContentRect = NSMakeRect(0, 0, 640, 540);
+    CGFloat desiredContentWidth = MIN(640, NSWidth(modalWindow.frame));
+    NSRect initialContentRect = NSMakeRect(0, 0, desiredContentWidth, 540);
 
     self.window = [[FPWindow alloc] initWithContentRect:initialContentRect
                                               styleMask:0
