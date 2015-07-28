@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6250"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="FPDialogController">
@@ -72,7 +71,8 @@
                                             <rect key="frame" x="1" y="1" width="148" height="398"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
+                                                <outlineView appearanceType="vibrantLight" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" selectionHighlightStyle="sourceList" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="24" rowSizeStyle="systemDefault" viewBased="YES" indentationPerLevel="16" outlineTableColumn="2ab-0p-mXB" id="snl-Pl-MXb">
+                                                    <rect key="frame" x="0.0" y="0.0" width="223" height="0.0"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="_sourceListBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -272,14 +272,15 @@
                                                     <subviews>
                                                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yBr-7N-qOF">
                                                             <rect key="frame" x="0.0" y="0.0" width="557" height="425"/>
-                                                            <clipView key="contentView" misplaced="YES" id="drc-Hc-W43">
+                                                            <clipView key="contentView" id="drc-Hc-W43">
                                                                 <rect key="frame" x="1" y="0.0" width="238" height="134"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
                                                                     <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="IjO-01-P6W" viewBased="YES" id="u9a-wt-4CW" customClass="FPTableView">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="557" height="0.0"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <size key="intercellSpacing" width="3" height="2"/>
-                                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableColumns>
                                                                             <tableColumn identifier="Filename" width="280" minWidth="40" maxWidth="1000" id="vPl-ld-etz">
@@ -628,57 +629,6 @@ Gw
             </connections>
             <point key="canvasLocation" x="139" y="153.5"/>
         </window>
-        <window title="Authentication" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" animationBehavior="default" id="kd0-1S-2eX" customClass="NSPanel">
-            <windowStyleMask key="styleMask" titled="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="139" y="81" width="640" height="540"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
-            <view key="contentView" id="hu1-WR-NgY">
-                <rect key="frame" x="0.0" y="0.0" width="640" height="540"/>
-                <autoresizingMask key="autoresizingMask"/>
-                <subviews>
-                    <webView maintainsBackForwardList="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g2y-dV-G5Y">
-                        <rect key="frame" x="0.0" y="61" width="640" height="479"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="479" id="GC9-7E-rxP"/>
-                        </constraints>
-                        <webPreferences key="preferences" defaultFontSize="12" defaultFixedFontSize="12" plugInsEnabled="NO" javaEnabled="NO" javaScriptCanOpenWindowsAutomatically="NO">
-                            <nil key="identifier"/>
-                        </webPreferences>
-                        <connections>
-                            <outlet property="frameLoadDelegate" destination="n1b-SP-myf" id="5AG-dw-0qi"/>
-                            <outlet property="resourceLoadDelegate" destination="n1b-SP-myf" id="7sw-Wq-hHe"/>
-                        </connections>
-                    </webView>
-                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qTx-QQ-Ldl">
-                        <rect key="frame" x="543" y="13" width="83" height="32"/>
-                        <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p49-N0-ihN">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="system"/>
-                            <string key="keyEquivalent" base64-UTF8="YES">
-Gw
-</string>
-                        </buttonCell>
-                        <connections>
-                            <action selector="closeSheet:" target="n1b-SP-myf" id="dBW-iw-myg"/>
-                        </connections>
-                    </button>
-                    <progressIndicator horizontalHuggingPriority="750" verticalHuggingPriority="750" maxValue="100" displayedWhenStopped="NO" bezeled="NO" indeterminate="YES" style="spinning" translatesAutoresizingMaskIntoConstraints="NO" id="I32-59-yaP">
-                        <rect key="frame" x="304" y="284" width="32" height="32"/>
-                    </progressIndicator>
-                </subviews>
-                <constraints>
-                    <constraint firstItem="qTx-QQ-Ldl" firstAttribute="top" secondItem="g2y-dV-G5Y" secondAttribute="bottom" constant="20" symbolic="YES" id="CQ0-kh-38G"/>
-                    <constraint firstItem="g2y-dV-G5Y" firstAttribute="leading" secondItem="hu1-WR-NgY" secondAttribute="leading" id="FJs-MG-oAu"/>
-                    <constraint firstAttribute="trailing" secondItem="g2y-dV-G5Y" secondAttribute="trailing" id="GRS-8u-SM3"/>
-                    <constraint firstItem="I32-59-yaP" firstAttribute="centerY" secondItem="g2y-dV-G5Y" secondAttribute="centerY" id="NFR-sS-RD1"/>
-                    <constraint firstAttribute="trailing" secondItem="qTx-QQ-Ldl" secondAttribute="trailing" constant="20" symbolic="YES" id="blR-bn-BY5"/>
-                    <constraint firstItem="I32-59-yaP" firstAttribute="centerX" secondItem="g2y-dV-G5Y" secondAttribute="centerX" id="w31-RP-UPo"/>
-                    <constraint firstItem="g2y-dV-G5Y" firstAttribute="top" secondItem="hu1-WR-NgY" secondAttribute="top" id="xTi-4a-KoL"/>
-                </constraints>
-            </view>
-            <point key="canvasLocation" x="139" y="875"/>
-        </window>
         <customObject id="uiA-OB-dvu" customClass="FPSourceResultsController">
             <connections>
                 <outlet property="browserView" destination="DIS-ff-gbj" id="NOu-L2-CeD"/>
@@ -695,7 +645,6 @@ Gw
         </viewController>
         <viewController id="fX3-UZ-gXh" customClass="FPSourceViewController">
             <connections>
-                <outlet property="authController" destination="n1b-SP-myf" id="rhY-Vy-oBz"/>
                 <outlet property="delegate" destination="-2" id="3oa-qL-cm7"/>
                 <outlet property="displayStyleSegmentedControl" destination="Qx3-mb-k8Q" id="4Rw-PV-n8X"/>
                 <outlet property="loginButton" destination="p6g-Rm-qo3" id="yS1-5P-HF6"/>
@@ -710,13 +659,6 @@ Gw
                 <outlet property="currentDirectoryPopupButton" destination="Dxy-fv-hrj" id="3CR-af-3u5"/>
                 <outlet property="delegate" destination="-2" id="jDd-gJ-u0k"/>
                 <outlet property="navigationSegmentedControl" destination="d4N-uK-5Qv" id="g9f-yE-7In"/>
-            </connections>
-        </viewController>
-        <viewController nibName="" id="n1b-SP-myf" customClass="FPAuthController">
-            <connections>
-                <outlet property="progressIndicator" destination="I32-59-yaP" id="NLJ-VW-nMm"/>
-                <outlet property="view" destination="hu1-WR-NgY" id="P6p-r1-9UT"/>
-                <outlet property="webView" destination="g2y-dV-G5Y" id="JMS-nk-Rcn"/>
             </connections>
         </viewController>
     </objects>

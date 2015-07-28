@@ -27,8 +27,8 @@ typedef enum : NSUInteger
                                       FPRemoteSourceControllerDelegate>
 
 @property (nonatomic, weak) IBOutlet NSSegmentedControl *displayStyleSegmentedControl;
-
-@property (readwrite, nonatomic) FPBaseSourceController *sourceController;
+@property (nonatomic, strong) FPAuthController *authController;
+@property (readwrite) FPBaseSourceController *sourceController;
 
 @end
 
@@ -276,12 +276,11 @@ typedef enum : NSUInteger
               withMessageText:@"Response error"];
     };
 
-    [self.authController displayAuthSheetWithSource:self.representedSource.source
-                                      inModalWindow:self.view.window
-                                      modalDelegate:self
-                                     didEndSelector:@selector(authSheetDidEnd:returnCode:contextInfo:)
-                                            success:successBlock
-                                            failure:failureBlock];
+    self.authController = [[FPAuthController alloc] initWithSource:self.representedSource.source];
+
+    [self.authController displayAuthSheetInModalWindow:self.view.window
+                                               success:successBlock
+                                               failure:failureBlock];
 }
 
 - (IBAction)search:(id)sender
@@ -310,13 +309,6 @@ typedef enum : NSUInteger
 }
 
 #pragma mark - Private Methods
-
-- (void)authSheetDidEnd:(NSWindow *)sheet
-             returnCode:(NSInteger)returnCode
-            contextInfo:(void *)contextInfo
-{
-    // NO-OP
-}
 
 - (void)updateLoggedInStateInRepresentedSource:(BOOL)isLoggedIn
 {

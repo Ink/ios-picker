@@ -9,18 +9,67 @@
 #import "FPAuthController.h"
 #import "FPPrivateConfig.h"
 #import "FPUtils+ResourceHelpers.h"
+#import "FPWindow.h"
+#import "FPConstants.h"
+#import <PureLayout/PureLayout.h>
 
 @interface FPAuthController ()
 
+@property (nonatomic, strong) FPSource *source;
 @property (nonatomic, strong) NSDictionary *settings;
 @property (nonatomic, copy) FPAuthSuccessBlock successBlock;
 @property (nonatomic, copy) FPAuthFailureBlock failureBlock;
+
+@property (nonatomic, assign) BOOL didSetupViewConstraints;
+@property (nonatomic, strong) WebView *webView;
+@property (nonatomic, strong) NSProgressIndicator *progressIndicator;
+@property (nonatomic, strong) NSButton *cancelButton;
+@property (nonatomic, strong) FPWindow *window;
 
 @end
 
 @implementation FPAuthController
 
 #pragma mark - Accessors
+
+- (WebView *)webView
+{
+    if (!_webView)
+    {
+        _webView = [[WebView alloc] initForAutoLayout];
+        _webView.frameLoadDelegate = self;
+        _webView.resourceLoadDelegate = self;
+    }
+
+    return _webView;
+}
+
+- (NSProgressIndicator *)progressIndicator
+{
+    if (!_progressIndicator)
+    {
+        _progressIndicator = [[NSProgressIndicator alloc] initForAutoLayout];
+        _progressIndicator.indeterminate = YES;
+        _progressIndicator.displayedWhenStopped = NO;
+    }
+
+    return _progressIndicator;
+}
+
+- (NSButton *)cancelButton
+{
+    if (!_cancelButton)
+    {
+        _cancelButton = [[NSButton alloc] initForAutoLayout];
+        [_cancelButton setButtonType:NSToggleButton];
+        _cancelButton.bezelStyle = NSRoundedBezelStyle;
+        _cancelButton.title = @"Cancel";
+        _cancelButton.target = self;
+        _cancelButton.action = @selector(closeSheet:);
+    }
+
+    return _cancelButton;
+}
 
 - (NSDictionary *)settings
 {
@@ -32,25 +81,89 @@
     return _settings;
 }
 
+#pragma mark - Constructors/Destructors
+
+- (instancetype)init
+{
+    self = [super init];
+
+    if (self)
+    {
+        self.didSetupViewConstraints = NO;
+    }
+
+    return self;
+}
+
+- (instancetype)initWithSource:(FPSource *)source
+{
+    self = [self init];
+
+    if (self)
+    {
+        self.source = source;
+    }
+
+    return self;
+}
+
 #pragma mark - Public Methods
 
-- (void)displayAuthSheetWithSource:(FPSource *)source
-                     inModalWindow:(NSWindow *)modalWindow
-                     modalDelegate:(id)modalDelegate
-                    didEndSelector:(SEL)didEndSelector
-                           success:(FPAuthSuccessBlock)success
-                           failure:(FPAuthFailureBlock)failure
+- (void)cancelOperation:(id)sender
 {
+    [self closeSheet:self];
+}
+
+- (void)loadView
+{
+    self.view = [[NSView alloc] initForAutoLayout];
+}
+
+- (void)displayAuthSheetInModalWindow:(NSWindow *)modalWindow
+                              success:(FPAuthSuccessBlock)success
+                              failure:(FPAuthFailureBlock)failure
+{
+    NSRect initialContentRect = NSMakeRect(0, 0, 640, 540);
+
+    self.window = [[FPWindow alloc] initWithContentRect:initialContentRect
+                                              styleMask:0
+                                                backing:NSBackingStoreBuffered
+                                                  defer:YES];
+
+    self.window.hasShadow = YES;
+    self.window.contentView = self.view;
+
+    [self updateViewConstraints];
     [self cleanupSessionCookie];
-    [self loadRequestWithSource:source
+
+    [self loadRequestWithSource:self.source
                         success:success
                         failure:failure];
 
-    [NSApp beginSheet:self.view.window
-       modalForWindow:modalWindow
-        modalDelegate:modalDelegate
-       didEndSelector:didEndSelector
-          contextInfo:nil];
+    [modalWindow beginSheet:self.window
+          completionHandler:nil];
+}
+
+- (void)updateViewConstraints
+{
+    if (!self.didSetupViewConstraints)
+    {
+        [self addControls];
+
+        [self.webView autoPinEdgeToSuperviewEdge:ALEdgeTop withInset:0];
+        [self.webView autoPinEdgeToSuperviewEdge:ALEdgeLeft withInset:0];
+        [self.webView autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:0];
+        [self.webView autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:70];
+
+        [self.progressIndicator autoCenterInSuperview];
+
+        [self.cancelButton autoPinEdgeToSuperviewEdge:ALEdgeRight withInset:22];
+        [self.cancelButton autoPinEdgeToSuperviewEdge:ALEdgeBottom withInset:22];
+
+        self.didSetupViewConstraints = YES;
+    }
+
+    [super updateViewConstraints];
 }
 
 #pragma mark - Private Methods
@@ -94,19 +207,24 @@
     NSURL *url = sender.mainFrame.provisionalDataSource.request.URL;
 
     DLog(@"Redirecting to %@", url);
-
-    if ([url.path isEqualToString:@"/dialog/open"])
-    {
-        [self closeSheet:self];
-        self.successBlock();
-
-        return;
-    }
 }
 
 - (void)          webView:(WebView *)sender
     didFinishLoadForFrame:(WebFrame *)frame
 {
+    NSURL *url = sender.mainFrame.dataSource.request.URL;
+
+    if ([url.path isEqualToString:@"/dialog/open"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:FPPickerDidAuthenticateAgainstSourceNotification
+                                                            object:self.source];
+
+        [self closeSheet:self];
+        self.successBlock();
+
+        return;
+    }
+
     int width = (int)self.view.bounds.size.width;
 
     NSString *js = [NSString stringWithFormat:
@@ -168,6 +286,13 @@
 }
 
 #pragma mark - Private Methods
+
+- (void)addControls
+{
+    [self.view addSubview:self.webView];
+    [self.view addSubview:self.progressIndicator];
+    [self.view addSubview:self.cancelButton];
+}
 
 - (void)cleanupSessionCookie
 {

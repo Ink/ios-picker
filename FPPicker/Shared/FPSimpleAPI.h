@@ -34,6 +34,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
     Requests a media list at a given path asynchronously.
+
     Note: Results are NOT paginated. If you would prefer the results to be paginated, please use `getMediaListAtPath:startPage:success:failure:` instead.
  */
 - (void)getMediaListAtPath:(NSString *)path success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;

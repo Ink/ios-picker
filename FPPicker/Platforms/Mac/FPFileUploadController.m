@@ -145,7 +145,7 @@
                            named:self.filename
                           toPath:self.targetPath
                       ofMimetype:self.mimetype
-                     withOptions:nil
+             usingOperationQueue:nil
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -156,7 +156,7 @@
                         named:self.filename
                        toPath:self.targetPath
                    ofMimetype:self.mimetype
-                  withOptions:nil
+          usingOperationQueue:nil
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];
