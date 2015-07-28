@@ -16,9 +16,6 @@ typedef void (^FPAuthFailureBlock)(NSError *__nonnull error);
 NS_ASSUME_NONNULL_BEGIN
 @interface FPAuthController : NSViewController
 
-@property (nonatomic, strong) NSString *service;
-@property (nonatomic, strong) NSString *path;
-
 - (instancetype)initWithSource:(FPSource *)source;
 
 - (void)displayAuthSheetInModalWindow:(NSWindow *)modalWindow

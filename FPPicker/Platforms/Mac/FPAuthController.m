@@ -16,6 +16,9 @@
 @interface FPAuthController ()
 
 @property (nonatomic, strong) FPSource *source;
+@property (nonatomic, strong) NSString *service;
+@property (nonatomic, strong) NSString *path;
+
 @property (nonatomic, strong) NSDictionary *settings;
 @property (nonatomic, copy) FPAuthSuccessBlock successBlock;
 @property (nonatomic, copy) FPAuthFailureBlock failureBlock;
@@ -155,6 +158,8 @@
     if (self)
     {
         self.source = source;
+        self.service = source.identifier;
+        self.title = source.name;
     }
 
     return self;
@@ -228,9 +233,6 @@
 {
     self.successBlock = success;
     self.failureBlock = failure;
-
-    self.service = source.identifier;
-    self.title = source.name;
 
     NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/auth/open?m=*/*&key=%@&id=0&modal=false",
                            fpBASE_URL,
