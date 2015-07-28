@@ -101,6 +101,7 @@
     if (!_progressIndicator)
     {
         _progressIndicator = [[NSProgressIndicator alloc] initForAutoLayout];
+        _progressIndicator.style = NSProgressIndicatorSpinningStyle;
         _progressIndicator.indeterminate = YES;
         _progressIndicator.displayedWhenStopped = NO;
     }
@@ -238,6 +239,7 @@
     NSURL *url = [NSURL URLWithString:urlString];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
 
+    [self.progressIndicator startAnimation:self];
     [self.webView.mainFrame loadRequest:request];
 }
 
@@ -264,6 +266,8 @@
 - (void)          webView:(WebView *)sender
     didFinishLoadForFrame:(WebFrame *)frame
 {
+    [self.progressIndicator stopAnimation:self];
+
     NSURL *url = sender.mainFrame.dataSource.request.URL;
 
     if ([url.path isEqualToString:@"/dialog/open"])
@@ -342,7 +346,7 @@
 - (void)addControls
 {
     [self.view addSubview:self.webView];
-    [self.view addSubview:self.progressIndicator];
+    [self.webView addSubview:self.progressIndicator];
     [self.view addSubview:self.cancelButton];
 }
 
