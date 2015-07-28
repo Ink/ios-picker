@@ -255,7 +255,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         }
         else
         {
-            success(partialResults, 0);
+            success([partialResults copy], 0);
         }
     } failure:failure];
 }
