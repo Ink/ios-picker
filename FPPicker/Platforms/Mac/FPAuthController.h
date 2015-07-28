@@ -25,5 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
                               success:(FPAuthSuccessBlock)success
                               failure:(FPAuthFailureBlock)failure;
 
++ (void)clearAuthCredentials;
+
 @end
 NS_ASSUME_NONNULL_END

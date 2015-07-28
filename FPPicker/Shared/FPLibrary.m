@@ -160,29 +160,23 @@
 
     NSString *savePath = [NSString stringWithFormat:@"/api/path%@", [FPUtils urlEncodeString:saveLocation]];
 
-    DLog(@"Saving %@ (params: %@)", savePath, params);
-
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
         if (responseObject[@"url"])
         {
-            DLog(@"Success with response %@", responseObject);
-
             success(responseObject);
         }
         else
         {
-            failure([[NSError alloc] initWithDomain:fpBASE_URL
-                                               code:0
-                                           userInfo:nil],
-                    responseObject);
+            NSError *error = [FPUtils errorWithCode:200
+                            andLocalizedDescription         :@"Response does not contain an URL."];
+
+            failure(error, responseObject);
         }
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        DLog(@"File upload failed with %@", error);
-
         failure(error, nil);
     };
 
