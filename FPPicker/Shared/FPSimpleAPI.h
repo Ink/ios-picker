@@ -11,6 +11,15 @@
 @import Foundation;
 #import "FPExternalHeaders.h"
 
+@class FPSimpleAPI;
+@class FPSource;
+
+@protocol FPSimpleAPIDelegate <NSObject>
+
+- (void)simpleAPI:(FPSimpleAPI *__nonnull)simpleAPI requiresAuthenticationForSource:(FPSource *__nonnull)source;
+
+@end
+
 typedef void (^FPSimpleAPIGetMediaListSuccessBlock)(NSArray *__nonnull mediaList, NSUInteger nextPage);
 typedef void (^FPSimpleAPIGetMediaSuccessBlock)(FPMediaInfo *__nonnull mediaInfo);
 typedef void (^FPSimpleAPISuccessBlock)();

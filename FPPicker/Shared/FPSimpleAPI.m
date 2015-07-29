@@ -98,7 +98,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     NSString *loadPath = [self.source.rootPath stringByAppendingString:sanitizedPath];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithString:loadPath];
 
-    urlComponents.query = [NSString stringWithFormat:@"start=%ld", startPage];
+    urlComponents.queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"start"
+                                    value:@(startPage).stringValue]
+    ];
 
     NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.string
                                                withFormat:@"info"
@@ -109,25 +112,17 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                                                              id responseObject) {
         if (responseObject[@"auth"])
         {
-            if (self.delegate && [self.delegate respondsToSelector:@selector(simpleAPI:requiresAuthenticationForSource:)])
-            {
-                __weak __typeof(self) weakSelf = self;
+            __weak __typeof(self) weakSelf = self;
 
-                self.postAuthenticationActionBlock = ^() {
-                    [weakSelf getMediaListAtPath:path
-                                       startPage:startPage
-                                 withCachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                         success:success
-                                         failure:failure];
-                };
+            self.postAuthenticationActionBlock = ^() {
+                [weakSelf getMediaListAtPath:path
+                                   startPage:startPage
+                             withCachePolicy:NSURLRequestReloadIgnoringLocalCacheData
+                                     success:success
+                                     failure:failure];
+            };
 
-                [self.delegate simpleAPI:self
-                 requiresAuthenticationForSource:self.source];
-            }
-            else
-            {
-                NSLog(@"Source %@ requires authentication and the delegate does not implement simpleAPI:requiresAuthenticationForSource: to handle it.", self.source.identifier);
-            }
+            [self requestAuthenticationFromDelegate];
 
             return;
         }
@@ -237,6 +232,19 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 }
 
 #pragma mark - Private Methods
+
+- (void)requestAuthenticationFromDelegate
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(simpleAPI:requiresAuthenticationForSource:)])
+    {
+        [self.delegate simpleAPI:self
+         requiresAuthenticationForSource:self.source];
+    }
+    else
+    {
+        NSForceLog(@"Source `%@` requires authentication but the delegate does not implement `-simpleAPI:requiresAuthenticationForSource: to handle it.`", self.source.identifier);
+    }
+}
 
 - (void)recursiveGetMediaListAtPath:(NSString *)path partialResults:(NSMutableArray *)partialResults startPage:(NSUInteger)startPage success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
 {
