@@ -90,8 +90,6 @@
                            serviceID,
                            fpAPIKEY];
 
-    NSLog(@"url: %@", urlString);
-
     NSMutableURLRequest *requestObj = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:urlString]];
 
     self.webView.scalesPageToFit = YES;
@@ -151,9 +149,9 @@
     shouldStartLoadWithRequest:(NSURLRequest *)request
                 navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"Loading Path: %@ (relpath: %@)",
-          request.URL.absoluteString,
-          request.URL.path);
+    DLog(@"Loading Path: %@ (relpath: %@)",
+         request.URL.absoluteString,
+         request.URL.path);
 
     if ([request.URL.path isEqualToString:@"/dialog/open"])
     {
