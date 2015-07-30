@@ -103,8 +103,9 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                                     value:@(startPage).stringValue]
     ];
 
-    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.string
+    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.path
                                                withFormat:@"info"
+                                              queryString:urlComponents.query
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:cachePolicy];
 

@@ -40,13 +40,8 @@
 
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
                           withFormat:(NSString *)type
+                         queryString:(NSString *)queryString
                         andMimetypes:(NSArray *)mimetypes
-                         cachePolicy:(NSURLRequestCachePolicy)policy;
-
-+ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
-                          withFormat:(NSString *)type
-                        andMimetypes:(NSArray *)mimetypes
-                         byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy;
 
 #ifdef FPLibrary_protected

@@ -757,6 +757,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
+                                              queryString:nil
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
@@ -918,6 +919,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
+                                              queryString:nil
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
@@ -934,14 +936,25 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSLog(@"Next page: %@", self.nextPage);
 
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:self.path];
 
-    NSLog(@"nextpageparm: %@", nextPageParam);
+    NSArray *queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"start" value:[FPUtils urlEncodeString:self.nextPage]]
+    ];
 
-    NSURLRequest *request = [FPLibrary requestForLoadPath:self.path
+    if (urlComponents.queryItems)
+    {
+        urlComponents.queryItems = [urlComponents.queryItems arrayByAddingObjectsFromArray:queryItems];
+    }
+    else
+    {
+        urlComponents.queryItems = queryItems;
+    }
+
+    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.path
                                                withFormat:@"info"
+                                              queryString:urlComponents.query
                                              andMimetypes:self.source.mimetypes
-                                              byAppending:nextPageParam
                                               cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,

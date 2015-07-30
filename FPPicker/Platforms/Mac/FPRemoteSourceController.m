@@ -9,6 +9,7 @@
 #import "FPRemoteSourceController.h"
 #import "FPUtils+RequestHelpers.h"
 #import "FPInternalHeaders.h"
+#import "FPLibrary.h"
 
 @interface FPRemoteSourceController ()
 
@@ -136,12 +137,26 @@
 {
     [self.delegate sourceDidStartContentLoad:self];
 
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:self.representedSource.currentPath];
 
-    NSURLRequest *request = [self fpRequestForLoadPath:self.representedSource.currentPath
-                                            withFormat:@"info"
-                                           byAppending:nextPageParam
-                                           cachePolicy:NSURLRequestReloadIgnoringCacheData];
+    NSArray *queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"start" value:[FPUtils urlEncodeString:self.nextPage]]
+    ];
+
+    if (urlComponents.queryItems)
+    {
+        urlComponents.queryItems = [urlComponents.queryItems arrayByAddingObjectsFromArray:queryItems];
+    }
+    else
+    {
+        urlComponents.queryItems = queryItems;
+    }
+
+    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.path
+                                               withFormat:@"info"
+                                              queryString:urlComponents.query
+                                             andMimetypes:self.representedSource.source.mimetypes
+                                              cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
@@ -196,44 +211,6 @@
                                                                     failure:failureOperationBlock];
 
     [self.representedSource.parallelOperationQueue addOperation:operation];
-}
-
-- (NSURLRequest *)fpRequestForLoadPath:(NSString *)loadpath
-                            withFormat:(NSString *)type
-                           byAppending:(NSString *)additionalString
-                           cachePolicy:(NSURLRequestCachePolicy)policy
-{
-    FPSession *fpSession = [FPSession new];
-
-    fpSession.APIKey = fpAPIKEY;
-    fpSession.mimetypes = self.representedSource.source.mimetypes;
-
-    NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
-
-    NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString : loadpath]]];
-
-    if ([urlString rangeOfString:@"?"].location == NSNotFound)
-    {
-        [urlString appendString:@"?"];
-    }
-    else
-    {
-        [urlString appendFormat:@"&"];
-    }
-
-    [urlString appendFormat:@"format=%@&%@=%@", type, @"js_session", escapedSessionString];
-    [urlString appendString:additionalString];
-
-    NSURL *url = [NSURL URLWithString:urlString];
-
-
-    NSMutableURLRequest *mrequest = [NSMutableURLRequest requestWithURL:url
-                                                            cachePolicy:policy
-                                                        timeoutInterval:240];
-
-    [mrequest setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES]];
-
-    return mrequest;
 }
 
 @end

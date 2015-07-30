@@ -271,6 +271,7 @@
 {
     NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
                                           withFormat:@"fpurl"
+                                         queryString:nil
                                         andMimetypes:source.mimetypes
                                          cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
@@ -318,6 +319,7 @@
 {
     NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
                                           withFormat:@"data"
+                                         queryString:nil
                                         andMimetypes:source.mimetypes
                                          cachePolicy:NSURLRequestReloadRevalidatingCacheData];
 
@@ -383,20 +385,8 @@
 
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
                           withFormat:(NSString *)type
+                         queryString:(NSString *)queryString
                         andMimetypes:(NSArray *)mimetypes
-                         cachePolicy:(NSURLRequestCachePolicy)policy
-{
-    return [self requestForLoadPath:loadpath
-                         withFormat:type
-                       andMimetypes:mimetypes
-                        byAppending:@""
-                        cachePolicy:policy];
-}
-
-+ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
-                          withFormat:(NSString *)type
-                        andMimetypes:(NSArray *)mimetypes
-                         byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy
 {
     FPSession *fpSession = [FPSession new];
@@ -405,29 +395,32 @@
     fpSession.mimetypes = mimetypes;
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:fpBASE_URL];
 
-    NSMutableString *urlString = [NSMutableString stringWithString:[fpBASE_URL stringByAppendingString:[@"/api/path" stringByAppendingString:loadpath]]];
+    urlComponents.query = queryString;
+    urlComponents.path = [NSString stringWithFormat:@"/api/path%@", loadpath];
 
-    if ([urlString rangeOfString:@"?"].location == NSNotFound)
+    NSArray *queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"format" value:type],
+        [NSURLQueryItem queryItemWithName:@"js_session" value:escapedSessionString],
+    ];
+
+    if (urlComponents.queryItems)
     {
-        [urlString appendFormat:@"?format=%@&%@=%@", type, @"js_session", escapedSessionString];
+        urlComponents.queryItems = [urlComponents.queryItems arrayByAddingObjectsFromArray:queryItems];
     }
     else
     {
-        [urlString appendFormat:@"&format=%@&%@=%@", type, @"js_session", escapedSessionString];
+        urlComponents.queryItems = queryItems;
     }
 
-    [urlString appendString:additionalString];
-
-    NSURL *url = [NSURL URLWithString:urlString];
-
-    NSMutableURLRequest *mRequest = [NSMutableURLRequest requestWithURL:url
-                                                            cachePolicy:policy
-                                                        timeoutInterval:240];
+    NSMutableURLRequest * mRequest = [NSMutableURLRequest requestWithURL:urlComponents.URL
+                                                             cachePolicy:policy
+                                                         timeoutInterval:240];
 
     [mRequest setAllHTTPHeaderFields:[NSHTTPCookie requestHeaderFieldsWithCookies:fpCOOKIES]];
 
-    return mRequest;
+    return [mRequest copy];
 }
 
 @end
