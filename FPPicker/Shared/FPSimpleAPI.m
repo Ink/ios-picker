@@ -12,6 +12,7 @@
 #import "FPSharedInternalHeaders.h"
 #import "FPLibrary.h"
 #import "FPUtils.h"
+#import <AFNetworking/AFNetworking.h>
 
 typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
@@ -160,6 +161,33 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     };
 
     FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 500 response. So, until that changes, we are *unaccurately* threating 500 as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 500: {
+                __weak __typeof(self) weakSelf = self;
+
+                self.postAuthenticationActionBlock = ^() {
+                    [weakSelf getMediaInfoAtPath:path
+                                         success:success
+                                         failure:failure
+                                        progress:progress];
+                };
+
+                [self requestAuthenticationFromDelegate];
+
+                return;
+            }
+            default:
+                break;
+        }
+
         failure(error);
     };
 
@@ -185,6 +213,40 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 200 text/html response.
+        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 200: {
+                if ([response.MIMEType isEqualToString:@"text/html"])
+                {
+                    __weak __typeof(self) weakSelf = self;
+
+                    self.postAuthenticationActionBlock = ^() {
+                        [weakSelf saveMediaAtLocalURL:localURL
+                                                named:name
+                                         withMimeType:mimetype
+                                               atPath:path
+                                              success:success
+                                              failure:failure
+                                             progress:progress];
+                    };
+
+                    [self requestAuthenticationFromDelegate];
+
+                    return;
+                }
+            }
+            default:
+                break;
+        }
+
         failure(error);
     };
 
@@ -212,6 +274,40 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 200 text/html response.
+        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 200: {
+                if ([response.MIMEType isEqualToString:@"text/html"])
+                {
+                    __weak __typeof(self) weakSelf = self;
+
+                    self.postAuthenticationActionBlock = ^() {
+                        [weakSelf saveMediaRepresentedByData:data
+                                                       named:name
+                                                withMimeType:mimetype
+                                                      atPath:path
+                                                     success:success
+                                                     failure:failure
+                                                    progress:progress];
+                    };
+
+                    [self requestAuthenticationFromDelegate];
+
+                    return;
+                }
+            }
+            default:
+                break;
+        }
+
         failure(error);
     };
 
