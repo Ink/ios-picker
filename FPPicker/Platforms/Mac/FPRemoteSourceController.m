@@ -7,7 +7,6 @@
 //
 
 #import "FPRemoteSourceController.h"
-#import "FPUtils+RequestHelpers.h"
 #import "FPInternalHeaders.h"
 #import "FPLibrary.h"
 
@@ -37,11 +36,11 @@
 {
     [self.delegate sourceDidStartContentLoad:self];
 
-    NSURLRequest *request = [FPUtils requestForLoadPath:loadpath
-                                               withType:@"info"
-                                              mimetypes:self.representedSource.source.mimetypes
-                                            byAppending:@""
-                                            cachePolicy:policy];
+    NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
+                                               withFormat:@"info"
+                                              queryString:nil
+                                             andMimetypes:self.representedSource.source.mimetypes
+                                              cachePolicy:policy];
 
     DLog(@"Loading Contents from URL: %@", request.URL);
 
