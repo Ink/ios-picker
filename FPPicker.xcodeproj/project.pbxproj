@@ -42,12 +42,10 @@
 		4531449E19EC3F46003230F5 /* FPSession+ConvenienceMethods.h in Headers */ = {isa = PBXBuildFile; fileRef = 45B7606C19758251007C9284 /* FPSession+ConvenienceMethods.h */; };
 		4531449F19EC3F46003230F5 /* FPSource+SupportedSources.h in Headers */ = {isa = PBXBuildFile; fileRef = 4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		453144A019EC3F46003230F5 /* FPUtils+ResourceHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */; };
-		453144A119EC3F46003230F5 /* FPUtils+RequestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */; };
 		453144A219EC3F4E003230F5 /* NSData+FPHexString.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A2C34B197438B4009D436D /* NSData+FPHexString.m */; };
 		453144A319EC3F4E003230F5 /* FPSession+ConvenienceMethods.m in Sources */ = {isa = PBXBuildFile; fileRef = 45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */; };
 		453144A419EC3F4E003230F5 /* FPSource+SupportedSources.m in Sources */ = {isa = PBXBuildFile; fileRef = 4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */; };
 		453144A519EC3F4E003230F5 /* FPUtils+ResourceHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */; };
-		453144A619EC3F4E003230F5 /* FPUtils+RequestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */; };
 		453144A719EC3F59003230F5 /* FPProgressTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 02C136A81856794000D6940E /* FPProgressTracker.h */; };
 		453144A819EC3F5C003230F5 /* FPProgressTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 02C136A91856794000D6940E /* FPProgressTracker.m */; };
 		453144A919EC3F66003230F5 /* FPAPIClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 45ADBF6E1951A44000EB2215 /* FPAPIClient.h */; };
@@ -306,8 +304,6 @@
 		45D0396919A20A7700983134 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45D0396819A20A7700983134 /* WebKit.framework */; };
 		45D0396C19A20CC300983134 /* FPPickerController.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0396A19A20CC300983134 /* FPPickerController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		45D0396D19A20CC300983134 /* FPPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0396B19A20CC300983134 /* FPPickerController.m */; };
-		45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */ = {isa = PBXBuildFile; fileRef = 45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */; };
-		45D0398019A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */; };
 		45DB53DA19503E0B0062061F /* FPLibraryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 45DB53D919503E0B0062061F /* FPLibraryTests.m */; };
 		45DB53DC195047580062061F /* outline.png in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DB195047580062061F /* outline.png */; };
 		45DB53DE195050EE0062061F /* successfulResponse.json in Resources */ = {isa = PBXBuildFile; fileRef = 45DB53DD195050EE0062061F /* successfulResponse.json */; };
@@ -528,8 +524,6 @@
 		45D0396819A20A7700983134 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/WebKit.framework; sourceTree = DEVELOPER_DIR; };
 		45D0396A19A20CC300983134 /* FPPickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPPickerController.h; sourceTree = "<group>"; };
 		45D0396B19A20CC300983134 /* FPPickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPPickerController.m; sourceTree = "<group>"; };
-		45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+RequestHelpers.h"; sourceTree = "<group>"; };
-		45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+RequestHelpers.m"; sourceTree = "<group>"; };
 		45DB53D919503E0B0062061F /* FPLibraryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPLibraryTests.m; sourceTree = "<group>"; };
 		45DB53DB195047580062061F /* outline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = outline.png; path = "FPPicker Tests/Functional Tests/Fixtures/outline.png"; sourceTree = SOURCE_ROOT; };
 		45DB53DD195050EE0062061F /* successfulResponse.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = successfulResponse.json; path = "FPPicker Tests/Functional Tests/Fixtures/successfulResponse.json"; sourceTree = SOURCE_ROOT; };
@@ -739,8 +733,6 @@
 				45B7606D19758251007C9284 /* FPSession+ConvenienceMethods.m */,
 				4587CB2419A4B31C00667D29 /* FPSource+SupportedSources.h */,
 				4587CB2519A4B31C00667D29 /* FPSource+SupportedSources.m */,
-				45D0397B19A2350D00983134 /* FPUtils+RequestHelpers.h */,
-				45D0397C19A2350D00983134 /* FPUtils+RequestHelpers.m */,
 				45066A9F19A1F9B20069B062 /* FPUtils+ResourceHelpers.h */,
 				45066AA019A1F9B20069B062 /* FPUtils+ResourceHelpers.m */,
 				45A2C34A197438B4009D436D /* NSData+FPHexString.h */,
@@ -1144,7 +1136,6 @@
 				453144C719EC3FC4003230F5 /* FPSourceController.h in Headers */,
 				4531449419EC3F02003230F5 /* FPMediaInfo.h in Headers */,
 				453144A019EC3F46003230F5 /* FPUtils+ResourceHelpers.h in Headers */,
-				453144A119EC3F46003230F5 /* FPUtils+RequestHelpers.h in Headers */,
 				453144CB19EC3FC4003230F5 /* FPSearchController.h in Headers */,
 				4531449619EC3F02003230F5 /* FPConstants.h in Headers */,
 				453144B819EC3F99003230F5 /* FPTypedefs.h in Headers */,
@@ -1177,7 +1168,6 @@
 				45936F9819F4729400ACEE97 /* FPSourcePath.h in Headers */,
 				4579CF58199CEAF200E0BCB4 /* FPMediaInfo.h in Headers */,
 				456263D919EFEFBE00A34C29 /* FPFileUploadController.h in Headers */,
-				45D0397E19A2350D00983134 /* FPUtils+RequestHelpers.h in Headers */,
 				45E10AEC19EE734200D34BC0 /* FPSaveController.h in Headers */,
 				4504082519F12B0400DB26AF /* FPTableCellView.h in Headers */,
 				45E10AF219EE9E9400D34BC0 /* FPImageBrowserCell.h in Headers */,
@@ -1624,7 +1614,6 @@
 			files = (
 				4531449C19EC3F3E003230F5 /* FPMediaInfo.m in Sources */,
 				456263E819EFFC5200A34C29 /* FPLibrary+iOS.m in Sources */,
-				453144A619EC3F4E003230F5 /* FPUtils+RequestHelpers.m in Sources */,
 				453144BF19EC3FAF003230F5 /* FPSaveController.m in Sources */,
 				456263DF19EFF6F700A34C29 /* FPLibrary.m in Sources */,
 				453144CC19EC3FC4003230F5 /* FPSearchController.m in Sources */,
@@ -1695,7 +1684,6 @@
 				456263D619EFE72700A34C29 /* FPFileDownloadController.m in Sources */,
 				456263E019EFF6F700A34C29 /* FPLibrary.m in Sources */,
 				456263DA19EFEFBE00A34C29 /* FPFileUploadController.m in Sources */,
-				45D0398019A2350D00983134 /* FPUtils+RequestHelpers.m in Sources */,
 				45066AAC19A204040069B062 /* FPAuthController.m in Sources */,
 				4508FCBD19A74D150009CDF0 /* FPNavigationController.m in Sources */,
 				4579CF6A199CEB0100E0BCB4 /* FPSinglepartUploader.m in Sources */,
