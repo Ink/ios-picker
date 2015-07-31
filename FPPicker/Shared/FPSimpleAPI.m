@@ -46,6 +46,13 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     return _operationQueue;
 }
 
+#pragma mark - Class Methods
+
++ (FPSimpleAPI *)simpleAPIWithSource:(FPSource *)source
+{
+    return [[FPSimpleAPI alloc] initWithSource:source];
+}
+
 #pragma mark - Constructors / Destructors
 
 - (instancetype)initWithSource:(FPSource *)source
@@ -220,12 +227,25 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                              progress:progressBlock];
 }
 
-- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         if (success)
         {
-            success();
+            DLog(@"JSON = %@", JSON);
+
+
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
+            mediaInfo.mediaURL = localURL;
+            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
+            mediaInfo.filename = JSON[@"filename"];
+            mediaInfo.filesize = @([FPUtils fileSizeForLocalURL:localURL]);
+            mediaInfo.key = name;
+            mediaInfo.source = self.source;
+
+            success(mediaInfo);
         }
     };
 
@@ -289,12 +309,21 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                     progress:progressBlock];
 }
 
-- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         if (success)
         {
-            success();
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
+            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
+            mediaInfo.filename = JSON[@"filename"];
+            mediaInfo.filesize = @(data.length);
+            mediaInfo.key = name;
+            mediaInfo.source = self.source;
+
+            success(mediaInfo);
         }
     };
 
@@ -353,6 +382,26 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                   success:successBlock
                   failure:failureBlock
                  progress:progressBlock];
+}
+
+- (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPSimpleAPIUploadSuccessBlock successBlock = ^(FPMediaInfo *uploadedMediaInfo) {
+        uploadedMediaInfo.originalAsset = mediaInfo.originalAsset;
+
+        if (success)
+        {
+            success(uploadedMediaInfo);
+        }
+    };
+
+    return [self saveMediaAtLocalURL:mediaInfo.mediaURL
+                               named:name
+                        withMimeType:mediaInfo.MIMEtype
+                              atPath:path
+                             success:successBlock
+                             failure:failure
+                            progress:progress];
 }
 
 #pragma mark - Private Methods
