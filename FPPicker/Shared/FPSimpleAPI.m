@@ -70,10 +70,21 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 - (void)dealloc
 {
+    [self cancelAllRequests];
     [self unregisterForNotifications];
 }
 
 #pragma mark - Public Methods
+
+- (void)suspendAllRequests
+{
+    self.operationQueue.suspended = YES;
+}
+
+- (void)resumeAllRequests
+{
+    self.operationQueue.suspended = NO;
+}
 
 - (void)cancelAllRequests
 {

@@ -76,7 +76,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path completion:(nullable FPSimpleAPIMediaCompletionBlock)completion progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
-   Cancels all the requests in the queue including those that are currently in progress.
+   Suspends all the requests enqueued for execution.
+ */
+- (void)suspendAllRequests;
+
+/*!
+   Resumes all the requests enqueued for execution.
+ */
+- (void)resumeAllRequests;
+
+/*!
+   Cancels all the requests enqueued for execution and those currently running.
  */
 - (void)cancelAllRequests;
 
