@@ -136,12 +136,18 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
             nextPageNumber = [responseObject[@"next"] unsignedIntegerValue];
         }
 
-        success(responseObject[@"contents"], nextPageNumber);
+        if (success)
+        {
+            success(responseObject[@"contents"], nextPageNumber);
+        }
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        failure(error);
+        if (failure)
+        {
+            failure(error);
+        }
     };
 
     AFHTTPRequestOperation *operation;
@@ -156,7 +162,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 - (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
     FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
-        success(mediaInfo);
+        if (success)
+        {
+            success(mediaInfo);
+        }
     };
 
     FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
@@ -187,11 +196,17 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                 break;
         }
 
-        failure(error);
+        if (failure)
+        {
+            failure(error);
+        }
     };
 
     FPFetchObjectProgressBlock progressBlock = ^(float value) {
-        progress(value);
+        if (progress)
+        {
+            progress(value);
+        }
     };
 
     NSDictionary *obj = @{@"link_path":path};
@@ -208,7 +223,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 - (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        success();
+        if (success)
+        {
+            success();
+        }
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
@@ -246,11 +264,17 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                 break;
         }
 
-        failure(error);
+        if (failure)
+        {
+            failure(error);
+        }
     };
 
     FPUploadAssetProgressBlock progressBlock = ^(float value) {
-        progress(value);
+        if (progress)
+        {
+            progress(value);
+        }
     };
 
     NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
@@ -268,7 +292,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 - (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPISuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
 {
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        success();
+        if (success)
+        {
+            success();
+        }
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
@@ -306,7 +333,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                 break;
         }
 
-        failure(error);
+        if (failure)
+        {
+            failure(error);
+        }
     };
 
     FPUploadAssetProgressBlock progressBlock = ^(float value) {
@@ -357,7 +387,10 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         }
         else
         {
-            success([partialResults copy], 0);
+            if (success)
+            {
+                success([partialResults copy], 0);
+            }
         }
     } failure:failure];
 }
