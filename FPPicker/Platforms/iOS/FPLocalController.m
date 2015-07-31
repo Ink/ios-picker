@@ -191,7 +191,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                   reuseIdentifier:nil];
+                                                   reuseIdentifier :nil];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(singleTappedWithGesture:)];
@@ -419,7 +419,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 - (IBAction)uploadButtonTapped:(id)sender
 {
     [super uploadButtonTapped:sender];
-    
+
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view
                                               animated:YES];
 
@@ -599,7 +599,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         NSLog(@"Didnt handle");
 
         failure([FPUtils errorWithCode:200
-                 andLocalizedDescription:@"Invalid asset type"],
+               andLocalizedDescription         :@"Invalid asset type"],
                 nil);
     }
 }
@@ -613,7 +613,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-    mediaInfo.mediaType = (NSString *)kUTTypeImage;
+    mediaInfo.mediaType = representation.UTI;
     mediaInfo.originalAsset = asset;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
@@ -655,7 +655,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-    mediaInfo.mediaType = (NSString *)kUTTypeVideo;
+    mediaInfo.mediaType = representation.UTI;
     mediaInfo.originalAsset = asset;
     mediaInfo.source = self.source;
 
