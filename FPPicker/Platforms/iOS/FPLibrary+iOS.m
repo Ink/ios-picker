@@ -110,10 +110,7 @@
         NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
         NSString *filename = asset.defaultRepresentation.filename;
         ALAssetRepresentation *representation = asset.defaultRepresentation;
-        CFStringRef utiToConvert = (__bridge CFStringRef)representation.UTI;
-
-        NSString *mimetype = (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass(utiToConvert,
-                                                                                           kUTTagClassMIMEType);
+        NSString *mimetype = [FPUtils mimetypeForUTI:representation.UTI];
 
         [FPUtils copyAssetRepresentation:representation
                             intoLocalURL:tempURL];
