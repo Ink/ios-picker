@@ -38,7 +38,6 @@
 
     if (self)
     {
-        self.shouldDownloadData = YES;
         self.items = items;
         self.representedSource = representedSource;
     }
@@ -158,7 +157,6 @@
         [FPLibrary requestObjectMediaInfo:item
                                withSource:self.representedSource.source
                       usingOperationQueue:self.representedSource.parallelOperationQueue
-                           shouldDownload:self.shouldDownloadData
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progressBlock];

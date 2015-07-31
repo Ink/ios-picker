@@ -1216,19 +1216,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
         self.view.userInteractionEnabled = NO;
     });
 
-    BOOL shouldDownload = YES;
-
-    if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
-    {
-        FPPickerController *pickerC = (FPPickerController *)self.fpdelegate;
-
-        shouldDownload = [pickerC shouldDownload];
-    }
-
     [FPLibrary requestObjectMediaInfo:obj
                            withSource:self.source
                   usingOperationQueue:self.contentPreloadOperationQueue
-                       shouldDownload:shouldDownload
                               success:success
                               failure:failure
                              progress:progress];

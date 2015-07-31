@@ -144,8 +144,6 @@
 
 - (IBAction)selectImageAction:(id)sender
 {
-    self.pickerController.shouldDownload = YES;
-
     self.pickerController.sourceNames = @[
         FPSourceDropbox,
         FPSourceFlickr,
@@ -156,11 +154,11 @@
         FPSourceGmail,
         FPSourceImagesearch,
         FPSourceCloudDrive
-                                        ];
+    ];
 
     self.pickerController.dataTypes = @[
         @"image/*"
-                                      ];
+    ];
 
     [self.pickerController open];
 }
@@ -173,7 +171,7 @@
         FPSourceGoogleDrive,
         FPSourceSkydrive,
         FPSourceCloudDrive
-                                      ];
+    ];
 
     NSUInteger selectedIndex = self.imageBrowser.selectionIndexes.firstIndex;
 

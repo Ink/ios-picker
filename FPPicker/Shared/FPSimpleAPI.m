@@ -152,7 +152,6 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     [FPLibrary requestObjectMediaInfo:obj
                            withSource:self.source
                   usingOperationQueue:self.operationQueue
-                       shouldDownload:YES
                               success:successBlock
                               failure:failureBlock
                              progress:progressBlock];

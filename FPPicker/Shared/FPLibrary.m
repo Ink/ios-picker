@@ -32,29 +32,74 @@
 + (void)requestObjectMediaInfo:(NSDictionary *)obj
                     withSource:(FPSource *)source
            usingOperationQueue:(NSOperationQueue *)operationQueue
-                shouldDownload:(BOOL)shouldDownload
                        success:(FPFetchObjectSuccessBlock)success
                        failure:(FPFetchObjectFailureBlock)failure
                       progress:(FPFetchObjectProgressBlock)progress
 {
-    if (shouldDownload)
-    {
-        [self getObjectInfoAndData:obj
-                         forSource:source
-               usingOperationQueue:operationQueue
-                           success:success
-                           failure:failure
-                          progress:progress];
-    }
-    else
-    {
-        [self getObjectInfo:obj
-                   forSource:source
-         usingOperationQueue:operationQueue
-                     success:success
-                     failure:failure
-                    progress:progress];
-    }
+    NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
+                                          withFormat:@"data"
+                                         queryString:nil
+                                        andMimetypes:source.mimetypes
+                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
+
+    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
+
+    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
+                                isDirectory:NO];
+
+    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             id responseObject) {
+        NSDictionary *headers = [operation.response allHeaderFields];
+        NSString *mimetype = headers[@"Content-Type"];
+
+        if ([mimetype rangeOfString:@";"].location != NSNotFound)
+        {
+            mimetype = [mimetype componentsSeparatedByString:@";"][0];
+        }
+
+        FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+        mediaInfo.remoteURL = [NSURL URLWithString:headers[@"X-Data-Url"]];
+        mediaInfo.filename = headers[@"X-File-Name"];
+        mediaInfo.mediaURL = tempURL;
+        mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
+        mediaInfo.source = source;
+
+        NSString *sizeString = headers[@"X-File-Size"];
+        mediaInfo.filesize = [NSNumber numberWithInteger:[sizeString integerValue]];
+
+        if (headers[@"X-Data-Key"])
+        {
+            mediaInfo.key = headers[@"X-Data-Key"];
+        }
+
+        success(mediaInfo);
+    };
+
+    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
+                                                             NSError *error) {
+        failure(error);
+    };
+
+    AFHTTPRequestOperation *operation;
+
+    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
+                                                                    success:successOperationBlock
+                                                                    failure:failureOperationBlock];
+
+    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
+                                                          append:NO];
+
+    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
+                                           long long totalBytesRead,
+                                           long long totalBytesExpectedToRead) {
+        if (progress && totalBytesExpectedToRead > 0)
+        {
+            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
+        }
+    }];
+
+    [operationQueue addOperation:operation];
 }
 
 #pragma mark - Save As Methods
@@ -260,127 +305,6 @@
     fileUploader.progressBlock = progress;
 
     [fileUploader upload];
-}
-
-+ (void)  getObjectInfo:(NSDictionary *)obj
-              forSource:(FPSource *)source
-    usingOperationQueue:(NSOperationQueue *)operationQueue
-                success:(FPFetchObjectSuccessBlock)success
-                failure:(FPFetchObjectFailureBlock)failure
-               progress:(FPFetchObjectProgressBlock)progress
-{
-    NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
-                                          withFormat:@"fpurl"
-                                         queryString:nil
-                                        andMimetypes:source.mimetypes
-                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
-
-    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             id responseObject) {
-        FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-        mediaInfo.remoteURL = [NSURL URLWithString:responseObject[@"url"]];
-        mediaInfo.filename = responseObject[@"filename"];
-        mediaInfo.key = responseObject[@"key"];
-        mediaInfo.source = source;
-
-        success(mediaInfo);
-    };
-
-    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             NSError *error) {
-        failure(error);
-    };
-
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
-                                           long long totalBytesRead,
-                                           long long totalBytesExpectedToRead) {
-        if (progress && totalBytesExpectedToRead > 0)
-        {
-            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
-        }
-    }];
-
-    [operationQueue addOperation:operation];
-}
-
-+ (void)getObjectInfoAndData:(NSDictionary *)obj
-                   forSource:(FPSource *)source
-         usingOperationQueue:(NSOperationQueue *)operationQueue
-                     success:(FPFetchObjectSuccessBlock)success
-                     failure:(FPFetchObjectFailureBlock)failure
-                    progress:(FPFetchObjectProgressBlock)progress
-{
-    NSURLRequest *request = [self requestForLoadPath:obj[@"link_path"]
-                                          withFormat:@"data"
-                                         queryString:nil
-                                        andMimetypes:source.mimetypes
-                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
-
-    NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
-
-    NSURL *tempURL = [NSURL fileURLWithPath:tempPath
-                                isDirectory:NO];
-
-    AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             id responseObject) {
-        NSDictionary *headers = [operation.response allHeaderFields];
-        NSString *mimetype = headers[@"Content-Type"];
-
-        if ([mimetype rangeOfString:@";"].location != NSNotFound)
-        {
-            mimetype = [mimetype componentsSeparatedByString:@";"][0];
-        }
-
-        FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-        mediaInfo.remoteURL = [NSURL URLWithString:headers[@"X-Data-Url"]];
-        mediaInfo.filename = headers[@"X-File-Name"];
-        mediaInfo.mediaURL = tempURL;
-        mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
-        mediaInfo.source = source;
-
-        NSString *sizeString = headers[@"X-File-Size"];
-        mediaInfo.filesize = [NSNumber numberWithInteger:[sizeString integerValue]];
-
-        if (headers[@"X-Data-Key"])
-        {
-            mediaInfo.key = headers[@"X-Data-Key"];
-        }
-
-        success(mediaInfo);
-    };
-
-    AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
-                                                             NSError *error) {
-        failure(error);
-    };
-
-    AFHTTPRequestOperation *operation;
-
-    operation = [[FPAPIClient sharedClient] HTTPRequestOperationWithRequest:request
-                                                                    success:successOperationBlock
-                                                                    failure:failureOperationBlock];
-
-    operation.outputStream = [NSOutputStream outputStreamWithURL:tempURL
-                                                          append:NO];
-
-    [operation setDownloadProgressBlock: ^(NSUInteger bytesRead,
-                                           long long totalBytesRead,
-                                           long long totalBytesExpectedToRead) {
-        if (progress && totalBytesExpectedToRead > 0)
-        {
-            progress(1.0f * totalBytesRead / totalBytesExpectedToRead);
-        }
-    }];
-
-    [operationQueue addOperation:operation];
 }
 
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
