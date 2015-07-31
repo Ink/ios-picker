@@ -12,6 +12,11 @@
 
 @implementation FPMediaInfo
 
+- (NSString *)MIMEtype
+{
+    return [FPUtils mimetypeForUTI:self.mediaType];
+}
+
 - (BOOL)containsImageAtMediaURL
 {
     if (self.mediaURL &&
@@ -49,8 +54,8 @@
             self.source.identifier,
             self.originalAsset,
             self.thumbnailImage,
-            self.containsImageAtMediaURL ? @"YES":@"NO",
-            self.containsVideoAtMediaURL ? @"YES":@"NO"];
+            self.containsImageAtMediaURL ? @"YES" : @"NO",
+            self.containsVideoAtMediaURL ? @"YES" : @"NO"];
 }
 
 @end

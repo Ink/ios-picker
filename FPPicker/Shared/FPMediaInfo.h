@@ -25,5 +25,6 @@
 
 - (BOOL)containsImageAtMediaURL;
 - (BOOL)containsVideoAtMediaURL;
+- (NSString *)MIMEtype;
 
 @end
