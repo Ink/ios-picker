@@ -29,11 +29,11 @@
     return NO;
 }
 
-- (BOOL)containsVideoAtMediaURL
+- (BOOL)containsMovieAtMediaURL
 {
     if (self.mediaURL &&
         self.mediaType &&
-        [FPUtils UTI:self.mediaType conformsToUTI:@"public.video"])
+        [FPUtils UTI:self.mediaType conformsToUTI:@"public.movie"])
     {
         return YES;
     }
@@ -43,7 +43,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@ {\n\tmediaType = %@\n\tmediaURL = %@\n\tremoteURL = %@\n\tfilename = %@\n\tfilesize = %@\n\tkey = %@\n\tsource = %@\n\toriginalAsset = %@\n\tthumbnailImage = %@\n\tcontainsImageAtMediaURL = %@\n\tcontainsVideoAtMediaURL = %@\n}",
+    return [NSString stringWithFormat:@"%@ {\n\tmediaType = %@\n\tmediaURL = %@\n\tremoteURL = %@\n\tfilename = %@\n\tfilesize = %@\n\tkey = %@\n\tsource = %@\n\toriginalAsset = %@\n\tthumbnailImage = %@\n\tcontainsImageAtMediaURL = %@\n\tcontainsMovieAtMediaURL = %@\n}",
             super.description,
             self.mediaType,
             self.mediaURL,
@@ -55,7 +55,7 @@
             self.originalAsset,
             self.thumbnailImage,
             self.containsImageAtMediaURL ? @"YES" : @"NO",
-            self.containsVideoAtMediaURL ? @"YES" : @"NO"];
+            self.containsMovieAtMediaURL ? @"YES" : @"NO"];
 }
 
 @end
