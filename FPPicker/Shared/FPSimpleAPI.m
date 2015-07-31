@@ -80,27 +80,274 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     [self.operationQueue cancelAllOperations];
 }
 
-- (void)getMediaListAtPath:(NSString *)path success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaListAtPath:(NSString *)path completion:(FPSimpleAPIMediaListCompletionBlock)completion
 {
     NSMutableArray *mediaList = [NSMutableArray array];
 
     [self recursiveGetMediaListAtPath:path
                        partialResults:mediaList
                             startPage:0
-                              success:success
-                              failure:failure];
+                           completion:completion];
 }
 
-- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage completion:(FPSimpleAPIMediaListCompletionBlock)completion
 {
     [self getMediaListAtPath:path
                    startPage:startPage
              withCachePolicy:NSURLRequestReturnCacheDataElseLoad
-                     success:success
-                     failure:failure];
+                  completion:completion];
 }
 
-- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)getMediaInfoAtPath:(NSString *)path completion:(FPSimpleAPIMediaCompletionBlock)completion progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
+        if (completion)
+        {
+            completion(mediaInfo, nil);
+        }
+    };
+
+    FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 500 response. So, until that changes, we are *unaccurately* threating 500 as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 500: {
+                __weak __typeof(self) weakSelf = self;
+
+                self.postAuthenticationActionBlock = ^() {
+                    [weakSelf getMediaInfoAtPath:path
+                                      completion:completion
+                                        progress:progress];
+                };
+
+                [self requestAuthenticationFromDelegate];
+
+                return;
+            }
+            default:
+                break;
+        }
+
+        if (completion)
+        {
+            completion(nil, error);
+        }
+    };
+
+    FPFetchObjectProgressBlock progressBlock = ^(float value) {
+        if (progress)
+        {
+            progress(value);
+        }
+    };
+
+    NSDictionary *obj = @{@"link_path":path};
+
+    [FPLibrary requestObjectMediaInfo:obj
+                           withSource:self.source
+                  usingOperationQueue:self.operationQueue
+                       shouldDownload:YES
+                              success:successBlock
+                              failure:failureBlock
+                             progress:progressBlock];
+}
+
+- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path completion:(FPSimpleAPIMediaCompletionBlock)completion progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        if (completion)
+        {
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
+            mediaInfo.mediaURL = localURL;
+            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
+            mediaInfo.filename = JSON[@"filename"];
+            mediaInfo.filesize = @([FPUtils fileSizeForLocalURL:localURL]);
+            mediaInfo.key = name;
+            mediaInfo.source = self.source;
+
+            completion(mediaInfo, nil);
+        }
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 200 text/html response.
+        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 200: {
+                if ([response.MIMEType isEqualToString:@"text/html"])
+                {
+                    __weak __typeof(self) weakSelf = self;
+
+                    self.postAuthenticationActionBlock = ^() {
+                        [weakSelf saveMediaAtLocalURL:localURL
+                                                named:name
+                                         withMimeType:mimetype
+                                               atPath:path
+                                           completion:completion
+                                             progress:progress];
+                    };
+
+                    [self requestAuthenticationFromDelegate];
+
+                    return;
+                }
+            }
+            default:
+                break;
+        }
+
+        if (completion)
+        {
+            completion(nil, error);
+        }
+    };
+
+    FPUploadAssetProgressBlock progressBlock = ^(float value) {
+        if (progress)
+        {
+            progress(value);
+        }
+    };
+
+    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
+
+    [FPLibrary uploadDataURL:localURL
+                       named:name
+                      toPath:fullSourcePath
+                  ofMimetype:mimetype
+         usingOperationQueue:self.operationQueue
+                     success:successBlock
+                     failure:failureBlock
+                    progress:progressBlock];
+}
+
+- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path completion:(FPSimpleAPIMediaCompletionBlock)completion progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        if (completion)
+        {
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
+            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
+            mediaInfo.filename = JSON[@"filename"];
+            mediaInfo.filesize = @(data.length);
+            mediaInfo.key = name;
+            mediaInfo.source = self.source;
+
+            completion(mediaInfo, nil);
+        }
+    };
+
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
+
+        // NOTE: The REST API does not currently give a 401 response when auth is required.
+        // In this case, when auth credentials are required but missing it simply fails with
+        // a 200 text/html response.
+        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
+
+        switch (response.statusCode)
+        {
+            case 401:
+            case 200: {
+                if ([response.MIMEType isEqualToString:@"text/html"])
+                {
+                    __weak __typeof(self) weakSelf = self;
+
+                    self.postAuthenticationActionBlock = ^() {
+                        [weakSelf saveMediaRepresentedByData:data
+                                                       named:name
+                                                withMimeType:mimetype
+                                                      atPath:path
+                                                  completion:completion
+                                                    progress:progress];
+                    };
+
+                    [self requestAuthenticationFromDelegate];
+
+                    return;
+                }
+            }
+            default:
+                break;
+        }
+
+        if (completion)
+        {
+            completion(nil, error);
+        }
+    };
+
+    FPUploadAssetProgressBlock progressBlock = ^(float value) {
+        progress(value);
+    };
+
+    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
+
+    [FPLibrary uploadData:data
+                    named:name
+                   toPath:fullSourcePath
+               ofMimetype:mimetype
+      usingOperationQueue:self.operationQueue
+                  success:successBlock
+                  failure:failureBlock
+                 progress:progressBlock];
+}
+
+- (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path completion:(FPSimpleAPIMediaCompletionBlock)completion progress:(FPSimpleAPIProgressBlock)progress
+{
+    FPSimpleAPIMediaCompletionBlock completionBlock = ^(FPMediaInfo *uploadedMediaInfo, NSError *error) {
+        if (uploadedMediaInfo)
+        {
+            uploadedMediaInfo.originalAsset = mediaInfo.originalAsset;
+        }
+
+        if (completion)
+        {
+            completion(uploadedMediaInfo, error);
+        }
+    };
+
+    return [self saveMediaAtLocalURL:mediaInfo.mediaURL
+                               named:name
+                        withMimeType:mediaInfo.MIMEtype
+                              atPath:path
+                          completion:completionBlock
+                            progress:progress];
+}
+
+#pragma mark - Private Methods
+
+- (void)requestAuthenticationFromDelegate
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(simpleAPI:requiresAuthenticationForSource:)])
+    {
+        [self.delegate simpleAPI:self
+         requiresAuthenticationForSource:self.source];
+    }
+    else
+    {
+        NSForceLog(@"Source `%@` requires authentication but the delegate does not implement `-simpleAPI:requiresAuthenticationForSource: to handle it.`", self.source.identifier);
+    }
+}
+
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage withCachePolicy:(NSURLRequestCachePolicy)cachePolicy completion:(FPSimpleAPIMediaListCompletionBlock)completion
 {
     NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithString:fullSourcePath];
@@ -126,8 +373,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
                 [weakSelf getMediaListAtPath:path
                                    startPage:startPage
                              withCachePolicy:NSURLRequestReloadIgnoringLocalCacheData
-                                     success:success
-                                     failure:failure];
+                                  completion:completion];
             };
 
             [self requestAuthenticationFromDelegate];
@@ -143,17 +389,17 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
             nextPageNumber = [responseObject[@"next"] unsignedIntegerValue];
         }
 
-        if (success)
+        if (completion)
         {
-            success(responseObject[@"contents"], nextPageNumber);
+            completion(responseObject[@"contents"], nextPageNumber, nil);
         }
     };
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        if (failure)
+        if (completion)
         {
-            failure(error);
+            completion(nil, 0, error);
         }
     };
 
@@ -166,282 +412,35 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     [self.operationQueue addOperation:operation];
 }
 
-- (void)getMediaInfoAtPath:(NSString *)path success:(FPSimpleAPIGetMediaSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
-{
-    FPFetchObjectSuccessBlock successBlock = ^(FPMediaInfo *mediaInfo) {
-        if (success)
-        {
-            success(mediaInfo);
-        }
-    };
-
-    FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
-
-        // NOTE: The REST API does not currently give a 401 response when auth is required.
-        // In this case, when auth credentials are required but missing it simply fails with
-        // a 500 response. So, until that changes, we are *unaccurately* threating 500 as 401.
-
-        switch (response.statusCode)
-        {
-            case 401:
-            case 500: {
-                __weak __typeof(self) weakSelf = self;
-
-                self.postAuthenticationActionBlock = ^() {
-                    [weakSelf getMediaInfoAtPath:path
-                                         success:success
-                                         failure:failure
-                                        progress:progress];
-                };
-
-                [self requestAuthenticationFromDelegate];
-
-                return;
-            }
-            default:
-                break;
-        }
-
-        if (failure)
-        {
-            failure(error);
-        }
-    };
-
-    FPFetchObjectProgressBlock progressBlock = ^(float value) {
-        if (progress)
-        {
-            progress(value);
-        }
-    };
-
-    NSDictionary *obj = @{@"link_path":path};
-
-    [FPLibrary requestObjectMediaInfo:obj
-                           withSource:self.source
-                  usingOperationQueue:self.operationQueue
-                       shouldDownload:YES
-                              success:successBlock
-                              failure:failureBlock
-                             progress:progressBlock];
-}
-
-- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
-{
-    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        if (success)
-        {
-            DLog(@"JSON = %@", JSON);
-
-
-            FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
-            mediaInfo.mediaURL = localURL;
-            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
-            mediaInfo.filename = JSON[@"filename"];
-            mediaInfo.filesize = @([FPUtils fileSizeForLocalURL:localURL]);
-            mediaInfo.key = name;
-            mediaInfo.source = self.source;
-
-            success(mediaInfo);
-        }
-    };
-
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
-
-        // NOTE: The REST API does not currently give a 401 response when auth is required.
-        // In this case, when auth credentials are required but missing it simply fails with
-        // a 200 text/html response.
-        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
-
-        switch (response.statusCode)
-        {
-            case 401:
-            case 200: {
-                if ([response.MIMEType isEqualToString:@"text/html"])
-                {
-                    __weak __typeof(self) weakSelf = self;
-
-                    self.postAuthenticationActionBlock = ^() {
-                        [weakSelf saveMediaAtLocalURL:localURL
-                                                named:name
-                                         withMimeType:mimetype
-                                               atPath:path
-                                              success:success
-                                              failure:failure
-                                             progress:progress];
-                    };
-
-                    [self requestAuthenticationFromDelegate];
-
-                    return;
-                }
-            }
-            default:
-                break;
-        }
-
-        if (failure)
-        {
-            failure(error);
-        }
-    };
-
-    FPUploadAssetProgressBlock progressBlock = ^(float value) {
-        if (progress)
-        {
-            progress(value);
-        }
-    };
-
-    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
-
-    [FPLibrary uploadDataURL:localURL
-                       named:name
-                      toPath:fullSourcePath
-                  ofMimetype:mimetype
-         usingOperationQueue:self.operationQueue
-                     success:successBlock
-                     failure:failureBlock
-                    progress:progressBlock];
-}
-
-- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
-{
-    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        if (success)
-        {
-            FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-            mediaInfo.mediaType = [FPUtils UTIForMimetype:mimetype];
-            mediaInfo.remoteURL = [NSURL URLWithString:JSON[@"url"]];
-            mediaInfo.filename = JSON[@"filename"];
-            mediaInfo.filesize = @(data.length);
-            mediaInfo.key = name;
-            mediaInfo.source = self.source;
-
-            success(mediaInfo);
-        }
-    };
-
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        NSHTTPURLResponse *response = error.userInfo[AFNetworkingOperationFailingURLResponseErrorKey];
-
-        // NOTE: The REST API does not currently give a 401 response when auth is required.
-        // In this case, when auth credentials are required but missing it simply fails with
-        // a 200 text/html response.
-        // So, until that changes, we are *unaccurately* threating 200 text/html as 401.
-
-        switch (response.statusCode)
-        {
-            case 401:
-            case 200: {
-                if ([response.MIMEType isEqualToString:@"text/html"])
-                {
-                    __weak __typeof(self) weakSelf = self;
-
-                    self.postAuthenticationActionBlock = ^() {
-                        [weakSelf saveMediaRepresentedByData:data
-                                                       named:name
-                                                withMimeType:mimetype
-                                                      atPath:path
-                                                     success:success
-                                                     failure:failure
-                                                    progress:progress];
-                    };
-
-                    [self requestAuthenticationFromDelegate];
-
-                    return;
-                }
-            }
-            default:
-                break;
-        }
-
-        if (failure)
-        {
-            failure(error);
-        }
-    };
-
-    FPUploadAssetProgressBlock progressBlock = ^(float value) {
-        progress(value);
-    };
-
-    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
-
-    [FPLibrary uploadData:data
-                    named:name
-                   toPath:fullSourcePath
-               ofMimetype:mimetype
-      usingOperationQueue:self.operationQueue
-                  success:successBlock
-                  failure:failureBlock
-                 progress:progressBlock];
-}
-
-- (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path success:(FPSimpleAPIUploadSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure progress:(FPSimpleAPIProgressBlock)progress
-{
-    FPSimpleAPIUploadSuccessBlock successBlock = ^(FPMediaInfo *uploadedMediaInfo) {
-        uploadedMediaInfo.originalAsset = mediaInfo.originalAsset;
-
-        if (success)
-        {
-            success(uploadedMediaInfo);
-        }
-    };
-
-    return [self saveMediaAtLocalURL:mediaInfo.mediaURL
-                               named:name
-                        withMimeType:mediaInfo.MIMEtype
-                              atPath:path
-                             success:successBlock
-                             failure:failure
-                            progress:progress];
-}
-
-#pragma mark - Private Methods
-
-- (void)requestAuthenticationFromDelegate
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(simpleAPI:requiresAuthenticationForSource:)])
-    {
-        [self.delegate simpleAPI:self
-         requiresAuthenticationForSource:self.source];
-    }
-    else
-    {
-        NSForceLog(@"Source `%@` requires authentication but the delegate does not implement `-simpleAPI:requiresAuthenticationForSource: to handle it.`", self.source.identifier);
-    }
-}
-
-- (void)recursiveGetMediaListAtPath:(NSString *)path partialResults:(NSMutableArray *)partialResults startPage:(NSUInteger)startPage success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
+- (void)recursiveGetMediaListAtPath:(NSString *)path partialResults:(NSMutableArray *)partialResults startPage:(NSUInteger)startPage completion:(FPSimpleAPIMediaListCompletionBlock)completion
 {
     [self getMediaListAtPath:path
                    startPage:startPage
-                     success: ^(NSArray * __nonnull mediaList, NSUInteger nextPage) {
-        [partialResults addObjectsFromArray:mediaList];
-
-        if (nextPage > 0)
+                  completion: ^(NSArray * mediaList, NSUInteger nextPage, NSError *error) {
+        if (error)
         {
-            [self recursiveGetMediaListAtPath:path
-                               partialResults:partialResults
-                                    startPage:nextPage
-                                      success:success
-                                      failure:failure];
+            completion(nil, 0, error);
         }
         else
         {
-            if (success)
+            [partialResults addObjectsFromArray:mediaList];
+
+            if (nextPage > 0)
             {
-                success([partialResults copy], 0);
+                [self recursiveGetMediaListAtPath:path
+                                   partialResults:partialResults
+                                        startPage:nextPage
+                                       completion:completion];
+            }
+            else
+            {
+                if (completion)
+                {
+                    completion([partialResults copy], 0, nil);
+                }
             }
         }
-    } failure:failure];
+    }];
 }
 
 - (void)registerForNotifications

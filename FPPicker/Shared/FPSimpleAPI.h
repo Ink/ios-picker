@@ -20,11 +20,8 @@
 
 @end
 
-typedef void (^FPSimpleAPIGetMediaListSuccessBlock)(NSArray *__nonnull mediaList, NSUInteger nextPage);
-typedef void (^FPSimpleAPIGetMediaSuccessBlock)(FPMediaInfo *__nonnull mediaInfo);
-typedef void (^FPSimpleAPIUploadSuccessBlock)(FPMediaInfo *__nonnull mediaInfo);
-typedef void (^FPSimpleAPISuccessBlock)();
-typedef void (^FPSimpleAPIFailureBlock)(NSError *__nonnull error);
+typedef void (^FPSimpleAPIMediaListCompletionBlock)(NSArray *__nullable mediaList, NSUInteger nextPage, NSError *__nullable error);
+typedef void (^FPSimpleAPIMediaCompletionBlock)(FPMediaInfo *__nullable mediaInfo, NSError *__nullable error);
 typedef void (^FPSimpleAPIProgressBlock)(float progress);
 
 NS_ASSUME_NONNULL_BEGIN
@@ -49,34 +46,34 @@ NS_ASSUME_NONNULL_BEGIN
 
     Note: Results are NOT paginated. If you would prefer the results to be paginated, please use `getMediaListAtPath:startPage:success:failure:` instead.
  */
-- (void)getMediaListAtPath:(NSString *)path success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;
+- (void)getMediaListAtPath:(NSString *)path completion:(nullable FPSimpleAPIMediaListCompletionBlock)completion;
 
 /*!
     Requests a media list at a given path asynchronously where the results are paginated.
 
     Note: When there's more than one page of results, the success block will include a `nextPage` value greater than 0 that can be used as the `startPage` value for a subsequent call to this method.
  */
-- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage success:(nullable FPSimpleAPIGetMediaListSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure;
+- (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage completion:(nullable FPSimpleAPIMediaListCompletionBlock)completion;
 
 /*!
    Requests a media at a given path asynchronously.
  */
-- (void)getMediaInfoAtPath:(NSString *)path success:(nullable FPSimpleAPIGetMediaSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
+- (void)getMediaInfoAtPath:(NSString *)path completion:(nullable FPSimpleAPIMediaCompletionBlock)completion progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
    Saves some media from a local URL to a given path in the source asynchronously.
  */
-- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(nullable FPSimpleAPIUploadSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
+- (void)saveMediaAtLocalURL:(NSURL *)localURL named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path completion:(nullable FPSimpleAPIMediaCompletionBlock)completion progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
    Saves some media represented by NSData to a given path in the source asynchronously.
  */
-- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path success:(nullable FPSimpleAPIUploadSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
+- (void)saveMediaRepresentedByData:(NSData *)data named:(NSString *)name withMimeType:(NSString *)mimetype atPath:(NSString *)path completion:(nullable FPSimpleAPIMediaCompletionBlock)completion progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
    Saves some media represented by a FPMediaInfo to a given path in the source asynchronously.
  */
-- (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path success:(nullable FPSimpleAPIUploadSuccessBlock)success failure:(nullable FPSimpleAPIFailureBlock)failure progress:(nullable FPSimpleAPIProgressBlock)progress;
+- (void)saveMediaInfo:(FPMediaInfo *)mediaInfo named:(NSString *)name atPath:(NSString *)path completion:(nullable FPSimpleAPIMediaCompletionBlock)completion progress:(nullable FPSimpleAPIProgressBlock)progress;
 
 /*!
    Cancels all the requests in the queue including those that are currently in progress.
