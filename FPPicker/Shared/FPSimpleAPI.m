@@ -95,9 +95,8 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 
 - (void)getMediaListAtPath:(NSString *)path startPage:(NSUInteger)startPage withCachePolicy:(NSURLRequestCachePolicy)cachePolicy success:(FPSimpleAPIGetMediaListSuccessBlock)success failure:(FPSimpleAPIFailureBlock)failure
 {
-    NSString *sanitizedPath = [self sanitizeRelativePath:path];
-    NSString *loadPath = [self.source.rootPath stringByAppendingString:sanitizedPath];
-    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:loadPath];
+    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:fullSourcePath];
 
     urlComponents.queryItems = @[
         [NSURLQueryItem queryItemWithName:@"start"
@@ -254,12 +253,11 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         progress(value);
     };
 
-    NSString *sanitizedPath = [self sanitizeRelativePath:path];
-    NSString *fullPath = [NSString stringWithFormat:@"%@/%@/", self.source.rootPath, sanitizedPath];
+    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
 
     [FPLibrary uploadDataURL:localURL
                        named:name
-                      toPath:fullPath
+                      toPath:fullSourcePath
                   ofMimetype:mimetype
          usingOperationQueue:self.operationQueue
                      success:successBlock
@@ -315,12 +313,11 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
         progress(value);
     };
 
-    NSString *sanitizedPath = [self sanitizeRelativePath:path];
-    NSString *fullPath = [NSString stringWithFormat:@"%@/%@/", self.source.rootPath, sanitizedPath];
+    NSString *fullSourcePath = [self.source fullSourcePathForRelativePath:path];
 
     [FPLibrary uploadData:data
                     named:name
-                   toPath:fullPath
+                   toPath:fullSourcePath
                ofMimetype:mimetype
       usingOperationQueue:self.operationQueue
                   success:successBlock
@@ -392,26 +389,6 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
 - (void)unregisterForNotifications
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-- (NSString *)sanitizeRelativePath:(NSString *)relativePath
-{
-    NSString *tmpPath = [relativePath copy];
-
-    if ([tmpPath characterAtIndex:0] == 47) // remove trailing slash, if present
-    {
-        tmpPath = [tmpPath substringFromIndex:1];
-    }
-
-    if (tmpPath.length > 0 &&
-        [tmpPath characterAtIndex:tmpPath.length - 1] == 47) // remove leading slash, if present
-    {
-        tmpPath = [tmpPath substringToIndex:tmpPath.length - 1];
-    }
-
-    NSString *sanitizedRelativePath = tmpPath;
-
-    return sanitizedRelativePath;
 }
 
 @end
