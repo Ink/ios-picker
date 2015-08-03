@@ -15,10 +15,25 @@
                                   FPSourceControllerDelegate>
 
 @property (nonatomic, assign) BOOL hasStatusBar;
+@property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
 
 @end
 
 @implementation FPPickerController
+
+#pragma mark - Accessors
+
+- (NSOperationQueue *)uploadOperationQueue
+{
+    if (!_uploadOperationQueue)
+    {
+        _uploadOperationQueue = [NSOperationQueue new];
+    }
+
+    return _uploadOperationQueue;
+}
+
+#pragma mark - Constructors / Destructor
 
 - (void)initializeProperties
 {
@@ -30,9 +45,6 @@
     self.cameraViewTransform = CGAffineTransformMake(1, 0, 0, 1, 0, 0);
     self.cameraDevice = UIImagePickerControllerCameraDeviceRear;
     self.cameraFlashMode = UIImagePickerControllerCameraFlashModeAuto;
-
-    self.shouldUpload = YES;
-    self.shouldDownload = YES;
 
     self.selectMultiple = NO;
     self.maxFiles = 0;
@@ -90,6 +102,8 @@
     return self;
 }
 
+#pragma mark - Other Methods
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -121,18 +135,6 @@
 
     [self pushViewController:fpSourceListController
                     animated:YES];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    self.sourceNames = nil;
-    self.dataTypes = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
 }
 
 #pragma mark UIImagePickerControllerDelegate Methods
@@ -188,7 +190,7 @@
             mediaInfo.thumbnailImage = thumbImage;
 
             [self.fpdelegate fpPickerController:self
-                           didPickMediaWithInfo:mediaInfo];
+                           didPickMediaWithInfo :mediaInfo];
         });
     }
 
@@ -257,8 +259,7 @@
 
             [FPLibrary uploadImage:imageToSave
                         ofMimetype:dataType
-                       withOptions:info
-                      shouldUpload:self.shouldUpload
+               usingOperationQueue:self.uploadOperationQueue
                            success:successBlock
                            failure:failureBlock
                           progress:progressBlock];
@@ -268,8 +269,7 @@
             NSURL *url = info[@"UIImagePickerControllerMediaURL"];
 
             [FPLibrary uploadVideoURL:url
-                          withOptions:info
-                         shouldUpload:self.shouldUpload
+                  usingOperationQueue:self.uploadOperationQueue
                               success:successBlock
                               failure:failureBlock
                              progress:progressBlock];
@@ -314,7 +314,7 @@
         [self.fpdelegate respondsToSelector:@selector(fpPickerController:didPickMediaWithInfo:)])
     {
         [self.fpdelegate fpPickerController:self
-                       didPickMediaWithInfo:info];
+                       didPickMediaWithInfo :info];
     }
 }
 

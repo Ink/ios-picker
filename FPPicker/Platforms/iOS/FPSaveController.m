@@ -13,9 +13,25 @@
                                 UIPopoverControllerDelegate,
                                 FPSourceControllerDelegate>
 
+@property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
+
 @end
 
 @implementation FPSaveController
+
+#pragma mark - Accessors
+
+- (NSOperationQueue *)uploadOperationQueue
+{
+    if (!_uploadOperationQueue)
+    {
+        _uploadOperationQueue = [NSOperationQueue new];
+    }
+
+    return _uploadOperationQueue;
+}
+
+#pragma mark - Constructors / Destructor
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -25,6 +41,8 @@
 
     return self;
 }
+
+#pragma mark - Other Methods
 
 - (void)viewDidLoad
 {
@@ -67,21 +85,23 @@
                     animated:YES];
 }
 
-- (void)viewDidUnload
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidUnload];
+    self.uploadOperationQueue.suspended = NO;
 
-    self.sourceNames = nil;
-    self.data = nil;
-    self.dataurl = nil;
-    self.dataType = nil;
-    self.dataExtension = nil;
-    self.proposedFilename = nil;
+    [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewWillDisappear:(BOOL)animated
 {
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+    [super viewWillDisappear:animated];
+
+    self.uploadOperationQueue.suspended = YES;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 - (void)saveFileName:(NSString *)filename
@@ -130,13 +150,15 @@
         hud.progress = progress;
     };
 
+    [self.uploadOperationQueue cancelAllOperations];
+
     if (self.dataurl)
     {
         [FPLibrary uploadDataURL:self.dataurl
                            named:filename
                           toPath:path
                       ofMimetype:self.dataType
-             usingOperationQueue:nil
+             usingOperationQueue:self.uploadOperationQueue
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -147,7 +169,7 @@
                         named:filename
                        toPath:path
                    ofMimetype:self.dataType
-          usingOperationQueue:nil
+          usingOperationQueue:self.uploadOperationQueue
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];

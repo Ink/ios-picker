@@ -12,21 +12,6 @@
 
 @implementation FPLibrary
 
-#pragma mark - Queues
-
-+ (dispatch_queue_t)upload_processing_queue
-{
-    static dispatch_queue_t _upload_processing_queue;
-    static dispatch_once_t onceToken;
-
-    dispatch_once(&onceToken, ^{
-        _upload_processing_queue = dispatch_queue_create("io.filepicker.upload.processing.queue",
-                                                         DISPATCH_QUEUE_SERIAL);
-    });
-
-    return _upload_processing_queue;
-}
-
 #pragma mark - Query Methods
 
 + (void)requestObjectMediaInfo:(NSDictionary *)obj
@@ -177,7 +162,6 @@
     [FPLibrary uploadLocalURLToFilepicker:localURL
                                     named:filename
                                ofMimetype:mimetype
-                             shouldUpload:YES
                       usingOperationQueue:operationQueue
                                   success:successBlock
                                   failure:failureBlock
@@ -235,24 +219,11 @@
 + (void)uploadLocalURLToFilepicker:(NSURL *)localURL
                              named:(NSString *)filename
                         ofMimetype:(NSString *)mimetype
-                      shouldUpload:(BOOL)shouldUpload
                usingOperationQueue:(NSOperationQueue *)operationQueue
                            success:(FPUploadAssetSuccessBlock)success
                            failure:(FPUploadAssetFailureBlock)failure
                           progress:(FPUploadAssetProgressBlock)progress
 {
-    if (!shouldUpload)
-    {
-        DLog(@"Not uploading");
-
-        NSError *error = [FPUtils errorWithCode:200
-                        andLocalizedDescription         :@"Should upload flag is set to NO."];
-
-        failure(error, nil);
-
-        return;
-    }
-
     // Initialize preprocessors
 
     FPVideoUploadPreprocessorBlock videoUploadPreprocessorBlock = [FPConfig sharedInstance].videoUploadPreprocessorBlock;

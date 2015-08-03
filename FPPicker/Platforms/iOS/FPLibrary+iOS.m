@@ -16,18 +16,17 @@
 
 #pragma mark - Camera Upload Methods
 
-+ (void)uploadImage:(UIImage *)image
-         ofMimetype:(NSString *)mimetype
-        withOptions:(NSDictionary *)options
-       shouldUpload:(BOOL)shouldUpload
-            success:(FPUploadAssetSuccessWithLocalURLBlock)success
-            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-           progress:(FPUploadAssetProgressBlock)progress
++ (void)    uploadImage:(UIImage *)image
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress
 {
+    DONT_BLOCK_UI();
+
     NSString *filename;
     NSData *filedata;
-
-    DONT_BLOCK_UI();
 
     NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
 
@@ -60,20 +59,20 @@
     [FPLibrary uploadLocalURLToFilepicker:tempURL
                                     named:filename
                                ofMimetype:mimetype
-                             shouldUpload:shouldUpload
-                      usingOperationQueue:nil
+                      usingOperationQueue:operationQueue
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progress];
 }
 
-+ (void)uploadVideoURL:(NSURL *)url
-           withOptions:(NSDictionary *)options
-          shouldUpload:(BOOL)shouldUpload
-               success:(FPUploadAssetSuccessWithLocalURLBlock)success
-               failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-              progress:(FPUploadAssetProgressBlock)progress
++ (void) uploadVideoURL:(NSURL *)url
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress
 {
+    DONT_BLOCK_UI();
+
     NSString *filename = @"movie.MOV";
     NSString *mimetype = @"video/quicktime";
 
@@ -90,8 +89,7 @@
     [FPLibrary uploadLocalURLToFilepicker:url
                                     named:filename
                                ofMimetype:mimetype
-                             shouldUpload:shouldUpload
-                      usingOperationQueue:nil
+                      usingOperationQueue:operationQueue
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progress];
@@ -99,41 +97,39 @@
 
 #pragma mark - Local Source Upload Methods
 
-+ (void)uploadAsset:(ALAsset *)asset
-        withOptions:(NSDictionary *)options
-       shouldUpload:(BOOL)shouldUpload
-            success:(FPUploadAssetSuccessWithLocalURLBlock)success
-            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-           progress:(FPUploadAssetProgressBlock)progress
++ (void)    uploadAsset:(ALAsset *)asset
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress
 {
-    dispatch_sync([self upload_processing_queue], ^{
-        NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
-        NSString *filename = asset.defaultRepresentation.filename;
-        ALAssetRepresentation *representation = asset.defaultRepresentation;
-        NSString *mimetype = [FPUtils mimetypeForUTI:representation.UTI];
+    DONT_BLOCK_UI();
 
-        [FPUtils copyAssetRepresentation:representation
-                            intoLocalURL:tempURL];
+    NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
+    NSString *filename = asset.defaultRepresentation.filename;
+    ALAssetRepresentation *representation = asset.defaultRepresentation;
+    NSString *mimetype = [FPUtils mimetypeForUTI:representation.UTI];
 
-        FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-            success(JSON, tempURL);
-        };
+    [FPUtils copyAssetRepresentation:representation
+                        intoLocalURL:tempURL];
 
-        FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-            DLog(@"File upload failed with %@, response was: %@", error, JSON);
+    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+        success(JSON, tempURL);
+    };
 
-            failure(error, JSON, tempURL);
-        };
+    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        DLog(@"File upload failed with %@, response was: %@", error, JSON);
 
-        [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                        named:filename
-                                   ofMimetype:mimetype
-                                 shouldUpload:shouldUpload
-                          usingOperationQueue:nil
-                                      success:successBlock
-                                      failure:failureBlock
-                                     progress:progress];
-    });
+        failure(error, JSON, tempURL);
+    };
+
+    [FPLibrary uploadLocalURLToFilepicker:tempURL
+                                    named:filename
+                               ofMimetype:mimetype
+                      usingOperationQueue:operationQueue
+                                  success:successBlock
+                                  failure:failureBlock
+                                 progress:progress];
 }
 
 @end

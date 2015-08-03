@@ -75,7 +75,7 @@
 
 - (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController
 {
-    // Validate selection by looking for directories
+    // Validate selection by ensuring it contains files but no directoreies
 
     NSArray *selectedItems = [dialogController selectedItems];
 

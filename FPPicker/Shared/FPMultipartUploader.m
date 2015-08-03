@@ -231,6 +231,7 @@
     AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:uploadPath
                                                               parameters:nil
                                                constructingBodyWithBlock:constructingBodyBlock
+                                                     usingOperationQueue:self.operationQueue
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 
@@ -289,6 +290,7 @@
 
     [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
                           parameters:params
+                 usingOperationQueue:self.operationQueue
                              success:successOperationBlock
                              failure:failureOperationBlock];
 }

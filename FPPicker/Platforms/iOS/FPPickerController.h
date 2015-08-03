@@ -30,6 +30,4 @@
 @property (nonatomic, assign) UIImagePickerControllerCameraDevice cameraDevice;
 @property (nonatomic, assign) UIImagePickerControllerCameraFlashMode cameraFlashMode;
 
-@property (nonatomic, assign) BOOL shouldUpload;
-
 @end

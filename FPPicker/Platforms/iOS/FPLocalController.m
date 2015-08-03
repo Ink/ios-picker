@@ -24,11 +24,26 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 @property UILabel *emptyLabel;
 @property NSCache *imageViews;
 @property NSMutableSet *selectedAssets;
+@property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
 
 @end
 
 
 @implementation FPLocalController
+
+#pragma mark - Accessors
+
+- (NSOperationQueue *)uploadOperationQueue
+{
+    if (!_uploadOperationQueue)
+    {
+        _uploadOperationQueue = [NSOperationQueue new];
+    }
+
+    return _uploadOperationQueue;
+}
+
+#pragma mark - Constructors / Destructor
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -46,6 +61,13 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     return self;
 }
+
+- (void)dealloc
+{
+    [self.uploadOperationQueue cancelAllOperations];
+}
+
+#pragma mark - Other Methods
 
 - (void)viewDidLoad
 {
@@ -73,10 +95,18 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    self.uploadOperationQueue.suspended = NO;
+
     [self setupLayoutConstants];
     [self loadPhotoData];
-
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    self.uploadOperationQueue.suspended = YES;
 }
 
 - (void)loadPhotoData
@@ -128,23 +158,8 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     [self.tableView reloadData];
 }
 
-- (void)viewDidUnload
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    [super viewDidUnload];
-
-    self.photos = nil;
-    self.fpdelegate = nil;
-    self.assetGroup = nil;
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    return YES;
-}
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
     [self setupLayoutConstants];
     [self.tableView reloadData];
 }
@@ -565,22 +580,9 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     NSLog(@"Asset: %@", asset);
 
-    BOOL shouldUpload = YES;
-
-    if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
-    {
-        NSLog(@"Should I upload?");
-        FPPickerController *pickerC = (FPPickerController *)self.fpdelegate;
-
-        shouldUpload = [pickerC shouldUpload];
-    }
-
-    NSLog(@"should upload: %@", shouldUpload ? @"YES" : @"NO");
-
     if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:(NSString *)ALAssetTypePhoto])
     {
         [self uploadPhotoAsset:asset
-                  shouldUpload:shouldUpload
                        success:success
                        failure:failure
                       progress:progress];
@@ -588,7 +590,6 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     else if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:(NSString *)ALAssetTypeVideo])
     {
         [self uploadVideoAsset:asset
-                  shouldUpload:shouldUpload
                        success:success
                        failure:failure
                       progress:progress];
@@ -605,7 +606,6 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 }
 
 - (void)uploadPhotoAsset:(ALAsset *)asset
-            shouldUpload:(BOOL)shouldUpload
                  success:(FPLocalUploadAssetSuccessBlock)success
                  failure:(FPLocalUploadAssetFailureBlock)failure
                 progress:(FPLocalUploadAssetProgressBlock)progress
@@ -638,16 +638,16 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         failure(error, mediaInfo);
     };
 
+    [self.uploadOperationQueue cancelAllOperations];
+
     [FPLibrary uploadAsset:asset
-               withOptions:nil
-              shouldUpload:shouldUpload
+       usingOperationQueue:self.uploadOperationQueue
                    success:successBlock
                    failure:failureBlock
                   progress:progress];
 }
 
 - (void)uploadVideoAsset:(ALAsset *)asset
-            shouldUpload:(BOOL)shouldUpload
                  success:(FPLocalUploadAssetSuccessBlock)success
                  failure:(FPLocalUploadAssetFailureBlock)failure
                 progress:(FPLocalUploadAssetProgressBlock)progress
@@ -681,9 +681,10 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         failure(error, mediaInfo);
     };
 
+    [self.uploadOperationQueue cancelAllOperations];
+
     [FPLibrary uploadAsset:asset
-               withOptions:nil
-              shouldUpload:shouldUpload
+       usingOperationQueue:self.uploadOperationQueue
                    success:successBlock
                    failure:failureBlock
                   progress:progress];

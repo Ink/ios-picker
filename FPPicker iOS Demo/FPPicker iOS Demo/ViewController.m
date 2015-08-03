@@ -99,11 +99,6 @@
     fpController.dataTypes = @[@"image/*"];
 
     /*
-     * Should file be uploaded? Default is YES.
-     */
-    fpController.shouldUpload = YES;
-
-    /*
      * Select and order the sources (Optional) Default is all sources
      */
     //fpController.sourceNames = @[FPSourceImagesearch];
@@ -117,10 +112,10 @@
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
     fpController.maxFiles = 10;
-    
+
 
     fpController.modalPresentationStyle = UIModalPresentationPopover;
-    
+
     /*
      * If controller will show in popover set popover size (iPad)
      */
@@ -179,12 +174,12 @@
     self.fpSave.dataType = @"image/png";
 
     self.fpSave.modalPresentationStyle = UIModalPresentationPopover;
-    
+
     /*
      * If controller will show in popover set popover size (iPad)
      */
     self.fpSave.preferredContentSize = CGSizeMake(400, 500);
-    
+
     UIPopoverPresentationController *presentationController = self.fpSave.popoverPresentationController;
     presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
     presentationController.sourceView = sender;
@@ -300,7 +295,6 @@
 
     [self dismissViewControllerAnimated:YES
                              completion:nil];
-    
 }
 
 #pragma mark - FPSaveControllerDelegate Methods
@@ -312,7 +306,6 @@
 
     [self.fpSave dismissViewControllerAnimated:YES
                                     completion:nil];
-
 }
 
 - (void)fpSaveControllerDidCancel:(FPSaveController *)saveController
