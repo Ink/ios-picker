@@ -16,12 +16,44 @@
 @property (nonatomic, strong) FPSaveController *fpSave;
 @property (nonatomic, strong) UIPopoverController *myPopoverController;
 @property (nonatomic, strong) NSMutableArray *displayedImages;
+@property (nonatomic, strong) FPTheme *theme;
 
 @end
 
 @implementation ViewController
 
 #pragma mark - Accessors
+
+- (FPTheme *)theme
+{
+    if (!_theme)
+    {
+        FPTheme *theme = [FPTheme new];
+
+        CGFloat hue = 0.5;
+
+        theme.navigationBarStyle = UIBarStyleBlack;
+        theme.navigationBarBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.18 alpha:1.0];
+        theme.navigationBarTintColor = [UIColor whiteColor];
+        theme.footerViewTintColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.45 alpha:1.0];
+        theme.headerFooterViewTextColor = [UIColor whiteColor];
+        theme.tableViewBackgroundColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.35 alpha:1.0];
+        theme.tableViewSeparatorColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.45 alpha:1.0];
+        theme.tableViewCellBackgroundColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.35 alpha:1.0];
+        theme.tableViewCellTextColor = [UIColor colorWithHue:hue saturation:0.1 brightness:1.0 alpha:1.0];
+        theme.tableViewCellTintColor = [UIColor colorWithHue:hue saturation:0.1 brightness:0.7 alpha:1.0];
+        theme.tableViewCellSelectedBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.18 alpha:1.0];
+        theme.tableViewCellSelectedTextColor = [UIColor whiteColor];
+
+        theme.uploadButtonBackgroundColor = [UIColor blackColor];
+        theme.uploadButtonHappyTextColor = [UIColor yellowColor];
+        theme.uploadButtonAngryTextColor = [UIColor redColor];
+
+        _theme = theme;
+    }
+
+    return _theme;
+}
 
 - (NSMutableArray *)displayedImages
 {
@@ -46,6 +78,11 @@
      * Set the delegate
      */
     fpController.fpdelegate = self;
+
+    /*
+     * Apply theme
+     */
+    fpController.theme = self.theme;
 
     /*
      * Ask for specific data types. (Optional) Default is all files.
@@ -92,6 +129,11 @@
      * Set the delegate
      */
     fpController.fpdelegate = self;
+
+    /*
+     * Apply theme
+     */
+    fpController.theme = self.theme;
 
     /*
      * Ask for specific data types. (Optional) Default is all files.
@@ -161,6 +203,11 @@
      * Set the delegate
      */
     self.fpSave.fpdelegate = self;
+
+    /*
+     * Apply theme
+     */
+    self.fpSave.theme = self.theme;
 
     /*
      * Select and order the sources (Optional) Default is all sources
