@@ -328,8 +328,6 @@
 		45E7B5BB1B78A8EB00D63EE0 /* FPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5B91B78A8EB00D63EE0 /* FPTableViewCell.m */; };
 		45E7B5C61B78E1AE00D63EE0 /* FPBarButtonItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5C41B78E1AE00D63EE0 /* FPBarButtonItem.h */; };
 		45E7B5C71B78E1AE00D63EE0 /* FPBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5C51B78E1AE00D63EE0 /* FPBarButtonItem.m */; };
-		45E7B5CA1B78EB4800D63EE0 /* UIImage+Color.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5C81B78EB4800D63EE0 /* UIImage+Color.h */; };
-		45E7B5CB1B78EB4800D63EE0 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5C91B78EB4800D63EE0 /* UIImage+Color.m */; };
 		45FB62A9199CECE600D0535A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FB62A8199CECE600D0535A /* Cocoa.framework */; };
 		82C51CD157BA18D3A2B6C9A0 /* libPods-FPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C31C8BCF1DAFE23931E4E9 /* libPods-FPPicker.a */; };
 		AAEABCDB245DACF28D842D8A /* libPods-FPPickerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F430AC74D07E1614F5A7F3 /* libPods-FPPickerMac.a */; };
@@ -561,8 +559,6 @@
 		45E7B5B91B78A8EB00D63EE0 /* FPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTableViewCell.m; sourceTree = "<group>"; };
 		45E7B5C41B78E1AE00D63EE0 /* FPBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPBarButtonItem.h; sourceTree = "<group>"; };
 		45E7B5C51B78E1AE00D63EE0 /* FPBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPBarButtonItem.m; sourceTree = "<group>"; };
-		45E7B5C81B78EB4800D63EE0 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
-		45E7B5C91B78EB4800D63EE0 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		45FB62A8199CECE600D0535A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		45FCE703199B665800D86B40 /* FPUtils+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+iOS.h"; sourceTree = "<group>"; };
 		45FCE704199B665800D86B40 /* FPUtils+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+iOS.m"; sourceTree = "<group>"; };
@@ -1038,8 +1034,6 @@
 				4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */,
 				456263E519EFFC5200A34C29 /* FPLibrary+iOS.h */,
 				456263E619EFFC5200A34C29 /* FPLibrary+iOS.m */,
-				45E7B5C81B78EB4800D63EE0 /* UIImage+Color.h */,
-				45E7B5C91B78EB4800D63EE0 /* UIImage+Color.m */,
 			);
 			name = Categories;
 			path = Platforms/iOS;
@@ -1185,7 +1179,6 @@
 				4531449619EC3F02003230F5 /* FPConstants.h in Headers */,
 				453144B819EC3F99003230F5 /* FPTypedefs.h in Headers */,
 				453144CD19EC3FC4003230F5 /* FPAuthController.h in Headers */,
-				45E7B5CA1B78EB4800D63EE0 /* UIImage+Color.h in Headers */,
 				453144B419EC3F99003230F5 /* FPUploader.h in Headers */,
 				453144A719EC3F59003230F5 /* FPProgressTracker.h in Headers */,
 				453144B919EC3FA4003230F5 /* FPUtils+iOS.h in Headers */,
@@ -1676,7 +1669,6 @@
 				453144C019EC3FB2003230F5 /* FPPickerController.m in Sources */,
 				4531449A19EC3F3E003230F5 /* FPSource.m in Sources */,
 				453144C619EC3FC4003230F5 /* FPLocalAlbumController.m in Sources */,
-				45E7B5CB1B78EB4800D63EE0 /* UIImage+Color.m in Sources */,
 				453144BE19EC3FA8003230F5 /* FPThumbCell.m in Sources */,
 				45E7B5AF1B78915F00D63EE0 /* FPTheme.m in Sources */,
 				45E7B5C71B78E1AE00D63EE0 /* FPBarButtonItem.m in Sources */,

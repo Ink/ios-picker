@@ -9,7 +9,6 @@
 #import "FPTableWithUploadButtonViewController.h"
 #import "UIApplication+FPAppDimensions.h"
 #import "FPBarButtonItem.h"
-#import "UIImage+Color.h"
 
 @interface FPTableWithUploadButtonViewController ()
 
@@ -57,12 +56,6 @@
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(uploadButtonTapped:)];
-
-        UIImage *image = [UIImage imageWithColor:[FPBarButtonItem appearance].backgroundColor];
-
-        [self.uploadBarButton setBackgroundImage:image forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-
-        [self.uploadBarButton setBackgroundImage:image forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
 
         self.toolbarItems = @[flexibleSpace, self.uploadBarButton, flexibleSpace];
         [self setToolbarTintColor:[FPBarButtonItem appearance].happyTextColor];
