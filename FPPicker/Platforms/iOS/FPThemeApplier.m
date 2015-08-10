@@ -11,6 +11,7 @@
 #import "UILabel+Appearance.h"
 #import "FPTableViewCell.h"
 #import "FPThumbCell.h"
+#import "FPBarButtonItem.h"
 #import "FPLocalController.h"
 
 @interface FPThemeApplier ()
@@ -61,6 +62,10 @@
 
     [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceTextColor = theme.tableViewCellTextColor;
     [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceHighlightedTextColor = theme.tableViewCellSelectedTextColor;
+
+    [FPBarButtonItem appearance].backgroundColor = theme.uploadButtonBackgroundColor;
+    [FPBarButtonItem appearance].happyTextColor = theme.uploadButtonHappyTextColor;
+    [FPBarButtonItem appearance].angryTextColor = theme.uploadButtonAngryTextColor;
 }
 
 @end
