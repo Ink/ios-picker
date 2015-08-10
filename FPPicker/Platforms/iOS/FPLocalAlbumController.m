@@ -8,6 +8,7 @@
 
 #import "FPLocalAlbumController.h"
 #import "FPLocalController.h"
+#import "FPTableViewCell.h"
 
 @interface FPLocalAlbumController ()
 
@@ -104,10 +105,11 @@
             [group setAssetsFilter:[ALAssetsFilter allVideos]];
         }
 
-        if(group.numberOfAssets == 0){
+        if (group.numberOfAssets == 0)
+        {
             return;
         }
-        
+
         if ([[sGroupPropertyName lowercaseString] isEqualToString:@"camera roll"] &&
             nType == ALAssetsGroupSavedPhotos)
         {
@@ -175,12 +177,12 @@
 {
     static NSString *CellIdentifier = @"Cell";
 
-    UITableViewCell *cell = [passedTableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    FPTableViewCell *cell = [passedTableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:CellIdentifier];
+        cell = [[FPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier :CellIdentifier];
     }
 
     // Get count
@@ -191,6 +193,10 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@ (%ld)", [g valueForProperty:ALAssetsGroupPropertyName], (long)[g numberOfAssets]];
     [cell.imageView setImage:albumImage];
     [cell setAccessoryType:UITableViewCellAccessoryDisclosureIndicator];
+
+    UIView *bgColorView = [UIView new];
+    bgColorView.backgroundColor = [FPTableViewCell appearance].selectedBackgroundColor;
+    cell.selectedBackgroundView = bgColorView;
 
     return cell;
 }

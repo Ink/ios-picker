@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "FPExternalHeaders.h"
 
+@class FPTheme;
+
 @interface FPPickerController : UINavigationController
 
 @property (nonatomic, weak) id <FPPickerControllerDelegate> fpdelegate;
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
+@property (nonatomic, strong) FPTheme *theme;
 
 // imagepicker properties
 

@@ -9,6 +9,8 @@
 #import "FPPickerController.h"
 #import "FPImagePickerController.h"
 #import "FPInternalHeaders.h"
+#import "FPTheme.h"
+#import "FPThemeApplier.h"
 
 @interface FPPickerController () <UIImagePickerControllerDelegate,
                                   UINavigationControllerDelegate,
@@ -16,12 +18,22 @@
 
 @property (nonatomic, assign) BOOL hasStatusBar;
 @property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
+@property (nonatomic, strong) FPThemeApplier *themeApplier;
 
 @end
 
 @implementation FPPickerController
 
 #pragma mark - Accessors
+
+- (void)setTheme:(FPTheme *)theme
+{
+    _theme = theme;
+
+    // Apply theme
+    self.themeApplier = [[FPThemeApplier alloc] initWithTheme:theme];
+    [self.themeApplier applyToController:self];
+}
 
 - (NSOperationQueue *)uploadOperationQueue
 {

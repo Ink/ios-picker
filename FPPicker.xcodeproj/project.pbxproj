@@ -175,7 +175,6 @@
 		456FCB531B5E786500A43A82 /* FPSimpleAPI.h in Headers */ = {isa = PBXBuildFile; fileRef = 456FCB501B5E786500A43A82 /* FPSimpleAPI.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		456FCB541B5E786500A43A82 /* FPSimpleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 456FCB511B5E786500A43A82 /* FPSimpleAPI.m */; };
 		456FCB551B5E786500A43A82 /* FPSimpleAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = 456FCB511B5E786500A43A82 /* FPSimpleAPI.m */; };
-		456FCB561B5E79F000A43A82 /* FPRepresentedSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 4504082719F1326700DB26AF /* FPRepresentedSource.h */; };
 		456FCB571B5E79FD00A43A82 /* FPRepresentedSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 4504082819F1326700DB26AF /* FPRepresentedSource.m */; };
 		456FCB581B5E7A0A00A43A82 /* FPSourcePath.h in Headers */ = {isa = PBXBuildFile; fileRef = 45936F9619F4729400ACEE97 /* FPSourcePath.h */; };
 		456FCB591B5E7A0D00A43A82 /* FPSourcePath.m in Sources */ = {isa = PBXBuildFile; fileRef = 45936F9719F4729400ACEE97 /* FPSourcePath.m */; };
@@ -319,6 +318,14 @@
 		45E10AF319EE9E9400D34BC0 /* FPImageBrowserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */; };
 		45E1A41619A5FC8000287419 /* FPView.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E1A41419A5FC8000287419 /* FPView.h */; };
 		45E1A41719A5FC8000287419 /* FPView.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E1A41519A5FC8000287419 /* FPView.m */; };
+		45E7B5AE1B78915F00D63EE0 /* FPTheme.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5AC1B78915F00D63EE0 /* FPTheme.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		45E7B5AF1B78915F00D63EE0 /* FPTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5AD1B78915F00D63EE0 /* FPTheme.m */; };
+		45E7B5B21B789B8700D63EE0 /* FPThemeApplier.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5B01B789B8700D63EE0 /* FPThemeApplier.h */; };
+		45E7B5B31B789B8700D63EE0 /* FPThemeApplier.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5B11B789B8700D63EE0 /* FPThemeApplier.m */; };
+		45E7B5B61B78A4BC00D63EE0 /* UILabel+Appearance.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5B41B78A4BC00D63EE0 /* UILabel+Appearance.h */; };
+		45E7B5B71B78A4BC00D63EE0 /* UILabel+Appearance.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5B51B78A4BC00D63EE0 /* UILabel+Appearance.m */; };
+		45E7B5BA1B78A8EB00D63EE0 /* FPTableViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 45E7B5B81B78A8EB00D63EE0 /* FPTableViewCell.h */; };
+		45E7B5BB1B78A8EB00D63EE0 /* FPTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 45E7B5B91B78A8EB00D63EE0 /* FPTableViewCell.m */; };
 		45FB62A9199CECE600D0535A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45FB62A8199CECE600D0535A /* Cocoa.framework */; };
 		82C51CD157BA18D3A2B6C9A0 /* libPods-FPPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C31C8BCF1DAFE23931E4E9 /* libPods-FPPicker.a */; };
 		AAEABCDB245DACF28D842D8A /* libPods-FPPickerMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 51F430AC74D07E1614F5A7F3 /* libPods-FPPickerMac.a */; };
@@ -540,6 +547,14 @@
 		45E10AF119EE9E9400D34BC0 /* FPImageBrowserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPImageBrowserCell.m; sourceTree = "<group>"; };
 		45E1A41419A5FC8000287419 /* FPView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPView.h; sourceTree = "<group>"; };
 		45E1A41519A5FC8000287419 /* FPView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPView.m; sourceTree = "<group>"; };
+		45E7B5AC1B78915F00D63EE0 /* FPTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPTheme.h; path = Platforms/iOS/FPTheme.h; sourceTree = "<group>"; };
+		45E7B5AD1B78915F00D63EE0 /* FPTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPTheme.m; path = Platforms/iOS/FPTheme.m; sourceTree = "<group>"; };
+		45E7B5B01B789B8700D63EE0 /* FPThemeApplier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FPThemeApplier.h; path = Platforms/iOS/FPThemeApplier.h; sourceTree = "<group>"; };
+		45E7B5B11B789B8700D63EE0 /* FPThemeApplier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FPThemeApplier.m; path = Platforms/iOS/FPThemeApplier.m; sourceTree = "<group>"; };
+		45E7B5B41B78A4BC00D63EE0 /* UILabel+Appearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UILabel+Appearance.h"; path = "Platforms/iOS/UILabel+Appearance.h"; sourceTree = "<group>"; };
+		45E7B5B51B78A4BC00D63EE0 /* UILabel+Appearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UILabel+Appearance.m"; path = "Platforms/iOS/UILabel+Appearance.m"; sourceTree = "<group>"; };
+		45E7B5B81B78A8EB00D63EE0 /* FPTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPTableViewCell.h; sourceTree = "<group>"; };
+		45E7B5B91B78A8EB00D63EE0 /* FPTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPTableViewCell.m; sourceTree = "<group>"; };
 		45FB62A8199CECE600D0535A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.9.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		45FCE703199B665800D86B40 /* FPUtils+iOS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+iOS.h"; sourceTree = "<group>"; };
 		45FCE704199B665800D86B40 /* FPUtils+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+iOS.m"; sourceTree = "<group>"; };
@@ -950,6 +965,19 @@
 			path = Platforms/iOS;
 			sourceTree = "<group>";
 		};
+		45E7B5AB1B78913100D63EE0 /* Theming */ = {
+			isa = PBXGroup;
+			children = (
+				45E7B5AC1B78915F00D63EE0 /* FPTheme.h */,
+				45E7B5AD1B78915F00D63EE0 /* FPTheme.m */,
+				45E7B5B01B789B8700D63EE0 /* FPThemeApplier.h */,
+				45E7B5B11B789B8700D63EE0 /* FPThemeApplier.m */,
+				45E7B5B41B78A4BC00D63EE0 /* UILabel+Appearance.h */,
+				45E7B5B51B78A4BC00D63EE0 /* UILabel+Appearance.m */,
+			);
+			name = Theming;
+			sourceTree = "<group>";
+		};
 		45FCE709199B68C900D86B40 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -1058,6 +1086,7 @@
 		83A030E715A89C9D0085E186 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				45E7B5AB1B78913100D63EE0 /* Theming */,
 				45FCE70B199B71F400D86B40 /* Categories */,
 				83A0316715A89E0C0085E186 /* Misc Classes */,
 				45D7356719476F08001EF626 /* Nav Controllers */,
@@ -1086,6 +1115,8 @@
 			children = (
 				831E0B4515AAC3F30081004F /* FPThumbCell.h */,
 				831E0B4615AAC3F30081004F /* FPThumbCell.m */,
+				45E7B5B81B78A8EB00D63EE0 /* FPTableViewCell.h */,
+				45E7B5B91B78A8EB00D63EE0 /* FPTableViewCell.m */,
 			);
 			name = "Misc Classes";
 			path = Platforms/iOS;
@@ -1114,7 +1145,7 @@
 				453144D619EC3FD2003230F5 /* FPiOSMacros.h in Headers */,
 				456FCB521B5E786500A43A82 /* FPSimpleAPI.h in Headers */,
 				456263E719EFFC5200A34C29 /* FPLibrary+iOS.h in Headers */,
-				456FCB561B5E79F000A43A82 /* FPRepresentedSource.h in Headers */,
+				45E7B5B61B78A4BC00D63EE0 /* UILabel+Appearance.h in Headers */,
 				4531449819EC3F25003230F5 /* FPPickerController.h in Headers */,
 				453144CF19EC3FC4003230F5 /* FPInfoViewController.h in Headers */,
 				453144B119EC3F95003230F5 /* FPSharedInternalHeaders.h in Headers */,
@@ -1134,6 +1165,7 @@
 				453144D119EC3FC4003230F5 /* FPTableWithUploadButtonViewController.h in Headers */,
 				453144C519EC3FC4003230F5 /* FPLocalAlbumController.h in Headers */,
 				453144C719EC3FC4003230F5 /* FPSourceController.h in Headers */,
+				45E7B5B21B789B8700D63EE0 /* FPThemeApplier.h in Headers */,
 				4531449419EC3F02003230F5 /* FPMediaInfo.h in Headers */,
 				453144A019EC3F46003230F5 /* FPUtils+ResourceHelpers.h in Headers */,
 				453144CB19EC3FC4003230F5 /* FPSearchController.h in Headers */,
@@ -1150,6 +1182,8 @@
 				453144B619EC3F99003230F5 /* FPUtils.h in Headers */,
 				453144D319EC3FC9003230F5 /* FPSourceListController.h in Headers */,
 				453144A919EC3F66003230F5 /* FPAPIClient.h in Headers */,
+				45E7B5BA1B78A8EB00D63EE0 /* FPTableViewCell.h in Headers */,
+				45E7B5AE1B78915F00D63EE0 /* FPTheme.h in Headers */,
 				4531449F19EC3F46003230F5 /* FPSource+SupportedSources.h in Headers */,
 				453144C919EC3FC4003230F5 /* FPSaveSourceController.h in Headers */,
 				453144AE19EC3F8C003230F5 /* FPMultipartUploader.h in Headers */,
@@ -1629,7 +1663,9 @@
 				4531449A19EC3F3E003230F5 /* FPSource.m in Sources */,
 				453144C619EC3FC4003230F5 /* FPLocalAlbumController.m in Sources */,
 				453144BE19EC3FA8003230F5 /* FPThumbCell.m in Sources */,
+				45E7B5AF1B78915F00D63EE0 /* FPTheme.m in Sources */,
 				453144AB19EC3F6F003230F5 /* FPConfig.m in Sources */,
+				45E7B5BB1B78A8EB00D63EE0 /* FPTableViewCell.m in Sources */,
 				453144AC19EC3F83003230F5 /* FPConstants.m in Sources */,
 				453144A519EC3F4E003230F5 /* FPUtils+ResourceHelpers.m in Sources */,
 				453144AA19EC3F69003230F5 /* FPAPIClient.m in Sources */,
@@ -1637,11 +1673,13 @@
 				453144CE19EC3FC4003230F5 /* FPAuthController.m in Sources */,
 				453144C119EC3FB5003230F5 /* FPImagePickerController.m in Sources */,
 				453144B719EC3F99003230F5 /* FPUtils.m in Sources */,
+				45E7B5B71B78A4BC00D63EE0 /* UILabel+Appearance.m in Sources */,
 				453144A419EC3F4E003230F5 /* FPSource+SupportedSources.m in Sources */,
 				453144BA19EC3FA4003230F5 /* FPUtils+iOS.m in Sources */,
 				453144C419EC3FC4003230F5 /* FPLocalController.m in Sources */,
 				453144B519EC3F99003230F5 /* FPUploader.m in Sources */,
 				456FCB541B5E786500A43A82 /* FPSimpleAPI.m in Sources */,
+				45E7B5B31B789B8700D63EE0 /* FPThemeApplier.m in Sources */,
 				453144B319EC3F99003230F5 /* FPSinglepartUploader.m in Sources */,
 				453144A219EC3F4E003230F5 /* NSData+FPHexString.m in Sources */,
 				453144D019EC3FC4003230F5 /* FPInfoViewController.m in Sources */,

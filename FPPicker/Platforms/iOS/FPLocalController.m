@@ -8,6 +8,7 @@
 
 #import "FPLocalController.h"
 #import "FPUtils.h"
+#import "FPTableViewCell.h"
 
 typedef void (^FPLocalUploadAssetSuccessBlock)(FPMediaInfo *info);
 typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, FPMediaInfo *info);
@@ -205,7 +206,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+    FPTableViewCell *cell = [[FPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                                    reuseIdentifier :nil];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -213,6 +214,10 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     [cell.contentView addGestureRecognizer:tap];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+    UIView *bgColorView = [UIView new];
+    bgColorView.backgroundColor = [FPTableViewCell appearance].selectedBackgroundColor;
+    cell.selectedBackgroundView = bgColorView;
 
     CGRect rect = CGRectMake(self.padding,
                              self.padding,
@@ -321,7 +326,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     return self.thumbSize + self.padding;
 }
 
-#pragma mark - Table view delegate
+#pragma mark - Other methods
 
 - (IBAction)singleTappedWithGesture:(UIGestureRecognizer *)sender
 {
