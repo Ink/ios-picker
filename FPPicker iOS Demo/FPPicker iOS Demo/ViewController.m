@@ -105,6 +105,11 @@
     fpController.maxFiles = 5;
 
     /*
+     * Optionally disable the front camera mirroring (experimental)
+     */
+    fpController.disableFrontCameraLivePreviewMirroring = YES;
+
+    /*
      * Display it.
      */
     UIPopoverController *popoverController = [[UIPopoverController alloc] initWithContentViewController:fpController];
@@ -155,6 +160,10 @@
      */
     fpController.maxFiles = 10;
 
+    /*
+     * Optionally disable the front camera mirroring (experimental)
+     */
+    fpController.disableFrontCameraLivePreviewMirroring = YES;
 
     fpController.modalPresentationStyle = UIModalPresentationPopover;
 

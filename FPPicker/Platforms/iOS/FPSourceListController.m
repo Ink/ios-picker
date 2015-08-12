@@ -200,6 +200,7 @@
                 imgPicker.cameraViewTransform = picker.cameraViewTransform;
                 imgPicker.cameraDevice = picker.cameraDevice;
                 imgPicker.cameraFlashMode = picker.cameraFlashMode;
+                imgPicker.disableFrontCameraLivePreviewMirroring = picker.disableFrontCameraLivePreviewMirroring;
             }
 
             [[UIApplication sharedApplication] setStatusBarHidden:YES];

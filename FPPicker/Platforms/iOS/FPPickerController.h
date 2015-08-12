@@ -29,8 +29,13 @@
 @property (nonatomic, assign) BOOL showsCameraControls;
 @property (nonatomic, strong) UIView *cameraOverlayView;
 @property (nonatomic, assign) CGAffineTransform cameraViewTransform;
-
 @property (nonatomic, assign) UIImagePickerControllerCameraDevice cameraDevice;
 @property (nonatomic, assign) UIImagePickerControllerCameraFlashMode cameraFlashMode;
+
+/*!
+   Disables the front camera live preview mirroring (experimental)
+   Side-effect: overrides the existing `cameraViewTransform`.
+ */
+@property (nonatomic, assign) BOOL disableFrontCameraLivePreviewMirroring;
 
 @end
