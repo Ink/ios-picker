@@ -115,6 +115,8 @@
                                                     name:AVCaptureSessionDidStartRunningNotification
                                                   object:nil];
 
+    [[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
+
     self.isRegisteredForNotifications = NO;
 }
 
