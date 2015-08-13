@@ -36,12 +36,14 @@ Pod::Spec.new do |s|
     FPPicker/Platforms/iOS/FPPickerController.h
     FPPicker/Platforms/iOS/FPSaveController.h
     FPPicker/Platforms/iOS/FPTheme.h
+    FPPicker/Platforms/iOS/FPAuthController.h
   ).concat(shared_public_header_files)
 
   s.osx.public_header_files = %w(
     FPPicker/Platforms/Mac/FPPickerMac.h
     FPPicker/Platforms/Mac/FPPickerController.h
     FPPicker/Platforms/Mac/FPSaveController.h
+    FPPicker/Platforms/Mac/FPAuthController.h
   ).concat(shared_public_header_files)
 
   s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
