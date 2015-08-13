@@ -18,6 +18,8 @@
 
 @implementation RootViewController
 
+#pragma mark - Accessors
+
 - (NSMutableArray *)objects
 {
     if (!_objects)
@@ -45,6 +47,8 @@
 
     return _simpleAPI;
 }
+
+#pragma mark - Public Methods
 
 - (void)viewDidLoad
 {
