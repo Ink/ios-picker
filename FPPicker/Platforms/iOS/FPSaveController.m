@@ -30,7 +30,11 @@
 
     // Apply theme
     self.themeApplier = [[FPThemeApplier alloc] initWithTheme:theme];
-    [self.themeApplier applyToController:self];
+
+    if (self.isViewLoaded)
+    {
+        [self.themeApplier applyToController:self];
+    }
 }
 
 - (NSOperationQueue *)uploadOperationQueue
@@ -58,6 +62,7 @@
 
 - (void)viewDidLoad
 {
+    [self.themeApplier applyToController:self];
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.

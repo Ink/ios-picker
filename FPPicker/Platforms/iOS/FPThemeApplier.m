@@ -47,6 +47,8 @@
         navigationController.navigationBar.barStyle = theme.navigationBarStyle;
         navigationController.navigationBar.barTintColor = theme.navigationBarBackgroundColor;
         navigationController.navigationBar.tintColor = theme.navigationBarTintColor;
+
+        navigationController.popoverPresentationController.backgroundColor = theme.navigationBarBackgroundColor;
     }
 
     // Table view
