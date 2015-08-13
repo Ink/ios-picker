@@ -12,7 +12,7 @@ The easiest way to import content into your application.
   - Xcode 6
   - [CocoaPods](http://cocoapods.org)
 
-##### NOTE: If you want to continue developing for iOS 6 and 7, please use the 3.x branch.
+##### NOTE: If you want to continue developing for iOS 6 and 7, please use the 3.x version (tag v3.2.9).
 
 ## Installation
 
@@ -25,7 +25,7 @@ The easiest way to import content into your application.
   1. [Installation](https://github.com/Ink/ios-picker/wiki/1.-Installation)
   2. [Usage](https://github.com/Ink/ios-picker/wiki/2.-Usage)
   3. [Programmatic API Usage](https://github.com/Ink/ios-picker/wiki/3.-Programmatic-API-Usage) *(new in v5)*
-  4. [Theming in iOS](https://github.com/Ink/ios-picker/wiki/3.-Theming-in-iOS) *(new in v5)*
+  4. [Theming in iOS](https://github.com/Ink/ios-picker/wiki/4.-Theming-in-iOS) *(new in v5)*
   5. [Common Tips](https://github.com/Ink/ios-picker/wiki/5.-Common-Tips)
   6. [Demo Projects](https://github.com/Ink/ios-picker/wiki/6.-Demo-Projects)
 
