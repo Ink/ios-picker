@@ -17,16 +17,19 @@
 
 /*!
    The background color to apply to the navigation bar.
+
+   Please notice that this color will also be applied to the popover
+   presentation controller's background for aesthetic purposes.
  */
 @property (nonatomic, strong) UIColor *navigationBarBackgroundColor;
 
 /*!
-   The tint color to apply to the navigation items and bar button items (i.e. buttons and images)
+   The tint color to apply to the navigation items and bar button items.
  */
 @property (nonatomic, strong) UIColor *navigationBarTintColor;
 
 /*!
-   The tint color to apply to the table view headers and footers (i.e. background)
+   The tint (background) color to apply to the table view headers and footers.
  */
 @property (nonatomic, strong) UIColor *headerFooterViewTintColor;
 
