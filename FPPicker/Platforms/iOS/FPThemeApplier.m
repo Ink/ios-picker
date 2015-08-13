@@ -45,29 +45,81 @@
         UINavigationController *navigationController = (UINavigationController *)controller;
 
         navigationController.navigationBar.barStyle = theme.navigationBarStyle;
-        navigationController.navigationBar.barTintColor = theme.navigationBarBackgroundColor;
-        navigationController.navigationBar.tintColor = theme.navigationBarTintColor;
 
-        navigationController.popoverPresentationController.backgroundColor = theme.navigationBarBackgroundColor;
+        if (theme.navigationBarBackgroundColor)
+        {
+            navigationController.navigationBar.barTintColor = theme.navigationBarBackgroundColor;
+            navigationController.popoverPresentationController.backgroundColor = theme.navigationBarBackgroundColor;
+        }
+
+        if (theme.navigationBarTintColor)
+        {
+            navigationController.navigationBar.tintColor = theme.navigationBarTintColor;
+        }
     }
 
     // Table view
 
-    [UITableViewHeaderFooterView appearanceWhenContainedIn:[controller class], nil].tintColor = theme.headerFooterViewTintColor;
-    [UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], [controller class], nil].textColor = theme.headerFooterViewTextColor;
-    [UITableView appearanceWhenContainedIn:[controller class], nil].backgroundColor = theme.tableViewBackgroundColor;
-    [UITableView appearanceWhenContainedIn:[controller class], nil].separatorColor = theme.tableViewSeparatorColor;
+    if (theme.headerFooterViewTintColor)
+    {
+        [UITableViewHeaderFooterView appearanceWhenContainedIn:[controller class], nil].tintColor = theme.headerFooterViewTintColor;
+    }
 
-    [FPTableViewCell appearance].backgroundColor = theme.tableViewCellBackgroundColor;
-    [FPTableViewCell appearance].selectedBackgroundColor = theme.tableViewCellSelectedBackgroundColor;
-    [FPTableViewCell appearance].tintColor = theme.tableViewCellTintColor;
+    if (theme.headerFooterViewTextColor)
+    {
+        [UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], [controller class], nil].textColor = theme.headerFooterViewTextColor;
+    }
 
-    [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceTextColor = theme.tableViewCellTextColor;
-    [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceHighlightedTextColor = theme.tableViewCellSelectedTextColor;
+    if (theme.tableViewBackgroundColor)
+    {
+        [UITableView appearanceWhenContainedIn:[controller class], nil].backgroundColor = theme.tableViewBackgroundColor;
+    }
 
-    [FPBarButtonItem appearance].backgroundColor = theme.uploadButtonBackgroundColor;
-    [FPBarButtonItem appearance].happyTextColor = theme.uploadButtonHappyTextColor;
-    [FPBarButtonItem appearance].angryTextColor = theme.uploadButtonAngryTextColor;
+    if (theme.tableViewSeparatorColor)
+    {
+        [UITableView appearanceWhenContainedIn:[controller class], nil].separatorColor = theme.tableViewSeparatorColor;
+    }
+
+    if (theme.tableViewCellBackgroundColor)
+    {
+        [FPTableViewCell appearance].backgroundColor = theme.tableViewCellBackgroundColor;
+    }
+
+    if (theme.tableViewCellSelectedBackgroundColor)
+    {
+        [FPTableViewCell appearance].selectedBackgroundColor = theme.tableViewCellSelectedBackgroundColor;
+    }
+
+    if (theme.tableViewCellTintColor)
+    {
+        [FPTableViewCell appearance].tintColor = theme.tableViewCellTintColor;
+    }
+
+    if (theme.tableViewCellTextColor)
+    {
+        [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceTextColor = theme.tableViewCellTextColor;
+    }
+
+    if (theme.tableViewCellSelectedTextColor)
+    {
+        [UILabel appearanceWhenContainedIn:[UITableView class], [controller class], nil].appearanceHighlightedTextColor = theme.tableViewCellSelectedTextColor;
+    }
+
+    if (theme.uploadButtonBackgroundColor)
+    {
+        [FPBarButtonItem appearance].backgroundColor = theme.uploadButtonBackgroundColor;
+    }
+
+
+    if (theme.uploadButtonHappyTextColor)
+    {
+        [FPBarButtonItem appearance].happyTextColor = theme.uploadButtonHappyTextColor;
+    }
+
+    if (theme.uploadButtonAngryTextColor)
+    {
+        [FPBarButtonItem appearance].angryTextColor = theme.uploadButtonAngryTextColor;
+    }
 }
 
 @end
