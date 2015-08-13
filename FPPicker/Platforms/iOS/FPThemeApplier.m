@@ -51,7 +51,7 @@
 
     // Table view
 
-    [UITableViewHeaderFooterView appearanceWhenContainedIn:[controller class], nil].tintColor = theme.footerViewTintColor;
+    [UITableViewHeaderFooterView appearanceWhenContainedIn:[controller class], nil].tintColor = theme.headerFooterViewTintColor;
     [UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], [controller class], nil].textColor = theme.headerFooterViewTextColor;
     [UITableView appearanceWhenContainedIn:[controller class], nil].backgroundColor = theme.tableViewBackgroundColor;
     [UITableView appearanceWhenContainedIn:[controller class], nil].separatorColor = theme.tableViewSeparatorColor;

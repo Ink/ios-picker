@@ -1090,16 +1090,16 @@
 		83A030E715A89C9D0085E186 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
-				45E7B5AB1B78913100D63EE0 /* Theming */,
+				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
+				45FCE70C199B74B600D86B40 /* FPiOSMacros.h */,
+				83A0314C15A89E040085E186 /* FPPicker.h */,
 				45FCE70B199B71F400D86B40 /* Categories */,
 				83A0316715A89E0C0085E186 /* Misc Classes */,
 				45D7356719476F08001EF626 /* Nav Controllers */,
-				45D7356619476DA8001EF626 /* View Controllers */,
-				45D7356819476F87001EF626 /* Table View Controllers */,
-				45FCE70C199B74B600D86B40 /* FPiOSMacros.h */,
-				83A031DD15AA14820085E186 /* FPInternalHeaders.h */,
-				83A0314C15A89E040085E186 /* FPPicker.h */,
 				83A030E815A89C9D0085E186 /* Supporting Files */,
+				45D7356819476F87001EF626 /* Table View Controllers */,
+				45E7B5AB1B78913100D63EE0 /* Theming */,
+				45D7356619476DA8001EF626 /* View Controllers */,
 			);
 			name = iOS;
 			path = FPPicker;

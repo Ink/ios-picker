@@ -30,18 +30,18 @@
     {
         FPTheme *theme = [FPTheme new];
 
-        CGFloat hue = 0.5;
+        CGFloat hue = 0.5616;
 
         theme.navigationBarStyle = UIBarStyleBlack;
-        theme.navigationBarBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.18 alpha:1.0];
-        theme.navigationBarTintColor = [UIColor whiteColor];
-        theme.footerViewTintColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.45 alpha:1.0];
+        theme.navigationBarBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.12 alpha:1.0];
+        theme.navigationBarTintColor = [UIColor colorWithHue:hue saturation:0.1 brightness:0.98 alpha:1.0];
+        theme.headerFooterViewTintColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.28 alpha:1.0];
         theme.headerFooterViewTextColor = [UIColor whiteColor];
-        theme.tableViewBackgroundColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.35 alpha:1.0];
-        theme.tableViewSeparatorColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.45 alpha:1.0];
-        theme.tableViewCellBackgroundColor = [UIColor colorWithHue:hue saturation:0.6 brightness:0.35 alpha:1.0];
+        theme.tableViewBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.49 alpha:1.0];
+        theme.tableViewSeparatorColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.38 alpha:1.0];
+        theme.tableViewCellBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.49 alpha:1.0];
         theme.tableViewCellTextColor = [UIColor colorWithHue:hue saturation:0.1 brightness:1.0 alpha:1.0];
-        theme.tableViewCellTintColor = [UIColor colorWithHue:hue saturation:0.1 brightness:0.7 alpha:1.0];
+        theme.tableViewCellTintColor = [UIColor colorWithHue:hue saturation:0.3 brightness:0.7 alpha:1.0];
         theme.tableViewCellSelectedBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.18 alpha:1.0];
         theme.tableViewCellSelectedTextColor = [UIColor whiteColor];
 
@@ -107,7 +107,7 @@
     /*
      * Optionally disable the front camera mirroring (experimental)
      */
-    fpController.disableFrontCameraLivePreviewMirroring = YES;
+    fpController.disableFrontCameraLivePreviewMirroring = NO;
 
     /*
      * Display it.
@@ -163,7 +163,7 @@
     /*
      * Optionally disable the front camera mirroring (experimental)
      */
-    fpController.disableFrontCameraLivePreviewMirroring = YES;
+    fpController.disableFrontCameraLivePreviewMirroring = NO;
 
     fpController.modalPresentationStyle = UIModalPresentationPopover;
 
