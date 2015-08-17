@@ -11,7 +11,6 @@
 #import "FPMediaInfo.h"
 #import "FPPrivateConfig.h"
 #import "FPProgressTracker.h"
-#import "FPRepresentedSource.h"
 #import "FPSession+ConvenienceMethods.h"
 #import "FPSource.h"
 #import "FPTypedefs.h"
