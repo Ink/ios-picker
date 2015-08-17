@@ -1,4 +1,4 @@
-v5.0 — Major Release — 08/??/2015
+v5.0.0-beta1— Major Release — 08/17/2015
 - Added color theming support
 - Added `FPSimpleAPI` to easily allow programatic operations with remote sources
 - Added experimental `-disableFrontCameraLivePreviewMirroring` to `FPPickerController` to toggle front camera live preview mirroring on/off
