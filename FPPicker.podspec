@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '5.0.0-beta1'
+  s.version      = '5.0.0-beta2'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
