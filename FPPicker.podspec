@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '5.0.0-beta3'
+  s.version      = '5.0.0-beta4'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
@@ -55,7 +55,7 @@ Pod::Spec.new do |s|
   s.ios.frameworks   = 'AssetsLibrary', 'CoreFoundation', 'CoreGraphics', 'MobileCoreServices', 'QuartzCore', 'SystemConfiguration'
   s.osx.frameworks   = 'WebKit', 'Quartz'
 
-  s.dependency 'AFNetworking', '~> 2.5.3'
+  s.dependency 'AFNetworking', '~> 2.6.0'
   s.ios.dependency 'MBProgressHUD', '~> 0.9'
   s.osx.dependency 'PureLayout', '~> 2.0.6'
 
