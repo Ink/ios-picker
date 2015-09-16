@@ -1,3 +1,13 @@
+v5.0.0 — Major Release — 16/09/2015
+- Added color theming support
+- Added `FPSimpleAPI` to easily allow programatic operations with remote sources
+- Added experimental `-disableFrontCameraLivePreviewMirroring` to `FPPickerController` to toggle front camera live preview mirroring on/off
+- Bugfix: `FPMediaInfo` `-containsVideoAtMediaURL` is now `-containsMovieAtMediaURL` and it returns `YES` for any media conforming to UTI `public.movie`
+- Misc: Added convenience method `-MIMEType` to `FPMediaInfo` (MIME type is derived from the UTI represented by `mediaType`)
+- Misc: Improved request cancellations in multiple parts of the framework
+- Misc: Added `https://edit.europe.yahoo.com/` to `allowedUrlPrefix.plist`
+- Misc OS X: `FPAuthController` was reimplemented so it can be instantiated without depending on a XIB file (this facilitates integration with FPSimpleAPI)
+
 v 4.3.0 [07.09.2015]
 - Updated AFNetworking dependency to 2.6.0.
 - Fixed login to Google Drive
@@ -5,46 +15,46 @@ v 4.3.0 [07.09.2015]
 v 4.2.6 [18.06.2015]
 - Fix for crash - issue #85
 
-v 4.2.5
+v4.2.5
 - Fixed bug with missing progress indicator in local albums (for single selection)
 
-v 4.2.4
+v4.2.4
 - Fixing problem with login to Instagram
 
-v 4.2.3
+v4.2.3
 - Fixed bug with missing progress indicator
 - Local source - albums without items are not shown
 - Dropbox view - small design changes
 
-v 4.2.2
+v4.2.2
 - Updated AFNetworking dependency to 2.5.3.
 
-v 4.2.1
-- Fix for issue #75. Upload button doesn't hide if navigating back in popover 
+v4.2.1
+- Fix for issue #75. Upload button doesn't hide if navigating back in popover
 - Fix for issue #76. Source List not presenting sources in the order set.
 - Fix for bug with login to facebook
 
-v 4.2.0 
+v4.2.0
 - Updated AFNetworking dependency to 2.5.1.
 
-v 4.1.2
+v4.1.2
 - Fixed bug with missing upload button when FPPickerController is showing in popover
 - Added ability to saving files on directory in cloud services
 
-v 4.1.1
-- All request to filepicker api has now header User-Agent 
+v4.1.1
+- All request to filepicker api has now header User-Agent
 
-v 4.1.0
+v4.1.0
 - Fixed problem with method and class names conflict in Swift. Changed method names in protocols: FPPickerControllerDelegate and FPSaveControllerDelegate
 
-v 4.0.2
-- Fixed filtering sources on iOS 
+v4.0.2
+- Fixed filtering sources on iOS
 - Data type "video/*" is now sufficient to capture videos using FilePicker ( earlier version require data type: "video/quicktime" )
 
-v 4.0.1
+v4.0.1
 - Added support for Amazon Cloud Drive
 
-v 4.0.0 - Major Release - ??/??/2014
+v4.0.0 - Major Release - 10/24/2014
 - Library now targets iOS 8 and OS X 10.9 and requires Xcode 6 or later.
 - CocoaPods is now the recommended method for integrating our library into your app.
 - Introducing support for OS X — check our wiki for more information (https://github.com/Ink/ios-picker/wiki)

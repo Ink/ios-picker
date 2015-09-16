@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'FPPicker'
-  s.version      = '4.3.0'
+  s.version      = '5.0.0'
   s.summary      = 'SDK to access Filepicker.io API'
 
   s.description  = <<-DESC
@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
 
   s.source       = {
     :git => 'https://github.com/Ink/ios-picker.git',
-    :tag => 'v4.3.0'
+    :tag => "v#{s.version}"
   }
 
   s.ios.deployment_target = '8.0'
@@ -29,18 +29,24 @@ Pod::Spec.new do |s|
     FPPicker/Shared/FPConfig.h
     FPPicker/Shared/FPConstants.h
     FPPicker/Shared/FPMediaInfo.h
+    FPPicker/Shared/FPSource+SupportedSources.h
+    FPPicker/Shared/FPSimpleAPI.h
+    FPPicker/Shared/FPSource.h
   )
 
   s.ios.public_header_files = %w(
     FPPicker/Platforms/iOS/FPPicker.h
     FPPicker/Platforms/iOS/FPPickerController.h
     FPPicker/Platforms/iOS/FPSaveController.h
+    FPPicker/Platforms/iOS/FPTheme.h
+    FPPicker/Platforms/iOS/FPAuthController.h
   ).concat(shared_public_header_files)
 
   s.osx.public_header_files = %w(
     FPPicker/Platforms/Mac/FPPickerMac.h
     FPPicker/Platforms/Mac/FPPickerController.h
     FPPicker/Platforms/Mac/FPSaveController.h
+    FPPicker/Platforms/Mac/FPAuthController.h
   ).concat(shared_public_header_files)
 
   s.ios.source_files = 'FPPicker/Shared/*.{h,m}', 'FPPicker/Platforms/iOS/*.{h,m}'
@@ -51,6 +57,7 @@ Pod::Spec.new do |s|
 
   s.dependency 'AFNetworking', '~> 2.6.0'
   s.ios.dependency 'MBProgressHUD', '~> 0.9'
+  s.osx.dependency 'PureLayout', '~> 2.0.6'
 
   s.requires_arc = true
 
