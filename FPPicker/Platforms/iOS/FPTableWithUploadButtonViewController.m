@@ -8,6 +8,7 @@
 
 #import "FPTableWithUploadButtonViewController.h"
 #import "UIApplication+FPAppDimensions.h"
+#import "FPBarButtonItem.h"
 
 @interface FPTableWithUploadButtonViewController ()
 
@@ -16,20 +17,6 @@
 @end
 
 @implementation FPTableWithUploadButtonViewController
-
-// For displaying the uploading text, number of files
-static UIColor *HAPPY_COLOR;
-
-// For displaying an invalid number of files
-static UIColor *ANGRY_COLOR;
-
-+ (void)initialize
-{
-    //#4cd964
-    HAPPY_COLOR = [UIColor colorWithRed:0.298f green:0.851f blue:0.392f alpha:1.f];
-    //ff3b30
-    ANGRY_COLOR = [UIColor colorWithRed:1.f green:0.231 blue:0.088 alpha:1.f];
-}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -58,30 +45,28 @@ static UIColor *ANGRY_COLOR;
         // Adding a button on the bottom that allows you to finish your upload
 
         UIBarButtonItem *flexibleSpace;
-        
+
         flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
                                                                       target:nil
                                                                       action:nil];
-        
+
         self.navigationController.toolbarHidden = YES;
-        
+
         self.uploadBarButton = [[UIBarButtonItem alloc]initWithTitle:@""
                                                                style:UIBarButtonItemStylePlain
                                                               target:self
                                                               action:@selector(uploadButtonTapped:)];
 
         self.toolbarItems = @[flexibleSpace, self.uploadBarButton, flexibleSpace];
-        [self setUploadButtonColor:HAPPY_COLOR];
+        [self setToolbarTintColor:[FPBarButtonItem appearance].happyTextColor];
+
+        self.navigationController.toolbar.barTintColor = [FPBarButtonItem appearance].backgroundColor;
     }
 }
 
--(void)setUploadButtonColor:(UIColor*)color{
-    NSDictionary *colorAttribute  = [NSDictionary dictionaryWithObject: color
-                                                                     forKey: NSForegroundColorAttributeName];
-    
-    [self.uploadBarButton setTitleTextAttributes:colorAttribute forState:UIControlStateNormal];
-    [self.uploadBarButton setTitleTextAttributes:colorAttribute forState:UIControlStateDisabled];
-    
+- (void)setToolbarTintColor:(UIColor*)color
+{
+    self.navigationController.toolbar.tintColor = color;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -121,7 +106,7 @@ static UIColor *ANGRY_COLOR;
             [UIView animateWithDuration:0.2f
                              animations: ^
             {
-                 self.navigationController.toolbarHidden = NO;
+                self.navigationController.toolbarHidden = NO;
             }];
         }
 
@@ -142,8 +127,7 @@ static UIColor *ANGRY_COLOR;
 
 
             [self.uploadBarButton setTitle:title];
-            [self setUploadButtonColor:ANGRY_COLOR];
-
+            [self setToolbarTintColor:[FPBarButtonItem appearance].angryTextColor];
         }
         else
         {
@@ -161,7 +145,7 @@ static UIColor *ANGRY_COLOR;
             }
 
             [self.uploadBarButton setTitle:title];
-            [self setUploadButtonColor:HAPPY_COLOR];
+            [self setToolbarTintColor:[FPBarButtonItem appearance].happyTextColor];
         }
     }
 }
@@ -169,8 +153,8 @@ static UIColor *ANGRY_COLOR;
 - (void)uploadButtonTapped:(id)sender
 {
     [self.uploadBarButton setEnabled:NO];
-    
-    [self setUploadButtonColor:HAPPY_COLOR];
+
+    [self setToolbarTintColor:[FPBarButtonItem appearance].happyTextColor];
 
     [self.uploadBarButton setTitle:@"Uploading files"];
 }
@@ -179,9 +163,9 @@ static UIColor *ANGRY_COLOR;
 {
     [UIView animateWithDuration:0.2f
                      animations: ^
-     {
-         self.navigationController.toolbarHidden = YES;
-     }];
+    {
+        self.navigationController.toolbarHidden = YES;
+    }];
 }
 
 #pragma mark - UITableViewDataSource Methods
@@ -199,4 +183,5 @@ static UIColor *ANGRY_COLOR;
 
     return nil;
 }
+
 @end

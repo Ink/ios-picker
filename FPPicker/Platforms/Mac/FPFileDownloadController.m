@@ -13,14 +13,6 @@
 #import "FPProgressTracker.h"
 #import "FPLibrary.h"
 
-@interface FPFileTransferController ()
-
-@property (readonly, assign) BOOL wasProcessCancelled;
-
-- (IBAction)cancel:(id)sender;
-
-@end
-
 @interface FPFileDownloadController ()
 
 @property (readwrite, nonatomic, strong) NSArray *items;
@@ -38,7 +30,6 @@
 
     if (self)
     {
-        self.shouldDownloadData = YES;
         self.items = items;
         self.representedSource = representedSource;
     }
@@ -110,13 +101,15 @@
 
             if (itemsProcessed >= totalCount)
             {
-                [self.progressIndicator stopAnimation:self];
-                [self.window close];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.progressIndicator stopAnimation:self];
+                    [self.window close];
+                });
 
-                if (!self.wasProcessCancelled &&
-                    self.delegate)
+                if (self.delegate)
                 {
-                    [self.delegate FPFileTransferControllerDidFinish:self info:[results copy]];
+                    [self.delegate FPFileTransferControllerDidFinish:self
+                                                                info:[results copy]];
                 }
             }
             else
@@ -132,7 +125,7 @@
         };
 
         FPFetchObjectFailureBlock failureBlock = ^(NSError * error) {
-            DLog(@"Error retrieving %@: %@", item, error);
+            DLog(@"Error retrieving %@: %@", item[@"link_path"], error.localizedDescription);
 
             markProgress();
         };
@@ -157,20 +150,11 @@
 
         [FPLibrary requestObjectMediaInfo:item
                                withSource:self.representedSource.source
-                      usingOperationQueue:self.representedSource.parallelOperationQueue
-                           shouldDownload:self.shouldDownloadData
+                      usingOperationQueue:self.operationQueue
                                   success:successBlock
                                   failure:failureBlock
                                  progress:progressBlock];
     });
-}
-
-#pragma mark - Actions
-
-- (IBAction)cancel:(id)sender
-{
-    [super cancel:sender];
-    [self.representedSource cancelAllOperations];
 }
 
 @end

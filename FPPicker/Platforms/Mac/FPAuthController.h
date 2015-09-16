@@ -11,22 +11,18 @@
 #import "FPSource.h"
 
 typedef void (^FPAuthSuccessBlock)(void);
-typedef void (^FPAuthFailureBlock)(NSError *error);
+typedef void (^FPAuthFailureBlock)(NSError *__nonnull error);
 
-
+NS_ASSUME_NONNULL_BEGIN
 @interface FPAuthController : NSViewController
 
-@property (nonatomic, strong) NSString *service;
-@property (nonatomic, strong) NSString *path;
+- (instancetype)initWithSource:(FPSource *)source;
 
-@property (nonatomic, weak) IBOutlet WebView *webView;
-@property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
+- (void)displayAuthSheetInModalWindow:(NSWindow *)modalWindow
+                              success:(FPAuthSuccessBlock)success
+                              failure:(FPAuthFailureBlock)failure;
 
-- (void)displayAuthSheetWithSource:(FPSource *)source
-                     inModalWindow:(NSWindow *)modalWindow
-                     modalDelegate:(id)modalDelegate
-                    didEndSelector:(SEL)didEndSelector
-                           success:(FPAuthSuccessBlock)success
-                           failure:(FPAuthFailureBlock)failure;
++ (void)clearAuthCredentials;
 
 @end
+NS_ASSUME_NONNULL_END

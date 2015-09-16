@@ -15,38 +15,44 @@
 + (void)requestObjectMediaInfo:(NSDictionary *)obj
                     withSource:(FPSource *)source
            usingOperationQueue:(NSOperationQueue *)operationQueue
-                shouldDownload:(BOOL)shouldDownload
                        success:(FPFetchObjectSuccessBlock)success
                        failure:(FPFetchObjectFailureBlock)failure
                       progress:(FPFetchObjectProgressBlock)progress;
 
-+ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
-                          withFormat:(NSString *)type
-                        andMimetypes:(NSArray *)mimetypes
-                         cachePolicy:(NSURLRequestCachePolicy)policy;
++ (void)     uploadData:(NSData *)filedata
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
+
++ (void)  uploadDataURL:(NSURL *)localURL
+                  named:(NSString *)filename
+                 toPath:(NSString *)path
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessBlock)success
+                failure:(FPUploadAssetFailureBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
 
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
                           withFormat:(NSString *)type
+                         queryString:(NSString *)queryString
                         andMimetypes:(NSArray *)mimetypes
-                         byAppending:(NSString *)additionalString
                          cachePolicy:(NSURLRequestCachePolicy)policy;
 
-+ (void)uploadData:(NSData*)filedata
-             named:(NSString *)filename
-            toPath:(NSString*)path
-        ofMimetype:(NSString*)mimetype
-       withOptions:(NSDictionary*)options
-           success:(FPUploadAssetSuccessBlock)success
-           failure:(FPUploadAssetFailureBlock)failure
-          progress:(FPUploadAssetProgressBlock)progress;
+#ifdef FPLibrary_protected
 
-+ (void)uploadDataURL:(NSURL*)filedataurl
-                named:(NSString *)filename
-               toPath:(NSString*)path
-           ofMimetype:(NSString*)mimetype
-          withOptions:(NSDictionary*)options
-              success:(FPUploadAssetSuccessBlock)success
-              failure:(FPUploadAssetFailureBlock)failure
-             progress:(FPUploadAssetProgressBlock)progress;
++ (void)uploadLocalURLToFilepicker:(NSURL *)localURL
+                             named:(NSString *)filename
+                        ofMimetype:(NSString *)mimetype
+               usingOperationQueue:(NSOperationQueue *)operationQueue
+                           success:(FPUploadAssetSuccessBlock)success
+                           failure:(FPUploadAssetFailureBlock)failure
+                          progress:(FPUploadAssetProgressBlock)progress;
+
+#endif
 
 @end

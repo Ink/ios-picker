@@ -9,10 +9,10 @@
 #define FPCLAMP(x, minimum, maximum) \
     MIN((maximum), MAX((minimum), (x)))
 
-#ifdef DEBUG
+#define NSForceLog(fmt, ...) \
+    NSLog((@"[FPPicker Framework] %s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
 
-#define NSForceLog(...) \
-    NSLog(__VA_ARGS__);
+#ifdef DEBUG
 
 #define NSLog(...) \
     NSLog(__VA_ARGS__);
@@ -24,9 +24,6 @@
     NSLog((@"TRACE %s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ## __VA_ARGS__);
 
 #else
-
-#define NSForceLog(FORMAT, ...) \
-    fprintf(stderr, "[Ink Mobile Framework] %s\n", [[NSString stringWithFormat:FORMAT, ## __VA_ARGS__] UTF8String]);
 
 #define NSLog(...)
 

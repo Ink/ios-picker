@@ -32,7 +32,6 @@
 @interface FPSourceViewController : NSViewController
 
 @property (nonatomic, weak) IBOutlet FPSourceResultsController *sourceResultsController;
-@property (nonatomic, weak) IBOutlet FPAuthController *authController;
 @property (nonatomic, weak) IBOutlet NSProgressIndicator *progressIndicator;
 @property (nonatomic, weak) IBOutlet NSTextField *currentSelectionTextField;
 @property (nonatomic, weak) IBOutlet NSButton *loginButton;
@@ -40,7 +39,7 @@
 @property (nonatomic, weak) IBOutlet id <FPSourceViewControllerDelegate> delegate;
 
 @property (nonatomic, strong) FPRepresentedSource *representedSource;
-@property (readonly, strong) FPBaseSourceController *sourceController;
+@property (nonatomic, strong, readonly) FPBaseSourceController *sourceController;
 @property (nonatomic, assign) BOOL allowsFileSelection;
 @property (nonatomic, assign) BOOL allowsMultipleSelection;
 

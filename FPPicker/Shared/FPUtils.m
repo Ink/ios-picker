@@ -244,7 +244,7 @@
     regexpPattern = [regexpPattern stringByReplacingOccurrencesOfString:@"\\*"
                                                              withString:@"((\\w|\\-)+)"];
 
-    regexpPattern = [@"^" stringByAppendingString : regexpPattern];
+    regexpPattern = [@"^" stringByAppendingString:regexpPattern];
 
     NSRegularExpressionOptions matchOptions = NSRegularExpressionCaseInsensitive |
                                               NSRegularExpressionAnchorsMatchLines;
@@ -278,6 +278,11 @@
                                                                                NULL);
 }
 
++ (NSString *)mimetypeForUTI:(NSString *)UTI
+{
+    return (__bridge_transfer NSString *)UTTypeCopyPreferredTagWithClass((__bridge CFStringRef)UTI, kUTTagClassMIMEType);
+}
+
 + (BOOL)      UTI:(NSString *)UTI
     conformsToUTI:(NSString *)conformsToUTI
 {
@@ -301,12 +306,14 @@
     return error;
 }
 
-+ (NSString *)uuidString {
++ (NSString *)uuidString
+{
     // Returns a UUID
     CFUUIDRef uuid = CFUUIDCreate(kCFAllocatorDefault);
     NSString *uuidStr = (__bridge_transfer NSString *)CFUUIDCreateString(kCFAllocatorDefault, uuid);
+
     CFRelease(uuid);
-    
+
     return uuidStr;
 }
 

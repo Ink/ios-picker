@@ -96,6 +96,7 @@
 
     [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
                           parameters:params
+                 usingOperationQueue:self.operationQueue
                              success:successOperationBlock
                              failure:failureOperationBlock];
 }
@@ -152,7 +153,7 @@
                       escapedSessionString];
 
         size_t actualBytesRead = [self.inputStream read:chunkBuffer
-                                              maxLength:fpMaxChunkSize];
+                                              maxLength    :fpMaxChunkSize];
 
         if (actualBytesRead > 0)
         {
@@ -170,7 +171,7 @@
                                                    (unsigned long)actualBytesRead];
 
             NSError *error = [FPUtils errorWithCode:200
-                              andLocalizedDescription:localizedErrorDescription];
+                            andLocalizedDescription         :localizedErrorDescription];
 
             [self finishWithError:error];
         }
@@ -230,6 +231,7 @@
     AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:uploadPath
                                                               parameters:nil
                                                constructingBodyWithBlock:constructingBodyBlock
+                                                     usingOperationQueue:self.operationQueue
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 
@@ -288,6 +290,7 @@
 
     [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
                           parameters:params
+                 usingOperationQueue:self.operationQueue
                              success:successOperationBlock
                              failure:failureOperationBlock];
 }

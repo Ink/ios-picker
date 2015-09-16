@@ -24,6 +24,7 @@
 @property (nonatomic, strong) id thumbnailImage;
 
 - (BOOL)containsImageAtMediaURL;
-- (BOOL)containsVideoAtMediaURL;
+- (BOOL)containsMovieAtMediaURL;
+- (NSString *)MIMEtype;
 
 @end

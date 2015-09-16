@@ -21,4 +21,6 @@
 @property (nonatomic, assign) BOOL overwritePossible;
 @property (nonatomic, assign) BOOL requiresAuth;
 
+- (NSString *)fullSourcePathForRelativePath:(NSString *)relativePath;
+
 @end

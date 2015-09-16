@@ -193,7 +193,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
                                                                                  ofType:@"png"];
 
-        _placeholderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
+        _placeholderImage = [[UIImage imageWithContentsOfFile:placeHolderImageFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     }
 
     return _placeholderImage;
@@ -276,6 +276,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
     {
         cell = [[FPThumbCell alloc] initWithStyle:UITableViewCellStyleDefault
                                   reuseIdentifier :cellIdentifier];
+
+        UIView *bgColorView = [UIView new];
+        bgColorView.backgroundColor = [FPTableViewCell appearance].selectedBackgroundColor;
+        cell.selectedBackgroundView = bgColorView;
     }
     else
     {
@@ -441,7 +445,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         return cell;
     }
 
-    cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
 
     NSMutableDictionary *obj = self.contents[itemIndex];
 
@@ -451,13 +455,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
     if (YES == [obj[@"is_dir"] boolValue])
     {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.textColor = [UIColor blackColor];
 
         [self fpPreloadContents:obj[@"link_path"]
                         forCell:cell.tag];
     }
-
-    NSLog(@"Thumb exists%@", obj[@"thumb_exists"]);
 
     BOOL thumbExists = [obj[@"thumb_exists"] boolValue];
     BOOL isDir = [obj[@"is_dir"] boolValue];
@@ -473,7 +474,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
                                                                          ofType:@"png"];
 
-            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
+            cell.imageView.image = [[UIImage imageWithContentsOfFile:iconFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
             cell.imageView.contentMode = UIViewContentModeCenter;
         }
         else
@@ -481,7 +482,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSString *placeHolderImageFilePath = [[FPUtils frameworkBundle] pathForResource:@"placeholder"
                                                                                      ofType:@"png"];
 
-            UIImage *placeHolderImage = [UIImage imageWithContentsOfFile:placeHolderImageFilePath];
+            UIImage *placeHolderImage = [[UIImage imageWithContentsOfFile:placeHolderImageFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
             [cell.imageView setImageWithURL:[NSURL URLWithString:urlString]
                            placeholderImage:placeHolderImage];
@@ -496,14 +497,14 @@ static const CGFloat ROW_HEIGHT = 44.0;
             NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_144_folder_open"
                                                                          ofType:@"png"];
 
-            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
+            cell.imageView.image = [[UIImage imageWithContentsOfFile:iconFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         }
         else
         {
             NSString *iconFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_036_file"
                                                                          ofType:@"png"];
 
-            cell.imageView.image = [UIImage imageWithContentsOfFile:iconFilePath];
+            cell.imageView.image = [[UIImage imageWithContentsOfFile:iconFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
         }
 
         cell.imageView.contentMode = UIViewContentModeCenter;
@@ -511,14 +512,12 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if (YES == [obj[@"disabled"] boolValue])
     {
-        cell.textLabel.textColor = [UIColor grayColor];
+        UIColor *existingCellColor = cell.textLabel.textColor;
+        UIColor *newCellColor = [existingCellColor colorWithAlphaComponent:0.5];
+
+        cell.textLabel.textColor = newCellColor;
         cell.imageView.alpha = 0.5;
         cell.userInteractionEnabled = NO;
-    }
-
-    if (isDir)
-    {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
 
     return cell;
@@ -757,6 +756,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
+                                              queryString:nil
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
@@ -918,6 +918,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSURLRequest *request = [FPLibrary requestForLoadPath:loadpath
                                                withFormat:@"info"
+                                              queryString:nil
                                              andMimetypes:self.source.mimetypes
                                               cachePolicy:policy];
 
@@ -934,14 +935,25 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSLog(@"Next page: %@", self.nextPage);
 
-    NSString *nextPageParam = [NSString stringWithFormat:@"&start=%@", [FPUtils urlEncodeString:self.nextPage]];
+    NSURLComponents *urlComponents = [NSURLComponents componentsWithString:self.path];
 
-    NSLog(@"nextpageparm: %@", nextPageParam);
+    NSArray *queryItems = @[
+        [NSURLQueryItem queryItemWithName:@"start" value:[FPUtils urlEncodeString:self.nextPage]]
+    ];
 
-    NSURLRequest *request = [FPLibrary requestForLoadPath:self.path
+    if (urlComponents.queryItems)
+    {
+        urlComponents.queryItems = [urlComponents.queryItems arrayByAddingObjectsFromArray:queryItems];
+    }
+    else
+    {
+        urlComponents.queryItems = queryItems;
+    }
+
+    NSURLRequest *request = [FPLibrary requestForLoadPath:urlComponents.path
                                                withFormat:@"info"
+                                              queryString:urlComponents.query
                                              andMimetypes:self.source.mimetypes
-                                              byAppending:nextPageParam
                                               cachePolicy:NSURLRequestReloadIgnoringCacheData];
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
@@ -1203,19 +1215,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
         self.view.userInteractionEnabled = NO;
     });
 
-    BOOL shouldDownload = YES;
-
-    if ([self.fpdelegate isKindOfClass:[FPPickerController class]])
-    {
-        FPPickerController *pickerC = (FPPickerController *)self.fpdelegate;
-
-        shouldDownload = [pickerC shouldDownload];
-    }
-
     [FPLibrary requestObjectMediaInfo:obj
                            withSource:self.source
                   usingOperationQueue:self.contentPreloadOperationQueue
-                       shouldDownload:shouldDownload
                               success:success
                               failure:failure
                              progress:progress];
@@ -1331,7 +1333,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(fpAuthResponse)
-                                                 name:@"auth"
+                                                 name:FPPickerDidAuthenticateAgainstSourceNotification
                                                object:nil];
 
     FPAuthController *authView = [[FPAuthController alloc] initWithSource:self.source];

@@ -1,0 +1,422 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		45A4D8CA1B7CE4380098E0BF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A4D8C91B7CE4380098E0BF /* AppDelegate.m */; };
+		45A4D8CC1B7CE4380098E0BF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A4D8CB1B7CE4380098E0BF /* main.m */; };
+		45A4D8CF1B7CE4380098E0BF /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 45A4D8CE1B7CE4380098E0BF /* ViewController.m */; };
+		45A4D8D11B7CE4380098E0BF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 45A4D8D01B7CE4380098E0BF /* Images.xcassets */; };
+		45A4D8D41B7CE4380098E0BF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 45A4D8D21B7CE4380098E0BF /* Main.storyboard */; };
+		45A4D8FB1B7CE4910098E0BF /* FPPickerMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45A4D8F41B7CE4850098E0BF /* FPPickerMac.framework */; };
+		45A4D8FC1B7CE4910098E0BF /* FPPickerMac.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 45A4D8F41B7CE4850098E0BF /* FPPickerMac.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		45A4D8F11B7CE4850098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4531447D19EC3DB5003230F5;
+			remoteInfo = FPPicker;
+		};
+		45A4D8F31B7CE4850098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 45C13B23199CEA4A002DE7D3;
+			remoteInfo = FPPickerMac;
+		};
+		45A4D8F51B7CE4850098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 83A0317415A8A2A40085E186;
+			remoteInfo = "FPPicker Resources";
+		};
+		45A4D8F71B7CE4850098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4546C16119EC4BCC00477C9B;
+			remoteInfo = "FPPicker Resources Mac";
+		};
+		45A4D8F91B7CE4850098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 458B1FEA1949D726008360E9;
+			remoteInfo = "FPPicker Functional Tests";
+		};
+		45A4D8FD1B7CE4910098E0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 45C13B22199CEA4A002DE7D3;
+			remoteInfo = FPPickerMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		45A4D8FF1B7CE4910098E0BF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				45A4D8FC1B7CE4910098E0BF /* FPPickerMac.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		45A4D8C31B7CE4380098E0BF /* FPPicker Mac API Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FPPicker Mac API Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		45A4D8C71B7CE4380098E0BF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45A4D8C81B7CE4380098E0BF /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		45A4D8C91B7CE4380098E0BF /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		45A4D8CB1B7CE4380098E0BF /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		45A4D8CD1B7CE4380098E0BF /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		45A4D8CE1B7CE4380098E0BF /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		45A4D8D01B7CE4380098E0BF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		45A4D8D31B7CE4380098E0BF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = FPPicker.xcodeproj; path = ../FPPicker.xcodeproj; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		45A4D8C01B7CE4380098E0BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45A4D8FB1B7CE4910098E0BF /* FPPickerMac.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		45A4D8BA1B7CE4380098E0BF = {
+			isa = PBXGroup;
+			children = (
+				45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */,
+				45A4D8C51B7CE4380098E0BF /* FPPicker Mac API Demo */,
+				45A4D8C41B7CE4380098E0BF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		45A4D8C41B7CE4380098E0BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45A4D8C31B7CE4380098E0BF /* FPPicker Mac API Demo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		45A4D8C51B7CE4380098E0BF /* FPPicker Mac API Demo */ = {
+			isa = PBXGroup;
+			children = (
+				45A4D8C81B7CE4380098E0BF /* AppDelegate.h */,
+				45A4D8C91B7CE4380098E0BF /* AppDelegate.m */,
+				45A4D8CD1B7CE4380098E0BF /* ViewController.h */,
+				45A4D8CE1B7CE4380098E0BF /* ViewController.m */,
+				45A4D8D01B7CE4380098E0BF /* Images.xcassets */,
+				45A4D8D21B7CE4380098E0BF /* Main.storyboard */,
+				45A4D8C61B7CE4380098E0BF /* Supporting Files */,
+			);
+			path = "FPPicker Mac API Demo";
+			sourceTree = "<group>";
+		};
+		45A4D8C61B7CE4380098E0BF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				45A4D8C71B7CE4380098E0BF /* Info.plist */,
+				45A4D8CB1B7CE4380098E0BF /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		45A4D8EA1B7CE4850098E0BF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				45A4D8F21B7CE4850098E0BF /* FPPicker.framework */,
+				45A4D8F41B7CE4850098E0BF /* FPPickerMac.framework */,
+				45A4D8F61B7CE4850098E0BF /* FPPicker.bundle */,
+				45A4D8F81B7CE4850098E0BF /* FPPicker.bundle */,
+				45A4D8FA1B7CE4850098E0BF /* FPPicker Functional Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		45A4D8C21B7CE4380098E0BF /* FPPicker Mac API Demo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 45A4D8E31B7CE4380098E0BF /* Build configuration list for PBXNativeTarget "FPPicker Mac API Demo" */;
+			buildPhases = (
+				45A4D8BF1B7CE4380098E0BF /* Sources */,
+				45A4D8C01B7CE4380098E0BF /* Frameworks */,
+				45A4D8C11B7CE4380098E0BF /* Resources */,
+				45A4D8FF1B7CE4910098E0BF /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				45A4D8FE1B7CE4910098E0BF /* PBXTargetDependency */,
+			);
+			name = "FPPicker Mac API Demo";
+			productName = "FPPicker Mac API Demo";
+			productReference = 45A4D8C31B7CE4380098E0BF /* FPPicker Mac API Demo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		45A4D8BB1B7CE4380098E0BF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0640;
+				ORGANIZATIONNAME = Filepicker.io;
+				TargetAttributes = {
+					45A4D8C21B7CE4380098E0BF = {
+						CreatedOnToolsVersion = 6.4;
+					};
+				};
+			};
+			buildConfigurationList = 45A4D8BE1B7CE4380098E0BF /* Build configuration list for PBXProject "FPPicker Mac API Demo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 45A4D8BA1B7CE4380098E0BF;
+			productRefGroup = 45A4D8C41B7CE4380098E0BF /* Products */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 45A4D8EA1B7CE4850098E0BF /* Products */;
+					ProjectRef = 45A4D8E91B7CE4850098E0BF /* FPPicker.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				45A4D8C21B7CE4380098E0BF /* FPPicker Mac API Demo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		45A4D8F21B7CE4850098E0BF /* FPPicker.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FPPicker.framework;
+			remoteRef = 45A4D8F11B7CE4850098E0BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45A4D8F41B7CE4850098E0BF /* FPPickerMac.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FPPickerMac.framework;
+			remoteRef = 45A4D8F31B7CE4850098E0BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45A4D8F61B7CE4850098E0BF /* FPPicker.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FPPicker.bundle;
+			remoteRef = 45A4D8F51B7CE4850098E0BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45A4D8F81B7CE4850098E0BF /* FPPicker.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = FPPicker.bundle;
+			remoteRef = 45A4D8F71B7CE4850098E0BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		45A4D8FA1B7CE4850098E0BF /* FPPicker Functional Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "FPPicker Functional Tests.xctest";
+			remoteRef = 45A4D8F91B7CE4850098E0BF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		45A4D8C11B7CE4380098E0BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45A4D8D11B7CE4380098E0BF /* Images.xcassets in Resources */,
+				45A4D8D41B7CE4380098E0BF /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		45A4D8BF1B7CE4380098E0BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				45A4D8CF1B7CE4380098E0BF /* ViewController.m in Sources */,
+				45A4D8CC1B7CE4380098E0BF /* main.m in Sources */,
+				45A4D8CA1B7CE4380098E0BF /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		45A4D8FE1B7CE4910098E0BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FPPickerMac;
+			targetProxy = 45A4D8FD1B7CE4910098E0BF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		45A4D8D21B7CE4380098E0BF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				45A4D8D31B7CE4380098E0BF /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		45A4D8E11B7CE4380098E0BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		45A4D8E21B7CE4380098E0BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		45A4D8E41B7CE4380098E0BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "FPPicker Mac API Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		45A4D8E51B7CE4380098E0BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "FPPicker Mac API Demo/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		45A4D8BE1B7CE4380098E0BF /* Build configuration list for PBXProject "FPPicker Mac API Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45A4D8E11B7CE4380098E0BF /* Debug */,
+				45A4D8E21B7CE4380098E0BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		45A4D8E31B7CE4380098E0BF /* Build configuration list for PBXNativeTarget "FPPicker Mac API Demo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				45A4D8E41B7CE4380098E0BF /* Debug */,
+				45A4D8E51B7CE4380098E0BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 45A4D8BB1B7CE4380098E0BF /* Project object */;
+}

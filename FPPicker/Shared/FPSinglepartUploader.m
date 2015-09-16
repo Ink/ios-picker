@@ -26,7 +26,7 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        if ([@"ok" isEqualToString : responseObject[@"result"]])
+        if ([@"ok" isEqualToString:responseObject[@"result"]])
         {
             self.successBlock(responseObject);
             self.hasFinished = YES;
@@ -51,6 +51,7 @@
     AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/"
                                                               parameters:params
                                                constructingBodyWithBlock:constructingBodyBlock
+                                                     usingOperationQueue:self.operationQueue
                                                                  success:successOperationBlock
                                                                  failure:failureOperationBlock];
 

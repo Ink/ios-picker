@@ -15,28 +15,25 @@
 
 // For the camera
 
-+ (void)uploadImage:(UIImage *)image
-         ofMimetype:(NSString *)mimetype
-        withOptions:(NSDictionary *)options
-       shouldUpload:(BOOL)shouldUpload
-            success:(FPUploadAssetSuccessWithLocalURLBlock)success
-            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-           progress:(FPUploadAssetProgressBlock)progress;
++ (void)    uploadImage:(UIImage *)image
+             ofMimetype:(NSString *)mimetype
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
 
-+ (void)uploadVideoURL:(NSURL *)url
-           withOptions:(NSDictionary *)options
-          shouldUpload:(BOOL)shouldUpload
-               success:(FPUploadAssetSuccessWithLocalURLBlock)success
-               failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-              progress:(FPUploadAssetProgressBlock)progress;
++ (void) uploadVideoURL:(NSURL *)url
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
 
 // For uploading local images on open (Camera roll)
 
-+ (void)uploadAsset:(ALAsset *)asset
-        withOptions:(NSDictionary *)options
-       shouldUpload:(BOOL)shouldUpload
-            success:(FPUploadAssetSuccessWithLocalURLBlock)success
-            failure:(FPUploadAssetFailureWithLocalURLBlock)failure
-           progress:(FPUploadAssetProgressBlock)progress;
++ (void)    uploadAsset:(ALAsset *)asset
+    usingOperationQueue:(NSOperationQueue *)operationQueue
+                success:(FPUploadAssetSuccessWithLocalURLBlock)success
+                failure:(FPUploadAssetFailureWithLocalURLBlock)failure
+               progress:(FPUploadAssetProgressBlock)progress;
 
 @end

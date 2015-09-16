@@ -8,14 +8,46 @@
 
 #import "FPSaveController.h"
 #import "FPInternalHeaders.h"
+#import "FPTheme.h"
+#import "FPThemeApplier.h"
 
 @interface FPSaveController () <UINavigationControllerDelegate,
                                 UIPopoverControllerDelegate,
                                 FPSourceControllerDelegate>
 
+@property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
+@property (nonatomic, strong) FPThemeApplier *themeApplier;
+
 @end
 
 @implementation FPSaveController
+
+#pragma mark - Accessors
+
+- (void)setTheme:(FPTheme *)theme
+{
+    _theme = theme;
+
+    // Apply theme
+    self.themeApplier = [[FPThemeApplier alloc] initWithTheme:theme];
+
+    if (self.isViewLoaded)
+    {
+        [self.themeApplier applyToController:self];
+    }
+}
+
+- (NSOperationQueue *)uploadOperationQueue
+{
+    if (!_uploadOperationQueue)
+    {
+        _uploadOperationQueue = [NSOperationQueue new];
+    }
+
+    return _uploadOperationQueue;
+}
+
+#pragma mark - Constructors / Destructor
 
 - (id)initWithNibName:(NSString *)nibNameOrNil
                bundle:(NSBundle *)nibBundleOrNil
@@ -26,8 +58,11 @@
     return self;
 }
 
+#pragma mark - Other Methods
+
 - (void)viewDidLoad
 {
+    [self.themeApplier applyToController:self];
     [super viewDidLoad];
 
     // Do any additional setup after loading the view.
@@ -48,7 +83,7 @@
         !self.dataurl)
     {
         NSLog(@"WARNING: No data specified. Continuing but saving blank file.");
-        self.data = [@"" dataUsingEncoding : NSUTF8StringEncoding];
+        self.data = [@"" dataUsingEncoding:NSUTF8StringEncoding];
     }
 
     if (!self.dataType &&
@@ -67,21 +102,23 @@
                     animated:YES];
 }
 
-- (void)viewDidUnload
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidUnload];
+    self.uploadOperationQueue.suspended = NO;
 
-    self.sourceNames = nil;
-    self.data = nil;
-    self.dataurl = nil;
-    self.dataType = nil;
-    self.dataExtension = nil;
-    self.proposedFilename = nil;
+    [super viewWillAppear:animated];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+- (void)viewWillDisappear:(BOOL)animated
 {
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+    [super viewWillDisappear:animated];
+
+    self.uploadOperationQueue.suspended = YES;
+}
+
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
 }
 
 - (void)saveFileName:(NSString *)filename
@@ -130,13 +167,15 @@
         hud.progress = progress;
     };
 
+    [self.uploadOperationQueue cancelAllOperations];
+
     if (self.dataurl)
     {
         [FPLibrary uploadDataURL:self.dataurl
                            named:filename
                           toPath:path
                       ofMimetype:self.dataType
-                     withOptions:nil
+             usingOperationQueue:self.uploadOperationQueue
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -147,7 +186,7 @@
                         named:filename
                        toPath:path
                    ofMimetype:self.dataType
-                  withOptions:nil
+          usingOperationQueue:self.uploadOperationQueue
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];

@@ -16,7 +16,6 @@
 @property (nonatomic, strong) NSArray *sourceNames;
 @property (nonatomic, strong) NSArray *dataTypes;
 @property (nonatomic, assign) NSInteger maxFiles;
-@property (nonatomic, assign) BOOL shouldDownload;
 
 - (void)open;
 

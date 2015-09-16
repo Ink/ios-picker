@@ -13,4 +13,10 @@
 
 @property (nonatomic, strong) FPSource *source;
 
+/*!
+    Disables the front camera live preview mirroring (experimental)
+    Side-effect: overrides the existing `cameraViewTransform`.
+ */
+@property (nonatomic, assign) BOOL disableFrontCameraLivePreviewMirroring;
+
 @end

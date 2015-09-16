@@ -16,7 +16,7 @@
 #import "FPInfoViewController.h"
 #import "FPImagePickerController.h"
 #import "FPSource+SupportedSources.h"
-
+#import "FPTableViewCell.h"
 
 @implementation FPSourceListController
 
@@ -81,12 +81,18 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = fpCellIdentifier;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    FPTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                      reuseIdentifier:CellIdentifier];
+        cell = [[FPTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier :CellIdentifier];
+
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+
+        UIView *bgColorView = [UIView new];
+        bgColorView.backgroundColor = [FPTableViewCell appearance].selectedBackgroundColor;
+        cell.selectedBackgroundView = bgColorView;
     }
 
     NSString *sourceCategory = [self.sources allKeys][indexPath.section];
@@ -107,7 +113,7 @@
     NSString *imageFilePath = [[FPUtils frameworkBundle] pathForResource:source.icon
                                                                   ofType:@"png"];
 
-    cell.imageView.image = [UIImage imageWithContentsOfFile:imageFilePath];
+    cell.imageView.image = [[UIImage imageWithContentsOfFile:imageFilePath] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     return cell;
 }
@@ -176,6 +182,7 @@
                     NSLog(@"CAN DO VIDEO");
 
                     NSArray *videos = @[@"video/quicktime"];
+
                     if ([self mimetypeCheck:videos
                                     against:self.dataTypes])
                     {
@@ -193,6 +200,7 @@
                 imgPicker.cameraViewTransform = picker.cameraViewTransform;
                 imgPicker.cameraDevice = picker.cameraDevice;
                 imgPicker.cameraFlashMode = picker.cameraFlashMode;
+                imgPicker.disableFrontCameraLivePreviewMirroring = picker.disableFrontCameraLivePreviewMirroring;
             }
 
             [[UIApplication sharedApplication] setStatusBarHidden:YES];
@@ -355,11 +363,11 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:infoButton];
 }
 
--(NSArray*) filterSourceList
+- (NSArray *)filterSourceList
 {
     NSArray *allSources = [FPSource allMobileSources];
     NSMutableArray *filteredSource = [NSMutableArray array];
-    
+
     for (NSString* identifier in self.sourceNames)
     {
         for (FPSource *source in allSources)
@@ -370,7 +378,7 @@
             }
         }
     }
-    
+
     return filteredSource;
 }
 
@@ -380,6 +388,7 @@
     NSMutableArray *remoteSources = [NSMutableArray array];
 
     NSArray *activeSources;
+
     if (self.sourceNames)
     {
         activeSources = [self filterSourceList];
@@ -392,7 +401,7 @@
     for (FPSource *source in activeSources)
     {
         NSArray *sourceMimetypes;
-        
+
         if ([self.fpdelegate isKindOfClass:[FPSaveController class]])
         {
             sourceMimetypes = source.saveMimetypes;

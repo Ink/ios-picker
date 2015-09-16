@@ -16,12 +16,44 @@
 @property (nonatomic, strong) FPSaveController *fpSave;
 @property (nonatomic, strong) UIPopoverController *myPopoverController;
 @property (nonatomic, strong) NSMutableArray *displayedImages;
+@property (nonatomic, strong) FPTheme *theme;
 
 @end
 
 @implementation ViewController
 
 #pragma mark - Accessors
+
+- (FPTheme *)theme
+{
+    if (!_theme)
+    {
+        FPTheme *theme = [FPTheme new];
+
+        CGFloat hue = 0.5616;
+
+        theme.navigationBarStyle = UIBarStyleBlack;
+        theme.navigationBarBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.12 alpha:1.0];
+        theme.navigationBarTintColor = [UIColor colorWithHue:hue saturation:0.1 brightness:0.98 alpha:1.0];
+        theme.headerFooterViewTintColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.28 alpha:1.0];
+        theme.headerFooterViewTextColor = [UIColor whiteColor];
+        theme.tableViewBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.49 alpha:1.0];
+        theme.tableViewSeparatorColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.38 alpha:1.0];
+        theme.tableViewCellBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.49 alpha:1.0];
+        theme.tableViewCellTextColor = [UIColor colorWithHue:hue saturation:0.1 brightness:1.0 alpha:1.0];
+        theme.tableViewCellTintColor = [UIColor colorWithHue:hue saturation:0.3 brightness:0.7 alpha:1.0];
+        theme.tableViewCellSelectedBackgroundColor = [UIColor colorWithHue:hue saturation:0.8 brightness:0.18 alpha:1.0];
+        theme.tableViewCellSelectedTextColor = [UIColor whiteColor];
+
+        theme.uploadButtonBackgroundColor = [UIColor blackColor];
+        theme.uploadButtonHappyTextColor = [UIColor yellowColor];
+        theme.uploadButtonAngryTextColor = [UIColor redColor];
+
+        _theme = theme;
+    }
+
+    return _theme;
+}
 
 - (NSMutableArray *)displayedImages
 {
@@ -48,6 +80,11 @@
     fpController.fpdelegate = self;
 
     /*
+     * Apply theme
+     */
+    fpController.theme = self.theme;
+
+    /*
      * Ask for specific data types. (Optional) Default is all files.
      */
     fpController.dataTypes = @[@"image/*"];
@@ -66,6 +103,11 @@
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
     fpController.maxFiles = 5;
+
+    /*
+     * Optionally disable the front camera mirroring (experimental)
+     */
+    fpController.disableFrontCameraLivePreviewMirroring = NO;
 
     /*
      * Display it.
@@ -94,14 +136,14 @@
     fpController.fpdelegate = self;
 
     /*
+     * Apply theme
+     */
+    fpController.theme = self.theme;
+
+    /*
      * Ask for specific data types. (Optional) Default is all files.
      */
     fpController.dataTypes = @[@"image/*"];
-
-    /*
-     * Should file be uploaded? Default is YES.
-     */
-    fpController.shouldUpload = YES;
 
     /*
      * Select and order the sources (Optional) Default is all sources
@@ -117,10 +159,14 @@
      * Specify the maximum number of files (Optional) Default is 0, no limit
      */
     fpController.maxFiles = 10;
-    
+
+    /*
+     * Optionally disable the front camera mirroring (experimental)
+     */
+    fpController.disableFrontCameraLivePreviewMirroring = NO;
 
     fpController.modalPresentationStyle = UIModalPresentationPopover;
-    
+
     /*
      * If controller will show in popover set popover size (iPad)
      */
@@ -168,6 +214,11 @@
     self.fpSave.fpdelegate = self;
 
     /*
+     * Apply theme
+     */
+    self.fpSave.theme = self.theme;
+
+    /*
      * Select and order the sources (Optional) Default is all sources
      */
     //self.fpSave.sourceNames = @[FPSourceDropbox, FPSourceFacebook, FPSourceBox];
@@ -179,12 +230,12 @@
     self.fpSave.dataType = @"image/png";
 
     self.fpSave.modalPresentationStyle = UIModalPresentationPopover;
-    
+
     /*
      * If controller will show in popover set popover size (iPad)
      */
     self.fpSave.preferredContentSize = CGSizeMake(400, 500);
-    
+
     UIPopoverPresentationController *presentationController = self.fpSave.popoverPresentationController;
     presentationController.permittedArrowDirections = UIPopoverArrowDirectionAny;
     presentationController.sourceView = sender;
@@ -300,7 +351,6 @@
 
     [self dismissViewControllerAnimated:YES
                              completion:nil];
-    
 }
 
 #pragma mark - FPSaveControllerDelegate Methods
@@ -312,7 +362,6 @@
 
     [self.fpSave dismissViewControllerAnimated:YES
                                     completion:nil];
-
 }
 
 - (void)fpSaveControllerDidCancel:(FPSaveController *)saveController

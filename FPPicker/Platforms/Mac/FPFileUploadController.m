@@ -11,12 +11,6 @@
 #import "FPLibrary.h"
 #import "FPMediaInfo.h"
 
-@interface FPFileTransferController ()
-
-@property (readonly, assign) BOOL wasProcessCancelled;
-
-@end
-
 @interface FPFileUploadController ()
 
 @property (nonatomic, strong) NSString *filename;
@@ -78,39 +72,33 @@
     // Callbacks
 
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        [self.progressIndicator stopAnimation:self];
-        [self.window close];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.progressIndicator stopAnimation:self];
+            [self.window close];
+        });
 
-        if (self.wasProcessCancelled)
+        if (self.delegate)
         {
-            if (self.delegate)
-            {
-                [self.delegate FPFileTransferControllerDidCancel:self];
-            }
+            FPMediaInfo *mediaInfo = [FPMediaInfo new];
+
+            mediaInfo.filename = JSON[@"filename"];
+            mediaInfo.remoteURL = JSON[@"url"];
+
+            [self.delegate FPFileTransferControllerDidFinish:self
+                                                        info:mediaInfo];
         }
         else
         {
-            if (self.delegate)
-            {
-                FPMediaInfo *mediaInfo = [FPMediaInfo new];
-
-                mediaInfo.filename = JSON[@"filename"];
-                mediaInfo.remoteURL = JSON[@"url"];
-
-                [self.delegate FPFileTransferControllerDidFinish:self
-                                                            info:mediaInfo];
-            }
-            else
-            {
-                DLog(@"Upload succeeded with response: %@", JSON);
-            }
+            DLog(@"Upload succeeded with response: %@", JSON);
         }
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
                                                id JSON) {
-        [self.progressIndicator stopAnimation:self];
-        [self.window close];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self.progressIndicator stopAnimation:self];
+            [self.window close];
+        });
 
         if (self.delegate)
         {
@@ -145,7 +133,7 @@
                            named:self.filename
                           toPath:self.targetPath
                       ofMimetype:self.mimetype
-                     withOptions:nil
+             usingOperationQueue:self.operationQueue
                          success:successBlock
                          failure:failureBlock
                         progress:progressBlock];
@@ -156,7 +144,7 @@
                         named:self.filename
                        toPath:self.targetPath
                    ofMimetype:self.mimetype
-                  withOptions:nil
+          usingOperationQueue:self.operationQueue
                       success:successBlock
                       failure:failureBlock
                      progress:progressBlock];

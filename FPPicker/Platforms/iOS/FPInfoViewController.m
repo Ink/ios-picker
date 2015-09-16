@@ -39,8 +39,6 @@
 
     CGRect bounds = self.view.bounds;
 
-    NSLog(@"Bounds %@", NSStringFromCGSize(bounds.size));
-
     self.view.backgroundColor = [UIColor whiteColor];
 
 

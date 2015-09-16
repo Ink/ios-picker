@@ -75,7 +75,7 @@
 
 - (void)dialogControllerPressedActionButton:(FPDialogController *)dialogController
 {
-    // Validate selection by looking for directories
+    // Validate selection by ensuring it contains files but no directoreies
 
     NSArray *selectedItems = [dialogController selectedItems];
 
@@ -91,7 +91,7 @@
             // Display alert with error
 
             NSError *error = [FPUtils errorWithCode:200
-                              andLocalizedDescription:@"Selection must not contain any directories."];
+                            andLocalizedDescription         :@"Selection must not contain any directories."];
 
             [FPUtils presentError:error
                   withMessageText:@"Invalid selection"];
@@ -107,10 +107,9 @@
     FPFileDownloadController *fileDownloadController;
 
     fileDownloadController = [[FPFileDownloadController alloc] initWithItems:selectedItems
-                                                        andRepresentedSource:representedSource];
+                                                        andRepresentedSource      :representedSource];
 
     fileDownloadController.delegate = self;
-    fileDownloadController.shouldDownloadData = self.shouldDownload;
 
     [fileDownloadController process];
 }
