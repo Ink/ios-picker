@@ -650,16 +650,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                              animated:YES];
 
                     [self.navigationController popViewControllerAnimated:YES];
-
-                    UIAlertView *message;
-
-                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                         message:@"You aren't connected to the internet so we can't get your files."
-                                                        delegate:nil
-                                               cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil];
-
-                    [message show];
                 }
                 else
                 {
@@ -872,14 +862,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
         error.code == kCFURLErrorUnsupportedURL)
     {
         [self.navigationController popViewControllerAnimated:YES];
-
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                          message:@"You aren't connected to the internet so we can't get your files."
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-
-        [message show];
     }
 
     if (error.code == kCFURLErrorUserCancelledAuthentication)
@@ -1136,16 +1118,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
                 error.code == kCFURLErrorUnsupportedURL)
             {
                 [self.navigationController popViewControllerAnimated:YES];
-
-                UIAlertView *message;
-
-                message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                     message:@"You aren't connected to the internet so we can't get your files."
-                                                    delegate:nil
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-
-                [message show];
             }
 
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -1287,18 +1259,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
                                                              NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                  animated:YES];
-
-        NSLog(@"error: %@", error);
-
-        UIAlertView *message;
-
-        message = [[UIAlertView alloc] initWithTitle:@"Logout Failure"
-                                             message:@"Hmm. We weren't able to logout."
-                                            delegate:nil
-                                   cancelButtonTitle:@"OK"
-                                   otherButtonTitles:nil];
-
-        [message show];
     };
 
     AFHTTPRequestOperation *operation;

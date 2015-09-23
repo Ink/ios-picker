@@ -12,7 +12,7 @@
 
 + (CGSize)FPCurrentSize
 {
-    return [self FPSizeInOrientation:[UIApplication sharedApplication].statusBarOrientation];
+    return CGSizeMake(0, 0);
 }
 
 + (CGSize)FPSizeInOrientation:(UIInterfaceOrientation)orientation

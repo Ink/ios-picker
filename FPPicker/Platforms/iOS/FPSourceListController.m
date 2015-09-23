@@ -203,22 +203,9 @@
                 imgPicker.disableFrontCameraLivePreviewMirroring = picker.disableFrontCameraLivePreviewMirroring;
             }
 
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-
             [self presentViewController:imgPicker
                                animated:YES
                              completion:nil];
-        }
-        else
-        {
-            UIAlertView *alertView;
-
-            alertView = [[UIAlertView alloc] initWithTitle:@"No Camera Available"
-                                                   message:@"This device doesn't seem to have a camera available."
-                                                  delegate:nil
-                                         cancelButtonTitle:@"OK"
-                                         otherButtonTitles:nil];
-            [alertView show];
         }
     }
     else if (source.identifier == FPSourceCameraRoll)
