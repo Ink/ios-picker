@@ -13,7 +13,7 @@
 #import "FPConstants.h"
 #import <PureLayout/PureLayout.h>
 
-@interface FPAuthController ()
+@interface FPAuthController () <WebFrameLoadDelegate, WebResourceLoadDelegate>
 
 @property (nonatomic, strong) FPSource *source;
 @property (nonatomic, strong) NSString *service;

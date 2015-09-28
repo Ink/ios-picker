@@ -11,9 +11,11 @@
 
 @interface FPThemeApplier : NSObject
 
-- (instancetype)initWithTheme:(FPTheme *)theme NS_DESIGNATED_INITIALIZER;
-- (void)applyToController:(id)controller;
-
 @property (nonatomic, strong, readonly) FPTheme *theme;
+
+- (instancetype)initWithTheme:(FPTheme *)theme NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+
+- (void)applyToController:(id)controller;
 
 @end

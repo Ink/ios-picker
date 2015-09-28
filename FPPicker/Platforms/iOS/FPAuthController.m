@@ -1,5 +1,5 @@
 //
-//  TestViewController.m
+//  FPAuthController.m
 //  FPPicker
 //
 //  Created by Liyan David Chang on 6/20/12.
@@ -35,7 +35,8 @@
         return nil;
     }
 
-    self = [super init];
+    self = [super initWithNibName:nil
+                           bundle:nil];
 
     if (self)
     {
