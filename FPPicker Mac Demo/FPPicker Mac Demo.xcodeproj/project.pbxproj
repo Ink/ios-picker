@@ -265,7 +265,7 @@
 		45718BA8199CFEC100C27324 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Filepicker.io;
 			};
 			buildConfigurationList = 45718BAB199CFEC100C27324 /* Build configuration list for PBXProject "FPPicker Mac Demo" */;
@@ -417,6 +417,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
@@ -478,6 +479,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker Mac Demo/FPPicker Mac Demo-Prefix.pch";
 				INFOPLIST_FILE = "FPPicker Mac Demo/FPPicker Mac Demo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.filepicker.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -491,6 +493,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker Mac Demo/FPPicker Mac Demo-Prefix.pch";
 				INFOPLIST_FILE = "FPPicker Mac Demo/FPPicker Mac Demo-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.filepicker.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

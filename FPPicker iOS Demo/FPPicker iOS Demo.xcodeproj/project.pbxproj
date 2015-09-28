@@ -234,7 +234,7 @@
 		45F38D98194B0AA900568BC7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = Filepicker.io;
 			};
 			buildConfigurationList = 45F38D9B194B0AA900568BC7 /* Build configuration list for PBXProject "FPPicker iOS Demo" */;
@@ -390,6 +390,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -454,6 +455,7 @@
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.filepicker.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;
 			};
@@ -469,6 +471,7 @@
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "io.filepicker.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "FPPicker iOS Demo";
 				WRAPPER_EXTENSION = app;
 			};
