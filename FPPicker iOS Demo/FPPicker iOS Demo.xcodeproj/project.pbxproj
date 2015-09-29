@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4524CEE51BBA930300F1DEF9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4524CEE31BBA930300F1DEF9 /* LaunchScreen.xib */; settings = {ASSET_TAGS = (); }; };
 		45923217194B0DF700259974 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45923216194B0DF700259974 /* AssetsLibrary.framework */; };
 		45ADBF761951AEEA00EB2215 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */; };
 		45C9A5F6199CD7FC00428F0E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 45C9A5E9199CD7FC00428F0E /* AppDelegate.m */; };
@@ -97,6 +98,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4524CEE41BBA930300F1DEF9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		45923216194B0DF700259974 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		45ADBF751951AEEA00EB2215 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		45C9A5E8199CD7FC00428F0E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -138,14 +140,15 @@
 		45C9A5E7199CD7FC00428F0E /* FPPicker iOS Demo */ = {
 			isa = PBXGroup;
 			children = (
-				45C9A5FE199CD81400428F0E /* Supporting Files */,
 				45C9A5E8199CD7FC00428F0E /* AppDelegate.h */,
-				45C9A5E9199CD7FC00428F0E /* AppDelegate.m */,
 				45C9A5F4199CD7FC00428F0E /* ViewController.h */,
+				45C9A5E9199CD7FC00428F0E /* AppDelegate.m */,
 				45C9A5F5199CD7FC00428F0E /* ViewController.m */,
+				45C9A5F2199CD7FC00428F0E /* Images.xcassets */,
+				4524CEE31BBA930300F1DEF9 /* LaunchScreen.xib */,
 				45C9A5EA199CD7FC00428F0E /* Main_iPad.storyboard */,
 				45C9A5EC199CD7FC00428F0E /* Main_iPhone.storyboard */,
-				45C9A5F2199CD7FC00428F0E /* Images.xcassets */,
+				45C9A5FE199CD81400428F0E /* Supporting Files */,
 			);
 			path = "FPPicker iOS Demo";
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4524CEE51BBA930300F1DEF9 /* LaunchScreen.xib in Resources */,
 				45C9A5FB199CD7FC00428F0E /* Images.xcassets in Resources */,
 				45C9A5F9199CD7FC00428F0E /* InfoPlist.strings in Resources */,
 				45E1919B19ED681A007AB691 /* Main_iPad.storyboard in Resources */,
@@ -345,6 +349,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		4524CEE31BBA930300F1DEF9 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4524CEE41BBA930300F1DEF9 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
 		45C9A5EA199CD7FC00428F0E /* Main_iPad.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -449,7 +461,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker iOS Demo/FPPicker iOS Demo-Prefix.pch";
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
@@ -465,7 +476,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FPPicker iOS Demo/FPPicker iOS Demo-Prefix.pch";
 				INFOPLIST_FILE = "FPPicker iOS Demo/FPPicker iOS Demo-Info.plist";
