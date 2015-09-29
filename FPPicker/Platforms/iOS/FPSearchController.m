@@ -29,12 +29,7 @@
 {
     [super viewDidLoad];
 
-    // iOS7 fix
-
-    if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-    {
-        self.edgesForExtendedLayout = UIRectEdgeAll;
-    }
+    self.edgesForExtendedLayout = UIRectEdgeAll;
 
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,
                                                                            [UIApplication sharedApplication].statusBarFrame.size.height,

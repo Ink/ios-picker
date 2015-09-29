@@ -17,10 +17,7 @@
 
     if (self)
     {
-        if ([self respondsToSelector:@selector(edgesForExtendedLayout)])
-        {
-            self.edgesForExtendedLayout = UIRectEdgeNone;
-        }
+        self.edgesForExtendedLayout = UIRectEdgeNone;
     }
 
     return self;
