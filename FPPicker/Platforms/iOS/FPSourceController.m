@@ -44,10 +44,9 @@
 static const NSInteger CELL_FIRST_TAG = 1000;
 static const CGFloat ROW_HEIGHT = 44.0;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
+    self = [super init];
 
     if (self)
     {

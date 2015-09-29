@@ -46,11 +46,9 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 #pragma mark - Constructors / Destructor
 
-- (id)initWithNibName:(NSString *)nibNameOrNil
-               bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)init
 {
-    self = [super initWithNibName:nibNameOrNil
-                           bundle:nibBundleOrNil];
+    self = [super init];
 
     if (self)
     {
