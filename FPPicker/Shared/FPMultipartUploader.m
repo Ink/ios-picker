@@ -16,7 +16,7 @@
 @interface FPMultipartUploader ()
 
 @property (nonatomic, strong) FPProgressTracker *progressTracker;
-@property (nonatomic, strong) NSInputStream *inputStream;
+@property (nonatomic, strong) NSFileHandle *inputFileHandle;
 @property (nonatomic, strong) NSString *uploadID;
 @property (nonatomic, assign) int totalChunks;
 @property (nonatomic, assign) int sentChunks;
@@ -109,7 +109,7 @@
 
     NSAssert(self.fileSize > 0, @"File %@ is empty", self.localURL);
 
-    self.inputStream = [NSInputStream inputStreamWithURL:self.localURL];
+    self.inputFileHandle = [NSFileHandle fileHandleForReadingAtPath:self.localURL.path];
     self.totalChunks = (int)ceilf(1.0f * self.fileSize / fpMaxChunkSize);
     self.sentChunks = 0;
     self.progressIndex = 0;
@@ -137,8 +137,6 @@
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
 
-    [self.inputStream open];
-
     /* send the chunks */
 
     for (int i = 0; i < self.totalChunks; i++)
@@ -152,28 +150,24 @@
                       i,
                       escapedSessionString];
 
-        size_t actualBytesRead = [self.inputStream read:chunkBuffer
-                                              maxLength    :fpMaxChunkSize];
+        NSData *readData = [self.inputFileHandle readDataOfLength:fpMaxChunkSize];
 
-        if (actualBytesRead > 0)
+        if (readData.length > 0)
         {
-            NSData *dataSlice = [NSData dataWithBytes:chunkBuffer
-                                               length:actualBytesRead];
-
-            [self uploadChunkWithDataSlice:dataSlice
+            [self uploadChunkWithDataSlice:readData
                                 uploadPath:uploadPath
                                      index:i
                                      retry:fpNumRetries];
         }
         else
         {
-            NSString *localizedErrorDescription = [NSString stringWithFormat:@"Tried to read from input stream but received: %lu",
-                                                   (unsigned long)actualBytesRead];
+            NSString *localizedErrorDescription = [NSString stringWithFormat:@"Unable to read from file handle %@", self.inputFileHandle];
 
             NSError *error = [FPUtils errorWithCode:200
                             andLocalizedDescription         :localizedErrorDescription];
 
             [self finishWithError:error];
+            break;
         }
     }
 
@@ -208,7 +202,7 @@
 
         if (self.sentChunks == self.totalChunks)
         {
-            [self.inputStream close];
+            [self.inputFileHandle closeFile];
             [self endMultipartUploadWithRetries:fpNumRetries];
         }
     };

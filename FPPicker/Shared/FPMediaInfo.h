@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class ALAsset;
+@class PHAsset;
 @class FPSource;
 
 @interface FPMediaInfo : NSObject
@@ -20,7 +20,7 @@
 @property (nonatomic, strong) NSNumber *filesize;
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) FPSource *source;
-@property (nonatomic, strong) ALAsset *originalAsset;
+@property (nonatomic, strong) PHAsset *originalAsset;
 @property (nonatomic, strong) id thumbnailImage;
 
 - (BOOL)containsImageAtMediaURL;

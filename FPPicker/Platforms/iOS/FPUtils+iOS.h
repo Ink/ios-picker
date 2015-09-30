@@ -9,22 +9,12 @@
 #import "FPUtils.h"
 #import <UIKit/UIKit.h>
 
-@class ALAssetRepresentation;
+@class PHAsset;
+@class PHImageManager;
+
+typedef void (^FPFetchPHAssetImageBlock)(UIImage *image);
 
 @interface FPUtils (iOS)
-
-/*!
-   Performs a copy in chunks from a given ALAssetRepresentation into a local URL.
-
-   @notes
-
-   - Chunk size equals to fpMaxLocalChunkCopySize (~2mb)
-   - By ALAssetRepresentation we mean the "best" or original size representation of an asset.
-
-   @returns YES on success; NO otherwise
- */
-+ (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
-                   intoLocalURL:(NSURL *)localURL;
 
 /*!
    Returns an image with corrected rotation.
@@ -41,5 +31,13 @@
 + (UIImage *)compressImage:(UIImage *)image
      withCompressionFactor:(CGFloat)compressionFactor
             andOrientation:(UIImageOrientation)orientation;
+
+/*!
+    Asynchronously fetches the thumbnail UIImage representing the given asset.
+
+    @returns void
+ */
++ (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
+                                 completion:(FPFetchPHAssetImageBlock)completionBlock;
 
 @end

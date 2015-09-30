@@ -8,86 +8,11 @@
 
 #import "FPUtils+iOS.h"
 #import "FPPrivateConfig.h"
-#import <UIKit/UIKit.h>
-#import <AssetsLibrary/AssetsLibrary.h>
+
+@import UIKit;
+@import Photos;
 
 @implementation FPUtils (iOS)
-
-+ (BOOL)copyAssetRepresentation:(ALAssetRepresentation *)representation
-                   intoLocalURL:(NSURL *)localURL
-{
-    NSError *error;
-    const char *path;
-    FILE *fd;
-
-    path = localURL.path.UTF8String;
-    fd = fopen(path, "w");
-
-    if (!fd)
-    {
-        NSLog(@"Asset copy failed: Could not open file at path %s for writing.", path);
-
-        return NO;
-    }
-
-
-    uint8_t *bufferChunk = malloc(sizeof(uint8_t) * fpMaxLocalChunkCopySize);
-
-    if (!bufferChunk)
-    {
-        NSLog(@"Asset copy failed: Buffer could not be allocated");
-
-        fclose(fd);
-
-        return NO;
-    }
-
-    int chunksNeeded = (int)ceilf(1.0f * representation.size / fpMaxLocalChunkCopySize);
-
-    size_t actualBytesRead;
-    size_t actualBytesWritten;
-    size_t totalBytesWritten = 0;
-    size_t offset = 0;
-
-    for (int c = 0; c < chunksNeeded; c++)
-    {
-        actualBytesRead = [representation getBytes:bufferChunk
-                                        fromOffset:offset
-                                            length:fpMaxLocalChunkCopySize
-                                             error:&error];
-
-        if (error)
-        {
-            NSLog(@"Asset copy failed: An error ocurred when reading bytes at offset %lu from %@: %@",
-                  offset,
-                  representation,
-                  error);
-
-            fclose(fd);
-
-            return NO;
-        }
-
-        offset += actualBytesRead;
-
-        actualBytesWritten = fwrite(bufferChunk, 1, actualBytesRead, fd);
-        totalBytesWritten += actualBytesWritten;
-    }
-
-    free(bufferChunk);
-    fclose(fd);
-
-    if (totalBytesWritten < representation.size)
-    {
-        NSLog(@"Asset copy failed: Incomplete copy. Only %lu out of %lld bytes were copied",
-              totalBytesWritten,
-              representation.size);
-
-        return NO;
-    }
-
-    return YES;
-}
 
 + (UIImage *)fixImageRotationIfNecessary:(UIImage *)image
 {
@@ -221,6 +146,33 @@
                                                        orientation:orientation];
 
     return compressedAndRotatedImage;
+}
+
++ (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
+                                 completion:(FPFetchPHAssetImageBlock)completionBlock
+{
+    NSInteger retinaScale = [UIScreen mainScreen].scale;
+    CGSize retinaSquare = CGSizeMake(100 * retinaScale, 100 * retinaScale);
+
+    PHImageRequestOptions *cropToSquare = [PHImageRequestOptions new];
+
+    cropToSquare.resizeMode = PHImageRequestOptionsResizeModeExact;
+
+    CGFloat cropSideLength = MIN(asset.pixelWidth, asset.pixelHeight);
+    CGRect square = CGRectMake(0, 0, cropSideLength, cropSideLength);
+    CGRect cropRect = CGRectApplyAffineTransform(square,
+                                                 CGAffineTransformMakeScale(1.0 / asset.pixelWidth,
+                                                                            1.0 / asset.pixelHeight));
+
+    cropToSquare.normalizedCropRect = cropRect;
+
+    [[PHImageManager defaultManager] requestImageForAsset:(PHAsset *)asset
+                                               targetSize:retinaSquare
+                                              contentMode:PHImageContentModeAspectFit
+                                                  options:cropToSquare
+                                            resultHandler: ^(UIImage *result, NSDictionary *info) {
+        completionBlock(result);
+    }];
 }
 
 @end

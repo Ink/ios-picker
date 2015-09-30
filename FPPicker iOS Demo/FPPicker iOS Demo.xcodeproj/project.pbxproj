@@ -156,10 +156,10 @@
 		45C9A5FE199CD81400428F0E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				45C9A5F3199CD7FC00428F0E /* main.m */,
+				45C9A5F1199CD7FC00428F0E /* FPPicker iOS Demo-Prefix.pch */,
 				45C9A5F0199CD7FC00428F0E /* FPPicker iOS Demo-Info.plist */,
 				45C9A5EE199CD7FC00428F0E /* InfoPlist.strings */,
-				45C9A5F1199CD7FC00428F0E /* FPPicker iOS Demo-Prefix.pch */,
-				45C9A5F3199CD7FC00428F0E /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

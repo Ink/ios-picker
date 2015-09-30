@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FPLibrary.h"
 
-@class ALAsset;
+@class PHAsset;
 
 @interface FPLibrary (iOS)
 
@@ -30,7 +30,7 @@
 
 // For uploading local images on open (Camera roll)
 
-+ (void)    uploadAsset:(ALAsset *)asset
++ (void)    uploadAsset:(PHAsset *)asset
     usingOperationQueue:(NSOperationQueue *)operationQueue
                 success:(FPUploadAssetSuccessWithLocalURLBlock)success
                 failure:(FPUploadAssetFailureWithLocalURLBlock)failure

@@ -10,6 +10,8 @@
 #import "FPUtils.h"
 #import "FPTableViewCell.h"
 
+@import Photos;
+
 typedef void (^FPLocalUploadAssetSuccessBlock)(FPMediaInfo *info);
 typedef void (^FPLocalUploadAssetFailureBlock)(NSError *error, FPMediaInfo *info);
 typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
@@ -24,7 +26,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 @property int thumbSize;
 @property UILabel *emptyLabel;
 @property NSCache *imageViews;
-@property NSMutableSet *selectedAssets;
+@property (nonatomic, strong) NSMutableSet<PHAsset *> *selectedAssets;
 @property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
 
 @end
@@ -77,11 +79,14 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     _selectOverlay = [UIImage imageWithContentsOfFile:imageFilePath];
 
-    NSInteger gCount = [self.assetGroup numberOfAssets];
+    PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:self.assetCollection
+                                                                     options:nil];
+
+    NSUInteger collectionTotalCount = assetsFetchResult.count;
 
     self.title = [NSString stringWithFormat:@"%@ (%ld)",
-                  [self.assetGroup valueForProperty:ALAssetsGroupPropertyName],
-                  (long)gCount];
+                  self.assetCollection.localizedTitle,
+                  (unsigned long)collectionTotalCount];
 
 
     // Register for the app switch focus event. Reload the data so things show up immeadiately.
@@ -139,21 +144,21 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     NSMutableArray *collector = [[NSMutableArray alloc] initWithCapacity:0];
 
-    [self.assetGroup enumerateAssetsUsingBlock: ^(ALAsset *asset,
-                                                  NSUInteger index,
-                                                  BOOL *stop) {
-        if (asset)
-        {
-            [collector addObject:asset];
-        }
+    PHFetchOptions *fetchOptions = [PHFetchOptions new];
+
+    fetchOptions.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate"
+                                                                   ascending:NO]];
+
+    PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:self.assetCollection
+                                                                     options:fetchOptions];
+
+    [assetsFetchResult enumerateObjectsUsingBlock: ^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        [collector addObject:obj];
     }];
 
     NSLog(@"%ld things presented", (unsigned long)collector.count);
 
-
-    NSArray *reversed = [[collector reverseObjectEnumerator] allObjects];
-
-    [self setPhotos:reversed];
+    [self setPhotos:collector];
     [self.tableView reloadData];
 }
 
@@ -231,7 +236,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
             break;
         }
 
-        ALAsset *asset = self.photos[index];
+        PHAsset *asset = self.photos[index];
 
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
 
@@ -239,61 +244,86 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                             forKey:@(index)];
 
         imageView.tag = index;
-        imageView.image = [UIImage imageWithCGImage:asset.thumbnail];
         imageView.contentMode = UIViewContentModeScaleAspectFill;
         imageView.clipsToBounds = YES;
 
-        NSString *uti = asset.defaultRepresentation.UTI;
+        [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
+                                          completion: ^(UIImage *image) {
+            imageView.image = image;
 
-        if ([uti isEqualToString:@"com.apple.quicktime-movie"])
-        {
-            //ALAssetRepresentation *rep = [asset defaultRepresentation];
-            NSLog(@"data: %@", [asset valueForProperty:ALAssetPropertyDuration]);
+            NSString *uti = [asset valueForKey:@"uniformTypeIdentifier"];
 
-            NSString *videoFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
-                                                                          ofType:@"png"];
-
-            UIImage *videoOverlay = [UIImage imageWithContentsOfFile:videoFilePath];
-            UIImage *backgroundImage = imageView.image;
-            UIImage *watermarkImage = videoOverlay;
-
-            UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                              backgroundImage.size.height - 10,
-                                                                              backgroundImage.size.width,
-                                                                              10)];
-            headingLabel.textColor = [UIColor whiteColor];
-            headingLabel.backgroundColor = [UIColor blackColor];
-            headingLabel.alpha = 0.7;
-            headingLabel.font = [UIFont systemFontOfSize:14];
-            headingLabel.textAlignment = NSTextAlignmentRight;
-            headingLabel.text = [FPUtils formatTimeInSeconds:ceil([[asset valueForProperty:ALAssetPropertyDuration] doubleValue])];
-
-
-            UIImage *result;
-
-            UIGraphicsBeginImageContext(backgroundImage.size);
+            if ([FPUtils UTI:uti conformsToUTI:@"public.movie"])
             {
-                [backgroundImage drawInRect:CGRectMake(0,
+                NSString *videoFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
+                                                                              ofType:@"png"];
+
+                UIImage *backgroundImage = imageView.image;
+                UIImage *watermarkImage = [UIImage imageWithContentsOfFile:videoFilePath];
+
+                UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                                  backgroundImage.size.height - 10,
+                                                                                  backgroundImage.size.width,
+                                                                                  10)];
+                headingLabel.textColor = [UIColor whiteColor];
+                headingLabel.backgroundColor = [UIColor blackColor];
+                headingLabel.alpha = 0.7;
+                headingLabel.font = [UIFont systemFontOfSize:26];
+                headingLabel.textAlignment = NSTextAlignmentRight;
+                headingLabel.text = [FPUtils formatTimeInSeconds:ceil(asset.duration)];
+
+
+                UIImage *result;
+
+                UIGraphicsBeginImageContext(backgroundImage.size);
+                {
+                    CGRect backgroundRect = CGRectMake(0,
                                                        0,
                                                        backgroundImage.size.width,
-                                                       backgroundImage.size.height)];
+                                                       backgroundImage.size.height);
 
-                [watermarkImage drawInRect:CGRectMake(5,
-                                                      backgroundImage.size.height - watermarkImage.size.height - 5,
+                    CGRect footerRect = CGRectMake(0.0,
+                                                   backgroundImage.size.height - backgroundImage.size.height * 0.18,
+                                                   backgroundImage.size.width,
+                                                   backgroundImage.size.height);
+
+                    CGRect watermarkRect = CGRectMake(5,
+                                                      backgroundImage.size.height - watermarkImage.size.height - 8,
                                                       watermarkImage.size.width,
-                                                      watermarkImage.size.height)];
+                                                      watermarkImage.size.height);
 
-                [headingLabel drawTextInRect:CGRectMake(0,
-                                                        backgroundImage.size.height - watermarkImage.size.height - 3,
-                                                        backgroundImage.size.width - 5,
-                                                        10)];
+                    CGRect headingLabelRect = CGRectMake(0,
+                                                         backgroundImage.size.height - headingLabel.bounds.size.height - 12,
+                                                         backgroundImage.size.width - 5,
+                                                         headingLabel.bounds.size.height);
 
-                result = UIGraphicsGetImageFromCurrentImageContext();
+                    [backgroundImage drawInRect:backgroundRect];
+
+                    CGContextRef context = UIGraphicsGetCurrentContext();
+
+                    [[[UIColor blackColor] colorWithAlphaComponent:0.5] setFill];
+                    CGContextFillRect(context, footerRect);
+
+                    // draw tint color
+                    CGContextSetBlendMode(context, kCGBlendModeNormal);
+                    [[UIColor whiteColor] setFill];
+                    CGContextFillRect(context, watermarkRect);
+
+                    // mask by alpha values of original image
+                    CGContextSetBlendMode(context, kCGBlendModeDestinationIn);
+                    CGContextDrawImage(context, watermarkRect, watermarkImage.CGImage);
+
+                    CGContextSetBlendMode(context, kCGBlendModeNormal);
+
+                    [headingLabel drawTextInRect:headingLabelRect];
+
+                    result = UIGraphicsGetImageFromCurrentImageContext();
+                }
+                UIGraphicsEndImageContext();
+
+                imageView.image = result;
             }
-            UIGraphicsEndImageContext();
-
-            imageView.image = result;
-        }
+        }];
 
         if (self.selectMultiple)
         {
@@ -348,7 +378,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
 - (void)objectSelectedAtIndex:(NSInteger)index
 {
-    ALAsset *asset = self.photos[index];
+    PHAsset *asset = self.photos[index];
 
     NSLog(@"Selection at Index: %ld", (long)index);
 
@@ -410,7 +440,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
 }
 
-- (void)toggleSelection:(ALAsset *)asset
+- (void)toggleSelection:(PHAsset *)asset
 {
     if ([self.selectedAssets containsObject:asset])
     {
@@ -461,7 +491,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
     FPProgressTracker *progressTracker = [[FPProgressTracker alloc] initWithObjectCount:self.selectedAssets.count];
 
-    for (ALAsset *asset in self.selectedAssets)
+    for (PHAsset *asset in self.selectedAssets)
     {
         NSString *progressKey = [FPUtils uuidString];
 
@@ -567,30 +597,31 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     });
 }
 
-- (void)uploadAsset:(ALAsset *)asset
+- (void)uploadAsset:(PHAsset *)asset
             success:(FPLocalUploadAssetSuccessBlock)success
             failure:(FPLocalUploadAssetFailureBlock)failure
            progress:(FPLocalUploadAssetProgressBlock)progress
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
+    NSLog(@"Asset: %@", asset);
+
+    [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
+                                      completion: ^(UIImage *image) {
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-        mediaInfo.thumbnailImage = [UIImage imageWithCGImage:asset.thumbnail];
+        mediaInfo.thumbnailImage = image;
 
         [self.fpdelegate sourceController:nil
                      didPickMediaWithInfo:mediaInfo];
-    });
+    }];
 
-    NSLog(@"Asset: %@", asset);
-
-    if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:(NSString *)ALAssetTypePhoto])
+    if (asset.mediaType == PHAssetMediaTypeImage)
     {
         [self uploadPhotoAsset:asset
                        success:success
                        failure:failure
                       progress:progress];
     }
-    else if ([[asset valueForProperty:@"ALAssetPropertyType"] isEqual:(NSString *)ALAssetTypeVideo])
+    else if (asset.mediaType == PHAssetMediaTypeVideo)
     {
         [self uploadVideoAsset:asset
                        success:success
@@ -599,8 +630,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
     else
     {
-        NSLog(@"Type: %@", [asset valueForProperty:@"ALAssetPropertyType"]);
-        NSLog(@"Didnt handle");
+        NSForceLog(@"Media type %@ not handled.", @(asset.mediaType));
 
         failure([FPUtils errorWithCode:200
                andLocalizedDescription         :@"Invalid asset type"],
@@ -608,15 +638,14 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
 }
 
-- (void)uploadPhotoAsset:(ALAsset *)asset
+- (void)uploadPhotoAsset:(PHAsset *)asset
                  success:(FPLocalUploadAssetSuccessBlock)success
                  failure:(FPLocalUploadAssetFailureBlock)failure
                 progress:(FPLocalUploadAssetProgressBlock)progress
 {
-    ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-    mediaInfo.mediaType = representation.UTI;
+    mediaInfo.mediaType = [asset valueForKey:@"uniformTypeIdentifier"];
     mediaInfo.originalAsset = asset;
 
     FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
@@ -636,7 +665,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                                                            id JSON,
                                                            NSURL *localURL) {
         mediaInfo.mediaURL = localURL;
-        mediaInfo.filename = representation.filename;
+        mediaInfo.filename = asset.localIdentifier;
 
         failure(error, mediaInfo);
     };
@@ -650,15 +679,14 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                   progress:progress];
 }
 
-- (void)uploadVideoAsset:(ALAsset *)asset
+- (void)uploadVideoAsset:(PHAsset *)asset
                  success:(FPLocalUploadAssetSuccessBlock)success
                  failure:(FPLocalUploadAssetFailureBlock)failure
                 progress:(FPLocalUploadAssetProgressBlock)progress
 {
-    ALAssetRepresentation *representation = asset.defaultRepresentation;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
-    mediaInfo.mediaType = representation.UTI;
+    mediaInfo.mediaType = [asset valueForKey:@"uniformTypeIdentifier"];
     mediaInfo.originalAsset = asset;
     mediaInfo.source = self.source;
 
@@ -679,7 +707,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                                                            id JSON,
                                                            NSURL *localURL) {
         mediaInfo.mediaURL = localURL;
-        mediaInfo.filename = representation.filename;
+        mediaInfo.filename = asset.localIdentifier;
 
         failure(error, mediaInfo);
     };

@@ -385,6 +385,7 @@
 		450B5A4D1949EFC0007AF44A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		451051DF195B300E00F877B3 /* FPMultipartUploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = FPMultipartUploader.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		451051E0195B300E00F877B3 /* FPMultipartUploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = FPMultipartUploader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		4524CEFB1BBAA66800F1DEF9 /* FPPicker-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "FPPicker-Info.plist"; path = "Resources-iOS/FPPicker-Info.plist"; sourceTree = SOURCE_ROOT; };
 		453096E4194738A6001D970C /* FPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPUtils.h; sourceTree = "<group>"; };
 		453096E5194738A6001D970C /* FPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPUtils.m; sourceTree = "<group>"; };
 		4531447D19EC3DB5003230F5 /* FPPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FPPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1108,6 +1109,7 @@
 		83A030E815A89C9D0085E186 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4524CEFB1BBAA66800F1DEF9 /* FPPicker-Info.plist */,
 				83A030E915A89C9D0085E186 /* FPPicker-Prefix.pch */,
 			);
 			name = "Supporting Files";
