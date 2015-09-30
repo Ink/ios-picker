@@ -1,3 +1,6 @@
+v5.0.1 - [30.09.2015]
+- fixed bug with missing upload button when selecting file from external storage (#96)
+
 v5.0.0 — Major Release — 16/09/2015
 - Added color theming support
 - Added `FPSimpleAPI` to easily allow programatic operations with remote sources
