@@ -106,8 +106,6 @@
                                                                          options:nil];
 
     [userAlbums enumerateObjectsUsingBlock: ^(PHAssetCollection *collection, NSUInteger idx, BOOL *stop) {
-        NSLog(@"user album title %@", collection.localizedTitle);
-
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:collection
                                                                          options:fetchOptions];
 
@@ -122,8 +120,6 @@
                                                                           options:nil];
 
     [smartAlbums enumerateObjectsUsingBlock: ^(PHAssetCollection *collection, NSUInteger idx, BOOL *stop) {
-        NSLog(@"album title %@", collection.localizedTitle);
-
         PHFetchResult *assetsFetchResult = [PHAsset fetchAssetsInAssetCollection:collection
                                                                          options:fetchOptions];
 
