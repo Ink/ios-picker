@@ -237,109 +237,118 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
             break;
         }
 
-        PHAsset *asset = self.photos[index];
+        UIImageView *imageView = [self.imageViews objectForKey:@(index)];
 
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:rect];
+        if (!imageView)
+        {
+            imageView = [[UIImageView alloc] initWithFrame:rect];
 
-        [self.imageViews setObject:imageView
-                            forKey:@(index)];
+            imageView.tag = index;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
 
-        imageView.tag = index;
-        imageView.contentMode = UIViewContentModeScaleAspectFill;
-        imageView.clipsToBounds = YES;
+            [self.imageViews setObject:imageView
+                                forKey:@(index)];
 
-        [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
-                                          completion: ^(UIImage *image) {
-            imageView.image = image;
+            PHAsset *asset = self.photos[index];
 
-            NSString *uti = [asset valueForKey:@"uniformTypeIdentifier"];
+            [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
+                                              completion: ^(UIImage *image) {
+                imageView.image = image;
 
-            if ([FPUtils UTI:uti conformsToUTI:@"public.movie"])
-            {
-                NSString *videoFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
-                                                                              ofType:@"png"];
+                NSString *uti = [asset valueForKey:@"uniformTypeIdentifier"];
 
-                UIImage *backgroundImage = imageView.image;
-                UIImage *watermarkImage = [UIImage imageWithContentsOfFile:videoFilePath];
-
-                UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
-                                                                                  backgroundImage.size.height - 10,
-                                                                                  backgroundImage.size.width,
-                                                                                  10)];
-                headingLabel.textColor = [UIColor whiteColor];
-                headingLabel.backgroundColor = [UIColor blackColor];
-                headingLabel.alpha = 0.7;
-                headingLabel.font = [UIFont systemFontOfSize:26];
-                headingLabel.textAlignment = NSTextAlignmentRight;
-                headingLabel.text = [FPUtils formatTimeInSeconds:ceil(asset.duration)];
-
-
-                UIImage *result;
-
-                UIGraphicsBeginImageContext(backgroundImage.size);
+                if ([FPUtils UTI:uti conformsToUTI:@"public.movie"])
                 {
-                    CGRect backgroundRect = CGRectMake(0,
-                                                       0,
+                    NSString *videoFilePath = [[FPUtils frameworkBundle] pathForResource:@"glyphicons_180_facetime_video"
+                                                                                  ofType:@"png"];
+
+                    UIImage *backgroundImage = imageView.image;
+                    UIImage *watermarkImage = [UIImage imageWithContentsOfFile:videoFilePath];
+
+                    UILabel *headingLabel = [[UILabel alloc] initWithFrame:CGRectMake(0,
+                                                                                      backgroundImage.size.height - 10,
+                                                                                      backgroundImage.size.width,
+                                                                                      10)];
+                    headingLabel.textColor = [UIColor whiteColor];
+                    headingLabel.backgroundColor = [UIColor blackColor];
+                    headingLabel.alpha = 0.7;
+                    headingLabel.font = [UIFont systemFontOfSize:26];
+                    headingLabel.textAlignment = NSTextAlignmentRight;
+                    headingLabel.text = [FPUtils formatTimeInSeconds:ceil(asset.duration)];
+
+
+                    UIImage *result;
+
+                    UIGraphicsBeginImageContext(backgroundImage.size);
+                    {
+                        CGRect backgroundRect = CGRectMake(0,
+                                                           0,
+                                                           backgroundImage.size.width,
+                                                           backgroundImage.size.height);
+
+                        CGRect footerRect = CGRectMake(0.0,
+                                                       backgroundImage.size.height - backgroundImage.size.height * 0.18,
                                                        backgroundImage.size.width,
                                                        backgroundImage.size.height);
 
-                    CGRect footerRect = CGRectMake(0.0,
-                                                   backgroundImage.size.height - backgroundImage.size.height * 0.18,
-                                                   backgroundImage.size.width,
-                                                   backgroundImage.size.height);
+                        CGRect watermarkRect = CGRectMake(5,
+                                                          backgroundImage.size.height - watermarkImage.size.height - 8,
+                                                          watermarkImage.size.width,
+                                                          watermarkImage.size.height);
 
-                    CGRect watermarkRect = CGRectMake(5,
-                                                      backgroundImage.size.height - watermarkImage.size.height - 8,
-                                                      watermarkImage.size.width,
-                                                      watermarkImage.size.height);
+                        CGRect headingLabelRect = CGRectMake(0,
+                                                             backgroundImage.size.height - headingLabel.bounds.size.height - 12,
+                                                             backgroundImage.size.width - 5,
+                                                             headingLabel.bounds.size.height);
 
-                    CGRect headingLabelRect = CGRectMake(0,
-                                                         backgroundImage.size.height - headingLabel.bounds.size.height - 12,
-                                                         backgroundImage.size.width - 5,
-                                                         headingLabel.bounds.size.height);
+                        [backgroundImage drawInRect:backgroundRect];
 
-                    [backgroundImage drawInRect:backgroundRect];
+                        CGContextRef context = UIGraphicsGetCurrentContext();
 
-                    CGContextRef context = UIGraphicsGetCurrentContext();
+                        [[[UIColor blackColor] colorWithAlphaComponent:0.5] setFill];
+                        CGContextFillRect(context, footerRect);
 
-                    [[[UIColor blackColor] colorWithAlphaComponent:0.5] setFill];
-                    CGContextFillRect(context, footerRect);
+                        // draw tint color
+                        CGContextSetBlendMode(context, kCGBlendModeNormal);
+                        [[UIColor whiteColor] setFill];
+                        CGContextFillRect(context, watermarkRect);
 
-                    // draw tint color
-                    CGContextSetBlendMode(context, kCGBlendModeNormal);
-                    [[UIColor whiteColor] setFill];
-                    CGContextFillRect(context, watermarkRect);
+                        // mask by alpha values of original image
+                        CGContextSetBlendMode(context, kCGBlendModeDestinationIn);
+                        CGContextDrawImage(context, watermarkRect, watermarkImage.CGImage);
 
-                    // mask by alpha values of original image
-                    CGContextSetBlendMode(context, kCGBlendModeDestinationIn);
-                    CGContextDrawImage(context, watermarkRect, watermarkImage.CGImage);
+                        CGContextSetBlendMode(context, kCGBlendModeNormal);
 
-                    CGContextSetBlendMode(context, kCGBlendModeNormal);
+                        [headingLabel drawTextInRect:headingLabelRect];
 
-                    [headingLabel drawTextInRect:headingLabelRect];
+                        result = UIGraphicsGetImageFromCurrentImageContext();
+                    }
+                    UIGraphicsEndImageContext();
 
-                    result = UIGraphicsGetImageFromCurrentImageContext();
+                    imageView.image = result;
                 }
-                UIGraphicsEndImageContext();
+            }];
 
-                imageView.image = result;
+
+            if (self.selectMultiple)
+            {
+                // Add overlay
+
+                UIImageView *overlay = [[UIImageView alloc] initWithImage:_selectOverlay];
+
+                // If this asset is selected, leave the overlay on.
+
+                overlay.hidden = ![self.selectedAssets containsObject:asset];
+                overlay.opaque = NO;
+
+                [imageView addSubview:overlay];
             }
-        }];
-
-        if (self.selectMultiple)
-        {
-            // Add overlay
-
-            UIImageView *overlay = [[UIImageView alloc] initWithImage:_selectOverlay];
-
-            // If this asset is selected, leave the overlay on.
-
-            overlay.hidden = ![self.selectedAssets containsObject:asset];
-            overlay.opaque = NO;
-
-            [imageView addSubview:overlay];
         }
-
+        else
+        {
+            imageView.frame = rect;
+        }
 
         [cell.contentView addSubview:imageView];
 
