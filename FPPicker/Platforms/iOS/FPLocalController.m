@@ -108,6 +108,13 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     self.uploadOperationQueue.suspended = YES;
 }
 
+- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+    [self setupLayoutConstants];
+    [self.tableView reloadData];
+}
+
 - (void)loadPhotoData
 {
     CGRect bounds = [self getViewBounds];
@@ -154,12 +161,6 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     NSArray *reversed = [[collector reverseObjectEnumerator] allObjects];
 
     [self setPhotos:reversed];
-    [self.tableView reloadData];
-}
-
-- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
-{
-    [self setupLayoutConstants];
     [self.tableView reloadData];
 }
 
