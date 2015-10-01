@@ -59,13 +59,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
     return self;
 }
 
-- (void)backButtonAction
-{
-    [self.contentPreloadOperationQueue cancelAllOperations];
-    [self.contentLoadOperationQueue cancelAllOperations];
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -107,11 +100,6 @@ static const CGFloat ROW_HEIGHT = 44.0;
         self.tableView.allowsSelection = YES;
         self.tableView.allowsMultipleSelection = YES;
     }
-
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Back"
-                                                                             style:UIBarButtonItemStylePlain
-                                                                            target:self
-                                                                            action:@selector(backButtonAction)];
 }
 
 - (void)viewDidUnload
@@ -133,6 +121,13 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [self setupLayoutConstants];
     [super viewWillAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.contentPreloadOperationQueue cancelAllOperations];
+    [self.contentLoadOperationQueue cancelAllOperations];
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
