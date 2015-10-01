@@ -42,6 +42,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     self.tableView.frame = self.view.bounds;
+    self.tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
     [self loadAlbumData];
 
     [super viewWillAppear:animated];
