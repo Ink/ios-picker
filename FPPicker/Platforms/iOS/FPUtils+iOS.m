@@ -157,6 +157,7 @@
     PHImageRequestOptions *cropToSquare = [PHImageRequestOptions new];
 
     cropToSquare.resizeMode = PHImageRequestOptionsResizeModeExact;
+    cropToSquare.networkAccessAllowed = YES;
 
     CGFloat cropSideLength = MIN(asset.pixelWidth, asset.pixelHeight);
     CGRect square = CGRectMake(0, 0, cropSideLength, cropSideLength);
