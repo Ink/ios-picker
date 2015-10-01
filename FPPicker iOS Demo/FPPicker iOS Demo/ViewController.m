@@ -15,7 +15,7 @@
 
 @property (nonatomic, strong) FPSaveController *fpSave;
 @property (nonatomic, strong) UIPopoverController *myPopoverController;
-@property (nonatomic, strong) NSMutableArray *displayedImages;
+@property (nonatomic, strong) NSMutableArray<UIImage *> *displayedImages;
 @property (nonatomic, strong) FPTheme *theme;
 
 @end
@@ -55,7 +55,7 @@
     return _theme;
 }
 
-- (NSMutableArray *)displayedImages
+- (NSMutableArray <UIImage *>*)displayedImages
 {
     if (!_displayedImages)
     {
@@ -143,7 +143,7 @@
     /*
      * Ask for specific data types. (Optional) Default is all files.
      */
-    fpController.dataTypes = @[@"image/*"];
+    fpController.dataTypes = @[@"image/*", @"video/*"];
 
     /*
      * Select and order the sources (Optional) Default is all sources
@@ -319,9 +319,6 @@
         return;
     }
 
-    [self dismissViewControllerAnimated:YES
-                             completion:nil];
-
     // Making a little carousel effect with the images
 
     [self.displayedImages removeAllObjects];
@@ -342,7 +339,11 @@
     self.imageView.animationRepeatCount = 100.f;
     self.imageView.animationDuration = 2.f * self.displayedImages.count; // 2 seconds per image
 
-    [self.imageView startAnimating];
+    [self dismissViewControllerAnimated:YES
+                             completion: ^() {
+        [self.imageView startAnimating];
+    }
+    ];
 }
 
 - (void)fpPickerControllerDidCancel:(FPPickerController *)pickerController
