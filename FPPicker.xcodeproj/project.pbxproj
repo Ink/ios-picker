@@ -66,8 +66,6 @@
 		453144B819EC3F99003230F5 /* FPTypedefs.h in Headers */ = {isa = PBXBuildFile; fileRef = 45CD2718199CCB9A0048B483 /* FPTypedefs.h */; };
 		453144B919EC3FA4003230F5 /* FPUtils+iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 45FCE703199B665800D86B40 /* FPUtils+iOS.h */; };
 		453144BA19EC3FA4003230F5 /* FPUtils+iOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 45FCE704199B665800D86B40 /* FPUtils+iOS.m */; };
-		453144BB19EC3FA4003230F5 /* UIApplication+FPAppDimensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */; };
-		453144BC19EC3FA4003230F5 /* UIApplication+FPAppDimensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */; };
 		453144BD19EC3FA8003230F5 /* FPThumbCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 831E0B4515AAC3F30081004F /* FPThumbCell.h */; };
 		453144BE19EC3FA8003230F5 /* FPThumbCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 831E0B4615AAC3F30081004F /* FPThumbCell.m */; };
 		453144BF19EC3FAF003230F5 /* FPSaveController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A031BA15A8F2570085E186 /* FPSaveController.m */; };
@@ -410,8 +408,6 @@
 		456263E619EFFC5200A34C29 /* FPLibrary+iOS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPLibrary+iOS.m"; sourceTree = "<group>"; };
 		456263EA19F0234800A34C29 /* FPUtils+Mac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FPUtils+Mac.h"; sourceTree = "<group>"; };
 		456263EB19F0234800A34C29 /* FPUtils+Mac.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FPUtils+Mac.m"; sourceTree = "<group>"; };
-		4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+FPAppDimensions.h"; sourceTree = "<group>"; };
-		4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+FPAppDimensions.m"; sourceTree = "<group>"; };
 		456D9478194F010400D0A34E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		456D94E8194F0B3F00D0A34E /* FPConfigTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPConfigTests.m; sourceTree = "<group>"; };
 		456FCB501B5E786500A43A82 /* FPSimpleAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPSimpleAPI.h; sourceTree = "<group>"; };
@@ -1031,8 +1027,6 @@
 			children = (
 				45FCE703199B665800D86B40 /* FPUtils+iOS.h */,
 				45FCE704199B665800D86B40 /* FPUtils+iOS.m */,
-				4565C324197FE9F900E77D51 /* UIApplication+FPAppDimensions.h */,
-				4565C325197FE9F900E77D51 /* UIApplication+FPAppDimensions.m */,
 				456263E519EFFC5200A34C29 /* FPLibrary+iOS.h */,
 				456263E619EFFC5200A34C29 /* FPLibrary+iOS.m */,
 			);
@@ -1158,7 +1152,6 @@
 				4531449819EC3F25003230F5 /* FPPickerController.h in Headers */,
 				453144CF19EC3FC4003230F5 /* FPInfoViewController.h in Headers */,
 				453144B119EC3F95003230F5 /* FPSharedInternalHeaders.h in Headers */,
-				453144BB19EC3FA4003230F5 /* UIApplication+FPAppDimensions.h in Headers */,
 				4531449319EC3ED0003230F5 /* FPPicker.h in Headers */,
 				4531449D19EC3F46003230F5 /* NSData+FPHexString.h in Headers */,
 				4531449E19EC3F46003230F5 /* FPSession+ConvenienceMethods.h in Headers */,
@@ -1679,7 +1672,6 @@
 				453144AC19EC3F83003230F5 /* FPConstants.m in Sources */,
 				453144A519EC3F4E003230F5 /* FPUtils+ResourceHelpers.m in Sources */,
 				453144AA19EC3F69003230F5 /* FPAPIClient.m in Sources */,
-				453144BC19EC3FA4003230F5 /* UIApplication+FPAppDimensions.m in Sources */,
 				453144CE19EC3FC4003230F5 /* FPAuthController.m in Sources */,
 				453144C119EC3FB5003230F5 /* FPImagePickerController.m in Sources */,
 				453144B719EC3F99003230F5 /* FPUtils.m in Sources */,

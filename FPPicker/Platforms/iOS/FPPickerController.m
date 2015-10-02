@@ -16,7 +16,6 @@
                                   UINavigationControllerDelegate,
                                   FPSourceControllerDelegate>
 
-@property (nonatomic, assign) BOOL hasStatusBar;
 @property (nonatomic, strong) NSOperationQueue *uploadOperationQueue;
 @property (nonatomic, strong) FPThemeApplier *themeApplier;
 
@@ -73,17 +72,6 @@
     if (self)
     {
         [self initializeProperties];
-
-        CGFloat statusBarHeight = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame);
-
-        if (statusBarHeight < 0.0001)
-        {
-            self.hasStatusBar = NO;
-        }
-        else
-        {
-            self.hasStatusBar = YES;
-        }
     }
 
     return self;
@@ -159,11 +147,6 @@
 - (void)    imagePickerController:(FPImagePickerController *)picker
     didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    if (self.hasStatusBar)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }
-
     /* resizing the thumbnail */
 
     UIImage *originalImage, *editedImage, *imageToSave;
@@ -311,11 +294,6 @@
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    if (self.hasStatusBar)
-    {
-        [[UIApplication sharedApplication] setStatusBarHidden:NO];
-    }
-
     // The user chose to cancel when using the camera.
 
     [picker dismissViewControllerAnimated:YES

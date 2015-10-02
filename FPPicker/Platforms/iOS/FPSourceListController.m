@@ -203,8 +203,6 @@
                 imgPicker.disableFrontCameraLivePreviewMirroring = picker.disableFrontCameraLivePreviewMirroring;
             }
 
-            [[UIApplication sharedApplication] setStatusBarHidden:YES];
-
             [self presentViewController:imgPicker
                                animated:YES
                              completion:nil];

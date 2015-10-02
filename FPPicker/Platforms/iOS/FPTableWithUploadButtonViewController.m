@@ -7,7 +7,6 @@
 //
 
 #import "FPTableWithUploadButtonViewController.h"
-#import "UIApplication+FPAppDimensions.h"
 #import "FPBarButtonItem.h"
 
 @interface FPTableWithUploadButtonViewController ()
