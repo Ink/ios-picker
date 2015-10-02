@@ -858,7 +858,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if ([FPUtils currentAppIsAppExtension])
     {
-        DLog(@"Error: %@", error);
+        NSForceLog(@"ERROR: %@", error);
 
         if (handler)
         {
@@ -989,7 +989,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        NSLog(@"Error: %@", error);
+        NSForceLog(@"ERROR: %@", error);
 
         self.nextPage = nil;
 
@@ -1129,7 +1129,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         };
 
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-            NSForceLog(@"FAIL %@", error);
+            NSForceLog(@"ERROR: %@", error);
 
             [self fpLoadResponseFailureWithError:error
                                          handler: ^{
@@ -1291,24 +1291,29 @@ static const CGFloat ROW_HEIGHT = 44.0;
         [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                                  animated:YES];
 
-        NSLog(@"error: %@", error);
-
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout Failure"
-                                                                       message:@"Hmm. We weren't able to logout."
-                                                                preferredStyle:UIAlertControllerStyleAlert];
-
-        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
-                                                     style:UIAlertActionStyleDefault
-                                                   handler: ^(UIAlertAction * action)
+        if (![FPUtils currentAppIsAppExtension])
         {
-            // NO-OP
-        }];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout Failure"
+                                                                           message:@"Hmm. We weren't able to logout."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
 
-        [alert addAction:ok];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler: ^(UIAlertAction * action)
+            {
+                // NO-OP
+            }];
 
-        [self presentViewController:alert
-                           animated:YES
-                         completion:nil];
+            [alert addAction:ok];
+
+            [self presentViewController:alert
+                               animated:YES
+                             completion:nil];
+        }
+        else
+        {
+            NSForceLog(@"ERROR: %@", error);
+        }
     };
 
     AFHTTPRequestOperation *operation;

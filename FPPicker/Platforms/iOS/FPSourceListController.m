@@ -209,25 +209,39 @@
         }
         else
         {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Camera Available"
-                                                                           message:@"This device doesn't seem to have a camera available."
-                                                                    preferredStyle:UIAlertControllerStyleAlert];
+            NSString *errorTitle = @"No Camera Available";
+            NSString *errorMessage = @"This device doesn't seem to have a camera available.";
 
-            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
-                                                         style:UIAlertActionStyleDefault
-                                                       handler: ^(UIAlertAction * action)
+            if (![FPUtils currentAppIsAppExtension])
             {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:errorTitle
+                                                                               message:errorMessage
+                                                                        preferredStyle:UIAlertControllerStyleAlert];
+
+                UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler: ^(UIAlertAction * action)
+                {
+                    [tableView deselectRowAtIndexPath:indexPath
+                                             animated:NO];
+                }];
+
+                [alert addAction:ok];
+
+                [self presentViewController:alert
+                                   animated:YES
+                                 completion:nil];
+            }
+            else
+            {
+                NSForceLog(@"ERROR: %@", errorMessage);
+
                 [tableView deselectRowAtIndexPath:indexPath
                                          animated:NO];
-            }];
-
-            [alert addAction:ok];
-
-            [self presentViewController:alert
-                               animated:YES
-                             completion:nil];
+            }
         }
     }
+
     else if (source.identifier == FPSourceCameraRoll)
     {
         if ([self.fpdelegate class] == [FPSaveController class])
