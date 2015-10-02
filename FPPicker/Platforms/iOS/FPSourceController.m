@@ -640,20 +640,10 @@ static const CGFloat ROW_HEIGHT = 44.0;
                     error.code == kCFURLErrorRedirectToNonExistentLocation ||
                     error.code == kCFURLErrorUnsupportedURL)
                 {
-                    [MBProgressHUD hideAllHUDsForView:self.navigationController.view
-                                             animated:YES];
-
-                    [self.navigationController popViewControllerAnimated:YES];
-
-                    UIAlertView *message;
-
-                    message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                         message:@"You aren't connected to the internet so we can't get your files."
-                                                        delegate:nil
-                                               cancelButtonTitle:@"OK"
-                                               otherButtonTitles:nil];
-
-                    [message show];
+                    [self fpLoadResponseFailureWithError:error
+                                                 handler: ^{
+                        [self resetTableViewSelectionAndEnableUserInteraction];
+                    }];
                 }
                 else
                 {
@@ -764,8 +754,17 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        [self fpLoadResponseFailureAtPath:loadpath
-                                withError:error];
+        if (error.code == kCFURLErrorUserCancelledAuthentication)
+        {
+            [self fpLoadContents:loadpath
+                     cachePolicy:NSURLRequestReloadIgnoringCacheData];
+        }
+        else
+        {
+            [self fpLoadResponseFailureWithError:error handler: ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+        }
 
         [self.refreshControl endRefreshing];
     };
@@ -848,39 +847,27 @@ static const CGFloat ROW_HEIGHT = 44.0;
     [self afterReload];
 }
 
-- (void)fpLoadResponseFailureAtPath:(NSString *)loadpath
-                          withError:(NSError *)error
+- (void)fpLoadResponseFailureWithError:(NSError *)error handler:(void (^ __nullable)(void))handler
 {
-    if (self.contentLoadOperationQueue.isSuspended &&
-        self.contentPreloadOperationQueue.isSuspended)
+    [MBProgressHUD hideAllHUDsForView:self.navigationController.view
+                             animated:YES];
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Internet Connection"
+                                                                   message:error.localizedDescription
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                 style:UIAlertActionStyleDefault
+                                               handler: ^(UIAlertAction * action)
     {
-        [MBProgressHUD hideAllHUDsForView:self.navigationController.view
-                                 animated:YES];
-    }
+        handler();
+    }];
 
-    NSLog(@"Error: %@", error);
+    [alert addAction:ok];
 
-    //NSLog(@"Loading Contents: %@", JSON);
-
-    if (error.code == kCFURLErrorRedirectToNonExistentLocation ||
-        error.code == kCFURLErrorUnsupportedURL)
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-
-        UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                          message:@"You aren't connected to the internet so we can't get your files."
-                                                         delegate:nil
-                                                cancelButtonTitle:@"OK"
-                                                otherButtonTitles:nil];
-
-        [message show];
-    }
-
-    if (error.code == kCFURLErrorUserCancelledAuthentication)
-    {
-        [self fpLoadContents:loadpath
-                 cachePolicy:NSURLRequestReloadIgnoringCacheData];
-    }
+    [self presentViewController:alert
+                       animated:YES
+                     completion:nil];
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath
@@ -1125,22 +1112,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
             NSForceLog(@"FAIL %@", error);
 
-            if (error.code == kCFURLErrorNotConnectedToInternet ||
-                error.code == kCFURLErrorRedirectToNonExistentLocation ||
-                error.code == kCFURLErrorUnsupportedURL)
-            {
-                [self.navigationController popViewControllerAnimated:YES];
-
-                UIAlertView *message;
-
-                message = [[UIAlertView alloc] initWithTitle:@"Internet Connection"
-                                                     message:@"You aren't connected to the internet so we can't get your files."
-                                                    delegate:nil
-                                           cancelButtonTitle:@"OK"
-                                           otherButtonTitles:nil];
-
-                [message show];
-            }
+            [self fpLoadResponseFailureWithError:error handler: ^{
+                [self resetTableViewSelectionAndEnableUserInteraction];
+            }];
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.navigationController.view
@@ -1160,6 +1134,21 @@ static const CGFloat ROW_HEIGHT = 44.0;
                   failure:failureBlock
                  progress:progressBlock];
     }
+}
+
+- (void)resetTableViewSelectionAndEnableUserInteraction
+{
+    self.tableView.userInteractionEnabled = YES;
+
+    [self.selectedObjects removeAllObjects];
+
+    for (NSIndexPath *indexPath in self.tableView.indexPathsForSelectedRows)
+    {
+        [self.tableView deselectRowAtIndexPath:indexPath
+                                      animated:YES];
+    }
+
+    [self updateUploadButton:0];
 }
 
 - (void)toggleSelectionOnThumbnailView:(UIView *)view
@@ -1284,15 +1273,22 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         NSLog(@"error: %@", error);
 
-        UIAlertView *message;
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Logout Failure"
+                                                                       message:@"Hmm. We weren't able to logout."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
 
-        message = [[UIAlertView alloc] initWithTitle:@"Logout Failure"
-                                             message:@"Hmm. We weren't able to logout."
-                                            delegate:nil
-                                   cancelButtonTitle:@"OK"
-                                   otherButtonTitles:nil];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler: ^(UIAlertAction * action)
+        {
+            // NO-OP
+        }];
 
-        [message show];
+        [alert addAction:ok];
+
+        [self presentViewController:alert
+                           animated:YES
+                         completion:nil];
     };
 
     AFHTTPRequestOperation *operation;

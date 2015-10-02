@@ -209,14 +209,23 @@
         }
         else
         {
-            UIAlertView *alertView;
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Camera Available"
+                                                                           message:@"This device doesn't seem to have a camera available."
+                                                                    preferredStyle:UIAlertControllerStyleAlert];
 
-            alertView = [[UIAlertView alloc] initWithTitle:@"No Camera Available"
-                                                   message:@"This device doesn't seem to have a camera available."
-                                                  delegate:nil
-                                         cancelButtonTitle:@"OK"
-                                         otherButtonTitles:nil];
-            [alertView show];
+            UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler: ^(UIAlertAction * action)
+            {
+                [tableView deselectRowAtIndexPath:indexPath
+                                         animated:NO];
+            }];
+
+            [alert addAction:ok];
+
+            [self presentViewController:alert
+                               animated:YES
+                             completion:nil];
         }
     }
     else if (source.identifier == FPSourceCameraRoll)
