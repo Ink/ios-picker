@@ -856,22 +856,37 @@ static const CGFloat ROW_HEIGHT = 44.0;
     [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                              animated:YES];
 
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Internet Connection"
-                                                                   message:error.localizedDescription
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-
-    UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
-                                                 style:UIAlertActionStyleDefault
-                                               handler: ^(UIAlertAction * action)
+    if ([FPUtils currentAppIsAppExtension])
     {
-        handler();
-    }];
+        DLog(@"Error: %@", error);
 
-    [alert addAction:ok];
+        if (handler)
+        {
+            handler();
+        }
+    }
+    else
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Internet Connection"
+                                                                       message:error.localizedDescription
+                                                                preferredStyle:UIAlertControllerStyleAlert];
 
-    [self presentViewController:alert
-                       animated:YES
-                     completion:nil];
+        UIAlertAction *ok = [UIAlertAction actionWithTitle:@"OK"
+                                                     style:UIAlertActionStyleDefault
+                                                   handler: ^(UIAlertAction * action)
+        {
+            if (handler)
+            {
+                handler();
+            }
+        }];
+
+        [alert addAction:ok];
+
+        [self presentViewController:alert
+                           animated:YES
+                         completion:nil];
+    }
 }
 
 - (void)fpPreloadContents:(NSString *)loadpath

@@ -40,4 +40,11 @@ typedef void (^FPFetchPHAssetImageBlock)(UIImage *image);
 + (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
                                  completion:(FPFetchPHAssetImageBlock)completionBlock;
 
+/*!
+   Returns whether the current running app is an app extension.
+
+   @returns YES or NO
+ */
++ (BOOL)currentAppIsAppExtension;
+
 @end

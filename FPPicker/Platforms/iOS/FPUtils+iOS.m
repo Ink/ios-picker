@@ -176,4 +176,9 @@
     }];
 }
 
++ (BOOL)currentAppIsAppExtension
+{
+    return [[[NSBundle mainBundle] bundlePath] hasSuffix:@".appex"];
+}
+
 @end
