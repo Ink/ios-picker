@@ -127,6 +127,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     [self.contentPreloadOperationQueue cancelAllOperations];
     [self.contentLoadOperationQueue cancelAllOperations];
+    [self resetTableViewSelectionAndEnableUserInteraction];
     [super viewWillDisappear:animated];
 }
 
@@ -761,7 +762,9 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
         else
         {
-            [self fpLoadResponseFailureWithError:error handler: ^{
+            [self fpLoadResponseFailureWithError:error
+                                         handler: ^{
+                [self resetTableViewSelectionAndEnableUserInteraction];
                 [self.navigationController popViewControllerAnimated:YES];
             }];
         }
@@ -847,7 +850,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
     [self afterReload];
 }
 
-- (void)fpLoadResponseFailureWithError:(NSError *)error handler:(void (^ __nullable)(void))handler
+- (void)fpLoadResponseFailureWithError:(NSError *)error
+                               handler:(void (^ __nullable)(void))handler
 {
     [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                              animated:YES];
@@ -1112,7 +1116,8 @@ static const CGFloat ROW_HEIGHT = 44.0;
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
             NSForceLog(@"FAIL %@", error);
 
-            [self fpLoadResponseFailureWithError:error handler: ^{
+            [self fpLoadResponseFailureWithError:error
+                                         handler: ^{
                 [self resetTableViewSelectionAndEnableUserInteraction];
             }];
 
