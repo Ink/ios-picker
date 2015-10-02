@@ -32,7 +32,7 @@
     self.edgesForExtendedLayout = UIRectEdgeAll;
 
     UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0,
-                                                                           [UIApplication sharedApplication].statusBarFrame.size.height,
+                                                                           0,
                                                                            320,
                                                                            44)];
 
