@@ -853,6 +853,11 @@ static const CGFloat ROW_HEIGHT = 44.0;
 - (void)fpLoadResponseFailureWithError:(NSError *)error
                                handler:(void (^ __nullable)(void))handler
 {
+    if (error.code == kCFURLErrorCancelled)
+    {
+        return;
+    }
+
     [MBProgressHUD hideAllHUDsForView:self.navigationController.view
                              animated:YES];
 
