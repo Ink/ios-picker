@@ -1,3 +1,8 @@
+v5.1.0 - [12.10.2015]
+- removing deprecated ALAsset - PHAsset are now used for browsing photos from device
+- removing code deprecated in iOS9
+
+
 v5.0.1 - [30.09.2015]
 - fixed bug with missing upload button when selecting file from external storage (#96)
 
