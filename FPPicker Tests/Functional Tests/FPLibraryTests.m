@@ -23,30 +23,13 @@
 
 @interface FPLibrary (PrivateMethods)
 
-+ (void)singlepartUploadData:(NSData*)filedata
-                       named:(NSString*)filename
-                  ofMimetype:(NSString*)mimetype
-                     success:(FPUploadAssetSuccessBlock)success
-                     failure:(FPUploadAssetFailureBlock)failure
-                    progress:(FPUploadAssetProgressBlock)progress;
-
-+ (void)multipartUploadData:(NSData*)filedata
-                      named:(NSString*)filename
-                 ofMimetype:(NSString*)mimetype
-                    success:(FPUploadAssetSuccessBlock)success
-                    failure:(FPUploadAssetFailureBlock)failure
-                   progress:(FPUploadAssetProgressBlock)progress;
-
-+ (void)uploadDataToFilepicker:(NSURL*)fileURL
-                         named:(NSString*)filename
-                    ofMimetype:(NSString*)mimetype
-                  shouldUpload:(BOOL)shouldUpload
-                       success:(FPUploadAssetSuccessBlock)success
-                       failure:(FPUploadAssetFailureBlock)failure
-                      progress:(FPUploadAssetProgressBlock)progress;
-
-+ (NSData *)dataSliceWithData:(NSData *)data
-                   sliceIndex:(NSUInteger)index;
++ (void)uploadLocalURLToFilepicker:(NSURL *)localURL
+                             named:(NSString *)filename
+                        ofMimetype:(NSString *)mimetype
+               usingOperationQueue:(NSOperationQueue *)operationQueue
+                           success:(FPUploadAssetSuccessBlock)success
+                           failure:(FPUploadAssetFailureBlock)failure
+                          progress:(FPUploadAssetProgressBlock)progress;
 
 @end
 
@@ -75,6 +58,8 @@
 
     successBlock = ^(id JSON) {
         XCTFail(@"Should not succeed");
+
+        dispatch_semaphore_signal(waitSemaphore);
     };
 
     failureBlock = ^(NSError *error, id JSON) {
@@ -83,13 +68,13 @@
         dispatch_semaphore_signal(waitSemaphore);
     };
 
-    [FPLibrary uploadDataToFilepicker:nil
-                                named:nil
-                           ofMimetype:nil
-                         shouldUpload:NO
-                              success:successBlock
-                              failure:failureBlock
-                             progress:nil];
+    [FPLibrary uploadLocalURLToFilepicker:nil
+                                    named:nil
+                               ofMimetype:nil
+                      usingOperationQueue:nil
+                                  success:successBlock
+                                  failure:failureBlock
+                                 progress:nil];
 
     // Wait for our block to return
 
@@ -103,12 +88,13 @@
 {
     id FPLibraryMock = OCMClassMock([FPLibrary class]);
 
-    OCMExpect(ClassMethod([FPLibraryMock singlepartUploadData:[OCMArg any]
-                                                        named:[OCMArg any]
-                                                   ofMimetype:[OCMArg any]
-                                                      success:[OCMArg any]
-                                                      failure:[OCMArg any]
-                                                     progress:[OCMArg any]]));
+    OCMExpect(ClassMethod([FPLibraryMock uploadLocalURLToFilepicker:[OCMArg any]
+                                                              named:[OCMArg any]
+                                                         ofMimetype:[OCMArg any]
+                                                usingOperationQueue:[OCMArg any]
+                                                            success:[OCMArg any]
+                                                            failure:[OCMArg any]
+                                                           progress:[OCMArg any]]));
 
     size_t smallImageSize = fpMaxChunkSize - 1;
     char *smallImageBuffer = malloc(smallImageSize);
@@ -120,13 +106,13 @@
 
     OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(smallImage);
 
-    [FPLibrary uploadDataToFilepicker:[NSURL URLWithString:@""]
-                                named:@"chunkyImage.png"
-                           ofMimetype:@"image/png"
-                         shouldUpload:YES
-                              success:nil
-                              failure:nil
-                             progress:nil];
+    [FPLibrary uploadLocalURLToFilepicker:[NSURL URLWithString:@""]
+                                    named:@"chunkyImage.png"
+                               ofMimetype:@"image/png"
+                      usingOperationQueue:nil
+                                  success:nil
+                                  failure:nil
+                                 progress:nil];
 
     OCMVerifyAll(FPLibraryMock);
     OCMVerifyAll(NSDataMock);
@@ -136,12 +122,13 @@
 {
     id FPLibraryMock = OCMClassMock([FPLibrary class]);
 
-    OCMExpect(ClassMethod([FPLibraryMock multipartUploadData:[OCMArg any]
-                                                       named:[OCMArg any]
-                                                  ofMimetype:[OCMArg any]
-                                                     success:[OCMArg any]
-                                                     failure:[OCMArg any]
-                                                    progress:[OCMArg any]]));
+    OCMExpect(ClassMethod([FPLibraryMock uploadLocalURLToFilepicker:[OCMArg any]
+                                                              named:[OCMArg any]
+                                                         ofMimetype:[OCMArg any]
+                                                usingOperationQueue:[OCMArg any]
+                                                            success:[OCMArg any]
+                                                            failure:[OCMArg any]
+                                                           progress:[OCMArg any]]));
 
     size_t largeImageSize = fpMaxChunkSize + 1;
     char *largeImageBuffer = malloc(largeImageSize);
@@ -153,115 +140,121 @@
 
     OCMStub([NSDataMock dataWithContentsOfURL:[OCMArg any]]).andReturn(largeImage);
 
-    [FPLibrary uploadDataToFilepicker:[NSURL URLWithString:@""]
-                                named:@"chunkyImage.png"
-                           ofMimetype:@"image/png"
-                         shouldUpload:YES
-                              success:nil
-                              failure:nil
-                             progress:nil];
+    [FPLibrary uploadLocalURLToFilepicker:[NSURL URLWithString:@""]
+                                    named:@"chunkyImage.png"
+                               ofMimetype:@"image/png"
+                      usingOperationQueue:nil
+                                  success:nil
+                                  failure:nil
+                                 progress:nil];
 
     OCMVerifyAll(FPLibraryMock);
     OCMVerifyAll(NSDataMock);
 }
 
-- (void)testSuccessfulSinglepartUpload
-{
-    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+// NOTE(2015-11-1): Tests are disabled since FPSinglepartUploader is currently disabled
+//- (void)testSuccessfulSinglepartUpload
+//{
+//    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+//    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+//
+//    OCMStub([configMock APIKey]).andReturn(@"MY_FAKE_API_KEY");
+//
+//    NSString *imageFilename = @"outline.png";
+//    NSString *imageMimetype = @"image/png";
+//    NSString *imageFixtureFilepath = OHPathForFileInBundle(imageFilename, nil);
+//    NSData *data = [NSData dataWithContentsOfFile:imageFixtureFilepath];
+//
+//    XCTAssertTrue(data.length > 0, @"Fixture data expected");
+//
+//    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
+//                                relativeToURL:[FPConfig sharedInstance].baseURL];
+//
+//    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
+//                            andHTTPMethod:@"POST"
+//                                 matching:OHHTTPMatchAll
+//                          withFixtureFile:@"successfulResponse.json"
+//                               statusCode:200
+//                               andHeaders:@{@"Content-Type":@"text/json"}];
+//
+//    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+//        dispatch_semaphore_signal(waitSemaphore);
+//    };
+//
+//    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+//        XCTFail(@"Should not fail");
+//    };
+//
+//    [FPLibrary uploadData:data
+//                    named:imageFilename
+//                   toPath:imageFilename
+//               ofMimetype:imageMimetype
+//      usingOperationQueue:nil
+//                  success:successBlock
+//                  failure:failureBlock
+//                 progress:nil];
+//
+//    // Wait for our block to return
+//
+//    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
+//    {
+//        runTheRunLoopOnce();
+//    }
+//
+//    OCMVerifyAll(configMock);
+//}
 
-    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
-
-    NSString *imageFilename = @"outline.png";
-    NSString *imageMimetype = @"image/png";
-    NSString *imageFixtureFilepath = OHPathForFileInBundle(imageFilename, nil);
-    NSData *data = [NSData dataWithContentsOfFile:imageFixtureFilepath];
-
-    XCTAssertTrue(data.length > 0, @"Fixture data expected");
-
-    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
-                                relativeToURL:[FPConfig sharedInstance].baseURL];
-
-    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
-                            andHTTPMethod:@"POST"
-                                 matching:OHHTTPMatchAll
-                          withFixtureFile:@"successfulResponse.json"
-                               statusCode:200
-                               andHeaders:@{@"Content-Type":@"text/json"}];
-
-    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        dispatch_semaphore_signal(waitSemaphore);
-    };
-
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        XCTFail(@"Should not fail");
-    };
-
-    [FPLibrary singlepartUploadData:data
-                              named:imageFilename
-                         ofMimetype:imageMimetype
-                            success:successBlock
-                            failure:failureBlock
-                           progress:nil];
-
-    // Wait for our block to return
-
-    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
-    {
-        runTheRunLoopOnce();
-    }
-
-    OCMVerifyAll(configMock);
-}
-
-- (void)testFailingSinglepartUpload
-{
-    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
-    id configMock = OCMPartialMock([FPConfig sharedInstance]);
-
-    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
-
-    NSString *imageFilename = @"outline.png";
-    NSString *imageMimetype = @"image/png";
-    NSString *imageFixtureFilepath = OHPathForFileInBundle(imageFilename, nil);
-    NSData *data = [NSData dataWithContentsOfFile:imageFixtureFilepath];
-
-    XCTAssertTrue(data.length > 0, @"Fixture data expected");
-
-    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
-                                relativeToURL:[FPConfig sharedInstance].baseURL];
-
-    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
-                            andHTTPMethod:@"POST"
-                                 matching:OHHTTPMatchAll
-                          withFixtureFile:@"failureResponse.json"
-                               statusCode:200
-                               andHeaders:@{@"Content-Type":@"text/json"}];
-
-    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-        XCTFail(@"Should not succeed");
-    };
-
-    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        dispatch_semaphore_signal(waitSemaphore);
-    };
-
-    [FPLibrary singlepartUploadData:data
-                              named:imageFilename
-                         ofMimetype:imageMimetype
-                            success:successBlock
-                            failure:failureBlock
-                           progress:nil];
-
-    // Wait for our block to return
-
-    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
-    {
-        runTheRunLoopOnce();
-    }
-
-    OCMVerifyAll(configMock);
-}
+// NOTE(2015-11-1): Tests are disabled since FPSinglepartUploader is currently disabled
+//- (void)testFailingSinglepartUpload
+//{
+//    dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
+//    id configMock = OCMPartialMock([FPConfig sharedInstance]);
+//
+//    OCMStub([configMock APIKey]).andReturn(@"MY_FAKE_API_KEY");
+//
+//    NSString *imageFilename = @"outline.png";
+//    NSString *imageMimetype = @"image/png";
+//    NSString *imageFixtureFilepath = OHPathForFileInBundle(imageFilename, nil);
+//    NSData *data = [NSData dataWithContentsOfFile:imageFixtureFilepath];
+//
+//    XCTAssertTrue(data.length > 0, @"Fixture data expected");
+//
+//    NSURL *expectedURL = [NSURL URLWithString:@"/api/path/computer"
+//                                relativeToURL:[FPConfig sharedInstance].baseURL];
+//
+//    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedURL
+//                            andHTTPMethod:@"POST"
+//                                 matching:OHHTTPMatchAll
+//                          withFixtureFile:@"failureResponse.json"
+//                               statusCode:200
+//                               andHeaders:@{@"Content-Type":@"text/json"}];
+//
+//    FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+//        XCTFail(@"Should not succeed");
+//    };
+//
+//    FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+//        dispatch_semaphore_signal(waitSemaphore);
+//    };
+//
+//    [FPLibrary uploadData:data
+//                    named:imageFilename
+//                   toPath:imageFilename
+//               ofMimetype:imageMimetype
+//      usingOperationQueue:nil
+//                  success:successBlock
+//                  failure:failureBlock
+//                 progress:nil];
+//
+//    // Wait for our block to return
+//
+//    while (dispatch_semaphore_wait(waitSemaphore, DISPATCH_TIME_NOW))
+//    {
+//        runTheRunLoopOnce();
+//    }
+//
+//    OCMVerifyAll(configMock);
+//}
 
 - (void)testSuccessfulMultipartUpload
 {
@@ -278,7 +271,7 @@
     dispatch_semaphore_t waitSemaphore = dispatch_semaphore_create(0);
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
 
-    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_FAKE_API_KEY");
+    OCMStub([configMock APIKey]).andReturn(@"MY-API-KEY");
 
     NSString *imageFilename = @"outline.png";
     NSString *imageMimetype = @"image/png";
@@ -344,20 +337,34 @@
                                statusCode:200
                                andHeaders:@{@"Content-Type":@"text/json"}];
 
+    NSURL *expectedEndImageURL = [NSURL URLWithString:@"api/pathoutline.png"
+                                        relativeToURL:[FPConfig sharedInstance].baseURL];
+    [OHHTTPStubs stubHTTPRequestWithNSURL:expectedEndImageURL
+                            andHTTPMethod:@"POST"
+                                 matching:OHHTTPMatchAll
+                          withFixtureFile:@"successfulMultipartSaveasResponse.json"
+                               statusCode:200
+                               andHeaders:@{@"Content-Type":@"text/json"}];
+
+//https://www.filepicker.io/api/file/Z7aGazYTXiIQTIcHiYgR
+
     FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
         dispatch_semaphore_signal(waitSemaphore);
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+        dispatch_semaphore_signal(waitSemaphore);
         XCTFail(@"Should not fail");
     };
 
-    [FPLibrary multipartUploadData:data
-                             named:imageFilename
-                        ofMimetype:imageMimetype
-                           success:successBlock
-                           failure:failureBlock
-                          progress:nil];
+    [FPLibrary uploadData:data
+                    named:imageFilename
+                   toPath:@""
+               ofMimetype:imageMimetype
+      usingOperationQueue:nil
+                  success:successBlock
+                  failure:failureBlock
+                 progress:nil];
 
     // Wait for our block to return
 
@@ -367,83 +374,14 @@
     }
 
     OCMVerifyAll(configMock);
+
+    // Remove stubs so they are not used by other test cases
+    [OHHTTPStubs removeAllStubs];
 }
 
 - (void)testFailingMultipartUpload
 {
     // TODO: Implement
-}
-
-- (void)testDataSliceWithSmallData
-{
-    size_t totalSize = 32;
-    char *bytes = malloc(totalSize);
-
-    NSData *data = [NSData dataWithBytesNoCopy:bytes
-                                        length:totalSize
-                                  freeWhenDone:YES];
-
-    NSData *dataSlice;
-
-    dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:0];
-
-    XCTAssertEqual(data.length, dataSlice.length, @"Lengths should be equal");
-    XCTAssertEqualObjects(data, dataSlice, @"Data should be fully contained in dataSlice");
-}
-
-- (void)testDataSliceWithLargeData
-{
-    NSData *dataSlice;
-    NSRange subdataRange;
-
-    size_t totalSize = (fpMaxChunkSize * 2) - 1;
-    char *bytes = malloc(totalSize);
-
-    NSData *data = [NSData dataWithBytesNoCopy:bytes
-                                        length:totalSize
-                                  freeWhenDone:YES];
-
-    dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:0];
-
-    XCTAssertEqual(dataSlice.length,
-                   fpMaxChunkSize,
-                   @"Length should be equal to fpMaxChunkSize");
-
-    subdataRange = NSMakeRange(0, fpMaxChunkSize);
-
-    XCTAssertTrue([dataSlice isEqualToData:[data subdataWithRange:subdataRange]],
-                  @"Should match");
-
-    dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:1];
-
-    XCTAssertEqual(dataSlice.length, fpMaxChunkSize - 1,
-                   @"Length should be equal to fpMaxChunkSize - 1");
-
-    subdataRange = NSMakeRange(fpMaxChunkSize, fpMaxChunkSize - 1);
-
-    XCTAssertTrue([dataSlice isEqualToData:[data subdataWithRange:subdataRange]],
-                  @"Should match");
-}
-
-- (void)testDataSliceBeyondBounds
-{
-    NSData *dataSlice;
-
-    size_t totalSize = fpMaxChunkSize;
-    char *bytes = malloc(totalSize);
-
-    NSData *data = [NSData dataWithBytesNoCopy:bytes
-                                        length:totalSize
-                                  freeWhenDone:YES];
-
-    dataSlice = [FPLibrary dataSliceWithData:data
-                                  sliceIndex:1];
-
-    XCTAssertNil(dataSlice,
-                 @"should be nil");
 }
 
 @end
