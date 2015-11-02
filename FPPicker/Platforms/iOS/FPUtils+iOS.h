@@ -34,10 +34,23 @@ typedef void (^FPFetchPHAssetImageBlock)(UIImage *image);
 
 /*!
     Asynchronously fetches the thumbnail UIImage representing the given asset.
+    Note: the completionBlock might be called multiple times, see documentation for
+    -[PHImageManager requestImageForAsset:targetSize:contentMode:options:resultHandler:]
 
     @returns void
  */
 + (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
+                                 completion:(FPFetchPHAssetImageBlock)completionBlock;
+
+
+/*!
+    Asynchronously fetches the thumbnail UIImage representing the given asset.
+    The completion block is guaranted to be called only once
+
+    @returns void
+ */
++ (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
+               ensureCompletionIsCalledOnce:(BOOL)ensureOnce
                                  completion:(FPFetchPHAssetImageBlock)completionBlock;
 
 /*!

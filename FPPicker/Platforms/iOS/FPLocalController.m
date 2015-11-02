@@ -615,6 +615,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     NSLog(@"Asset: %@", asset);
 
     [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
+                    ensureCompletionIsCalledOnce:YES
                                       completion: ^(UIImage *image) {
         FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
