@@ -151,29 +151,59 @@
 + (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
                                  completion:(FPFetchPHAssetImageBlock)completionBlock
 {
+    [[FPUtils class] asyncFetchAssetThumbnailFromPHAsset:asset
+                            ensureCompletionIsCalledOnce:NO
+                                              completion:completionBlock];
+}
+
++ (void)asyncFetchAssetThumbnailFromPHAsset:(PHAsset *)asset
+               ensureCompletionIsCalledOnce:(BOOL)ensureOnce
+                                 completion:(FPFetchPHAssetImageBlock)completionBlock;
+{
     NSInteger retinaScale = [UIScreen mainScreen].scale;
     CGSize retinaSquare = CGSizeMake(100 * retinaScale, 100 * retinaScale);
 
-    PHImageRequestOptions *cropToSquare = [PHImageRequestOptions new];
+    PHImageRequestOptions *requestOptions = [PHImageRequestOptions new];
 
-    cropToSquare.resizeMode = PHImageRequestOptionsResizeModeExact;
-    cropToSquare.networkAccessAllowed = YES;
+    requestOptions.resizeMode = PHImageRequestOptionsResizeModeExact;
+    requestOptions.networkAccessAllowed = YES;
 
+    // Crop the thumbnail so that it is a square
     CGFloat cropSideLength = MIN(asset.pixelWidth, asset.pixelHeight);
     CGRect square = CGRectMake(0, 0, cropSideLength, cropSideLength);
     CGRect cropRect = CGRectApplyAffineTransform(square,
                                                  CGAffineTransformMakeScale(1.0 / asset.pixelWidth,
                                                                             1.0 / asset.pixelHeight));
 
-    cropToSquare.normalizedCropRect = cropRect;
+    requestOptions.normalizedCropRect = cropRect;
 
-    [[PHImageManager defaultManager] requestImageForAsset:(PHAsset *)asset
-                                               targetSize:retinaSquare
-                                              contentMode:PHImageContentModeAspectFit
-                                                  options:cropToSquare
-                                            resultHandler: ^(UIImage *result, NSDictionary *info) {
-        completionBlock(result);
-    }];
+    if (ensureOnce) {
+        // #108: When synchronous=NO, PHImageManager may call the completion block twice,
+        // which will result in unexpected behavior for the caller. E.g. FPSourceController
+        // will call its `didPickMediaWithInfo` method twice instead of once.
+        // So synchronously invoke PHImageManager and us dispatch_async to avoid
+        // blocking the calling thread.
+        requestOptions.synchronous = YES;
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [[PHImageManager defaultManager] requestImageForAsset:(PHAsset *)asset
+                                                       targetSize:retinaSquare
+                                                      contentMode:PHImageContentModeAspectFit
+                                                          options:requestOptions
+                                                    resultHandler: ^(UIImage *result, NSDictionary *info) {
+                                                        completionBlock(result);
+                                                    }];
+        });
+
+    } else {
+        [[PHImageManager defaultManager] requestImageForAsset:(PHAsset *)asset
+                                                   targetSize:retinaSquare
+                                                  contentMode:PHImageContentModeAspectFit
+                                                      options:requestOptions
+                                                resultHandler: ^(UIImage *result, NSDictionary *info) {
+                                                    completionBlock(result);
+                                                }];
+
+    }
 }
 
 + (BOOL)currentAppIsAppExtension
