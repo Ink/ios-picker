@@ -110,49 +110,61 @@
     NSString *filename = [asset.localIdentifier stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     NSString *mimetype = [FPUtils mimetypeForUTI:[asset valueForKey:@"uniformTypeIdentifier"]];
 
-    NSArray<PHAssetResource *> *assetResources = [PHAssetResource assetResourcesForAsset:asset];
+    PHImageRequestOptions *imageRequestOptions = [PHImageRequestOptions new];
+    imageRequestOptions.networkAccessAllowed = YES;
 
-    if (assetResources.count > 0)
+    // #103: The PHAssetResource class is available on iOS 9 and later, so we
+    // must use PHImageManager to support iOS 8
+    [[PHImageManager defaultManager] requestImageDataForAsset:asset
+                                                      options:imageRequestOptions
+                                                resultHandler:^(NSData * _Nullable imageData,
+                                                                NSString * _Nullable dataUTI,
+                                                                UIImageOrientation orientation,
+                                                                NSDictionary * _Nullable info)
     {
-        PHAssetResourceRequestOptions *options = [PHAssetResourceRequestOptions new];
+         // It's not clear how requestImageDataForAsset will manifest a failure, so try a couple different checks
+         if (!imageData || imageData.bytes == 0) {
+             NSError *error = [[NSError alloc] initWithDomain:@"FPPicker"
+                                                         code:-10 // this is an arbitrary value
+                                                     userInfo:@{@"filePickerMessage": @"ERROR: Unable to obtain PHAssetResource from PHAsset."}];
+             if (failure) {
+                 failure(error, nil, tempURL);
+             }
+             return;
+         }
 
-        options.networkAccessAllowed = YES;
+         BOOL result = [imageData writeToURL:tempURL atomically:YES];
+         if (!result) {
+             NSString *message = [NSString stringWithFormat:@"ERROR: Unable to write image data into temporary URL at %@", tempURL];
+             NSError *error = [[NSError alloc] initWithDomain:@"FPPicker"
+                                                         code:-11 // this is an arbitrary value
+                                                     userInfo:@{@"filePickerMessage": message}];
+             if (failure) {
+                 failure(error, nil, tempURL);
+             }
+             return;
+         }
 
-        [[PHAssetResourceManager defaultManager] writeDataForAssetResource:assetResources[0]
-                                                                    toFile:tempURL
-                                                                   options:options
-                                                         completionHandler: ^(NSError * _Nullable error) {
-            if (!error)
-            {
-                FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
-                    success(JSON, tempURL);
-                };
+         FPUploadAssetSuccessBlock successBlock = ^(id JSON) {
+             success(JSON, tempURL);
+         };
 
-                FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-                    NSForceLog(@"File upload failed with %@, response was: %@", error, JSON);
+         FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
+             NSForceLog(@"File upload failed with %@, response was: %@", error, JSON);
 
-                    failure(error, JSON, tempURL);
-                };
+             if (failure) {
+                 failure(error, JSON, tempURL);
+             }
+         };
 
-                [FPLibrary uploadLocalURLToFilepicker:tempURL
-                                                named:filename
-                                           ofMimetype:mimetype
-                                  usingOperationQueue:operationQueue
-                                              success:successBlock
-                                              failure:failureBlock
-                                             progress:progress];
-            }
-            else
-            {
-                NSForceLog(@"ERROR: Unable to write image data into temporary URL at %@", tempURL);
-            }
-        }
-        ];
-    }
-    else
-    {
-        NSForceLog(@"ERROR: Unable to obtain PHAssetResource from PHAsset.");
-    }
+         [FPLibrary uploadLocalURLToFilepicker:tempURL
+                                         named:filename
+                                    ofMimetype:mimetype
+                           usingOperationQueue:operationQueue
+                                       success:successBlock
+                                       failure:failureBlock
+                                      progress:progress];
+    }];
 }
 
 @end
