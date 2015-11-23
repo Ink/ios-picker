@@ -177,9 +177,7 @@
                         success:(FPUploadAssetSuccessBlock)success
                         failure:(FPUploadAssetFailureBlock)failure
 {
-    FPSession *fpSession = [FPSession new];
-
-    fpSession.APIKey = fpAPIKEY;
+    FPSession *fpSession = [FPSession sessionForFileUploads];;
     fpSession.mimetypes = mimetype;
 
     NSDictionary *params = @{
@@ -284,9 +282,7 @@
                         andMimetypes:(NSArray *)mimetypes
                          cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    FPSession *fpSession = [FPSession new];
-
-    fpSession.APIKey = fpAPIKEY;
+    FPSession *fpSession = [FPSession sessionForFileUploads];
     fpSession.mimetypes = mimetypes;
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
