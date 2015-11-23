@@ -26,16 +26,6 @@
     return _sharedClient;
 }
 
-- (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request
-                                                    success:(void (^)(AFHTTPRequestOperation *, id))success
-                                                    failure:(void (^)(AFHTTPRequestOperation *, NSError *))failure
-{
-    //AFHTTPRequestSerializer adds User-Agent header to request
-    NSURLRequest *serializedRequest = [[AFHTTPRequestSerializer serializer] requestBySerializingRequest:request withParameters:nil error:nil];
-
-    return [super HTTPRequestOperationWithRequest:serializedRequest success:success failure:failure];
-}
-
 - (AFHTTPRequestOperation *)POST:(NSString *)URLString
                       parameters:(id)parameters
              usingOperationQueue:(NSOperationQueue *)operationQueue
