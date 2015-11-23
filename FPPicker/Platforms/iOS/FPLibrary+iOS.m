@@ -107,7 +107,7 @@
     DONT_BLOCK_UI();
 
     NSURL *tempURL = [FPUtils genRandTemporaryURLWithFileLength:20];
-    NSString *filename = [asset.localIdentifier stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
+    NSString *defaultFilename = [asset.localIdentifier stringByReplacingOccurrencesOfString:@"/" withString:@"_"];
     NSString *mimetype = [FPUtils mimetypeForUTI:[asset valueForKey:@"uniformTypeIdentifier"]];
 
     PHImageRequestOptions *imageRequestOptions = [PHImageRequestOptions new];
@@ -156,6 +156,14 @@
                  failure(error, JSON, tempURL);
              }
          };
+
+         NSString *filePath = info[@"PHImageFileURLKey"];
+         NSString *filename;
+         if (filePath) {
+             filename = [filePath lastPathComponent];
+         } else {
+             filename = defaultFilename;
+         }
 
          [FPLibrary uploadLocalURLToFilepicker:tempURL
                                          named:filename
