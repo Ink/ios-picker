@@ -73,6 +73,7 @@
             }
         }
 
+        NSLog(@"(OHHTTPS DEBUG) ✖︎ %@ MATCHES %@", [url absoluteString], [request.URL absoluteString]);
         return YES;
     };
 

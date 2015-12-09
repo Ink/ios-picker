@@ -52,52 +52,15 @@
                           @"new should return a shared instance");
 }
 
-- (void)testAPIKeyFromPList
-{
-    id configMock = OCMPartialMock([FPConfig sharedInstance]);
-
-    OCMStub([configMock APIKeyContentsFromFile]); // return nil
-
-    id mainBundleMock = OCMPartialMock([NSBundle mainBundle]);
-
-    NSDictionary *infoDictionary = [NSDictionary mergeDictionary:[[NSBundle mainBundle] infoDictionary]
-                                                            into:@{@"Filepicker API Key":@"MY_OTHER_API_KEY"}];
-
-    OCMStub([mainBundleMock infoDictionary]).andReturn(infoDictionary);
-
-    XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
-                          @"MY_OTHER_API_KEY",
-                          @"API key does not match");
-
-    OCMVerifyAll(configMock);
-}
-
 - (void)testAPIKeyUsingMacro
 {
     id configMock = OCMPartialMock([FPConfig sharedInstance]);
 
-    OCMStub([configMock APIKeyContentsFromFile]).andReturn(@"MY_API_KEY");
+    OCMStub([configMock APIKey]).andReturn(@"MY_API_KEY");
 
     XCTAssertEqualObjects([FPConfig sharedInstance].APIKey,
                           fpAPIKEY,
                           @"fpAPIKEY macro should return the same as config.APIKey");
-
-    OCMVerifyAll(configMock);
-}
-
-- (void)testAppSecretKeyFromPList
-{
-    id configMock = OCMPartialMock([FPConfig sharedInstance]);
-    id mainBundleMock = OCMPartialMock([NSBundle mainBundle]);
-
-    NSDictionary *infoDictionary = [NSDictionary mergeDictionary:[[NSBundle mainBundle] infoDictionary]
-                                                            into:@{@"Filepicker App Secret Key":@"MY_SECRET_APP_KEY"}];
-
-    OCMStub([mainBundleMock infoDictionary]).andReturn(infoDictionary);
-
-    XCTAssertEqualObjects([FPConfig sharedInstance].appSecretKey,
-                          @"MY_SECRET_APP_KEY",
-                          @"App secret key does not match");
 
     OCMVerifyAll(configMock);
 }

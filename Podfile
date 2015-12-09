@@ -10,11 +10,10 @@ target :'FPPicker' do
   pod 'AFNetworking', '~> 2.6.0'
 end
 
-target :'FPPicker Functional Tests' do
+target :'FPPicker Functional Tests iOS' do
   pod 'OCMock', '~> 3.0.2'
   pod 'OHHTTPStubs', '~> 3.1.2'
 end
-
 
 # Mac Targets
 
