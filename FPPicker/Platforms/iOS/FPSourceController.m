@@ -1207,7 +1207,14 @@ static const CGFloat ROW_HEIGHT = 44.0;
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
     mediaInfo.filename = obj[@"filename"];
-    mediaInfo.mediaType = [FPUtils UTIForMimetype:obj[@"mimetype"]];
+
+    NSString *mimeType = obj[@"mimetype"];
+    if (mimeType && ![mimeType isKindOfClass:[NSString class]]) {
+        // Fix #117: Safely cast the "mimetype" property to NSString, since it may be [NSNull null].
+        // UTIForMimetype will return a value like "dyn.agq8u" when given an empty string.
+        mimeType = @"";
+    }
+    mediaInfo.mediaType = [FPUtils UTIForMimetype:mimeType];
     mediaInfo.filesize = obj[@"bytes"];
     mediaInfo.source = self.source;
 
