@@ -1300,6 +1300,7 @@
 				458B1FE71949D726008360E9 /* Frameworks */,
 				458B1FE81949D726008360E9 /* Resources */,
 				ECA20C3827254A08B208D138 /* Copy Pods Resources */,
+				0A568C02EF86D131CE144C60 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1551,6 +1552,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0A568C02EF86D131CE144C60 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FPPicker Functional Tests/Pods-FPPicker Functional Tests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		171CD98EF20F387A7B2BD4AF /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
