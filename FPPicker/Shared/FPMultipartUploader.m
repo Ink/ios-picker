@@ -48,7 +48,9 @@
 
 - (void)doUpload
 {
-    [self uploadWithRetries:fpNumRetries];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [self uploadWithRetries:fpNumRetries];
+    });
 }
 
 #pragma mark - Private Methods
