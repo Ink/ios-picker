@@ -1,3 +1,9 @@
+v5.1.2 - [23.12.2015]
+ - Fix for #104 for displaying Photo Library if authorization is required
+ - Fix for problem with login to Instagram
+ - Fix for bug with uploading mutliple files from local library
+
+
 v5.1.1 - [03.12.2015]
  - Fix for #104 for displaying Photo Library if authorization is required
  - Fix for #100 Uploads fails when using AFNetworking 2.6.1
