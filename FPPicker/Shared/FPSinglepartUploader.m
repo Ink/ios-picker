@@ -48,7 +48,7 @@
         @"js_session":self.js_sessionString
     };
 
-    AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/path/computer/"
+    AFHTTPRequestOperation *operation = [[FPAPIClient sharedClient] POST:@"/api/upload/"
                                                               parameters:params
                                                constructingBodyWithBlock:constructingBodyBlock
                                                      usingOperationQueue:self.operationQueue
