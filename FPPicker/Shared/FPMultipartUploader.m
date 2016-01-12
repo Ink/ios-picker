@@ -96,7 +96,7 @@
         @"js_session":self.js_sessionString
     };
 
-    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=start"
+    [[FPAPIClient sharedClient] POST:@"/api/upload/multipart/start/"
                           parameters:params
                  usingOperationQueue:self.operationQueue
                              success:successOperationBlock
@@ -140,14 +140,13 @@
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
 
     /* send the chunks */
-
     for (int i = 0; i < self.totalChunks; i++)
     {
         DLog(@"Sending slice #%d", i);
 
         NSString *uploadPath;
 
-        uploadPath = [NSString stringWithFormat:@"/api/path/computer/?multipart=upload&id=%@&index=%d&js_session=%@",
+        uploadPath = [NSString stringWithFormat:@"/api/upload/multipart/upload/?id=%@&index=%d&js_session=%@",
                       self.uploadID,
                       i,
                       escapedSessionString];
@@ -284,7 +283,7 @@
         @"js_session":self.js_sessionString
     };
 
-    [[FPAPIClient sharedClient] POST:@"/api/path/computer/?multipart=end"
+    [[FPAPIClient sharedClient] POST:@"/api/upload/multipart/end/"
                           parameters:params
                  usingOperationQueue:self.operationQueue
                              success:successOperationBlock
