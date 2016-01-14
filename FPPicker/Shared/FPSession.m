@@ -57,6 +57,10 @@
         sessionObject[@"signature"] = self.securitySignature;
     }
 
+    // Add "version" key-value required by FileStack API to upload files from external storage
+    // to provided storeLocation, storePath and storeContainer.
+    sessionObject[@"version"] = @"v1";
+
     return [FPUtils JSONEncodeObject:sessionObject
                                error:&error];
 }
