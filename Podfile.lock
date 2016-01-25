@@ -25,20 +25,17 @@ PODS:
   - OHHTTPStubs (3.1.12):
     - OHHTTPStubs/Core (= 3.1.12)
   - OHHTTPStubs/Core (3.1.12)
-  - PureLayout (2.0.6)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.6.0)
   - MBProgressHUD (~> 0.9)
   - OCMock (~> 3.0.2)
   - OHHTTPStubs (~> 3.1.2)
-  - PureLayout (~> 2.0.6)
 
 SPEC CHECKSUMS:
   AFNetworking: 79f7eb1a0fcfa7beb409332b2ca49afe9ce53b05
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
   OCMock: 1f0871af0f397183f33e7552cca088bd2b485c25
   OHHTTPStubs: 8cf0cfe6f34f13fc88fdf5b2a1b2c2536e8c0261
-  PureLayout: f25f0bb904d5ccfe6e31da3cb869185259f02e0d
 
 COCOAPODS: 0.39.0
