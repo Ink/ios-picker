@@ -207,7 +207,7 @@
 
 + (NSString *)filePickerLocationWithOptionalSecurityFor:(NSString *)filePickerLocation
 {
-    if (fpAPPSECRETKEY)
+    if (fpAPPSECURITYPOLICY)
     {
         NSString *handle = [[NSURL URLWithString:filePickerLocation] lastPathComponent];
 
@@ -215,12 +215,9 @@
                  @"Failed to extract handle from %@",
                  filePickerLocation);
 
-        NSString *policy = [self policyForHandle:handle
-                                  expiryInterval:3600.0
-                                  andCallOptions:@[@"read"]];
+        NSString *policy = fpAPPSECURITYPOLICY;
 
-        NSString *signature = [self signPolicy:policy
-                                      usingKey:fpAPPSECRETKEY];
+        NSString *signature = fpAPPSECURITYSIGNATURE;
 
         NSString *queryString = [NSString stringWithFormat:@"?policy=%@&signature=%@",
                                  policy,

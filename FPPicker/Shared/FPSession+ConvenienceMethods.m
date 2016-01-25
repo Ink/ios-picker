@@ -26,15 +26,11 @@
 
 - (void)populateSecurityPropertiesFromConfig
 {
-    if (fpAPPSECRETKEY)
+    if (fpAPPSECURITYPOLICY)
     {
-        NSString *securityPolicy = [FPUtils policyForHandle:nil
-                                             expiryInterval:3600.0
-                                             andCallOptions:nil];
+        NSString *securityPolicy = fpAPPSECURITYPOLICY;
 
-        NSString *securitySignature = [FPUtils signPolicy:securityPolicy
-                                                 usingKey:fpAPPSECRETKEY];
-
+        NSString *securitySignature = fpAPPSECURITYSIGNATURE;
         self.securityPolicy = securityPolicy;
         self.securitySignature = securitySignature;
     }
