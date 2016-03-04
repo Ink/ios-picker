@@ -25,7 +25,8 @@
                                           withFormat:@"data"
                                          queryString:nil
                                         andMimetypes:source.mimetypes
-                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData];
+                                         cachePolicy:NSURLRequestReloadRevalidatingCacheData
+                                     shouldURLEncode:NO];
 
     NSString *tempPath = [NSTemporaryDirectory() stringByAppendingPathComponent:[FPUtils genRandStringLength:20]];
 
@@ -282,6 +283,21 @@
                         andMimetypes:(NSArray *)mimetypes
                          cachePolicy:(NSURLRequestCachePolicy)policy
 {
+    return [self requestForLoadPath:loadpath
+                         withFormat:type
+                        queryString:queryString
+                       andMimetypes:mimetypes
+                        cachePolicy:policy
+                    shouldURLEncode:YES];
+}
+
++ (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
+                          withFormat:(NSString *)type
+                         queryString:(NSString *)queryString
+                        andMimetypes:(NSArray *)mimetypes
+                         cachePolicy:(NSURLRequestCachePolicy)policy
+                     shouldURLEncode:(BOOL)encode;
+{
     FPSession *fpSession = [FPSession sessionForFileUploads];
     fpSession.mimetypes = mimetypes;
 
@@ -289,7 +305,14 @@
     NSURLComponents *urlComponents = [NSURLComponents componentsWithString:fpBASE_URL];
 
     urlComponents.query = queryString;
-    urlComponents.path = [NSString stringWithFormat:@"/api/path%@", loadpath];
+    if (encode)
+    {
+        urlComponents.path = [NSString stringWithFormat:@"/api/path%@", loadpath];
+    }
+    else
+    {
+        urlComponents.percentEncodedPath = [NSString stringWithFormat:@"/api/path%@", loadpath];
+    }
 
     NSArray *queryItems = @[
         [NSURLQueryItem queryItemWithName:@"format" value:type],
