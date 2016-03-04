@@ -283,12 +283,12 @@
                         andMimetypes:(NSArray *)mimetypes
                          cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    [self requestForLoadPath:loadpath
-                  withFormat:type
-                 queryString:queryString
-                andMimetypes:mimetypes
-                 cachePolicy:policy
-             shouldURLEncode:YES];
+    return [self requestForLoadPath:loadpath
+                         withFormat:type
+                        queryString:queryString
+                       andMimetypes:mimetypes
+                        cachePolicy:policy
+                    shouldURLEncode:YES];
 }
 
 + (NSURLRequest *)requestForLoadPath:(NSString *)loadpath
