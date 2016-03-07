@@ -1,3 +1,6 @@
+v5.1.5 - [07.03.2016]
+- Fix for bug with Facebook where loading 'next page' of photos would load the same 25 photos each time.
+
 v5.1.4 - [24.01.2016]
 - Fix for #98 Saving from external source to provided storage location
 
