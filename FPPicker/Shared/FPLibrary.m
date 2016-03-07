@@ -288,7 +288,7 @@
     NSString *escapedSessionString = [FPUtils urlEncodeString:[fpSession JSONSessionString]];
     NSURLComponents *urlComponents = [NSURLComponents componentsWithString:fpBASE_URL];
 
-    urlComponents.query = queryString;
+    urlComponents.percentEncodedQuery = queryString;
     urlComponents.path = [NSString stringWithFormat:@"/api/path%@", loadpath];
 
     NSArray *queryItems = @[
