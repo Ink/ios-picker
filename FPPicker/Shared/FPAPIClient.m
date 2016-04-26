@@ -45,7 +45,7 @@
 
     if (error)
     {
-        DLog(@"Error serializing request: %@: %@", serializedRequest, error);
+        FPLogError(@"Error serializing request: %@: %@", serializedRequest, error);
 
         return nil;
     }

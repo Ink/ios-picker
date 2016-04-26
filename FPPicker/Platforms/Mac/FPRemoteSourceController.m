@@ -42,7 +42,7 @@
                                              andMimetypes:self.representedSource.source.mimetypes
                                               cachePolicy:policy];
 
-    DLog(@"Loading Contents from URL: %@", request.URL);
+    FPLogInfo(@"Loading Contents from URL: %@", request.URL);
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
@@ -199,7 +199,7 @@
         }
         else
         {
-            DLog(@"Error when performing operation %@: %@", operation, error);
+            FPLogError(@"Error when performing operation %@: %@", operation, error);
         }
     };
 

@@ -89,7 +89,7 @@
         }
         else
         {
-            DLog(@"Upload succeeded with response: %@", JSON);
+            FPLogInfo(@"Upload succeeded with response: %@", JSON);
         }
     };
 
@@ -107,7 +107,7 @@
         }
         else
         {
-            DLog(@"Error saving %@, %@", error, JSON);
+            FPLogError(@"Error saving %@, %@", error, JSON);
         }
     };
 

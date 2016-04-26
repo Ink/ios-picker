@@ -132,12 +132,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //NSLog(@"Selecting %d", indexPath.row);
+    //FPLogInfo(@"Selecting %d", indexPath.row);
 
     NSString *sourceCategory = [self.sources allKeys][indexPath.section];
     FPSource *source = self.sources[sourceCategory][indexPath.row];
 
-    //NSLog(@"Source %@", source);
+    //FPLogInfo(@"Source %@", source);
 
     if (source.identifier == FPSourceCamera)
     {
@@ -160,15 +160,15 @@
 
                 NSMutableArray *wantedMediaTypes = [NSMutableArray array];
 
-                NSLog(@"ALL TYPES: %@", allMediaTypes);
+                FPLogInfo(@"ALL TYPES: %@", allMediaTypes);
 
                 if ([allMediaTypes containsObject:(NSString *)kUTTypeImage])
                 {
-                    NSLog(@"CAN DO IMAGES");
+                    FPLogInfo(@"CAN DO IMAGES");
 
                     NSArray *images = @[@"image/jpeg", @"image/png"];
 
-                    NSLog(@"SHOULD DO IMAGES");
+                    FPLogInfo(@"SHOULD DO IMAGES");
 
                     if ([self mimetypeCheck:images
                                     against:self.dataTypes])
@@ -179,14 +179,14 @@
 
                 if ([allMediaTypes containsObject:(NSString *)kUTTypeMovie])
                 {
-                    NSLog(@"CAN DO VIDEO");
+                    FPLogInfo(@"CAN DO VIDEO");
 
                     NSArray *videos = @[@"video/quicktime"];
 
                     if ([self mimetypeCheck:videos
                                     against:self.dataTypes])
                     {
-                        NSLog(@"SHOULD DO VIDEO");
+                        FPLogInfo(@"SHOULD DO VIDEO");
                         [wantedMediaTypes addObject:(NSString *)kUTTypeMovie];
                     }
                 }
@@ -234,7 +234,7 @@
             }
             else
             {
-                NSForceLog(@"ERROR: %@", errorMessage);
+                FPLogError(@"ERROR: %@", errorMessage);
 
                 [tableView deselectRowAtIndexPath:indexPath
                                          animated:NO];

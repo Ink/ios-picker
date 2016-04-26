@@ -136,7 +136,7 @@
 
     if (fileSizeError)
     {
-        NSLog(@"Error when getting filesize of %@: %@",
+        FPLogError(@"Error when getting filesize of %@: %@",
               url,
               fileSizeError);
     }
@@ -171,7 +171,7 @@
 
     if (error)
     {
-        NSLog(@"Error JSON encoding object (%@): %@",
+        FPLogError(@"Error JSON encoding object (%@): %@",
               policyDictionary,
               error);
 
@@ -257,7 +257,7 @@
 
     if (error)
     {
-        DLog(@"Error: %@", error);
+        FPLogError(@"Error: %@", error);
 
         return NO;
     }

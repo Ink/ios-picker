@@ -47,7 +47,7 @@
     if (self.serialOperationQueue.operationCount > 0 ||
         self.parallelOperationQueue.operationCount > 0)
     {
-        DLog(@"Cancelling all operations on %@", self);
+        FPLogInfo(@"Cancelling all operations on %@", self);
 
         [self.serialOperationQueue cancelAllOperations];
         [self.parallelOperationQueue cancelAllOperations];

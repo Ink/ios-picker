@@ -135,7 +135,7 @@
 - (void)FPFileTransferControllerDidFail:(FPFileTransferController *)transferController
                                   error:(NSError *)error
 {
-    DLog(@"Error downloading: %@", error);
+    FPLogError(@"Error downloading: %@", error);
 }
 
 - (void)FPFileTransferControllerDidCancel:(FPFileTransferController *)transferController

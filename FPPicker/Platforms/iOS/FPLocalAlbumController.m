@@ -73,14 +73,11 @@
 
     NSArray *requestedTypes = _source.mimetypes;
 
-    NSLog(@"Requested %@", requestedTypes);
+    FPLogInfo(@"Requested %@", requestedTypes);
 
     [self shouldShowImagesAndVideoForMimetypes:requestedTypes
                                   resultImages:&showImages
                                   resultVideos:&showVideos];
-
-    NSLog(showImages ? @"Images: Yes" : @"Images: No");
-    NSLog(showVideos ? @"Videos: Yes" : @"Videos: No");
 
     CGRect bounds = self.view.bounds;
 

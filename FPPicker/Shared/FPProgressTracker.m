@@ -35,13 +35,13 @@
     float clampedProgress = FPCLAMP(progress, 0.0f, 1.0f);
 
     if(key == nil){
-        NSLog(@"Invalid progress key");
+        FPLogError(@"Invalid progress key");
         return 0;
     }
     
     if (progress != clampedProgress)
     {
-        NSLog(@"Invalid progress: %f, bounding", progress);
+        FPLogError(@"Invalid progress: %f, bounding", progress);
     }
 
     self.progressMap[key] = @(clampedProgress);

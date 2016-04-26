@@ -58,7 +58,7 @@
 
         if (error)
         {
-            DLog(@"Error: %@", error);
+            FPLogError(@"Error: %@", error);
 
             continue;
         }
@@ -80,7 +80,7 @@
             [cookieStorage deleteCookie:cookie];
             [cookieStorage setCookie:newcookie];
 
-            NSForceLog(@"Removed iframe from session cookie.");
+            FPLogInfo(@"Removed iframe from session cookie.");
         }
     }
 }
@@ -253,7 +253,7 @@
 {
     NSURL *url = sender.mainFrame.provisionalDataSource.request.URL;
 
-    DLog(@"Started loading %@", url);
+    FPLogInfo(@"Started loading %@", url);
 
     [self.progressIndicator startAnimation:self];
 }
@@ -263,7 +263,7 @@
 {
     NSURL *url = sender.mainFrame.provisionalDataSource.request.URL;
 
-    DLog(@"Redirecting to %@", url);
+    FPLogInfo(@"Redirecting to %@", url);
 }
 
 - (void)          webView:(WebView *)sender
@@ -315,7 +315,7 @@
     {
         // This will typically happen when user requests to close the authentication sheet.
 
-        DLog(@"User cancelled load request.");
+        FPLogInfo(@"User cancelled load request.");
     }
     else
     {

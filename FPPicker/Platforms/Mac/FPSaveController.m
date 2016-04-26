@@ -155,7 +155,7 @@
             }
             else
             {
-                DLog(@"Error getting size for URL %@: %@",
+                FPLogError(@"Error getting size for URL %@: %@",
                      self.dataURL,
                      fileSizeError);
             }
@@ -166,7 +166,7 @@
     }
     else
     {
-        DLog(@"Upload finished: %@", info);
+        FPLogInfo(@"Upload finished: %@", info);
     }
 }
 
@@ -181,7 +181,7 @@
     }
     else
     {
-        DLog(@"Upload failed: %@", error);
+        FPLogError(@"Upload failed: %@", error);
     }
 }
 
@@ -194,7 +194,7 @@
     }
     else
     {
-        DLog(@"Upload was cancelled.");
+        FPLogInfo(@"Upload was cancelled.");
     }
 }
 

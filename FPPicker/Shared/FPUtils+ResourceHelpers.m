@@ -47,7 +47,7 @@
 
     if (error)
     {
-        NSForceLog(@"Error loading XUI javascript contents: %@", error);
+        FPLogError(@"Error loading XUI javascript contents: %@", error);
 
         return nil;
     }

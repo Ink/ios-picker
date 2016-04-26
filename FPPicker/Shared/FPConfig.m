@@ -39,6 +39,25 @@ static FPConfig *FPSharedInstance = nil;
     return [self sharedInstance];
 }
 
+#pragma mark - Logging
++ (void)logMessage:(NSString *)message logLevel:(FPLogLevel)logLevel
+{
+    FPLoggingBlock loggingBlock = [FPConfig sharedInstance].loggingBlock;
+    if (loggingBlock) {
+        loggingBlock(message, logLevel);
+    } else {
+#if DEBUG
+        // For DEBUG builds, log everything to the console.
+        NSLog(@"%@", message);
+#else
+        if (logLevel == FPErrorLogLevel) {
+            // For RELEASE builds, log to the console only for errors.
+            NSLog(@"%@", message);
+        }
+#endif
+    }
+}
+
 #pragma mark - Accessors
 
 - (NSURL *)baseURL
@@ -66,7 +85,7 @@ static FPConfig *FPSharedInstance = nil;
             {
                 CGFloat compresionQuality = 0.6;
 
-                DLog(@"Compressing JPEG with %f compression quality.", compresionQuality);
+                FPLogInfo(@"Compressing JPEG with %f compression quality.", compresionQuality);
 
                 UIImage *image = [UIImage imageWithContentsOfFile:localURL.path];
                 NSData *filedata = UIImageJPEGRepresentation(image, compresionQuality);

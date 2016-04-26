@@ -243,7 +243,7 @@ typedef enum : NSUInteger
 - (void)       sourceController:(FPBaseSourceController *)sender
     didFailContentLoadWithError:(NSError *)error
 {
-    DLog(@"Error loading content: %@", error);
+    FPLogError(@"Error loading content: %@", error);
 
     [self.progressIndicator stopAnimation:self];
 }

@@ -125,7 +125,7 @@
         };
 
         FPFetchObjectFailureBlock failureBlock = ^(NSError * error) {
-            DLog(@"Error retrieving %@: %@", item[@"link_path"], error.localizedDescription);
+            FPLogError(@"Error retrieving %@: %@", item[@"link_path"], error.localizedDescription);
 
             markProgress();
         };
