@@ -487,7 +487,7 @@
 
                 AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                                          NSError *error) {
-                    DLog(@"Thumbnail image %@ load error: %@", itemUID, error.localizedDescription);
+                    FPLogError(@"Thumbnail image %@ load error: %@", itemUID, error.localizedDescription);
 
                     if (retriesLeft > 1)
                     {
@@ -495,7 +495,7 @@
 
                         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * currentRetries * NSEC_PER_SEC)),
                                        dispatch_get_main_queue(), ^{
-                            DLog(@"Retrying thumbnail download of %@ [%ld/%ld]",
+                            FPLogInfo(@"Retrying thumbnail download of %@ [%ld/%ld]",
                                  iconURL,
                                  currentRetries,
                                  maxRetries);

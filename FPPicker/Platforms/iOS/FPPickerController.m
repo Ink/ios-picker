@@ -156,13 +156,13 @@
 
     if (editedImage)
     {
-        NSLog(@"USING EDITED IMAGE");
+        FPLogInfo(@"USING EDITED IMAGE");
 
         imageToSave = editedImage;
     }
     else
     {
-        NSLog(@"USING ORIGINAL IMAGE");
+        FPLogInfo(@"USING ORIGINAL IMAGE");
 
         imageToSave = originalImage;
     }
@@ -205,11 +205,11 @@
 
         mediaInfo.mediaType = info[@"UIImagePickerControllerMediaType"];
 
-        NSLog(@"Picked something from local camera: %@ %@", info, mediaInfo.mediaType);
+        FPLogInfo(@"Picked something from local camera: %@ %@", info, mediaInfo.mediaType);
 
         FPUploadAssetSuccessWithLocalURLBlock successBlock = ^(id JSON,
                                                                NSURL *localURL) {
-            NSLog(@"JSON: %@", JSON);
+            FPLogInfo(@"JSON: %@", JSON);
 
             NSDictionary *data = JSON[@"data"][0][@"data"];
 
@@ -277,8 +277,7 @@
         else
         {
             dispatch_async(dispatch_get_main_queue(), ^{
-                NSLog(@"Error. We couldn't handle this file %@", info);
-                NSLog(@"Type: %@", info[@"UIImagePickerControllerMediaType"]);
+                FPLogError(@"Error. We couldn't handle this file %@ with type %@", info, info[@"UIImagePickerControllerMediaType"]);
 
                 [MBProgressHUD hideHUDForView:self.view
                                      animated:YES];

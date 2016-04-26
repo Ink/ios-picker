@@ -8,8 +8,14 @@
 
 @import Foundation;
 
+typedef NS_ENUM(NSUInteger, FPLogLevel) {
+    FPInfoLogLevel,
+    FPErrorLogLevel,
+};
+
 typedef void (^FPVideoUploadPreprocessorBlock)(NSURL *localURL);
 typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimetype);
+typedef void (^FPLoggingBlock)(NSString *message, FPLogLevel logLevel);
 
 @interface FPConfig : NSObject
 
@@ -68,8 +74,19 @@ typedef void (^FPImageUploadPreprocessorBlock)(NSURL *localURL, NSString *mimety
 @property (nonatomic, copy) FPImageUploadPreprocessorBlock imageUploadPreprocessorBlock;
 
 /*!
+ User-definable block so the host application can be aware of errors within the FP library.
+ The library will log to the console if loggingBlock is nil.
+ */
+@property (nonatomic, copy) FPLoggingBlock loggingBlock;
+
+/*!
    Returns a singleton FPConfig instance.
  */
 + (instancetype)sharedInstance;
+
+/*!
+ Emit a log message to the console or invoke the logging block.
+ */
++ (void)logMessage:(NSString *)message logLevel:(FPLogLevel)logLevel;
 
 @end

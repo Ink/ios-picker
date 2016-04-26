@@ -115,7 +115,7 @@
 
         if (error)
         {
-            DLog(@"Error deleting temporary file at %@: %@", tempURL, error);
+            FPLogError(@"Error deleting temporary file at %@: %@", tempURL, error);
         }
 
         // Return success response
@@ -154,7 +154,7 @@
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error,
                                                id JSON) {
-        DLog(@"File upload failed with %@, response was: %@", error, JSON);
+        FPLogError(@"File upload failed with %@, response was: %@", error, JSON);
 
         failure(error, JSON);
     };
@@ -252,7 +252,7 @@
 //
 //    if (fileSize <= fpMaxChunkSize)
 //    {
-//        DLog(@"Uploading singlepart");
+//        FPLogInfo(@"Uploading singlepart");
 //
 //        fileUploader = [[FPSinglepartUploader alloc] initWithLocalURL:localURL
 //                                                             filename:filename
@@ -261,7 +261,7 @@
 //    }
 //    else
     {
-        DLog(@"Uploading multipart");
+        FPLogInfo(@"Uploading multipart");
 
         fileUploader = [[FPMultipartUploader alloc] initWithLocalURL:localURL
                                                             filename:filename

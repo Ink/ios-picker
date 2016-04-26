@@ -52,7 +52,7 @@
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        DLog(@"File upload failed with %@, response was: %@", error, JSON);
+        FPLogError(@"File upload failed with %@, response was: %@", error, JSON);
 
         failure(error, JSON, tempURL);
     };
@@ -82,7 +82,7 @@
     };
 
     FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-        DLog(@"File upload failed with %@, response was: %@", error, JSON);
+        FPLogError(@"File upload failed with %@, response was: %@", error, JSON);
 
         failure(error, JSON, url);
     };
@@ -150,7 +150,7 @@
          };
 
          FPUploadAssetFailureBlock failureBlock = ^(NSError *error, id JSON) {
-             NSForceLog(@"File upload failed with %@, response was: %@", error, JSON);
+             FPLogError(@"File upload failed with %@, response was: %@", error, JSON);
 
              if (failure) {
                  failure(error, JSON, tempURL);

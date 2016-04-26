@@ -353,7 +353,7 @@ typedef void (^FPSimpleAPIPostAuthenticationActionBlock)();
     }
     else
     {
-        NSForceLog(@"Source `%@` requires authentication but the delegate does not implement `-simpleAPI:requiresAuthenticationForSource: to handle it.`", self.source.identifier);
+        FPLogError(@"Source `%@` requires authentication but the delegate does not implement `-simpleAPI:requiresAuthenticationForSource: to handle it.`", self.source.identifier);
     }
 }
 

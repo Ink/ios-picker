@@ -345,7 +345,7 @@
     }
     else
     {
-        NSForceLog(@"Perform action called, but no delegate found to handle it.");
+        FPLogError(@"Perform action called, but no delegate found to handle it.");
     }
 }
 
@@ -357,7 +357,7 @@
     }
     else
     {
-        NSForceLog(@"Cancel action called, but no delegate found to handle it.");
+        FPLogError(@"Cancel action called, but no delegate found to handle it.");
     }
 }
 

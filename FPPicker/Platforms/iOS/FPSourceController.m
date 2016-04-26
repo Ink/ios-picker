@@ -225,7 +225,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     {
         if ([self.viewType isEqualToString:@"thumbnails"])
         {
-            NSLog(@"Numofrows: %d %lu",
+            FPLogInfo(@"Numofrows: %d %lu",
                   (int)ceilf(1.0f * self.contents.count / self.numPerRow),
                   (unsigned long)self.contents.count);
 
@@ -339,7 +339,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
 - (UITableViewCell *)setupThumbnailCell:(UITableViewCell *)cell atIndex:(NSInteger)itemIndex
 {
-    NSLog(@"Thumbnail");
+    FPLogInfo(@"Thumbnail");
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                           action:@selector(singleTappedWithGesture:)];
@@ -356,7 +356,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     {
         NSInteger index = self.numPerRow * itemIndex + i;
 
-        NSLog(@"index: %ld", (long)index);
+        FPLogInfo(@"index: %ld", (long)index);
 
         if (index >= self.contents.count)
         {
@@ -462,7 +462,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
     {
         NSString *urlString = obj[@"thumbnail"];
 
-        NSLog(@"Thumb with URL: %@", urlString);
+        FPLogInfo(@"Thumb with URL: %@", urlString);
 
         if (isDir)
         {
@@ -635,7 +635,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             };
 
             FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-                NSForceLog(@"FAIL %@", error);
+                FPLogError(@"FAIL %@", error);
 
                 if (error.code == kCFURLErrorNotConnectedToInternet ||
                     error.code == kCFURLErrorRedirectToNonExistentLocation ||
@@ -785,7 +785,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 - (void)fpLoadResponseSuccessAtPath:(NSString *)loadpath
                          withResult:(id)JSON
 {
-    NSLog(@"Loading Contents: %@", JSON);
+    FPLogInfo(@"Loading Contents: %@", JSON);
 
     self.contents = JSON[@"contents"];
     self.viewType = JSON[@"view"];
@@ -863,7 +863,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     if ([FPUtils currentAppIsAppExtension])
     {
-        NSForceLog(@"ERROR: %@", error);
+        FPLogError(@"ERROR: %@", error);
 
         if (handler)
         {
@@ -903,7 +903,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 - (void)fpPreloadContents:(NSString *)loadpath
               cachePolicy:(NSURLRequestCachePolicy)policy
 {
-    NSLog(@"trying to refresh a path");
+    FPLogInfo(@"trying to refresh a path");
     [self fpPreloadContents:loadpath
                     forCell:-1
                 cachePolicy:policy];
@@ -938,7 +938,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
 - (void)fpLoadNextPage
 {
-    NSLog(@"Next page: %@", self.nextPage);
+    FPLogInfo(@"Next page: %@", self.nextPage);
 
     NSURLComponents *urlComponents = [NSURLComponents componentsWithString:self.path];
 
@@ -963,7 +963,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        FPLogInfo(@"JSON: %@", responseObject);
 
         NSMutableArray *tempArray = [[NSMutableArray alloc] initWithArray:self.contents];
 
@@ -994,7 +994,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationFailureBlock failureOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              NSError *error) {
-        NSForceLog(@"ERROR: %@", error);
+        FPLogError(@"ERROR: %@", error);
 
         self.nextPage = nil;
 
@@ -1134,7 +1134,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         };
 
         FPFetchObjectFailureBlock failureBlock = ^(NSError *error) {
-            NSForceLog(@"ERROR: %@", error);
+            FPLogError(@"ERROR: %@", error);
 
             [self fpLoadResponseFailureWithError:error
                                          handler: ^{
@@ -1202,7 +1202,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
             failure:(FPFetchObjectFailureBlock)failure
            progress:(FPFetchObjectProgressBlock)progress
 {
-    DLog(@"Selected Contents: %@", obj);
+    FPLogInfo(@"Selected Contents: %@", obj);
 
     FPMediaInfo *mediaInfo = [FPMediaInfo new];
 
@@ -1251,7 +1251,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 {
     NSString *urlString = [NSString stringWithFormat:@"%@/api/client/%@/unauth", fpBASE_URL, self.source.identifier];
 
-    NSLog(@"Logout: %@", urlString);
+    FPLogInfo(@"Logout: %@", urlString);
 
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]
                                              cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData
@@ -1262,7 +1262,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        NSLog(@"Logout result: %@", responseObject);
+        FPLogInfo(@"Logout result: %@", responseObject);
 
         [self fpPreloadContents:self.path
                     cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData];
@@ -1272,7 +1272,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         for (NSHTTPCookie __unused *cookie in cookieStorage.cookies)
         {
-            NSLog(@"%@", cookie.domain);
+            FPLogInfo(@"%@", cookie.domain);
         }
 
         for (NSString *urlString in self.source.externalDomains)
@@ -1288,7 +1288,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
 
         for (NSHTTPCookie __unused *cookie in cookieStorage.cookies)
         {
-            NSLog(@"- %@", cookie.domain);
+            FPLogInfo(@"- %@", cookie.domain);
         }
 
 
@@ -1324,7 +1324,7 @@ static const CGFloat ROW_HEIGHT = 44.0;
         }
         else
         {
-            NSForceLog(@"ERROR: %@", error);
+            FPLogError(@"ERROR: %@", error);
         }
     };
 

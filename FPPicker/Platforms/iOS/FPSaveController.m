@@ -82,14 +82,14 @@
     if (!self.data &&
         !self.dataurl)
     {
-        NSLog(@"WARNING: No data specified. Continuing but saving blank file.");
+        FPLogError(@"WARNING: No data specified. Continuing but saving blank file.");
         self.data = [@"" dataUsingEncoding:NSUTF8StringEncoding];
     }
 
     if (!self.dataType &&
         !self.dataExtension)
     {
-        NSLog(@"WARNING: No data type or data extension specified");
+        FPLogError(@"WARNING: No data type or data extension specified");
     }
 
     FPSourceListController *fpSourceListController = [FPSourceListController new];
@@ -130,7 +130,7 @@
     hud.mode = MBProgressHUDModeDeterminate;
     hud.labelText = @"Uploading...";
 
-    DLog(@"Saving %@%@ to %@", filename, [self getExtensionString], path);
+    FPLogInfo(@"Saving %@%@ to %@", filename, [self getExtensionString], path);
 
     filename = [filename stringByAppendingString:[self getExtensionString]];
 

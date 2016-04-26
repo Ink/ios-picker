@@ -134,7 +134,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         self.padding = (int)((CGRectGetWidth(bounds) - self.numPerRow * self.thumbSize) / (self.numPerRow + 1.0f));
     }
 
-    NSLog(@"numperro; %d", self.numPerRow);
+    FPLogInfo(@"numperro; %d", self.numPerRow);
 
     // Just make one instance empty label
 
@@ -163,7 +163,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
         [collector addObject:obj];
     }];
 
-    NSLog(@"%ld things presented", (unsigned long)collector.count);
+    FPLogInfo(@"%ld things presented", (unsigned long)collector.count);
 
     [self setPhotos:collector];
     [self.tableView reloadData];
@@ -390,7 +390,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 {
     PHAsset *asset = self.photos[index];
 
-    NSLog(@"Selection at Index: %ld", (long)index);
+    FPLogInfo(@"Selection at Index: %ld", (long)index);
 
     if (self.selectMultiple)
     {
@@ -421,7 +421,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
 
         FPLocalUploadAssetFailureBlock failureBlock = ^(NSError *error,
                                                         FPMediaInfo *info) {
-            NSLog(@"Error %@:", error);
+            FPLogError(@"Error %@:", error);
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [MBProgressHUD hideAllHUDsForView:self.navigationController.view
@@ -537,7 +537,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
                                                         FPMediaInfo *info) {
             // Carry on!
 
-            NSLog(@"Had an error while uploading multiple files, pressing onwards. Error was %@, info was %@",
+            FPLogError(@"Had an error while uploading multiple files, pressing onwards. Error was %@, info was %@",
                   error,
                   info);
 
@@ -612,7 +612,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
             failure:(FPLocalUploadAssetFailureBlock)failure
            progress:(FPLocalUploadAssetProgressBlock)progress
 {
-    NSLog(@"Asset: %@", asset);
+    FPLogInfo(@"Asset: %@", asset);
 
     [FPUtils asyncFetchAssetThumbnailFromPHAsset:asset
                     ensureCompletionIsCalledOnce:YES
@@ -641,7 +641,7 @@ typedef void (^FPLocalUploadAssetProgressBlock)(float progress);
     }
     else
     {
-        NSForceLog(@"Media type %@ not handled.", @(asset.mediaType));
+        FPLogError(@"Media type %@ not handled.", @(asset.mediaType));
 
         failure([FPUtils errorWithCode:200
                andLocalizedDescription         :@"Invalid asset type"],

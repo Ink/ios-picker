@@ -150,15 +150,14 @@
     shouldStartLoadWithRequest:(NSURLRequest *)request
                 navigationType:(UIWebViewNavigationType)navigationType
 {
-    DLog(@"Loading Path: %@ (relpath: %@)",
-         request.URL.absoluteString,
-         request.URL.path);
+    // Note: do not log the query parameters since it may contain the oauth token.
+    FPLogInfo(@"Loading Path: %@://%@%@",
+              request.URL.scheme,
+              request.URL.host,
+              request.URL.path);
 
     if ([request.URL.path isEqualToString:@"/dialog/open"])
     {
-        //NSLog(@"HIT");
-        //NSLog(@"Coookies: %@", fpCOOKIES);
-
         [[NSNotificationCenter defaultCenter] postNotificationName:FPPickerDidAuthenticateAgainstSourceNotification
                                                             object:self.source];
 
@@ -183,7 +182,7 @@
             if ([FPUtils validateURL:normalizedString
                    againstURLPattern     :object])
             {
-                NSForceLog(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
+                FPLogError(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
 
                 return NO;
             }
@@ -217,7 +216,7 @@
 
         #endif
 
-        NSForceLog(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
+        FPLogError(@"REJECTING URL FOR WEBVIEW: %@", request.URL.absoluteString);
 
         return NO;
     }
@@ -242,7 +241,7 @@
     if ([error.domain isEqualToString:@"WebKitErrorDomain"] &&
         error.code != WebKitErrorFrameLoadInterruptedByPolicyChange)
     {
-        NSForceLog(@"Web view load error: %@", error);
+        FPLogError(@"Web view load error: %@", error);
     }
 }
 

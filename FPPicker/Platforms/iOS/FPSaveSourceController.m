@@ -45,7 +45,7 @@
          self.source.identifier == FPSourcePicasa) &&
         [self.path isEqualToString:[NSString stringWithFormat:@"%@/", self.source.rootPath]])
     {
-        NSLog(@"SPECIAL");
+        FPLogInfo(@"SPECIAL");
 
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0, 0.0, 200, 21.0)];
 
@@ -223,7 +223,7 @@
     [self.fpdelegate sourceController:self
                  didPickMediaWithInfo:nil];
 
-    NSLog(@"Path %@", self.path);
+    FPLogInfo(@"Path %@", self.path);
 
     FPSaveController *saveC = (FPSaveController *)self.fpdelegate;
 
@@ -255,7 +255,7 @@
         [self textFieldDidChange:self.textField];
     }
 
-    NSLog(@"selected");
+    FPLogInfo(@"selected");
 
     return;
 }

@@ -61,7 +61,7 @@
 
     AFRequestOperationSuccessBlock successOperationBlock = ^(AFHTTPRequestOperation *operation,
                                                              id responseObject) {
-        DLog(@"Response: %@", responseObject);
+        FPLogInfo(@"Response: %@", responseObject);
 
         // Set progress to 1/3 of the total
 
@@ -134,7 +134,7 @@
 
 - (void)uploadChunks
 {
-    DLog(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
+    FPLogInfo(@"Filesize: %lu chunks: %d", (unsigned long)self.fileSize, (int)self.totalChunks);
 
     NSString *escapedSessionString = [FPUtils urlEncodeString:self.js_sessionString];
     uint8_t *chunkBuffer = malloc(sizeof(uint8_t) * fpMaxChunkSize);
@@ -142,7 +142,7 @@
     /* send the chunks */
     for (int i = 0; i < self.totalChunks; i++)
     {
-        DLog(@"Sending slice #%d", i);
+        FPLogInfo(@"Sending slice #%d", i);
 
         NSString *uploadPath;
 
@@ -199,7 +199,7 @@
 
         self.sentChunks++;
 
-        DLog(@"Send %d: %@ (sent: %d)", index, responseObject, self.sentChunks);
+        FPLogInfo(@"Send %d: %@ (sent: %d)", index, responseObject, self.sentChunks);
 
         if (self.sentChunks == self.totalChunks)
         {

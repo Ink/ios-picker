@@ -55,7 +55,7 @@
     }
     else
     {
-        DLog(@"%@ already finished uploading.", self.filename);
+        FPLogError(@"%@ already finished uploading.", self.filename);
     }
 }
 
@@ -81,7 +81,7 @@
     if (!_successBlock)
     {
         _successBlock = ^(id JSON) {
-            DLog(@"Upload succeeded with response: %@", JSON);
+            FPLogInfo(@"Upload succeeded with response: %@", JSON);
         };
     }
 
@@ -93,7 +93,7 @@
     if (!_failureBlock)
     {
         _failureBlock = ^(NSError *error, id JSON) {
-            DLog(@"FAILURE %@ %@", error, JSON);
+            FPLogError(@"FAILURE %@ %@", error, JSON);
 
             assert(false);
         };
