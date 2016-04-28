@@ -67,6 +67,9 @@
 
     [self.FPSearchDisplayController setActive:YES
                                      animated:YES];
+    
+    // Give focus to the search field and display the keyboard.
+    [self.FPSearchDisplayController.searchBar becomeFirstResponder];
 }
 
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
