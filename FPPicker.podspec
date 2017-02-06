@@ -57,7 +57,6 @@ Pod::Spec.new do |s|
 
   s.dependency 'AFNetworking', '~> 2.6.0'
   s.ios.dependency 'MBProgressHUD', '~> 0.9'
-  s.osx.dependency 'PureLayout', '~> 2.0.6'
 
   s.requires_arc = true
 

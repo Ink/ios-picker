@@ -29,10 +29,9 @@ typedef void (^FPLoggingBlock)(NSString *message, FPLogLevel logLevel);
  */
 @property (nonatomic, strong) NSString *APIKey;
 
-/*!
-   Filepicker.io App secret key (required if security is enabled in Developer Portal)
- */
-@property (nonatomic, strong) NSString *appSecretKey;
+@property (nonatomic, strong) NSString *appSecurityPolicy;
+
+@property (nonatomic, strong) NSString *appSecuritySignature;
 
 /*!
    Indicates that the file should be stored in a way that allows public access

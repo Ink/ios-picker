@@ -17,7 +17,8 @@
 
 #define fpCOOKIES                   [[FPConfig sharedInstance] cookies]
 #define fpAPIKEY                    [[FPConfig sharedInstance] APIKey]
-#define fpAPPSECRETKEY              [[FPConfig sharedInstance] appSecretKey]
+#define fpAPPSECURITYPOLICY         [[FPConfig sharedInstance] appSecurityPolicy]
+#define fpAPPSECURITYSIGNATURE      [[FPConfig sharedInstance] appSecuritySignature]
 
 #define fpWindowSize                CGSizeMake(320, 480)
 #define fpCellIdentifier            @"Filepicker_Cell"

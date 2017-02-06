@@ -21,5 +21,5 @@ end
 target :'FPPickerMac' do
   platform :osx, '10.9'
   pod 'AFNetworking', '~> 2.6.0'
-  pod 'PureLayout', '~> 2.0.6'
+#  pod 'PureLayout', '~> 2.0.6' # Commented due to dependency conflict with the pods of Kaizena iOS
 end
